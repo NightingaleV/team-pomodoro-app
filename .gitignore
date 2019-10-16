@@ -1,3 +1,7 @@
+# Env Files
+.env
+.dev
+
 # Node Modules
 **/node_modules/**
 yarn-error.log
