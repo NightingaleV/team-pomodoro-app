@@ -11,7 +11,7 @@ function App() {
     //initialize parallax
     let options = {};
     let parallax_elements = document.querySelectorAll(".parallax");
-    let instance = M.Parallax.init(parallax_elements, options);
+    M.Parallax.init(parallax_elements, options);
     //Or use auto init instead
     //M.AutoInit();
 
@@ -24,7 +24,7 @@ function App() {
     <div className={classNames("navigation")}>
       <nav className="navigation">
         <div className="nav-wrapper">
-          <a href="#" className="brand-logo center">
+          <a href="#anchor" className="brand-logo center">
             Team Pomodori
           </a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
