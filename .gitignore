@@ -1,6 +1,5 @@
 # Env Files
-.env
-.dev
+*.env
 
 # Node Modules
 **/node_modules/**
