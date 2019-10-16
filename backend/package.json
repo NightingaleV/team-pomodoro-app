@@ -1,0 +1,25 @@
+{
+  "name": "team-pomodori",
+  "version": "1.0.0",
+  "description": "Team Pomodori App",
+  "main": "index.js",
+  "scripts": {
+    "dev": "backpack",
+    "dev:debug": "backpack dev --inspect --debug-brk",
+    "start": "node ./build/main.js",
+    "prestart": "run-s build",
+    "build": "backpack build",
+    "build:watch": "nodemon --watch ./src --exec 'npm run build",
+    "prettier": "prettier --write \"src/**/*.js\" README.md"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "backpack-core": "^0.8.4",
+    "nodemon": "^1.19.4",
+    "npm-run-all": "^4.1.5"
+  }
+}
