@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "frontend": "npm run --prefix frontend start",
     "backend": "npm run --prefix backend dev",
-    "full": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "app": "concurrently \"npm run backend\" \"npm run frontend\"",
     "prettier": "prettier --write \"docs/**/*.{js,json,scss,md}\" README.md \"{frontend,backend}/src/**/*.{js,json,css,scss}\" \"{frontend,backend}/README.md\""
   },
   "repository": {
@@ -23,7 +23,9 @@
     "url": "https://github.com/jakubpivonka-vse/pomodori/issues"
   },
   "homepage": "https://github.com/jakubpivonka-vse/pomodori#readme",
-  "dependencies": {},
+  "dependencies": {
+    "node-sass": "^4.12.0"
+  },
   "devDependencies": {
     "concurrently": "^5.0.0",
     "prettier": "^1.18.2"
