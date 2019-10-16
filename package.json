@@ -1,0 +1,31 @@
+{
+  "name": "team-pomodori",
+  "version": "1.0.0",
+  "description": "- [Lean Canvas](/docs/lean-canvas.pdf) _([edit link](https://docs.google.com/drawings/d/13XdKlC5qeWsr46io76Is6DUcQgAq4jB3htaObSOBm6U/edit))_\r - [Product Backlog](https://trello.com/b/bembhnvN/team-pomodoro-full-product)\r - [Wireframes](https://xd.adobe.com/view/2c218b14-f0b8-43f7-4f49-ada701c6e7ad-5a10/)\r - [Database Diagram](https://dbdiagram.io/d/5da1e0d1ff5115114db52e48)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "frontend": "npm run --prefix frontend start",
+    "backend": "npm run --prefix backend dev",
+    "full": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "prettier": "prettier --write \"docs/**/*.{js,json,scss,md}\" README.md \"{frontend,backend}/src/**/*.{js,json,css,scss}\" \"{frontend,backend}/README.md\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakubpivonka-vse/pomodori.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jakubpivonka-vse/pomodori/issues"
+  },
+  "homepage": "https://github.com/jakubpivonka-vse/pomodori#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^5.0.0",
+    "prettier": "^1.18.2"
+  }
+}
