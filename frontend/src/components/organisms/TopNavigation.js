@@ -21,9 +21,9 @@ export function TopNavigationBase() {
     <Fragment>
       <nav>
         <div className="nav-wrapper">
-          <a href="#anchor" className="brand-logo center">
+          <Link to="/" className={classNames("brand-logo", "center")}>
             TeamPomodori
-          </a>
+          </Link>
           <a href="#" data-target="mobile-demo" className="sidenav-trigger">
             <i className="material-icons">menu</i>
           </a>
