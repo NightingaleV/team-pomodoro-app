@@ -1,26 +1,27 @@
-import React, { useEffect, useState } from "react";
-import classNames from "classnames";
-
-import { TopNavigation } from "../components/organisms";
-import M from "materialize-css";
+// External imports
+import React, { useEffect, useState } from 'react';
+import classNames from 'classnames';
+import M from 'materialize-css';
+// Internal imports
+import { TopNavigation } from '../components/organisms';
 
 export function LandingPage() {
   let [message, setMessage] = useState(null);
   useEffect(() => {
     //initialize parallax
     let options = {};
-    let parallax_elements = document.querySelectorAll(".parallax");
+    let parallax_elements = document.querySelectorAll('.parallax');
     M.Parallax.init(parallax_elements, options);
     //Or use auto init instead
     //M.AutoInit();
 
     // Check if Express is set
-    fetch("/api/data/")
+    fetch('/api/data/')
       .then(res => res.json())
       .then(res => setMessage(res.express_status));
   }, []);
   return (
-    <div className={classNames("navigation")}>
+    <div className={classNames('navigation')}>
       <TopNavigation />
       <article>
         <section>
@@ -115,7 +116,7 @@ export function LandingPage() {
             <div className="section no-pad-bot">
               <div className="container white-text">
                 <h1 className="header center light">
-                  Express.js is {message ? message : "not working"}
+                  Express.js is {message ? message : 'not working'}
                 </h1>
               </div>
             </div>
@@ -193,7 +194,7 @@ export function LandingPage() {
         </div>
         <div className="footer-copyright">
           <div className="container">
-            Made by{" "}
+            Made by{' '}
             <a
               className="brown-text text-lighten-3"
               href="http://materializecss.com"

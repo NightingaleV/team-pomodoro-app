@@ -1,10 +1,10 @@
 // Packages
-import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
-import "./App.scss";
+import './App.scss';
 // Components
-import { Routes } from "./Routes";
+import { Routes } from './Routes';
 
 function AllProviders({ children }) {
   return <BrowserRouter>{children}</BrowserRouter>;
