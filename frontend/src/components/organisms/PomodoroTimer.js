@@ -1,10 +1,9 @@
 // External imports
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 // Internal imports
-import { Button } from '../atoms';
 import { TimerControls } from '../molecules';
 
-export function PomodoroTimer(...props) {
+export function PomodoroTimer(props) {
   // default settings
   const pomodoroSetting = {
     pomodoro: { id: 1, name: 'Work', length: convertMinToSec(25) },
@@ -151,14 +150,18 @@ export function PomodoroTimer(...props) {
   return (
     <Fragment>
       <div style={{ textAlign: 'center' }}>
+        <div>
+          <h3>
+            <span>You are doing </span>
+            {(iterations.length > 0 &&
+              iterations[iterations.length - 1].name) ||
+              'Nothing'}
+          </h3>
+        </div>
         <div style={{ fontSize: '100px' }}>
           <span>{format(numSeconds)}</span>
         </div>
-        <h3>
-          <span>You are doing </span>
-          {(iterations.length > 0 && iterations[iterations.length - 1].name) ||
-            'Nothing'}
-        </h3>
+
         <TimerControls
           isRunning={timerState.isRunning}
           type={iterations.length > 0 && iterations[iterations.length - 1].type}
