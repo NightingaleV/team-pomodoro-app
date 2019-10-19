@@ -6,15 +6,16 @@ import { Button } from '../atoms';
 export function PomodoroTimer(...props) {
   // default settings
   const pomodoroSetting = {
-    pomodoro: { type: 1, name: 'Pomodoro', length: convertMinToSec(25) },
-    shortBreak: { type: 2, name: 'Short Break', length: convertMinToSec(5) },
-    longBreak: { type: 3, name: 'Long Break', length: convertMinToSec(15) },
+    pomodoro: { id: 1, name: 'Work', length: convertMinToSec(25) },
+    shortBreak: { id: 2, name: 'Short Break', length: convertMinToSec(5) },
+    longBreak: { id: 3, name: 'Long Break', length: convertMinToSec(15) },
   };
   // Reference for interval
   let timerRef = useRef();
   // Inner State of Timer
-  const [timerProperties, setTimerProperties] = useState({
-    running: false,
+  const [timerState, setTimerState] = useState({
+    isRunning: false,
+    type: 1,
   });
 
   // States
@@ -44,16 +45,16 @@ export function PomodoroTimer(...props) {
         tick();
       }, 1000),
     );
-    setTimerProperties(prevState => {
-      return { ...prevState, running: true };
+    setTimerState(prevState => {
+      return { ...prevState, isRunning: true };
     });
   }
 
   function pauseTimer() {
     if (timer) {
       updateTimer(clearInterval(timer));
-      setTimerProperties(prevState => {
-        return { ...prevState, running: true };
+      setTimerState(prevState => {
+        return { ...prevState, isRunning: false };
       });
     }
   }
@@ -91,12 +92,17 @@ export function PomodoroTimer(...props) {
   }
 
   function setNewIteration() {
-    let iterationItem = selectIteration();
-    // Set Timer to Timer
-    setNumSeconds(iterationItem.length);
+    let iterationSetting = selectIteration();
+    // Set Timer Seconds
+    setNumSeconds(iterationSetting.length);
+    let newIterationItem = {
+      type: iterationSetting.id,
+      name: iterationSetting.name,
+      totTime: iterationSetting.length,
+    };
     // Add Iteration Item
     setIterations(prevIterations => {
-      return [...prevIterations, iterationItem];
+      return [...prevIterations, newIterationItem];
     });
   }
 
