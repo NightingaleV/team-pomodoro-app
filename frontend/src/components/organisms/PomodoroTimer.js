@@ -2,6 +2,7 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 // Internal imports
 import { Button } from '../atoms';
+import { TimerControls } from '../molecules';
 
 export function PomodoroTimer(...props) {
   // default settings
@@ -158,23 +159,11 @@ export function PomodoroTimer(...props) {
           {(iterations.length > 0 && iterations[iterations.length - 1].name) ||
             'Nothing'}
         </h3>
-        <Button shape={'bigBtn'} actionButton={'play'} onClick={startTimer}>
-          Begin Work
-        </Button>
-        <Button shape={'bigBtn'} actionButton={'pause'} onClick={pauseTimer}>
-          Pause
-        </Button>
-        <Button shape={'bigBtn'} actionButton={'stop'} onClick={resetTimer}>
-          Finish
-        </Button>
-
-        <Button
-          shape={'bigBtn'}
-          actionButton={'restart'}
-          onClick={restartTimer}
-        >
-          Restart
-        </Button>
+        <TimerControls
+          isRunning={timerState.isRunning}
+          type={iterations.length > 0 && iterations[iterations.length - 1].type}
+          handleClick={timerState.isRunning ? resetTimer : startTimer}
+        ></TimerControls>
       </div>
     </Fragment>
   );
