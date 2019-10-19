@@ -1,19 +1,20 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { Link } from "../atoms/Link";
+// External imports
+import React, { Fragment, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import classNames from "classnames";
-// Assets
 import M from "materialize-css";
-
-const initBurgerMenu = () => {
-  const sideNavElement = document.querySelectorAll(".sidenav");
-  const options = {};
-  M.Sidenav.init(sideNavElement, options);
-};
+// Internal imports
+import { Link } from "../atoms/Link";
+// Assets
 
 export function TopNavigationBase() {
+  function initBurgerMenu() {
+    const sideNavElement = document.querySelectorAll(".sidenav");
+    const options = {};
+    M.Sidenav.init(sideNavElement, options);
+  }
   useEffect(() => {
-    //initialize parallax
+    //initialize hamburger menu
     initBurgerMenu();
   }, []);
 
@@ -42,16 +43,21 @@ export function TopNavigationBase() {
       </nav>
       <ul className="sidenav" id="mobile-demo">
         <li>
-          <Link to="/login">Log In</Link>
+          <Link to="/login" className={classNames("sidenav-close")}>
+            Log In
+          </Link>
         </li>
         <li>
-          <Link to="/register">Sign Up</Link>
+          <Link to="/register" className={classNames("sidenav-close")}>
+            Sign Up
+          </Link>
         </li>
         <li>
-          <Link to="/timer">Timer</Link>
+          <Link to="/timer" className={classNames("sidenav-close")}>
+            Timer
+          </Link>
         </li>
       </ul>
-      <initBurgerMenu />
     </Fragment>
   );
 }
