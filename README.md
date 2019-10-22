@@ -39,7 +39,7 @@ cd frontend
 yarn install
 ```
 
-## Secrets
+### Secrets
 
 - Create your env file, Inside **root folder run**
     - `echo PORT=5000 > config/dev.env`
@@ -58,3 +58,24 @@ Inside root folder
     - Runs React app
 - `npm run app`
     - Runs both simultaneously - Recommended
+
+## GIT Flow
+
+- Clone repo
+- Checkout to  develop
+- Pick a task
+    - Drag to In progress tab
+    - Add yourself as a member inside a task
+- Create a branch with name like "feature/task" as  example "user/authentication"
+- Write a working code
+- Commit code in present simple ("Create component", "Add field to registration for")
+- Sync code with whatever is on remote branch
+- Drag task to tab "done"
+- Create Pull Request (on Github)
+    - Your branch  - > develop
+    - We would discuss the code there in comments
+
+---
+
+- Issues/Questions - Would be discussed inside trello
+- Never touch the master branch
