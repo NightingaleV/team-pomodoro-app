@@ -40,10 +40,13 @@ export function Button({
   ...rest
 }) {
   const shapeClasses = BUTTON_SHAPES[shape] || DEFAULT_BTN_CLASSES;
-
-  color = color || ACTION_BUTTONS[actionButton].color;
-  icon = icon || ACTION_BUTTONS[actionButton].icon;
-  iconPosition = iconPosition || 'left';
+  if (actionButton) {
+    color = color || ACTION_BUTTONS[actionButton].color;
+    icon = icon || ACTION_BUTTONS[actionButton].icon;
+  } else {
+    color = color || '';
+    icon = icon || '';
+  }
   return (
     <button
       className={classNames('btn', color, shapeClasses, className)}
