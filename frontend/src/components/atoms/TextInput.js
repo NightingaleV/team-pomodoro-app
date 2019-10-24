@@ -2,6 +2,10 @@ import React, { Fragment } from 'react';
 import classNames from 'classnames';
 
 export function TextInput(props) {
+  let isError = false;
+  if (props.error) {
+    isError = true;
+  }
   return (
     <Fragment>
       <div className="input-field">
@@ -10,10 +14,22 @@ export function TextInput(props) {
           id={props.id}
           name={props.name}
           type={props.type}
+          value={props.value}
           placeholder={props.placeholder}
-          className={classNames('validate', props.className)}
+          className={classNames(
+            {
+              valid: props.value.length < 1 ? false : !isError,
+              invalid: isError,
+            },
+            props.className,
+          )}
+          onChange={props.onChange}
         />
         <label htmlFor={props.id}>{props.children}</label>
+        <span
+          className={classNames({ 'helper-text': isError })}
+          data-error={props.error}
+        ></span>
       </div>
     </Fragment>
   );
