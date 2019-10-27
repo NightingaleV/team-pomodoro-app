@@ -77,7 +77,7 @@ export function SignUp() {
           },
         };
         const body = JSON.stringify(newUser);
-        const res = await axios.post('api/user/', body, config);
+        const res = await axios.post('api/user/register', body, config);
         console.log('Valid Statement');
         console.log(res.data);
 
