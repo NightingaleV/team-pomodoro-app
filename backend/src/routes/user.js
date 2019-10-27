@@ -7,9 +7,6 @@ import { check, validationResult } from 'express-validator';
 import { User } from '../models/User';
 
 const jwt = require('jsonwebtoken');
-require('dotenv').config({
-  path: '../config/dev.env',
-});
 const router = express.Router();
 
 // @route   POST api/user/register
