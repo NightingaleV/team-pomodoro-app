@@ -72,7 +72,7 @@ router.post(
 
       jwt.sign(
         payload,
-        process.env.jwtToken,
+        process.env.JWTPrivateKey,
         {
           expiresIn: 360000,
         },
