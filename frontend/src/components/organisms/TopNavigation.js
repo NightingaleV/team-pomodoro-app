@@ -1,15 +1,15 @@
 // External imports
-import React, { Fragment, useEffect } from "react";
-import { withRouter } from "react-router-dom";
-import classNames from "classnames";
-import M from "materialize-css";
+import React, { Fragment, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
+import classNames from 'classnames';
+import M from 'materialize-css';
 // Internal imports
-import { Link } from "../atoms/Link";
+import { Link } from '../atoms/Link';
 // Assets
 
 export function TopNavigationBase() {
   function initBurgerMenu() {
-    const sideNavElement = document.querySelectorAll(".sidenav");
+    const sideNavElement = document.querySelectorAll('.sidenav');
     const options = {};
     M.Sidenav.init(sideNavElement, options);
   }
@@ -22,7 +22,7 @@ export function TopNavigationBase() {
     <Fragment>
       <nav>
         <div className="nav-wrapper">
-          <Link to="/" className={classNames("brand-logo", "center")}>
+          <Link to="/" className={classNames('brand-logo', 'center')}>
             TeamPomodori
           </Link>
           <a href="#" data-target="mobile-demo" className="sidenav-trigger">
@@ -43,17 +43,17 @@ export function TopNavigationBase() {
       </nav>
       <ul className="sidenav" id="mobile-demo">
         <li>
-          <Link to="/login" className={classNames("sidenav-close")}>
+          <Link to="/login" className={classNames('sidenav-close')}>
             Log In
           </Link>
         </li>
         <li>
-          <Link to="/register" className={classNames("sidenav-close")}>
+          <Link to="/register" className={classNames('sidenav-close')}>
             Sign Up
           </Link>
         </li>
         <li>
-          <Link to="/timer" className={classNames("sidenav-close")}>
+          <Link to="/timer" className={classNames('sidenav-close')}>
             Timer
           </Link>
         </li>
