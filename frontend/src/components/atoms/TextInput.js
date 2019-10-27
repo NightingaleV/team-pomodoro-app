@@ -9,7 +9,7 @@ export function TextInput(props) {
   return (
     <Fragment>
       <div className="input-field">
-        <i className="material-icons prefix">{props.icon}</i>
+        {props.icon && <i className="material-icons prefix">{props.icon}</i>}
         <input
           id={props.id}
           name={props.name}
