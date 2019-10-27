@@ -31,6 +31,7 @@ const ACTION_BUTTONS = {
 
 export function Button({
   children,
+  type = 'button',
   shape,
   color,
   icon,
@@ -50,7 +51,7 @@ export function Button({
   return (
     <button
       className={classNames('btn', color, shapeClasses, className)}
-      type="button"
+      type={type}
       {...rest}
     >
       <i className={classNames('material-icons', iconPosition)}>{icon}</i>
