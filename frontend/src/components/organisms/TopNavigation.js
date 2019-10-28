@@ -38,6 +38,9 @@ export function TopNavigationBase() {
             <li>
               <Link to="/timer">Timer</Link>
             </li>
+            <li>
+              <Link to="/register/success">success</Link>
+            </li>
           </ul>
         </div>
       </nav>
