@@ -23,17 +23,19 @@ export function TopNavigationBase() {
       <nav>
         <div className="nav-wrapper">
           <Link to="/" className={classNames('brand-logo', 'center')}>
-            TeamPomodori
+            Pomodoro
           </Link>
           <a href="#" data-target="mobile-demo" className="sidenav-trigger">
             <i className="material-icons">menu</i>
           </a>
           <ul className="right hide-on-med-and-down">
             <li>
-              <Link to="/login">Log In</Link>
+              <Link to="/register" className="waves-effect waves-light btn">
+                Sign Up
+              </Link>
             </li>
             <li>
-              <Link to="/register">Sign Up</Link>
+              <Link to="/login">Log In</Link>
             </li>
             <li>
               <Link to="/timer">Timer</Link>
