@@ -13,16 +13,16 @@ const { parsed, error } = require('dotenv').config({
   path: '../config/dev.env',
   debug: true,
 });
-console.log(parsed)
+console.log(parsed);
 
 const globalApiInstance = axios.create({
   baseURL: '/api',
 });
 
-if (process.env.MOCK_API) {
-  const { installApiMocks } = require('./api-mock.js');
-  installApiMocks(globalApiInstance);
-}
+// if (process.env.MOCK_API) {
+//   const { installApiMocks } = require('./api-mock.js');
+//   installApiMocks(globalApiInstance);
+// }
 
 const ApiStateContext = createContext(globalApiInstance);
 
@@ -48,9 +48,9 @@ function useSetAuthorizationHeader(api) {
   // earlier then other `useEffect` calls that may already use `api`.
   useLayoutEffect(() => {
     if (!token) {
-      delete api.defaults.headers.common['Authorization'];
+      delete api.defaults.headers.common['x-auth-token'];
     } else {
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      api.defaults.headers.common['x-auth-token'] = `Bearer ${token}`;
     }
   }, [token, api]);
 }
@@ -64,7 +64,7 @@ function useInstallSignoutApiInterceptror(api) {
   }, [signout]);
 
   useEffect(() => {
-    const signoutInterceptr = api.interceptors.response.use(
+    const signoutInterceptor = api.interceptors.response.use(
       response => response,
       error => {
         const isInvalidTokenResponse =
@@ -79,7 +79,7 @@ function useInstallSignoutApiInterceptror(api) {
     );
 
     return () => {
-      api.interceptors.request.eject(signoutInterceptr);
+      api.interceptors.request.eject(signoutInterceptor);
     };
   }, [api]);
 }

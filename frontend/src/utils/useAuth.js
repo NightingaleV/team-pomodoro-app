@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 
-const LOCAL_STORAGE_AUTH_KEY = 'quacker-auth';
+const LOCAL_STORAGE_AUTH_KEY = 'jwt-token';
 
 const initialState = {
   token: null,
@@ -71,8 +71,8 @@ function getStorageState(defaultState) {
 
   try {
     const { user, token } = JSON.parse(rawData);
-
-    if (token && user && user.screenName && user.id && user.name) {
+    // USER info
+    if (token && user && user.email && user._id) {
       return { token, user };
     }
   } catch {}
