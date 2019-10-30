@@ -7,7 +7,7 @@ const DEFAULT_BTN_CLASSES = 'waves-effect waves-light';
 const BUTTON_SHAPES = {
   defaultBtn: DEFAULT_BTN_CLASSES,
   bigCircular: 'btn-floating btn-large waves-effect waves-light',
-  bigBtn: 'waves-effect waves-light btn-large',
+  bigBtn: 'waves-effect waves-light btn-large btn-floating',
 };
 
 const ACTION_BUTTONS = {

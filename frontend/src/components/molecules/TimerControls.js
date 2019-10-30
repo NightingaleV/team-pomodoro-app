@@ -6,14 +6,14 @@ import { Button } from '../atoms';
 export function TimerControls(props) {
   let CTA = 'Call to Action';
   const { isRunning, handleClick, type, children } = props;
-  if (type === 1) CTA = 'Begin work';
-  if (type === 2) CTA = 'Take a break';
-  if (type === 3) CTA = 'Take a long break';
+  if (type === 1) CTA = '';
+  if (type === 2) CTA = '';
+  if (type === 3) CTA = '';
   if (isRunning) {
     return (
       <Fragment>
         <Button shape={'bigBtn'} actionButton={'stop'} onClick={handleClick}>
-          Finish {children}
+          {children}
         </Button>
       </Fragment>
     );

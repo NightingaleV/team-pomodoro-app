@@ -30,3 +30,40 @@ $secondary-color: color("blue", "accent-1") !default;
 .App-link {
   color: #09d3ac;
 }
+
+.circle-container {
+  position: relative;
+  width: 300px;
+  margin: 0 auto;
+  display: block;
+}
+.circle-base {
+  fill: none;
+  stroke: #B6B6B6;
+  stroke-width: 4px
+}
+
+.circle-progress {
+  fill: none;
+  stroke: #2196f3;
+  stroke-width: 4px;
+  transition: stroke-dashoffset 0.7s;
+}
+
+.circle-pointer {
+  fill: #FFF;
+  stroke: #2196f3;
+  stroke-width: 2px;
+}
+
+.circle-countdown {
+  position: absolute;
+  left: 69px;
+  top: 100px;
+}
+
+.circle-constrols {
+  position: absolute;
+  left: 123px;
+  top: 259px;
+}
