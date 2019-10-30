@@ -18,11 +18,11 @@ export function Routes() {
       <Route path="/login" component={SignIn} />
       <ProtectedRoute
         exact
-        path="/register/success"
+        path="/protected"
         component={RegistrationComplete}
       />
       <Route exact path="/register" component={SignUp} />
-      {/*<Route exact path="/register/success" component={RegistrationComplete} />*/}
+      <Route exact path="/register/success" component={RegistrationComplete} />
       <Route path="/timer" exact component={PersonalTimer} />
     </Switch>
   );

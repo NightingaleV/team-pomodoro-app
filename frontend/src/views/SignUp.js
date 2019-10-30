@@ -7,6 +7,7 @@ import axios from 'axios';
 import { TopNavigation } from '../components/organisms';
 import { TextInput, Button, ErrorBox } from '../components/atoms';
 import { SignUpSuccess } from '../templates';
+import { useAuth } from '../utils/useAuth';
 
 export function SignUp(props) {
   //Form Fields
@@ -98,7 +99,7 @@ export function SignUp(props) {
   };
 
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
-
+  // Remove this block and use history instead
   if (registrationSuccess) {
     return (
       <Redirect
@@ -178,6 +179,7 @@ export function SignUp(props) {
   }
 }
 export function RegistrationComplete() {
+  const { user } = useAuth();
   return (
     <Fragment>
       <TopNavigation></TopNavigation>
