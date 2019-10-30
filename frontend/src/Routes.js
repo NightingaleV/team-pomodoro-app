@@ -7,6 +7,7 @@ import {
   PersonalTimer,
   SignUp,
   RegistrationComplete,
+  GroupDetail,
 } from './views';
 
 export function Routes() {
@@ -17,6 +18,7 @@ export function Routes() {
       <Route path="/register/success" component={RegistrationComplete} />
       <Route path="/register" component={SignUp} />
       <Route path="/timer" exact component={PersonalTimer} />
+      <Route path="/group" component={GroupDetail}/>
     </Switch>
   );
 }
