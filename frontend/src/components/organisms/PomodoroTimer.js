@@ -183,7 +183,7 @@ export function PomodoroTimer(props) {
               type={
                 iterations.length > 0 && iterations[iterations.length - 1].type
               }
-              handleClick={timerState.isRunning ? resetTimer : startTimer}
+              handleClick={timerState.isRunning ? [resetTimer,pauseTimer] : startTimer}
             ></TimerControls>
           </div>
         </div>

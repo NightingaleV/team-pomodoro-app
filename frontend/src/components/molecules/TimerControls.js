@@ -12,7 +12,10 @@ export function TimerControls(props) {
   if (isRunning) {
     return (
       <Fragment>
-        <Button shape={'bigBtn'} actionButton={'stop'} onClick={handleClick}>
+        <Button shape={'bigBtn'} actionButton={'stop'} onClick={handleClick[0]}>
+          {children}
+        </Button>
+          <Button shape={'bigBtn'} actionButton={'pause'} onClick={handleClick[1]}>
           {children}
         </Button>
       </Fragment>
