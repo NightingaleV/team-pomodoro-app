@@ -1,13 +1,17 @@
 // External imports
 import React, { Fragment, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import classNames from 'classnames';
 import M from 'materialize-css';
 // Internal imports
-import { Link } from '../atoms/Link';
+import { Link, NavLink } from '../atoms/Link';
+import { useAuth } from '../../utils/useAuth';
+import { useApi } from '../../utils/useApi';
+import { Button } from '../atoms';
 // Assets
 
-export function TopNavigationBase() {
+export function TopNavigationBase(props) {
+  const { user, signout } = useAuth();
   function initBurgerMenu() {
     const sideNavElement = document.querySelectorAll('.sidenav');
     const options = {};
@@ -22,7 +26,7 @@ export function TopNavigationBase() {
     <Fragment>
       <nav>
         <div className="nav-wrapper">
-          <Link to="/" className={classNames('brand-logo', 'center')}>
+          <Link to="/" className={classNames('brand-logo', 'left')}>
             TeamPomodori
           </Link>
           <a href="#" data-target="mobile-demo" className="sidenav-trigger">
@@ -30,17 +34,47 @@ export function TopNavigationBase() {
           </a>
           <ul className="right hide-on-med-and-down">
             <li>
-              <Link to="/login">Log In</Link>
+              <NavLink to="/timer">Timer</NavLink>
             </li>
             <li>
-              <Link to="/register">Sign Up</Link>
+              <NavLink to="/protected">Protected Route</NavLink>
             </li>
-            <li>
-              <Link to="/timer">Timer</Link>
-            </li>
-            <li>
-              <Link to="/register/success">success</Link>
-            </li>
+            {user ? (
+              <Fragment>
+                <li>
+                  <a className="white-text btn-flat">
+                    <i className="material-icons left">account_circle</i>{' '}
+                    {user && user.email}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className={'blue lighten-1'}
+                    icon={'exit_to_app'}
+                    onClick={e => {
+                      signout();
+                      props.history.push('/');
+                      e.preventDefault();
+                      console.log('click');
+                    }}
+                  >
+                    <i className={classNames('material-icons left')}>
+                      exit_to_app
+                    </i>
+                    Sign Out
+                  </a>
+                </li>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <li>
+                  <NavLink to="/login">Log In</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/register">Sign Up</NavLink>
+                </li>
+              </Fragment>
+            )}
           </ul>
         </div>
       </nav>
