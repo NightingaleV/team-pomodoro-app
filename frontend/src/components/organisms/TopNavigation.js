@@ -26,7 +26,11 @@ export function TopNavigationBase(props) {
     <Fragment>
       <nav>
         <div className="nav-wrapper">
-          <Link to="/" className={classNames('brand-logo', 'left')}>
+          <Link
+            to="/"
+            className={classNames('brand-logo', 'left')}
+            style={{ marginLeft: '55px' }}
+          >
             TeamPomodori
           </Link>
           <a href="#" data-target="mobile-demo" className="sidenav-trigger">

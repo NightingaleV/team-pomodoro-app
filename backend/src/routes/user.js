@@ -73,32 +73,36 @@ router.post(
         password,
       });
       // save user to database
-      user
-        .save(function(err) {
-          if (err) throw err;
-        })
-        .then(user => {
-          // Return json web token for authentication
-          const payload = {
-            user: { id: user.id },
-          };
-          // Send jwt auth token
-          jwt.sign(
-            payload,
-            process.env.JWTPrivateKey,
-            {
-              expiresIn: 360000,
-            },
-            (err, token) => {
-              if (err) throw err;
-              res.json({
-                token,
-              });
-            },
-          );
-        });
+      user.save().then(
+        user => {
+          res.json({
+            user: user.email,
+          });
 
-      //return res.send('User Registered')
+          // const payload = {
+          //   user: { id: user.id },
+          // };
+          // // Send jwt auth token
+          // jwt.sign(
+          //   payload,
+          //   process.env.JWTPrivateKey,
+          //   {
+          //     expiresIn: 360000,
+          //   },
+          //   (err, token) => {
+          //     if (err) throw err;
+          //     res.json({
+          //       token,
+          //     });
+          //   },
+          // );
+        },
+        err => {
+          if (err) {
+            throw err;
+          }
+        },
+      );
     } catch (err) {
       console.log(err);
       return res.status(500).send('Server Error, Try it later');
