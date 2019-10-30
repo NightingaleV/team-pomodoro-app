@@ -1,9 +1,11 @@
-// Packages
+// External imports
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-
+// Internal imports
 import './App.scss';
-// Components
+// Custom Hooks
+import { ApiProvider } from './utils/useApi';
+import { AuthProvider } from './utils/useAuth';
 import { Routes } from './Routes';
 
 function AllProviders({ children }) {
@@ -12,9 +14,13 @@ function AllProviders({ children }) {
 
 function App() {
   return (
-    <AllProviders>
-      <Routes />
-    </AllProviders>
+    <AuthProvider>
+      <ApiProvider>
+        <AllProviders>
+          <Routes />
+        </AllProviders>
+      </ApiProvider>
+    </AuthProvider>
   );
 }
 

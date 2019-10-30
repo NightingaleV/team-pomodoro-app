@@ -1,14 +1,19 @@
 // External imports
 import React, { Fragment, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 import axios from 'axios';
 // Internal imports
 import { TopNavigation } from '../components/organisms';
 import { TextInput, Button, ErrorBox } from '../components/atoms';
 import { SignUpSuccess } from '../templates';
+import { useAuth } from '../utils/useAuth';
+import { useApi } from '../utils/useApi';
 
 export function SignUp(props) {
+  const history = useHistory();
+  const api = useApi();
+
   //Form Fields
   const [formData, setFormData] = useState({
     name: '',
@@ -73,111 +78,110 @@ export function SignUp(props) {
         email: formData.email,
         password: formData.password,
       };
-      try {
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
-        const body = JSON.stringify(newUser);
-        const res = await axios.post('api/user/register', body, config);
-        console.log('Valid Statement');
-        console.log(res.data);
 
-        // Create Redirect
-        setRegistrationSuccess(true);
-      } catch (err) {
-        console.log('Error Statement');
-        console.error(err.response.data);
-        setError({ ...errors, backend: err.response.data.errors });
-        err.response.data.errors.map(error => {
-          console.log(error);
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      const body = JSON.stringify(newUser);
+      await axios
+        .post('api/user/register', body, config)
+        .then(res => {
+          console.log('Valid Statement');
+          console.log(res.data.user);
+          if (res.data.user) {
+            history.push({
+              pathname: '/register/success',
+              state: { email: res.data.user },
+            });
+          }
+        })
+        .catch(err => {
+          console.log('Error Statement');
+          if (err.response.data) {
+            setError({ ...errors, backend: err.response.data.errors });
+            console.log(err.response.data.errors);
+            if (err.response.data.errors) {
+              err.response.data.errors.map(error => {
+                console.log(error);
+              });
+            }
+          }
         });
-      }
     }
   };
 
-  const [registrationSuccess, setRegistrationSuccess] = useState(false);
-
-  if (registrationSuccess) {
-    return (
-      <Redirect
-        to={{
-          pathname: '/register/success',
-          state: { email: formData.email },
-        }}
-      />
-    );
-  } else {
-    return (
-      <Fragment>
-        <TopNavigation />
-        <div className="blue lighten-5">
-          <div className="container">
-            <div className="row">
-              <div className="col s12 center-align">
-                <h3>Create an account</h3>
-              </div>
-              <form
-                id={'registration-form'}
-                className={classNames('col s6 offset-s3')}
-                onSubmit={onSubmit}
-              >
-                <div className="row">
-                  <TextInput
-                    id={'email-address'}
-                    name={'email'}
-                    type={'email'}
-                    value={formData.email}
-                    onChange={onChange}
-                    className={'validate'}
-                    required
-                  >
-                    Email
-                  </TextInput>
-                  <TextInput
-                    id={'password'}
-                    name={'password'}
-                    type={'password'}
-                    value={formData.password}
-                    onChange={onChange}
-                    error={errors.password || ''}
-                    required
-                  >
-                    Password
-                  </TextInput>
-                  <TextInput
-                    id={'password2'}
-                    name={'password2'}
-                    type={'password'}
-                    value={formData.password2}
-                    onChange={onChange}
-                    required=""
-                    aria-required="true"
-                    error={errors.password2 || undefined}
-                  >
-                    Confirm Password
-                  </TextInput>
-                  <Fragment>
-                    {errors.backend.map(error => {
+  return (
+    <Fragment>
+      <TopNavigation />
+      <div className="blue lighten-5">
+        <div className="container">
+          <div className="row">
+            <div className="col s12 center-align">
+              <h3>Create an account</h3>
+            </div>
+            <form
+              id={'registration-form'}
+              className={classNames('col l4 offset-l4 s6 offset-s3')}
+              onSubmit={onSubmit}
+            >
+              <div className="row">
+                <TextInput
+                  id={'email-address'}
+                  name={'email'}
+                  type={'email'}
+                  value={formData.email}
+                  onChange={onChange}
+                  className={'validate'}
+                  required
+                >
+                  Email
+                </TextInput>
+                <TextInput
+                  id={'password'}
+                  name={'password'}
+                  type={'password'}
+                  value={formData.password}
+                  onChange={onChange}
+                  error={errors.password || ''}
+                  required
+                >
+                  Password
+                </TextInput>
+                <TextInput
+                  id={'password2'}
+                  name={'password2'}
+                  type={'password'}
+                  value={formData.password2}
+                  onChange={onChange}
+                  required=""
+                  aria-required="true"
+                  error={errors.password2 || undefined}
+                >
+                  Confirm Password
+                </TextInput>
+                <Fragment>
+                  {errors.backend &&
+                    errors.backend.map(error => {
                       return <ErrorBox key={error.msg} errorMsg={error.msg} />;
                     })}
-                  </Fragment>
-                  <div className={classNames('center-align', 'col s12')}>
-                    <Button type={'submit'} form={'registration-form'}>
-                      Register
-                    </Button>
-                  </div>
+                </Fragment>
+                <div className={classNames('center-align', 'col s12')}>
+                  <Button type={'submit'} form={'registration-form'}>
+                    Register
+                  </Button>
                 </div>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
         </div>
-      </Fragment>
-    );
-  }
+      </div>
+    </Fragment>
+  );
 }
 export function RegistrationComplete() {
+  const { user } = useAuth();
   return (
     <Fragment>
       <TopNavigation></TopNavigation>

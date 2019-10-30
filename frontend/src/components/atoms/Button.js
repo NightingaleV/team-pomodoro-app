@@ -54,7 +54,9 @@ export function Button({
       type={type}
       {...rest}
     >
-      <i className={classNames('material-icons', iconPosition)}>{icon}</i>
+      {icon && (
+        <i className={classNames('material-icons', iconPosition)}>{icon}</i>
+      )}
       {children}
     </button>
   );

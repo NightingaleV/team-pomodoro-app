@@ -5,17 +5,24 @@ import { Route, Switch } from 'react-router-dom';
 import {
   LandingPage,
   PersonalTimer,
+  SignIn,
   SignUp,
   RegistrationComplete,
 } from './views';
+import { ProtectedRoute } from './components/ProtectedRoutes';
 
 export function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={LandingPage} />
-      {/*<Route path="/login" component={null} />*/}
-      <Route path="/register/success" component={RegistrationComplete} />
-      <Route path="/register" component={SignUp} />
+      <Route path="/login" component={SignIn} />
+      <ProtectedRoute
+        exact
+        path="/protected"
+        component={RegistrationComplete}
+      />
+      <Route exact path="/register" component={SignUp} />
+      <Route exact path="/register/success" component={RegistrationComplete} />
       <Route path="/timer" exact component={PersonalTimer} />
     </Switch>
   );

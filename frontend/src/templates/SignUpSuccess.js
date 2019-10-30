@@ -1,10 +1,12 @@
 // External imports
 import React, { Fragment } from 'react';
+import { withRouter, Redirect } from 'react-router-dom';
 // Internal imports
 import { Link } from '../components/atoms';
 import { TopNavigation, PomodoroTimer } from '../components/organisms';
+import { TopNavigationBase } from '../components/organisms/TopNavigation';
 
-export function SignUpSuccess(props) {
+function SignUpSuccessBase(props) {
   return (
     <Fragment>
       <div className="row">
@@ -16,16 +18,41 @@ export function SignUpSuccess(props) {
                 <span className="card-title">Registration Succeed</span>
                 <p>
                   <span>
-                    Your account has been successfully created. Please
+                    Your account has been successfully created. Please{' '}
                   </span>
-                  <Link to="/login" className={'orange-text lighten-4'}>
+                  <Link
+                    to={
+                      props.location.state
+                        ? {
+                            pathname: '/login',
+                            state: {
+                              email: props.location.state.email,
+                            },
+                          }
+                        : '/login'
+                    }
+                    className={'orange-text lighten-4'}
+                  >
                     continue to sign-in
                   </Link>
                 </p>
               </div>
             </div>
             <div className="card-action right-align">
-              <Link to="/login">Sign in</Link>
+              <Link
+                to={
+                  props.location.state
+                    ? {
+                        pathname: '/login',
+                        state: {
+                          email: props.location.state.email,
+                        },
+                      }
+                    : '/login'
+                }
+              >
+                Sign in
+              </Link>
             </div>
           </div>
         </div>
@@ -33,3 +60,5 @@ export function SignUpSuccess(props) {
     </Fragment>
   );
 }
+
+export const SignUpSuccess = withRouter(SignUpSuccessBase);
