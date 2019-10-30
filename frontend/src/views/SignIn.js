@@ -15,51 +15,22 @@ export function SignIn(props) {
   const auth = useAuth();
   const api = useApi();
 
+  const registeredEmail = props.location.state && props.location.state.email;
+
   //Form Fields
   const [formData, setFormData] = useState({
-    email: '',
+    email: registeredEmail || '',
     password: '',
   });
 
   //Form Errors
   const [errors, setError] = useState({
-    email: '',
-    password: '',
     backend: [],
   });
 
-  const validate = event => {
-    let validErrors = errors;
-    let valid = true;
-    const { name, value } = event.target;
-    switch (name) {
-      case 'email':
-        validErrors.email = '';
-        valid = false;
-        break;
-      case 'password':
-        validErrors.password =
-          (value.length < 6 ? 'Password must be 6 characters long!' : '') ||
-          (formData.password2 && value !== formData.password2
-            ? 'The passwords do not match.'
-            : '');
-        valid = false;
-        break;
-      case 'password2':
-        validErrors.password2 =
-          value !== formData.password ? 'The passwords do not match.' : '';
-        break;
-        valid = false;
-      default:
-        break;
-    }
-    setError(validErrors);
-    // console.log(validErrors);
-  };
   //On changing text inside inputs
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    validate(e);
   };
 
   //On pushing the main button
@@ -87,12 +58,13 @@ export function SignIn(props) {
       })
       .catch(err => {
         console.log('Error Statement');
-        console.error(err.response.data);
         setError({ ...errors, backend: err.response.data.errors });
-        console.log(errors);
-        err.response.data.errors.map(error => {
-          console.log(error);
-        });
+        console.log(err.response.data.errors);
+        if (err.response.data.errors) {
+          err.response.data.errors.map(error => {
+            console.log(error);
+          });
+        }
       });
   };
 
@@ -107,7 +79,7 @@ export function SignIn(props) {
             </div>
             <form
               id={'authentication-form'}
-              className={classNames('col s6 offset-s3')}
+              className={classNames('col l4 offset-l4 s6 offset-s3')}
               onSubmit={onSubmit}
             >
               <div className="row">
@@ -140,7 +112,7 @@ export function SignIn(props) {
                 </Fragment>
                 <div className={classNames('center-align', 'col s12')}>
                   <Button type={'submit'} form={'authentication-form'}>
-                    Login
+                    Sign In
                   </Button>
                 </div>
               </div>
