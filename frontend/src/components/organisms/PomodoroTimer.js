@@ -158,15 +158,35 @@ export function PomodoroTimer(props) {
               'Nothing'}
           </h3>
         </div>
-        <div style={{ fontSize: '100px' }}>
-          <span>{format(numSeconds)}</span>
+        <div className="circle-container">
+          <svg
+            width="300"
+            viewBox="0 0 220 220"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g transform="translate(110,110)">
+              <circle r="100" className="circle-base" />
+              <g transform="rotate(-90)">
+                <circle r="100" className="circle-progress" />
+                <g id="e-pointer">
+                  <circle cx="100" cy="0" r="8" className="circle-pointer" />
+                </g>
+              </g>
+            </g>
+          </svg>
+          <div className="circle-countdown" style={{ fontSize: '65px' }}>
+            <span>{format(numSeconds)}</span>
+          </div>
+          <div className="circle-constrols">
+            <TimerControls
+              isRunning={timerState.isRunning}
+              type={
+                iterations.length > 0 && iterations[iterations.length - 1].type
+              }
+              handleClick={timerState.isRunning ? resetTimer : startTimer}
+            ></TimerControls>
+          </div>
         </div>
-
-        <TimerControls
-          isRunning={timerState.isRunning}
-          type={iterations.length > 0 && iterations[iterations.length - 1].type}
-          handleClick={timerState.isRunning ? resetTimer : startTimer}
-        ></TimerControls>
       </div>
     </Fragment>
   );
