@@ -5,7 +5,7 @@ require('dotenv').config();
 
 export default function auth(req, res, next) {
   // Get token from header
-  const token = req.cookies.token || req.headers['x-auth-token'] || '';
+  const token = req.headers['x-auth-token'] || req.cookies.token || '';
   if (!token) {
     res.status(401).json({ msg: 'No token, authorization denied' });
   }
