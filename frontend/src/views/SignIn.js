@@ -1,14 +1,20 @@
 // External imports
 import React, { Fragment, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 import axios from 'axios';
 // Internal imports
 import { TopNavigation } from '../components/organisms';
 import { TextInput, Button, ErrorBox } from '../components/atoms';
 import { SignUpSuccess } from '../templates';
+import { useAuth } from '../utils/useAuth';
+import { useApi } from '../utils/useApi';
 
 export function SignIn(props) {
+  const history = useHistory();
+  const auth = useAuth();
+  const api = useApi();
+
   //Form Fields
   const [formData, setFormData] = useState({
     email: '',
@@ -73,9 +79,11 @@ export function SignIn(props) {
     await axios
       .post('api/user/login', body, config)
       .then(res => {
-        console.log(res.data.token);
-        localStorage.setItem('token', res.data.token);
-        setLoginSuccess(true);
+        const { token, user } = res.data;
+        // localStorage.setItem('jwt-token', token);
+        console.log(user);
+        auth.signin({ token, user });
+        history.replace('/timer');
       })
       .catch(err => {
         console.log('Error Statement');
@@ -88,73 +96,60 @@ export function SignIn(props) {
       });
   };
 
-  const [loginSuccess, setLoginSuccess] = useState(false);
-
-  if (loginSuccess) {
-    return (
-      <Redirect
-        to={{
-          pathname: '/register/success',
-          state: { email: formData.email },
-        }}
-      />
-    );
-  } else {
-    return (
-      <Fragment>
-        <TopNavigation />
-        <div className="blue lighten-5">
-          <div className="container">
-            <div className="row">
-              <div className="col s12 center-align">
-                <h3>Create an account</h3>
-              </div>
-              <form
-                id={'authentication-form'}
-                className={classNames('col s6 offset-s3')}
-                onSubmit={onSubmit}
-              >
-                <div className="row">
-                  <TextInput
-                    id={'email-address'}
-                    name={'email'}
-                    type={'email'}
-                    value={formData.email}
-                    onChange={onChange}
-                    className={'validate'}
-                    required
-                  >
-                    Email
-                  </TextInput>
-                  <TextInput
-                    id={'password'}
-                    name={'password'}
-                    type={'password'}
-                    value={formData.password}
-                    onChange={onChange}
-                    error={errors.password || ''}
-                    required
-                  >
-                    Password
-                  </TextInput>
-                  <Fragment>
-                    {errors.backend.map(error => {
-                      return <ErrorBox key={error.msg} errorMsg={error.msg} />;
-                    })}
-                  </Fragment>
-                  <div className={classNames('center-align', 'col s12')}>
-                    <Button type={'submit'} form={'authentication-form'}>
-                      Login
-                    </Button>
-                  </div>
-                </div>
-              </form>
+  return (
+    <Fragment>
+      <TopNavigation />
+      <div className="blue lighten-5">
+        <div className="container">
+          <div className="row">
+            <div className="col s12 center-align">
+              <h3>Create an account</h3>
             </div>
+            <form
+              id={'authentication-form'}
+              className={classNames('col s6 offset-s3')}
+              onSubmit={onSubmit}
+            >
+              <div className="row">
+                <TextInput
+                  id={'email-address'}
+                  name={'email'}
+                  type={'email'}
+                  value={formData.email}
+                  onChange={onChange}
+                  className={'validate'}
+                  required
+                >
+                  Email
+                </TextInput>
+                <TextInput
+                  id={'password'}
+                  name={'password'}
+                  type={'password'}
+                  value={formData.password}
+                  onChange={onChange}
+                  error={errors.password || ''}
+                  required
+                >
+                  Password
+                </TextInput>
+                <Fragment>
+                  {errors.backend.map(error => {
+                    return <ErrorBox key={error.msg} errorMsg={error.msg} />;
+                  })}
+                </Fragment>
+                <div className={classNames('center-align', 'col s12')}>
+                  <Button type={'submit'} form={'authentication-form'}>
+                    Login
+                  </Button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
-      </Fragment>
-    );
-  }
+      </div>
+    </Fragment>
+  );
 }
 export function RegistrationComplete() {
   return (

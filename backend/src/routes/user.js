@@ -112,6 +112,7 @@ router.post(
 // @route    POST api/user/login
 // @desc     Authenticate user & get token
 // @access   Public
+// TODO uncought error Cannot read property 'type' - after bad password
 router.post(
   '/login',
   [
@@ -167,6 +168,7 @@ router.post(
           // return res.cookie('token', token, { httpOnly: true }).sendStatus(200);
           res.json({
             token,
+            user,
           });
         },
       );
