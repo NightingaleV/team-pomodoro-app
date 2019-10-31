@@ -10,12 +10,12 @@
 ## Tools we use
 
 - [MaterializeCSS](https://materializecss.com/)
-    - CSS Framework
+  - CSS Framework
 - [MongoDB](https://www.mongodb.com/)
-    - NoSQL Database
+  - NoSQL Database
 - [Postman](https://www.getpostman.com/)
-    - API Development
-    - Tool for creating requests
+  - API Development
+  - Tool for creating requests
 
 ## Setup Environment
 
@@ -42,38 +42,38 @@ yarn install
 ### Secrets
 
 - Create your env file, Inside **root folder run**
-    - `echo PORT=5000 > config/dev.env`
-    - Will contain the db credentials etc
+  - `echo PORT=5000 > config/dev.env`
+  - Will contain the db credentials etc
 
 ### Environment Controls
 
 Inside root folder
 
 - `npm run prettier`
-    - Reformat code inside the repository
-    - **Make sure to run before you commit or use plugin inside you IDE**
+  - Reformat code inside the repository
+  - **Make sure to run before you commit or use plugin inside you IDE**
 - `npm run backend`
-    - Runs Express.js server
+  - Runs Express.js server
 - `npm run frontend`
-    - Runs React app
+  - Runs React app
 - `npm run app`
-    - Runs both simultaneously - Recommended
+  - Runs both simultaneously - Recommended
 
 ## GIT Flow
 
 - Clone repo
-- Checkout to  develop
+- Checkout to develop
 - Pick a task
-    - Drag to In progress tab
-    - Add yourself as a member inside a task
-- Create a branch with name like "feature/task" as  example "user/authentication"
+  - Drag to In progress tab
+  - Add yourself as a member inside a task
+- Create a branch with name like "feature/task" as example "user/authentication"
 - Write a working code
 - Commit code in present simple ("Create component", "Add field to registration for")
 - Sync code with whatever is on remote branch
 - Drag task to tab "done"
 - Create Pull Request (on Github)
-    - Your branch  - > develop
-    - We would discuss the code there in comments
+  - Your branch - > develop
+  - We would discuss the code there in comments
 
 ---
 

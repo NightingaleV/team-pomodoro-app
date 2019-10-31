@@ -11,6 +11,7 @@ console.log(parsed);
 
 // Routers
 import { userRouter } from './routes/user';
+import { groupRouter } from './routes/group';
 
 // Init a Express.js
 const app = express();
@@ -49,6 +50,7 @@ connectDB().then(value => {
 
   // Define Routes
   app.use('/api/user', userRouter);
+  app.use('/api/group', groupRouter);
 
   app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 });

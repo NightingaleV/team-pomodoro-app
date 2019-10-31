@@ -6,6 +6,7 @@ $secondary-color: color("blue", "accent-1") !default;
 @import "~materialize-css/sass/materialize";
 
 @import "./components/organisms/PomodoroTimer";
+@import './components/organisms/PomodoroGroup';
 .parallax-container {
   height: 400px;
 }

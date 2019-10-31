@@ -13,8 +13,8 @@ import { Button } from '../atoms';
 export function TopNavigationBase(props) {
   const { user, signout } = useAuth();
   function initBurgerMenu() {
-    const sideNavElement = document.querySelectorAll('.sidenav');
-    const options = {};
+    const sideNavElement = document.querySelectorAll('.mobile-top-menu');
+    const options = { edge: 'right' };
     M.Sidenav.init(sideNavElement, options);
   }
   useEffect(() => {
@@ -24,7 +24,7 @@ export function TopNavigationBase(props) {
 
   return (
     <Fragment>
-      <nav>
+      <nav className={'top-menu'}>
         <div className="nav-wrapper">
           <Link
             to="/"
@@ -39,6 +39,9 @@ export function TopNavigationBase(props) {
           <ul className="right hide-on-med-and-down">
             <li>
               <NavLink to="/timer">Timer</NavLink>
+            </li>
+            <li>
+              <NavLink to="/MainGroup">MainGroup</NavLink>
             </li>
             <li>
               <NavLink to="/protected">Protected Route</NavLink>
@@ -87,7 +90,7 @@ export function TopNavigationBase(props) {
           </ul>
         </div>
       </nav>
-      <ul className="sidenav" id="mobile-demo">
+      <ul className="sidenav mobile-menu" id="mobile-top-menu">
         <li>
           <Link to="/login" className={classNames('sidenav-close')}>
             Log In
@@ -101,6 +104,11 @@ export function TopNavigationBase(props) {
         <li>
           <Link to="/timer" className={classNames('sidenav-close')}>
             Timer
+          </Link>
+        </li>
+        <li>
+          <Link to="/MainGroup" className={classNames('sidenav-close')}>
+            MainGroup
           </Link>
         </li>
       </ul>
