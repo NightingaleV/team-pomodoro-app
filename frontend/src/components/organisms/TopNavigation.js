@@ -75,7 +75,12 @@ export function TopNavigationBase(props) {
                   <NavLink to="/login">Log In</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/register">Sign Up</NavLink>
+                  <NavLink
+                    to="/register"
+                    className={'waves-effect waves-light btn'}
+                  >
+                    Sign Up
+                  </NavLink>
                 </li>
               </Fragment>
             )}
