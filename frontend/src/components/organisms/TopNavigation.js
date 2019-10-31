@@ -9,8 +9,8 @@ import { Link } from '../atoms/Link';
 
 export function TopNavigationBase() {
   function initBurgerMenu() {
-    const sideNavElement = document.querySelectorAll('.sidenav');
-    const options = {};
+    const sideNavElement = document.querySelectorAll('.mobile-top-menu');
+    const options = { edge: 'right' };
     M.Sidenav.init(sideNavElement, options);
   }
   useEffect(() => {
@@ -20,7 +20,7 @@ export function TopNavigationBase() {
 
   return (
     <Fragment>
-      <nav>
+      <nav className={'mobile-top-menu'}>
         <div className="nav-wrapper">
           <Link to="/" className={classNames('brand-logo', 'center')}>
             TeamPomodori
@@ -44,7 +44,7 @@ export function TopNavigationBase() {
           </ul>
         </div>
       </nav>
-      <ul className="sidenav" id="mobile-demo">
+      <ul className="sidenav mobile-menu" id="mobile-demo">
         <li>
           <Link to="/login" className={classNames('sidenav-close')}>
             Log In
