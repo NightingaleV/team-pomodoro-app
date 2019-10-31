@@ -49,10 +49,10 @@ export function DropdownTimerMenu(props) {
 
 export function TimerControls(props) {
   let CTA = 'Call to Action';
-  const { isRunning, type, children } = props;
-  if (type === 1) CTA = '';
-  if (type === 2) CTA = '';
-  if (type === 3) CTA = '';
+  const { isRunning, typeOfTimer, children } = props;
+  if (typeOfTimer === 1) CTA = '';
+  if (typeOfTimer === 2) CTA = '';
+  if (typeOfTimer === 3) CTA = '';
 
   const {
     startTimer,

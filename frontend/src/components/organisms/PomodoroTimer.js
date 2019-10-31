@@ -1,7 +1,7 @@
 // External imports
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 // Internal imports
-import { TimerControls } from '../molecules';
+import { TimerControls, ProgressRing } from '../molecules';
 
 export function PomodoroTimer(props) {
   // default settings
@@ -16,6 +16,8 @@ export function PomodoroTimer(props) {
   const [timerState, setTimerState] = useState({
     isRunning: false,
     type: 1,
+    progress: 80,
+    length: 0,
   });
 
   // States
@@ -25,7 +27,23 @@ export function PomodoroTimer(props) {
   // Tick - Run every second
   function tick() {
     subtractSeconds();
+    let currentIteration = getCurrentIteration();
+    console.log(timerState.progress);
   }
+
+  useEffect(() => {
+    let currentIteration = iterations[iterations.length - 1];
+    setTimerState(prevState => {
+      return {
+        ...prevState,
+        progress: prevState.progress + 1,
+      };
+    });
+    //TODO Return to calculation
+    // (1 - numSeconds / (60 * 25)) * 100
+    console.log(timerState.progress);
+  }, [numSeconds]);
+
   function subtractSeconds() {
     setNumSeconds(prevSeconds => {
       return prevSeconds - 1;
@@ -118,6 +136,11 @@ export function PomodoroTimer(props) {
     setIterations(prevIterations => {
       return [...prevIterations, newIterationItem];
     });
+
+    // Reset Progress
+    setTimerState(prevState => {
+      return { ...prevState, type: iterationSetting.id };
+    });
   }
 
   function removeLastIteration() {
@@ -126,6 +149,12 @@ export function PomodoroTimer(props) {
       return prevIterations;
     });
   }
+
+  // Make state for Current Timer
+  function getCurrentIteration() {
+    return iterations[iterations.length - 1];
+  }
+
   function cleanIterations() {
     setIterations([]);
   }
@@ -160,7 +189,7 @@ export function PomodoroTimer(props) {
 
   function restartCurrentIteration() {
     // Pick Last Timer object
-    const lastIteration = iterations[iterations.length - 1];
+    const lastIteration = getCurrentIteration();
     // Pick Same Settings
     const iterationSetting = pickIteration(lastIteration.type);
     // Drop the item
@@ -170,7 +199,17 @@ export function PomodoroTimer(props) {
   }
 
   useEffect(() => {
-    console.log(iterations);
+    //CODE REVIEW - WHY THE HELL CANT READ THE PROPERTIES
+    // console.log(iterations);
+    // let lastIteration = iterations[iterations.length - 1];
+    // setTimerState(prevState => {
+    //   return { ...prevState, type: lastIteration.type };
+    // });
+    // iterations[iterations.length - 1].type
+    // let lastIterationItem = getCurrentIteration();
+    // if (lastIterationItem.type) {
+    //
+    // }
   }, [iterations]);
 
   useEffect(() => {
@@ -223,28 +262,21 @@ export function PomodoroTimer(props) {
           </h3>
         </div>
         <div className="circle-container">
-          <svg
-            width="300"
-            viewBox="0 0 220 220"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g transform="translate(110,110)">
-              <circle r="100" className="circle-base" />
-              <g transform="rotate(-90)">
-                <circle r="100" className="circle-progress" />
-                <g id="e-pointer">
-                  <circle cx="100" cy="0" r="8" className="circle-pointer" />
-                </g>
-              </g>
-            </g>
-          </svg>
+          <ProgressRing
+            // Height & Width
+            radius={150}
+            // Thickness
+            stroke={10}
+            progress={timerState.progress}
+            typeOfTimer={timerState.type}
+          ></ProgressRing>
           <div className="circle-countdown" style={{ fontSize: '65px' }}>
             <span>{format(numSeconds)}</span>
           </div>
-          <div className="circle-constrols">
+          <div className="circle-controls flexbox">
             <TimerControls
               isRunning={timerState.isRunning}
-              type={
+              typeOfTimer={
                 iterations.length > 0 && iterations[iterations.length - 1].type
               }
               controlHandlers={{
