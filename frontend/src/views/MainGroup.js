@@ -1,5 +1,9 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { TopNavigation, PomodoroGroup } from '../components/organisms';
+import {
+  TopNavigation,
+  PomodoroGroup,
+  SideNavigation,
+} from '../components/organisms';
 import axios from 'axios';
 
 export function MainGroup() {
@@ -35,7 +39,15 @@ export function MainGroup() {
       <TopNavigation></TopNavigation>
 
       <div className="container">
-        <PomodoroGroup group={group}> </PomodoroGroup>
+        <div className="row">
+          <div className="col s3">
+            <SideNavigation></SideNavigation>
+          </div>
+
+          <div className="col s9">
+            <PomodoroGroup group={group}> </PomodoroGroup>
+          </div>
+        </div>
       </div>
     </Fragment>
   );
