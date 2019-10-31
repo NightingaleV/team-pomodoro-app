@@ -43,9 +43,9 @@ export function TopNavigationBase(props) {
             <li>
               <NavLink to="/MainGroup">MainGroup</NavLink>
             </li>
-            <li>
-              <NavLink to="/protected">Protected Route</NavLink>
-            </li>
+            {/*<li>*/}
+            {/*  <NavLink to="/protected">Protected Route</NavLink>*/}
+            {/*</li>*/}
             {user ? (
               <Fragment>
                 <li>

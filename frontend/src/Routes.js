@@ -18,11 +18,11 @@ export function Routes() {
     <Switch>
       <Route path="/" exact component={LandingPage} />
       <Route path="/login" component={SignIn} />
-      <ProtectedRoute
-        exact
-        path="/protected"
-        component={RegistrationComplete}
-      />
+      {/*<ProtectedRoute*/}
+      {/*  exact*/}
+      {/*  path="/protected"*/}
+      {/*  component={RegistrationComplete}*/}
+      {/*/>*/}
       <Route exact path="/register" component={SignUp} />
       <Route exact path="/register/success" component={RegistrationComplete} />
       <Route path="/timer" exact component={PersonalTimer} />
