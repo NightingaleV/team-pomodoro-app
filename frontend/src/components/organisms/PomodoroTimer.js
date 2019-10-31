@@ -16,7 +16,7 @@ export function PomodoroTimer(props) {
   const [timerState, setTimerState] = useState({
     isRunning: false,
     type: 1,
-    progress: 80,
+    progress: 0,
     length: 0,
   });
 
@@ -33,14 +33,17 @@ export function PomodoroTimer(props) {
 
   useEffect(() => {
     let currentIteration = iterations[iterations.length - 1];
+
+    // Calculate Progress for Circle
     setTimerState(prevState => {
       return {
         ...prevState,
-        progress: prevState.progress + 1,
+        progress: (numSeconds / timerState.length) * 100,
       };
+      //(1 - numSeconds / timerState.length) * 100
     });
     //TODO Return to calculation
-    // (1 - numSeconds / (60 * 25)) * 100
+    //
     console.log(timerState.progress);
   }, [numSeconds]);
 
@@ -139,7 +142,11 @@ export function PomodoroTimer(props) {
 
     // Reset Progress
     setTimerState(prevState => {
-      return { ...prevState, type: iterationSetting.id };
+      return {
+        ...prevState,
+        type: iterationSetting.id,
+        length: iterationSetting.length,
+      };
     });
   }
 
