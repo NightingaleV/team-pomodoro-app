@@ -1,47 +1,46 @@
-@import "~materialize-css/sass/components/color-variables";
-@import "~materialize-css/sass/components/color-classes";
-@import "~materialize-css/sass/components/_variables";
-@import "~materialize-css/sass/materialize";
+@import '~materialize-css/sass/components/color-variables';
+@import '~materialize-css/sass/components/color-classes';
+@import '~materialize-css/sass/components/_variables';
+@import '~materialize-css/sass/materialize';
 
 .iconImg {
-    height: 100px;
-    width: 100px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 10px;
+  height: 100px;
+  width: 100px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
 }
 
-.group{
-    margin: auto;
+.group {
+  margin: auto;
 }
 
-.groupName{
-    margin: auto;
-    padding-bottom: 30px;
-    text-align: center;
-    font-size: 40px;
-    color: DodgerBlue;
+.groupName {
+  margin: auto;
+  padding-bottom: 30px;
+  text-align: center;
+  font-size: 40px;
+  color: DodgerBlue;
 }
 
-
-.member{
-    display: inline-table;
-    position : relative;
-    margin: 10px;
-    padding: 10px;
-    background-color: WhiteSmoke;
-    height: 150px;
-    width: 150px;
+.member {
+  display: inline-table;
+  position: relative;
+  margin: 10px;
+  padding: 10px;
+  background-color: WhiteSmoke;
+  height: 150px;
+  width: 150px;
 }
 
-.memberName{
-    margin: auto;
-    padding: 10px;
-    text-align: center;
-  }
+.memberName {
+  margin: auto;
+  padding: 10px;
+  text-align: center;
+}
 
-.memberTimer{
-    margin: auto;
-    text-align: center;
+.memberTimer {
+  margin: auto;
+  text-align: center;
 }

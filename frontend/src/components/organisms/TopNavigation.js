@@ -61,7 +61,7 @@ export function TopNavigationBase() {
           </Link>
         </li>
         <li>
-          <Link to="/MainGroup" className={classNames("sidenav-close")}>
+          <Link to="/MainGroup" className={classNames('sidenav-close')}>
             MainGroup
           </Link>
         </li>

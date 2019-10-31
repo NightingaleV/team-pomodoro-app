@@ -19,8 +19,8 @@ export function Routes() {
       <Route path="/register/success" component={RegistrationComplete} />
       <Route path="/register" component={SignUp} />
       <Route path="/timer" exact component={PersonalTimer} />
-      <Route path="/group" component={GroupDetail}/>
-      <Route path="/MainGroup" component={MainGroup}/>
+      <Route path="/group" component={GroupDetail} />
+      <Route path="/MainGroup" component={MainGroup} />
     </Switch>
   );
 }
