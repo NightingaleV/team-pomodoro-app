@@ -38,6 +38,9 @@ export function TopNavigationBase() {
             <li>
               <Link to="/timer">Timer</Link>
             </li>
+            <li>
+              <Link to="/MainGroup">MainGroup</Link>
+            </li>
           </ul>
         </div>
       </nav>
@@ -55,6 +58,11 @@ export function TopNavigationBase() {
         <li>
           <Link to="/timer" className={classNames('sidenav-close')}>
             Timer
+          </Link>
+        </li>
+        <li>
+          <Link to="/MainGroup" className={classNames("sidenav-close")}>
+            MainGroup
           </Link>
         </li>
       </ul>
