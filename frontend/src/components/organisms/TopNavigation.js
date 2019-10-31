@@ -31,7 +31,7 @@ export function TopNavigationBase(props) {
             className={classNames('brand-logo', 'left')}
             style={{ marginLeft: '55px' }}
           >
-            TeamPomodori
+            Pomodoro
           </Link>
           <a href="#" data-target="mobile-demo" className="sidenav-trigger">
             <i className="material-icons">menu</i>

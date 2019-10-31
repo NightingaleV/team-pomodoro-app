@@ -34,13 +34,20 @@ export function DropdownTimerMenu(props) {
         style={{ minWidth: '165px' }}
       >
         <li>
-          <a onClick={props.controlMethods.setWork}>Work</a>
+          <a onClick={props.controlMethods.setWork}>
+            <i class="material-icons">business_center</i>
+            Work
+          </a>
         </li>
         <li>
-          <a onClick={props.controlMethods.setShortBreak}>Take a break</a>
+          <a onClick={props.controlMethods.setShortBreak}>
+            <i class="material-icons">free_breakfast</i>Take a break
+          </a>
         </li>
         <li>
-          <a onClick={props.controlMethods.setLongBreak}>Take a long break</a>
+          <a onClick={props.controlMethods.setLongBreak}>
+            <i class="material-icons">weekend</i>Take a long break
+          </a>
         </li>
       </ul>
     </Fragment>

@@ -21,25 +21,32 @@ export function ProgressRing(props) {
   //   },
   // });
   let color = 'blue';
-  if (typeOfTimer === 1) color = 'orange';
-  if (typeOfTimer === 2) color = 'green';
-  if (typeOfTimer === 3) color = 'indigo';
+  if (typeOfTimer === 1) color = '#ffa000';
+  if (typeOfTimer === 2) color = '#43a047';
+  if (typeOfTimer === 3) color = '#3949ab';
 
   return (
     <Fragment>
       <svg height={radius * 2} width={radius * 2}>
         <circle
+          stroke="#E8E8E8"
+          fill="transparent"
+          strokeWidth={stroke}
+          r={normalizedRadius}
+          cx={radius}
+          cy={radius}
+        ></circle>
+        <circle
           stroke={color}
           fill="transparent"
           className={'pomodoroCircle'}
-          strokeWidth={stroke}
           strokeDasharray={circumference + ' ' + circumference}
           style={{ strokeDashoffset }}
           strokeWidth={stroke}
           r={normalizedRadius}
           cx={radius}
           cy={radius}
-        />
+        ></circle>
       </svg>
     </Fragment>
   );
