@@ -59,40 +59,54 @@ export function PomodoroTimer(props) {
     }
   }
 
-  function resetTimer(props) {
+  function nextTimer() {
     pauseTimer();
-    setNewIteration();
+    let iterationSetting = pickIteration();
+    setNewIteration(iterationSetting);
     //setNumSeconds(pomodoroSetting.defaultPomodoro);
   }
 
-  function restartTimer(props) {
-    resetTimer(props);
-    startTimer();
+  function restartTimer() {
+    pauseTimer();
+    restartCurrentIteration();
   }
 
   // ITERATIONS
   //----------------------------------------------------------------------------
   let [iterations, setIterations] = useState([]);
 
-  function selectIteration() {
-    // Short Break
-    let newIterationIndex = iterations.length + 1;
-    if (newIterationIndex % 8 === 0) {
-      return pomodoroSetting.longBreak;
-    }
+  function pickIteration(typeId = 0) {
+    if (typeId) {
+      switch (typeId) {
+        case 1:
+          return pomodoroSetting.pomodoro;
+          break;
+        case 2:
+          return pomodoroSetting.shortBreak;
+          break;
+        case 3:
+          return pomodoroSetting.longBreak;
+          break;
+      }
+    } else {
+      // Short Break
+      let newIterationIndex = iterations.length + 1;
+      if (newIterationIndex % 8 === 0) {
+        return pomodoroSetting.longBreak;
+      }
 
-    // Long Break
-    else if (newIterationIndex % 2 === 0) {
-      return pomodoroSetting.shortBreak;
-    }
-    // Pomodoro
-    else {
-      return pomodoroSetting.pomodoro;
+      // Long Break
+      else if (newIterationIndex % 2 === 0) {
+        return pomodoroSetting.shortBreak;
+      }
+      // Pomodoro
+      else {
+        return pomodoroSetting.pomodoro;
+      }
     }
   }
 
-  function setNewIteration() {
-    let iterationSetting = selectIteration();
+  function setNewIteration(iterationSetting) {
     // Set Timer Seconds
     setNumSeconds(iterationSetting.length);
     let newIterationItem = {
@@ -106,13 +120,63 @@ export function PomodoroTimer(props) {
     });
   }
 
+  function removeLastIteration() {
+    setIterations(prevIterations => {
+      const removedElement = prevIterations.pop();
+      return prevIterations;
+    });
+  }
+  function cleanIterations() {
+    setIterations([]);
+  }
+
+  function setWork() {
+    cleanIterations();
+    // Pick Settings
+    const iterationSetting = pomodoroSetting.pomodoro;
+    // Recreate it
+    setNewIteration(iterationSetting);
+  }
+  function setShortBreak() {
+    cleanIterations();
+    // Pick Settings
+    setIterations(prevIterations => {
+      return [...prevIterations, null];
+    });
+    const iterationSetting = pomodoroSetting.shortBreak;
+    // Recreate it
+    setNewIteration(iterationSetting);
+  }
+  function setLongBreak() {
+    cleanIterations();
+    // Pick Settings
+    setIterations(prevIterations => {
+      return [...prevIterations, null, null, null, null, null, null, null];
+    });
+    const iterationSetting = pomodoroSetting.longBreak;
+    // Recreate it
+    setNewIteration(iterationSetting);
+  }
+
+  function restartCurrentIteration() {
+    // Pick Last Timer object
+    const lastIteration = iterations[iterations.length - 1];
+    // Pick Same Settings
+    const iterationSetting = pickIteration(lastIteration.type);
+    // Drop the item
+    removeLastIteration();
+    // Recreate it
+    setNewIteration(iterationSetting);
+  }
+
   useEffect(() => {
     console.log(iterations);
   }, [iterations]);
 
   useEffect(() => {
-    if (!timer) {
-      setNewIteration();
+    if (!timerState.isRunning) {
+      let iterationSetting = pickIteration();
+      setNewIteration(iterationSetting);
     }
   }, []);
   // UTILS
@@ -183,7 +247,20 @@ export function PomodoroTimer(props) {
               type={
                 iterations.length > 0 && iterations[iterations.length - 1].type
               }
-              handleClick={timerState.isRunning ? [resetTimer,pauseTimer] : startTimer}
+              controlHandlers={{
+                startTimer: startTimer,
+                pauseTimer: pauseTimer,
+                nextTimer: nextTimer,
+                restartTimer: restartTimer,
+              }}
+              dropdownControlHandlers={{
+                setWork: setWork,
+                setShortBreak: setShortBreak,
+                setLongBreak: setLongBreak,
+              }}
+              // pickWork={setWork}
+              // pickSBreak={setShortBreak}
+              // pickLBreak={setLongBreak}
             ></TimerControls>
           </div>
         </div>
