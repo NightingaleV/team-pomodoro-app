@@ -24,8 +24,13 @@ const ACTION_BUTTONS = {
     icon: 'stop',
   },
   restart: {
-    color: 'orange',
-    icon: 'replay',
+    color: 'deep-purple',
+    icon: 'loop',
+  },
+
+  dropdown: {
+    color: 'teal',
+    icon: 'more_vert',
   },
 };
 
