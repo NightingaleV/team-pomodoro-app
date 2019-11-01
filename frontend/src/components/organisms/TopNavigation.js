@@ -33,7 +33,7 @@ export function TopNavigationBase(props) {
           >
             Pomodoro
           </Link>
-          <a href="#" data-target="mobile-demo" className="sidenav-trigger">
+          <a href="#" data-target="mobile-top-menu" className="sidenav-trigger">
             <i className="material-icons">menu</i>
           </a>
           <ul className="right hide-on-med-and-down">
@@ -90,7 +90,7 @@ export function TopNavigationBase(props) {
           </ul>
         </div>
       </nav>
-      <ul className="sidenav mobile-menu" id="mobile-top-menu">
+      <ul className="sidenav mobile-top-menu" id={'mobile-top-menu'}>
         <li>
           <Link to="/login" className={classNames('sidenav-close')}>
             Log In
