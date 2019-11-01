@@ -45,7 +45,7 @@ export function SignIn(props) {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-      },
+      },timeout:200
     };
     await axios
       .post('api/user/login', body, config)
@@ -57,6 +57,7 @@ export function SignIn(props) {
         history.replace('/timer');
       })
       .catch(err => {
+        console.log('Not Able to Load DB')
         console.log('Error Statement');
         setError({ ...errors, backend: err.response.data.errors });
         console.log(err.response.data.errors);
@@ -106,7 +107,7 @@ export function SignIn(props) {
                   Password
                 </TextInput>
                 <Fragment>
-                  {errors.backend.map(error => {
+                  {errors.backend && errors.backend.map(error => {
                     return <ErrorBox key={error.msg} errorMsg={error.msg} />;
                   })}
                 </Fragment>
