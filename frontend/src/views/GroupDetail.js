@@ -37,7 +37,6 @@ export function GroupDetail() {
 
   return (
     <Fragment>
-      <TopNavigation></TopNavigation>
       <div className="blue lighten-5">
         <div className="container">
           <div className="row">

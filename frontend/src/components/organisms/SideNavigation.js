@@ -26,7 +26,7 @@ export function SideNavigationBase() {
       <aside
         id="slide-out"
         className={
-          'sidenav main-menu blue white-text sidenav-fixed'
+          'sidenav main-menu blue white-text'
           // For fixed sidebar add 'sidenav-fixed'
         }
       >

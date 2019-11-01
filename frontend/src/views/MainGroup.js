@@ -36,13 +36,9 @@ export function MainGroup() {
 
   return (
     <Fragment>
-      <TopNavigation></TopNavigation>
-
       <div className="container">
         <div className="row">
-          <div className="col s3">
-            <SideNavigation></SideNavigation>
-          </div>
+          <div className="col s3"></div>
 
           <div className="col s9">
             <PomodoroGroup group={group}> </PomodoroGroup>

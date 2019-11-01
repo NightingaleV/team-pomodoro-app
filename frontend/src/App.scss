@@ -1,11 +1,11 @@
-@import "~materialize-css/sass/components/color-variables";
-$primary-color: color("blue", "base") !default;
-$secondary-color: color("blue", "accent-1") !default;
-@import "~materialize-css/sass/components/color-classes";
-@import "~materialize-css/sass/components/_variables";
-@import "~materialize-css/sass/materialize";
+@import '~materialize-css/sass/components/color-variables';
+$primary-color: color('blue', 'base') !default;
+$secondary-color: color('blue', 'accent-1') !default;
+@import '~materialize-css/sass/components/color-classes';
+@import '~materialize-css/sass/components/_variables';
+@import '~materialize-css/sass/materialize';
 
-@import "./components/organisms/PomodoroTimer";
+@import './components/organisms/PomodoroTimer';
 @import './components/organisms/PomodoroGroup';
 .parallax-container {
   height: 400px;
@@ -36,7 +36,22 @@ $secondary-color: color("blue", "accent-1") !default;
 
 .flexbox {
   display: flex;
-  flew-wrap: wrap;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+}
+
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 20px;
+}
+footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }

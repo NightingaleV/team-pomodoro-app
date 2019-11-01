@@ -38,7 +38,7 @@ export function TopNavigationBase(props) {
           </a>
           <ul className="right hide-on-med-and-down">
             <li>
-              <NavLink to="/timer">Timer</NavLink>
+              <NavLink to="/">Timer</NavLink>
             </li>
             <li>
               <NavLink to="/MainGroup">MainGroup</NavLink>
@@ -102,7 +102,7 @@ export function TopNavigationBase(props) {
           </Link>
         </li>
         <li>
-          <Link to="/timer" className={classNames('sidenav-close')}>
+          <Link to="/" className={classNames('sidenav-close')}>
             Timer
           </Link>
         </li>
