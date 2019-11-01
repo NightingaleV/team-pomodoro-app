@@ -28,7 +28,7 @@ export function LandingPage() {
   //   )
   // }, []);
 
-  console.log('landingState', landingState)
+// console.log('landingState', landingState)
 
   return (
     <div className={classNames('navigation')}>
