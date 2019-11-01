@@ -59,12 +59,20 @@ export function SignIn(props) {
       .catch(err => {
         console.log('Not Able to Load DB')
         console.log('Error Statement');
-        setError({ ...errors, backend: err.response.data.errors });
-        console.log(err.response.data.errors);
-        if (err.response.data.errors) {
-          err.response.data.errors.map(error => {
-            console.log(error);
-          });
+        console.log(err)
+
+        //If TimeOut
+        if (err.code === 'ECONNABORTED'){
+          setError({ ...errors, backend: [{msg:'Timer Out'}] });
+          console.log(errors)
+        }else{
+          if(err.response.data){
+          setError({ ...errors, backend: err.response.data.errors });
+          console.log(err.response.data.errors);
+          // err.response.data.errors.map(error => {
+          //   console.log(error);
+          // });
+        }
         }
       });
   };
@@ -107,8 +115,8 @@ export function SignIn(props) {
                   Password
                 </TextInput>
                 <Fragment>
-                  {errors.backend && errors.backend.map(error => {
-                    return <ErrorBox key={error.msg} errorMsg={error.msg} />;
+                  {errors.backend && errors.backend.map((error, index) => {
+                    return <ErrorBox key={index} errorMsg={error.msg} />;
                   })}
                 </Fragment>
                 <div className={classNames('center-align', 'col s12')}>
