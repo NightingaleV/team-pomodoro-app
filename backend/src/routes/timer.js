@@ -4,8 +4,11 @@ import express from 'express';
 //Internal imports
 import {Timer} from '../models/Timer';
 
+//Mame pouzivat jednotne require nebo import?
+//import dotenv jsem nevedel jak udelat
 require('dotenv').config();
 //import dotenv from 'dotenv';
+
 const router = express.Router();
 
 // @route   GET api/timer/
@@ -14,12 +17,19 @@ const router = express.Router();
 router.get('/', async(req, res) =>{
     try{
         const user = req.query.userID;        
+        
+        //Filter timer by userID
         //const allTimers = await Timer.find().where({userID: user});
+        
+        //Select all timers
         const allTimers = await Timer.find();
-        const timer = allTimers[0];
+        
         // const timer = allTimers[allTimers.length - 1];
 
+        //Return single timer
         // await res.json({timer: timer});
+        
+        //Return all timers
         await res.json({allTimers: allTimers});
     }
     catch(err){
@@ -33,7 +43,8 @@ router.get('/', async(req, res) =>{
 router.post(
     '/save',
     async (req, res) =>{
-        const {type, name, totTime, remTime, userID} = req.body;
+        const {type, name, totTime, remTime, userID, isRunning} = req.body;
+
         try{
             let timer;
 
@@ -42,7 +53,8 @@ router.post(
                 name,
                 totTime,
                 remTime,
-                userID,
+                userID,                
+                isRunning,
             });
 
             //save timer to database
@@ -50,7 +62,7 @@ router.post(
                 timer => {
                     res.json({
                         timer: timer.type, name, totTime, 
-                        remTime, userID
+                        remTime, userID, isRunning,                       
                     });
                 },
                 err => {
@@ -58,7 +70,7 @@ router.post(
                         throw err;
                     }
                 },
-            );
+            );          
         }
         catch(err){
             console.log(err);
