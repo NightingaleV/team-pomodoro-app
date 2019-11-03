@@ -45,6 +45,11 @@ router.post(
     async (req, res) =>{
         const {type, name, totTime, remTime, userID, isRunning} = req.body;
 
+        //Default value meni poradi atributu, coz pri save vadi _id,
+        //takze to nastavuji tady
+        const createdAt = Date.now();
+        const updatedAt = Date.now();
+
         try{
             let timer;
 
@@ -53,16 +58,17 @@ router.post(
                 name,
                 totTime,
                 remTime,
-                userID,                
+                userID, 
+                createdAt,
+                updatedAt,               
                 isRunning,
-            });
+            });           
 
             //save timer to database
             timer.save().then(
                 timer => {
-                    res.json({
-                        timer: timer.type, name, totTime, 
-                        remTime, userID, isRunning,                       
+                    res.json({                      
+                        timer
                     });
                 },
                 err => {
@@ -70,7 +76,7 @@ router.post(
                         throw err;
                     }
                 },
-            );          
+            );
         }
         catch(err){
             console.log(err);
