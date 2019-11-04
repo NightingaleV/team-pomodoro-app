@@ -1,13 +1,10 @@
 //External imports
 import express from 'express';
+import dotenv from 'dotenv';
 
 //Internal imports
 import { Timer } from '../models/Timer';
-
-//Mame pouzivat jednotne require nebo import?
-//import dotenv jsem nevedel jak udelat
-import dotenv from 'dotenv';
-//import dotenv from 'dotenv';
+import {createTimer} from '../controllers/timer';
 
 const router = express.Router();
 
@@ -19,10 +16,10 @@ router.get('/', async (req, res) => {
     const user = req.query.userID;
 
     //Filter timer by userID
-    //const allTimers = await Timer.find().where({userID: user});
+    const allTimers = await Timer.find().where({userID: user});
 
     //Select all timers
-    const allTimers = await Timer.find();
+    // const allTimers = await Timer.find();
 
     // const timer = allTimers[allTimers.length - 1];
 
@@ -39,39 +36,6 @@ router.get('/', async (req, res) => {
 // @route   POST api/timer/save
 // @desc    Save timer status
 // @access  Private
-router.post('/save', async (req, res) => {
-  const { type, name, totTime, remTime, userID, isRunning } = req.body;
-  try {
-    let timer;
-
-    timer = new Timer({
-      type,
-      name,
-      totTime,
-      remTime,
-      userID,
-      isRunning,
-    });
-
-    //save timer to database
-    timer.save().then(
-      timer => {
-        res.json({
-          timer,
-        });
-      },
-      err => {
-        if (err) {
-          throw err;
-        }
-      },
-    );
-  } catch (err) {
-    console.log(err);
-    return res.status(500).send('Server Error, Try it later');
-  }
-
-  console.log(req.body);
-});
+router.post('/save', createTimer);
 
 export { router as timerRouter };

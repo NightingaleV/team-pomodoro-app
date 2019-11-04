@@ -19,9 +19,9 @@ console.error(error);
 console.log(parsed);
 
 // Routers
-import { userRouter } from './routes/user';
-import { groupRouter } from './routes/group';
-import { timerRouter } from './routes/timer';
+// import { userRouter } from './routes/user';
+// import { groupRouter } from './routes/group';
+// import { timerRouter } from './routes/timer';
 
 // Init a Express.js
 const app = express();
