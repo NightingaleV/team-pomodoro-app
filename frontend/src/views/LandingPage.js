@@ -18,7 +18,6 @@ export function LandingPage() {
     M.Parallax.init(parallax_elements, options);
     //Or use auto init instead
     //M.AutoInit();
-
   }, []);
 
   // EXAMPLE of UsePromise hooku
@@ -28,7 +27,7 @@ export function LandingPage() {
   //   )
   // }, []);
 
-// console.log('landingState', landingState)
+  // console.log('landingState', landingState)
 
   return (
     <div className={classNames('navigation')}>
@@ -44,7 +43,6 @@ export function LandingPage() {
                     A modern responsive front-end framework based on Material
                     Design
                   </h5>
-
                 </div>
                 <div className="row center">
                   <a

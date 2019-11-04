@@ -1,17 +1,22 @@
+//External imports
+import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
-// Import Env Variables
-const { parsed, error } = require('dotenv').config({
-  path: '../config/dev.env',
-  debug: true,
-});
-console.error(error);
-// Env Variables parsed to disposal
-console.log(parsed);
+//Internal imports
 
 // Routers
 import { userRouter } from './routes/user';
 import { groupRouter } from './routes/group';
+import { timerRouter } from './routes/timer';
+
+const { parsed, error } = dotenv.config({
+  path: '../config/dev.env',
+  debug: true,
+});
+
+console.error(error);
+// Env Variables parsed to disposal
+console.log(parsed);
 
 // Init a Express.js
 const app = express();

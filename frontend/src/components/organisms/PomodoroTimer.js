@@ -30,7 +30,7 @@ export function PomodoroTimer(props) {
     subtractSeconds();
     let currentIteration = getCurrentIteration();
     console.log(timerState.progress);
-    console.log(iterations)
+    console.log(iterations);
   }
 
   useEffect(() => {
