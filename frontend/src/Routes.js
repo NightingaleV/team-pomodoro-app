@@ -9,7 +9,6 @@ import {
   SignUp,
   RegistrationComplete,
   GroupDetail,
-  MainGroup,
 } from './views';
 import { ProtectedRoute } from './components/ProtectedRoutes';
 
@@ -27,7 +26,6 @@ export function Routes() {
       <Route exact path="/register/success" component={RegistrationComplete} />
       <Route path="/timer" exact component={PersonalTimer} />
       <Route path="/group" component={GroupDetail} />
-      <Route path="/MainGroup" component={MainGroup} />
     </Switch>
   );
 }

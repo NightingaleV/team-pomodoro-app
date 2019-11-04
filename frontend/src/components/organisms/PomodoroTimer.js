@@ -3,6 +3,7 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 // Internal imports
 import { TimerControls, ProgressRing } from '../molecules';
 
+//TODO Refactor
 export function PomodoroTimer(props) {
   // default settings
   const pomodoroSetting = {
@@ -29,6 +30,7 @@ export function PomodoroTimer(props) {
     subtractSeconds();
     let currentIteration = getCurrentIteration();
     console.log(timerState.progress);
+    console.log(iterations);
   }
 
   useEffect(() => {
@@ -258,7 +260,7 @@ export function PomodoroTimer(props) {
     }
   }
   return (
-    <Fragment>
+    <>
       <div style={{ textAlign: 'center' }}>
         <div>
           <h3>
@@ -304,6 +306,6 @@ export function PomodoroTimer(props) {
           </div>
         </div>
       </div>
-    </Fragment>
+    </>
   );
 }
