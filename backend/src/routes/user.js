@@ -74,25 +74,14 @@ router.post(
         });
       }
 
-      const payload = {
-        user: { id: user.id },
-      };
-      // Return jsonwebtoken for authentication
-      jwt.sign(
-        payload,
+      const token = jwt.sign(
+        { user: { id: user.id } },
         process.env.JWTPrivateKey,
-        {
-          expiresIn: 3600,
-        },
-        (err, token) => {
-          if (err) throw err;
-          // return res.cookie('token', token, { httpOnly: true }).sendStatus(200);
-          res.json({
-            token,
-            user,
-          });
-        },
       );
+      return res.status(200).json({
+        token,
+        user,
+      });
     } catch (err) {
       console.log(err);
       return res.status(500).send('Server Error, Try it later');
