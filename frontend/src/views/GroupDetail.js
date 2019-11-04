@@ -1,11 +1,10 @@
-// External imports
 import React, { Fragment, useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
-import classNames from 'classnames';
+import {
+  TopNavigation,
+  PomodoroGroup,
+  SideNavigation,
+} from '../components/organisms';
 import axios from 'axios';
-
-// Internal imports
-import { TopNavigation } from '../components/organisms';
 
 export function GroupDetail() {
   const [group, setGroup] = useState({ name: '', members: [] });
@@ -37,25 +36,16 @@ export function GroupDetail() {
 
   return (
     <Fragment>
-      <div className="blue lighten-5">
-        <div className="container">
-          <div className="row">
-            <div className="col s12 center-align">
-              <h3>
-                Group:
-                {group.name}
-              </h3>
+      <TopNavigation></TopNavigation>
 
-              <div>
-                {group.members.map((member, index) => (
-                  <div key={index}>
-                    <p>
-                      Name: {member.email} Status: {member.timer.status}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+      <div className="container">
+        <div className="row">
+          <div className="col s1 l3">
+            <SideNavigation></SideNavigation>
+          </div>
+
+          <div className="col s9">
+            <PomodoroGroup group={group}> </PomodoroGroup>
           </div>
         </div>
       </div>

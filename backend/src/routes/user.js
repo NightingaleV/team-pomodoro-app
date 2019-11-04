@@ -117,6 +117,7 @@ router.post(
 // @desc     Authenticate user & get token
 // @access   Public
 // TODO uncought error Cannot read property 'type' - after bad password
+// TODO use promises instead of callbacks
 router.post(
   '/login',
   [

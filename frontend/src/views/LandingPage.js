@@ -3,9 +3,13 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import M from 'materialize-css';
 // Internal imports
+
+import { usePromise } from '../utils/usePromise';
+import { useApi } from '../utils/useApi';
 import { TopNavigation } from '../components/organisms';
 
 export function LandingPage() {
+  const api = useApi();
   let [message, setMessage] = useState(null);
   useEffect(() => {
     //initialize parallax
@@ -15,11 +19,17 @@ export function LandingPage() {
     //Or use auto init instead
     //M.AutoInit();
 
-    // Check if Express is set
-    fetch('/api/data/')
-      .then(res => res.json())
-      .then(res => setMessage(res.express_status));
   }, []);
+
+  // EXAMPLE of UsePromise hooku
+  // const [landingState, dispatchLanding] = usePromise({ isLoading: true });
+  // useEffect(() => {
+  //   dispatchLanding(() => api.get('data').then(({ data }) => data)
+  //   )
+  // }, []);
+
+// console.log('landingState', landingState)
+
   return (
     <div>
       <article>
@@ -33,6 +43,7 @@ export function LandingPage() {
                     A modern responsive front-end framework based on Material
                     Design
                   </h5>
+
                 </div>
                 <div className="row center">
                   <a

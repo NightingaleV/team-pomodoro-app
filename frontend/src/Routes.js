@@ -9,7 +9,6 @@ import {
   SignUp,
   RegistrationComplete,
   GroupDetail,
-  MainGroup,
 } from './views';
 import { ProtectedRoute } from './components/ProtectedRoutes';
 
@@ -26,7 +25,6 @@ export function Routes() {
       <Route exact path="/register" component={SignUp} />
       <Route exact path="/register/success" component={RegistrationComplete} />
       <Route path="/group" component={GroupDetail} />
-      <Route path="/MainGroup" component={MainGroup} />
     </Switch>
   );
 }

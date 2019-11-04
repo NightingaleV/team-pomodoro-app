@@ -16,7 +16,7 @@ const { parsed, error } = require('dotenv').config({
 console.log(parsed);
 
 const globalApiInstance = axios.create({
-  baseURL: '/api',
+  baseURL: process.env.REACT_APP_BASE_URL || '/api',
 });
 
 // if (process.env.MOCK_API) {

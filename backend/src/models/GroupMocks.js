@@ -20,6 +20,69 @@ export const groups = [
           updatedAt: '2019-08-06T14:10:51.023Z',
         },
       },
+      {
+        id: 3,
+        email: 'test3@pomodoritrackertest.cz',
+        timer: {
+          status: 'work',
+          createdAt: '2019-08-06T14:10:51.023Z',
+          updatedAt: '2019-08-06T14:10:51.023Z',
+        },
+      },
+      {
+        id: 4,
+        email: 'test4@pomodoritrackertest.cz',
+        timer: {
+          status: 'work',
+          createdAt: '2019-08-06T14:10:51.023Z',
+          updatedAt: '2019-08-06T14:10:51.023Z',
+        },
+      },
+      {
+        id: 5,
+        email: 'test5@pomodoritrackertest.cz',
+        timer: {
+          status: 'work',
+          createdAt: '2019-08-06T14:10:51.023Z',
+          updatedAt: '2019-08-06T14:10:51.023Z',
+        },
+      },
+      {
+        id: 6,
+        email: 'test6@pomodoritrackertest.cz',
+        timer: {
+          status: 'work',
+          createdAt: '2019-08-06T14:10:51.023Z',
+          updatedAt: '2019-08-06T14:10:51.023Z',
+        },
+      },
+      {
+        id: 7,
+        email: 'test7@pomodoritrackertest.cz',
+        timer: {
+          status: 'longBreak',
+          createdAt: '2019-08-06T14:10:51.023Z',
+          updatedAt: '2019-08-06T14:10:51.023Z',
+        },
+      },
+      {
+        id: 8,
+        email: 'test8@pomodoritrackertest.cz',
+        timer: {
+          status: 'work',
+          createdAt: '2019-08-06T14:10:51.023Z',
+          updatedAt: '2019-08-06T14:10:51.023Z',
+        },
+      },
+      {
+        id: 9,
+        email: 'test9@pomodoritrackertest.cz',
+        timer: {
+          status: 'longBreak',
+          createdAt: '2019-08-06T14:10:51.023Z',
+          updatedAt: '2019-08-06T14:10:51.023Z',
+        },
+      },
     ],
   },
   {
