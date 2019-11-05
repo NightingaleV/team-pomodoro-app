@@ -3,8 +3,29 @@ import express from 'express';
 
 //Internal imports
 import { groups } from '../models/GroupMocks';
+import {Group} from '../models/Group';
+import {createGroup} from '../controllers/group';
 
 const router = express.Router();
+// @route   GET api/group/
+// @desc    get pomodoro group by ID
+// @access  Public
+router.get('/', async (req, res) => {
+  try{
+    const id = req.query.groupID;
+
+    // const group = await Group.findById(id);
+    // await res.json({group: group});
+
+    const groups = await Group.find();
+    // const groups = await Group.aggregate;
+    await res.json({groups: groups});
+  }catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
+router.post('/new', createGroup);
 
 // @route   GET api/group/detail
 // @desc    Detail of pomodoro group
