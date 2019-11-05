@@ -5,7 +5,7 @@ const GroupSchema = new mongoose.Schema({
         type:String,
         required: true,
     },
-    userIDs:[{type: String}]
+    userIDs:[{type: mongoose.Schema.Types.ObjectId}]
 });
 
 export const Group = mongoose.model("Group", GroupSchema);
