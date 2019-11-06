@@ -23,7 +23,7 @@ export function formatTime(seconds) {
     let timeFormated =
       '-' +
       (absMin < 10 ? '0' : '') +
-      (absMin - 1) +
+      (absSec === 0 ? absMin : absMin - 1) +
       ':' +
       (absSec < 10 ? '0' : '') +
       absSec;

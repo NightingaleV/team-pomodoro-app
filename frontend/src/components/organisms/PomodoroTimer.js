@@ -52,6 +52,7 @@ export function PomodoroTimer(props) {
   useEffect(() => {
     updateProgressBar();
     console.log(timerState.progressBar);
+    console.log(numSeconds);
   }, [numSeconds]);
 
   useEffect(() => {}, [timerState]);
