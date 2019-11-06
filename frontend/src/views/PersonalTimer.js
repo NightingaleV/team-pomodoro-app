@@ -1,7 +1,11 @@
 // External imports
 import React, { Fragment } from 'react';
 // Internal imports
-import { TopNavigation, PomodoroTimer } from '../components/organisms';
+import {
+  TopNavigation,
+  PomodoroTimer,
+  PomodoroCycle,
+} from '../components/organisms';
 
 export function PersonalTimer({ children }) {
   return (
@@ -10,7 +14,7 @@ export function PersonalTimer({ children }) {
 
       <div className="container">
         <div className="col s12">
-          <PomodoroTimer></PomodoroTimer>
+          <PomodoroCycle></PomodoroCycle>
         </div>
       </div>
     </Fragment>
