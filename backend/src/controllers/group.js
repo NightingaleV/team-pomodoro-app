@@ -44,6 +44,15 @@ export async function selectGroupByName(req, res){
       }
 };
 
+export async function selectAllGroups(req, res){
+    try{
+        const groups = await Group.find();
+        await res.json({groups: groups});
+    }catch (err) {
+    return res.status(500).send('Server Error');
+  }
+};
+
 export async function createGroup(req, res){
     const {name, userIDs} = req.body;
     try{

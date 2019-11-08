@@ -67,34 +67,25 @@ export async function addGroup(req, res){
 export async function selectUserWithGroups(req, res){
   try{    
     const email = req.query.email;               
-
+        
     const userGroups = await User.aggregate([
+      {
+        $match:{         
+          'email': email
+        }
+      },
+      {
+        $lookup:
         {
-          $match:{         
-            'email': email
-          }
-        },
-        {
-          $lookup:
-          {
-            from: "groups",
-            localField: "groupIDs",
-            foreignField: "_id",
-            as: "userGroups"
-          },              
-        },         
-        {
-            $lookup:
-            {
-                from: "users",
-                localField: "userGroups.userIDs",
-                foreignField: "_id",
-                as: "members"
-            },
-        },       
-        {
-          $project: {"groupIDs":0, "timerIDs":0, "password": 0, "userGroups.userIDs":0, "members.password":0, "members.timerIDs":0, "members.groupIDs":0}}
-      ]);      
+          from: "groups",
+          localField: "groupIDs",
+          foreignField: "_id",
+          as: "userGroups"
+        },              
+      },                     
+      {
+        $project: {"groupIDs":0, "timerIDs":0, "password": 0, "userGroups.userIDs":0}}
+    ]);
 
     await res.json({userGroups: userGroups});
   }catch (err) {

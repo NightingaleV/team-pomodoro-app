@@ -3,21 +3,33 @@ import express from 'express';
 
 //Internal imports
 import { groups } from '../models/GroupMocks';
-import {selectGroupByName, createGroup, addMember} from '../controllers/group';
+import {selectGroupByName, createGroup, addMember, selectGroupsByUser, selectAllGroups} from '../controllers/group';
 
 const router = express.Router();
+
 // @route   GET api/group/
 // @desc    get pomodoro group by name
-// @access  Public
+// @access  Private
 router.get('/', selectGroupByName);
 
+// @route   GET api/group/userGroups
+// @desc    get all pomodoro groups
+// @access  Private
+router.get('/all', selectAllGroups);
+
+// @route   GET api/group/new
+// @desc    create new pomodoro group
+// @access  Private
 router.post('/new', createGroup);
 
+// @route   GET api/group/addMember
+// @desc    add member to pomodoro group
+// @access  Private
 router.post('/addMember', addMember);
 
 // @route   GET api/group/detail
 // @desc    Detail of pomodoro group
-// @access  Public
+// @access  Private
 router.get('/detail', async (req, res) => {
   const groupName = req.query.groupName;
 
