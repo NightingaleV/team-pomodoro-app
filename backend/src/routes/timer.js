@@ -2,7 +2,7 @@
 import express from 'express';
 
 //Internal imports
-import {selectTimer, createTimer} from '../controllers/timer';
+import { selectTimer, createTimer } from '../controllers/timer';
 
 const router = express.Router();
 

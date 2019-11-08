@@ -32,7 +32,7 @@ const TimerSchema = new mongoose.Schema({
   isRunning: {
     type: Boolean,
     required: true,
-  },  
+  },
 });
 
 TimerSchema.pre('save', function(next) {
