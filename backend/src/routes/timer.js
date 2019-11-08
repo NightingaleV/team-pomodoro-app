@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 //Internal imports
 import { Timer } from '../models/Timer';
-import {createTimer} from '../controllers/timer';
+import { createTimer } from '../controllers/timer';
 
 const router = express.Router();
 
@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     const user = req.query.userID;
 
     //Filter timer by userID
-    const allTimers = await Timer.find().where({userID: user});
+    const allTimers = await Timer.find().where({ userID: user });
 
     //Select all timers
     // const allTimers = await Timer.find();

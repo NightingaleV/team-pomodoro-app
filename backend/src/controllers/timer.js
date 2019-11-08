@@ -1,12 +1,12 @@
 //External imports
 
 //Internal imports
-import {Timer} from '../models/Timer';
+import { Timer } from '../models/Timer';
 
 // LOGIC
 //------------------------------------------------------------------------------
-export async function createTimer(req, res){
-    const { type, name, totTime, remTime, userID, isRunning } = req.body;
+export async function createTimer(req, res) {
+  const { type, name, totTime, remTime, userID, isRunning } = req.body;
   try {
     let timer;
 
