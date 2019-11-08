@@ -1,4 +1,4 @@
-import mongoose, { Mongoose } from 'mongoose';
+import mongoose from 'mongoose';
 
 const TimerSchema = new mongoose.Schema({
   type: {
@@ -18,7 +18,7 @@ const TimerSchema = new mongoose.Schema({
     required: true,
   },
   userID: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
   createdAt: {
@@ -32,18 +32,8 @@ const TimerSchema = new mongoose.Schema({
   isRunning: {
     type: Boolean,
     required: true,
-  },
-  // timestamps: {createdAt: 'created_at'},
+  },  
 });
-
-//Pre save se mi nepodarilo rozchodit
-// TimerSchema.pre('save', function(next){
-//     //Before saving set updatedAt to date.now
-//     let timer = this;
-
-//     timer.updatedAt = Date.now();
-//     next();
-// });
 
 TimerSchema.pre('save', function(next) {
   let timer = this;
