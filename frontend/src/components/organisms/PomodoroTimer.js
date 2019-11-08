@@ -19,6 +19,7 @@ export function PomodoroTimer(props) {
   // Component State
   //----------------------------------------------------------------------------
   const [timerState, setTimerState] = useState({
+    remTime: convertMinToSec(25),
     isRunning: false,
     settings: { type: 1, name: 'Work', totTime: convertMinToSec(25) },
     progressBar: 100,
@@ -30,7 +31,6 @@ export function PomodoroTimer(props) {
   ]);
 
   let [timer, setTimer] = useState(null);
-  const [numSeconds, setNumSeconds] = useState(null);
 
   // Component Lifecycle
   //----------------------------------------------------------------------------
@@ -45,15 +45,15 @@ export function PomodoroTimer(props) {
   useEffect(() => {
     if (currentSettings) {
       setTimerSettings(currentSettings);
-      setNumSeconds(currentSettings.totTime);
+      setRemTime(currentSettings.totTime);
     }
   }, [currentSettings]);
 
   useEffect(() => {
     updateProgressBar();
     console.log(timerState.progressBar);
-    console.log(numSeconds);
-  }, [numSeconds]);
+    console.log(timerState.isRunning);
+  }, [timerState.remTime]);
 
   useEffect(() => {}, [timerState]);
 
@@ -67,15 +67,20 @@ export function PomodoroTimer(props) {
   // State Updating Function
   //----------------------------------------------------------------------------
   function subtractSeconds() {
-    setNumSeconds(prevSeconds => {
-      return prevSeconds - 1;
+    setTimerState(prevState => {
+      return {
+        ...prevState,
+        remTime: prevState.remTime - 1,
+      };
     });
   }
+
   // Calculate Progress for Circle
   function updateProgressBar() {
-    let progressBar = Math.round(
-      (numSeconds / timerState.settings.totTime) * 100,
-    );
+    //Round to 2 digits
+    let progressBar =
+      Math.round((timerState.remTime / timerState.settings.totTime) * 10000) /
+      100;
 
     setTimerState(prevState => {
       return {
@@ -92,9 +97,13 @@ export function PomodoroTimer(props) {
 
   function setTimerRunning(isRunning = false) {
     setTimerState(prevState => {
-      return { ...prevState, isRunning: isRunning };
+      return {
+        ...prevState,
+        isRunning: isRunning,
+      };
     });
   }
+
   function setTimerSettings(newSettings) {
     setTimerState(prevState => {
       return {
@@ -104,6 +113,14 @@ export function PomodoroTimer(props) {
     });
   }
 
+  function setRemTime(numOfSec) {
+    setTimerState(prevState => {
+      return {
+        ...prevState,
+        remTime: numOfSec,
+      };
+    });
+  }
   // TIMER CONTROLS
   //----------------------------------------------------------------------------
   function startTimer() {
@@ -151,7 +168,7 @@ export function PomodoroTimer(props) {
             typeOfTimer={timerState.settings && timerState.settings.type}
           />
           <div className="circle-countdown" style={{ fontSize: '65px' }}>
-            <span>{formatTime(numSeconds)}</span>
+            <span>{formatTime(timerState.remTime)}</span>
           </div>
           <div className="circle-controls flexbox">
             <TimerControls
