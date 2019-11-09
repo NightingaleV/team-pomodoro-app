@@ -3,8 +3,16 @@ import React, { useEffect, useRef, useState, useMemo } from 'react';
 // Internal imports
 import { TimerControls, ProgressRing } from '../molecules';
 import { convertMinToSec, formatTime } from '../../utils/pomodoroUtils';
+import { useApi } from '../../utils/useApi';
+import { useAuth } from '../../utils/useAuth';
+import { usePromise } from '../../utils/usePromise';
+import { useFetchRequest } from '../../utils/useFetchRequest';
+import axios from 'axios';
 
 export function PomodoroTimer(props) {
+  const api = useApi();
+  const auth = useAuth();
+  const { token } = useAuth();
   // Reference for interval
   let timerRef = useRef();
   // Props
@@ -18,11 +26,14 @@ export function PomodoroTimer(props) {
 
   // Component State
   //----------------------------------------------------------------------------
+
   const [timerState, setTimerState] = useState({
+    timerID: '',
     remTime: convertMinToSec(25),
     isRunning: false,
     settings: { type: 1, name: 'Work', totTime: convertMinToSec(25) },
     progressBar: 100,
+    indexInCycle: 3,
   });
 
   const timerContext = useMemo(() => ({ timerState, setTimerState }), [
@@ -32,15 +43,78 @@ export function PomodoroTimer(props) {
 
   let [timer, setTimer] = useState(null);
 
+  // Request Functions
+  //----------------------------------------------------------------------------
+  // Get Last Timer
+  async function fetchTimerData() {
+    const config = {
+      headers: {
+        'x-auth-token': token,
+      },
+      timeout: 5000,
+    };
+    await axios.get('api/timer', config).then(res => {
+      const { remTime, isRunning, settings, _id, indexInCycle } = res.data;
+      setTimerState(prevState => {
+        return {
+          ...prevState,
+          timerID: _id,
+          remTime: remTime,
+          settings: settings,
+          isRunning: isRunning,
+          indexInCycle: indexInCycle,
+        };
+      });
+    });
+  }
+  // Update current timer
+  async function postTimerData(state) {
+    if (state.timerID) {
+      const requestConfig = {
+        headers: {
+          'x-auth-token': token,
+          'Content-Type': 'application/json',
+        },
+        timeout: 5000,
+      };
+      const timerToUpdate = {
+        timerID: state.timerID,
+        remTime: state.remTime,
+        settings: state.settings,
+        isRunning: state.isRunning,
+        indexInCycle: state.indexInCycle,
+      };
+      const body = JSON.stringify(timerToUpdate);
+      await axios.post('api/timer/update', body, requestConfig).then(res => {
+        console.log(res.data);
+      });
+    }
+  }
+
   // Component Lifecycle
   //----------------------------------------------------------------------------
+  const [timerLoadingState, dispatchTimerLoading] = usePromise({
+    isLoading: true,
+  });
   useEffect(() => {
-    // initNextTimerInRow();
-    if (!timerState.isRunning) {
-      console.log(pomodoroCycles);
-      initNextTimerInRow();
-    }
+    dispatchTimerLoading(fetchTimerData);
+    console.log(timerLoadingState);
+
+    // if (!timerState.isRunning) {
+    //   // console.log(pomodoroCycles);
+    //   initNextTimerInRow();
+    // }
   }, []);
+
+  // EXAMPLE of UsePromise hooku
+
+  useEffect(() => {
+    // api.get('timer').then(({ data }) => {
+    //   console.log('Response');
+    //   console.log(data);
+    // });
+    postTimerData(timerState);
+  }, [timerState.isRunning]);
 
   useEffect(() => {
     if (currentSettings) {
@@ -51,8 +125,10 @@ export function PomodoroTimer(props) {
 
   useEffect(() => {
     updateProgressBar();
-    console.log(timerState.progressBar);
     console.log(timerState.isRunning);
+    if (timerState.isRunning & (timerState.remTime % 10 === 0)) {
+      postTimerData(timerState);
+    }
   }, [timerState.remTime]);
 
   useEffect(() => {}, [timerState]);
@@ -60,7 +136,8 @@ export function PomodoroTimer(props) {
   // Tick - Run every second
   function tick() {
     subtractSeconds();
-    console.log(timerState);
+    // console.log(timerState);
+
     //todo: Save data to DB
   }
 

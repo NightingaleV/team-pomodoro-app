@@ -22,6 +22,8 @@ export function PomodoroCycle(props) {
     longBreak: { type: 3, name: 'Long Break', totTime: convertMinToSec(15) },
   };
 
+  //TODO POST TIMER WHEN CREATED
+
   // Component State
   //----------------------------------------------------------------------------
   let [pomodoroCycles, setPomodoroCycles] = useState([]);

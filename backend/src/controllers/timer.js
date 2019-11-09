@@ -1,5 +1,5 @@
 //External imports
-
+import mongoose from 'mongoose';
 //Internal imports
 import { Timer } from '../models/Timer';
 import { User } from '../models/User';
@@ -16,16 +16,22 @@ export async function selectTimer(req, res) {
   }
 }
 
+export async function selectLastTimer(req, res) {
+  try {
+    const userID = req.user.id;
+    const lastActiveTimer = await Timer.findOne({ userID: userID }).sort({
+      updatedAt: -1,
+    });
+    await res.json(lastActiveTimer);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send('Server Error');
+  }
+}
+
 export async function createTimer(req, res) {
-  // const { type, name, totTime, remTime, userID, isRunning } = req.body;
-  const {
-    isRunning,
-    remTime,
-    settings,
-    progressBar,
-    userID,
-    indexInCycle,
-  } = req.body;
+  const { isRunning, remTime, settings, progressBar, indexInCycle } = req.body;
+  const userID = req.user.id;
   try {
     let timer;
 
@@ -59,14 +65,8 @@ export async function createTimer(req, res) {
 }
 
 export async function updateTimer(req, res) {
-  const {
-    timerID,
-    isRunning,
-    remTime,
-    settings,
-    userID,
-    indexInCycle,
-  } = req.body;
+  const { timerID, isRunning, remTime, settings, indexInCycle } = req.body;
+  const userID = req.user.id;
   try {
     const updatedTimer = {
       isRunning,

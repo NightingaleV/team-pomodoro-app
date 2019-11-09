@@ -46,7 +46,7 @@ export function SignIn(props) {
       headers: {
         'Content-Type': 'application/json',
       },
-      timeout: 200,
+      timeout: 5000,
     };
     await axios
       .post('api/user/login', body, config)
