@@ -2,10 +2,15 @@
   z-index: 0;
   padding-top: 60px;
 }
+
+ .sidenav li > a  {
+  color: #212121;
+}
+
 @media all and (min-width : 0px) and (max-width : 992px) {
   .sidenav {
     z-index: 998;
-    padding-top: 60px;
+    padding-top: 20px;
   }
 }
 

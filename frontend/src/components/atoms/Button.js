@@ -2,7 +2,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-const DEFAULT_BTN_CLASSES = 'waves-effect waves-light';
+const DEFAULT_BTN_CLASSES = 'waves-effect waves-light amber';
 
 const BUTTON_SHAPES = {
   defaultBtn: DEFAULT_BTN_CLASSES,
@@ -29,7 +29,7 @@ const ACTION_BUTTONS = {
   },
 
   dropdown: {
-    color: '',
+    color: 'amber',
     icon: 'more_vert',
   },
 };

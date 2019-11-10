@@ -79,66 +79,52 @@ export function SignIn(props) {
   };
 
   return (
-    <Fragment>
-      <div className="blue lighten-5">
-        <div className="container">
-          <div className="row">
-            <div className="col s12 center-align">
-              <h3>Create an account</h3>
-            </div>
-            <form
-              id={'authentication-form'}
-              className={classNames('col l4 offset-l4 s6 offset-s3')}
-              onSubmit={onSubmit}
+    <>
+      <div className="login-container">
+        <h3>Sign in to Pomodoro</h3>
+        <div className="login-form">
+          <form id={'authentication-form'} onSubmit={onSubmit}>
+            <TextInput
+              id={'email-address'}
+              name={'email'}
+              type={'email'}
+              value={formData.email}
+              onChange={onChange}
+              className={'validate'}
+              required
             >
-              <div className="row">
-                <TextInput
-                  id={'email-address'}
-                  name={'email'}
-                  type={'email'}
-                  value={formData.email}
-                  onChange={onChange}
-                  className={'validate'}
-                  required
-                >
-                  Email
-                </TextInput>
-                <TextInput
-                  id={'password'}
-                  name={'password'}
-                  type={'password'}
-                  value={formData.password}
-                  onChange={onChange}
-                  error={errors.password || ''}
-                  required
-                >
-                  Password
-                </TextInput>
-                <Fragment>
-                  {errors.backend &&
-                    errors.backend.map((error, index) => {
-                      return <ErrorBox key={index} errorMsg={error.msg} />;
-                    })}
-                </Fragment>
-                <div className={classNames('center-align', 'col s12')}>
-                  <Button type={'submit'} form={'authentication-form'}>
-                    Sign In
-                  </Button>
-                </div>
-              </div>
-            </form>
-          </div>
+              Email
+            </TextInput>
+            <TextInput
+              id={'password'}
+              name={'password'}
+              type={'password'}
+              value={formData.password}
+              onChange={onChange}
+              error={errors.password || ''}
+              required
+            >
+              Password
+            </TextInput>
+            <>
+              {errors.backend &&
+                errors.backend.map((error, index) => {
+                  return <ErrorBox key={index} errorMsg={error.msg} />;
+                })}
+            </>
+            <Button type={'submit'} form={'authentication-form'}>
+              Sign In
+            </Button>
+          </form>
         </div>
       </div>
-    </Fragment>
+    </>
   );
 }
 export function RegistrationComplete() {
   return (
-    <Fragment>
-      <div className="container">
-        <SignUpSuccess />
-      </div>
-    </Fragment>
+    <>
+      <SignUpSuccess />
+    </>
   );
 }

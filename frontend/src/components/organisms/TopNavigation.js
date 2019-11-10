@@ -28,9 +28,9 @@ export function TopNavigationBase(props) {
       <nav className={'top-menu'}>
         <div className="nav-wrapper">
           <Link
-            to="/"
+            to="/timer"
             className={classNames('brand-logo', 'left')}
-            style={{ marginLeft: '15px' }}
+            style={{ marginLeft: '30px' }}
           >
             Pomodoro
           </Link>
@@ -39,7 +39,7 @@ export function TopNavigationBase(props) {
           </a>
           <ul className="right hide-on-med-and-down">
             <li>
-              <NavLink to="/">Timer</NavLink>
+              <NavLink to="/timer">Timer</NavLink>
             </li>
             <li>
               <NavLink to="/group/Testovací skupina">Testovací skupina</NavLink>
@@ -81,7 +81,7 @@ export function TopNavigationBase(props) {
                 <li>
                   <NavLink
                     to="/register"
-                    className={'waves-effect waves-light btn'}
+                    className={'waves-effect waves-light btn amber'}
                   >
                     Sign Up
                   </NavLink>
@@ -103,11 +103,13 @@ export function TopNavigationBase(props) {
           </Link>
         </li>
         <li>
-          <Link to="/" className={classNames('sidenav-close')}>
+          <Link to="/timer" className={classNames('sidenav-close')}>
             Timer
           </Link>
         </li>
         <li>
+          {/*<Link to="/group" className={classNames('sidenav-close')}>*/}
+          {/*  Group*/}
           <Link
             to="/group/Testovací skupina"
             className={classNames('sidenav-close')}

@@ -19,14 +19,18 @@ function setGroups(props) {
     const result = userGroups.map(group => (
       <div key={group._id}>
         <li>
-          <Link
-            to={'/group/' + group.name}
-            className={classNames('sidenav-close', 'white-text')}
-          >
-            <i className="material-icons white-text">group</i> {group.name}
-          </Link>
-        </li>
-      </div>
+
+        <Link
+          to={"/group/" + group.name}
+          className={classNames('sidenav-close', 'blue-text')}
+
+        >
+        <i className="material-icons black-text"
+        >group</i>{' '}
+        {group.name}
+        </Link>
+      </li>
+    </div>
     ));
 
     return result;
@@ -52,15 +56,17 @@ export function SideNavigationBase() {
           },
         };
 
-        const res = await axios.get('api/user/userGroups', config);
+        const res = await axios.get('../api/user/userGroups', config);
         /*console.log('Result:', res.data);*/
         setUserGroups(res.data);
       } catch (err) {
-        /*console.log(err);*/
+        console.log(err);
       }
     };
     fetchUserGroups();
   }, []);
+
+
 
   function initSidebarMenu() {
     const sideNavElement = document.querySelector('.main-menu');
@@ -80,21 +86,28 @@ export function SideNavigationBase() {
       <aside
         id="slide-out"
         className={
-          'sidenav sidenav-fixed main-menu blue-text'
+          'sidenav sidenav-fixed main-menu'
           // For fixed sidebar add 'sidenav-fixed'
         }
       >
-        <h5 className={'link white-text brand-logo center'}>Menu</h5>
         <ul>
-          <span
-            className={'link white-text'}
-            style={{ marginLeft: '30px', fontSize: '18pt' }}
-          >
-            Groups
-          </span>
-
+          <li>
+            <a className="subheader">Groups</a>
+          </li>
+          <li>
+            <Link
+              to="/group"
+              className={classNames('sidenav-close')}
+            >
+              <i className="material-icons ">navigate_next</i>Group</Link>
+            <Link
+              to="#!"
+              className={classNames('sidenav-close')}
+            >
+              <i className="material-icons">navigate_next</i>Group 2
+            </Link>
+          </li>
           {setGroups(userGroups)}
-
           <li>
             <div className="divider"></div>
           </li>
@@ -102,8 +115,23 @@ export function SideNavigationBase() {
             <a className="subheader white-text">Manage</a>
           </li>
           <li>
-            <a href="#!" className={'white-text'}>
-              <i className="material-icons white-text">add</i>
+            <a href="#!">
+              <i className="material-icons">cloud</i>First Link With Icon
+            </a>
+            <a className="subheader">Manage</a>
+          </li>
+          <li>
+            <a href="#!">
+              <i className="material-icons">group</i> Groups
+            </a>
+          </li>
+          <div className="divider"></div>
+          <li>
+            <a className="subheader">Subheader</a>
+          </li>
+          <li>
+            <a href="#!">
+              <i className="material-icons">add</i>
               New group
             </a>
           </li>

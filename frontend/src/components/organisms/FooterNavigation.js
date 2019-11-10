@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 export function FooterNavigationBase(props) {
   return (
     <>
-      <footer className="page-footer light-blue">
+      <footer className="page-footer">
         <div className="footer-copyright">
           <div className="container">Made by Team 2</div>
         </div>
