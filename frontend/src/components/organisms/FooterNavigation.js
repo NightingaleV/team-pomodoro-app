@@ -6,13 +6,13 @@ import { withRouter } from 'react-router-dom';
 // Assets
 export function FooterNavigationBase(props) {
   return (
-    <Fragment>
+    <>
       <footer className="page-footer light-blue">
         <div className="footer-copyright">
           <div className="container">Made by Team 2</div>
         </div>
       </footer>
-    </Fragment>
+    </>
   );
 }
 

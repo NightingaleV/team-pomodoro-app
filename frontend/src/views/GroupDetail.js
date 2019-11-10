@@ -36,8 +36,6 @@ export function GroupDetail() {
 
   return (
     <Fragment>
-      <TopNavigation></TopNavigation>
-
       <div className="container">
         <div className="row">
           <div className="col s1 l3">

@@ -9,15 +9,15 @@ import {
 
 export function Container(props) {
   return (
-    <Fragment>
+    <>
       <TopNavigation></TopNavigation>
       <div className={'row content'}>
-        <div className={'col hide-on-small-only s3'}>
+        <div className={'col l2 hide-on-small-only'}>
           <SideNavigation></SideNavigation>
         </div>
-        <div className={'col s12'}>{props.children}</div>
+        <div className={'col s12 m12 l10 center-align'}>{props.children}</div>
       </div>
       <FooterNavigation></FooterNavigation>
-    </Fragment>
+    </>
   );
 }
