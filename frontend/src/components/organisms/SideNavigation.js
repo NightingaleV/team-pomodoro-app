@@ -39,8 +39,7 @@ export function SideNavigationBase() {
               to="/MainGroup"
               className={classNames('sidenav-close', 'blue-text')}
             >
-              <i className="material-icons ">navigate_next</i>{' '}
-              MainGroup
+              <i className="material-icons ">navigate_next</i> MainGroup
             </Link>
             <Link
               to="/MainGroup"
@@ -57,8 +56,7 @@ export function SideNavigationBase() {
           </li>
           <li>
             <a href="#!" className={'blue-text'}>
-              <i className="material-icons">cloud</i>First Link With
-              Icon
+              <i className="material-icons">cloud</i>First Link With Icon
             </a>
           </li>
           <li>
