@@ -29,7 +29,7 @@ export function TopNavigationBase(props) {
           <Link
             to="/"
             className={classNames('brand-logo', 'left')}
-            style={{ marginLeft: '15px' }}
+            style={{ marginLeft: '30px' }}
           >
             Pomodoro
           </Link>
