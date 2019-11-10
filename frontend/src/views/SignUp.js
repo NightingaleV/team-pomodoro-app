@@ -113,79 +113,65 @@ export function SignUp(props) {
   };
 
   return (
-    <Fragment>
-      <div className="blue lighten-5">
-        <div className="container">
-          <div className="row">
-            <div className="col s12 center-align">
-              <h3>Create an account</h3>
-            </div>
-            <form
-              id={'registration-form'}
-              className={classNames('col l4 offset-l4 s6 offset-s3')}
-              onSubmit={onSubmit}
+    <>
+      <div className={'singup-container'}>
+        <h3>Create your account</h3>
+        <div className={'singup-form'}>
+          <form id={'registration-form'} onSubmit={onSubmit}>
+            <TextInput
+              id={'email-address'}
+              name={'email'}
+              type={'email'}
+              value={formData.email}
+              onChange={onChange}
+              className={'validate'}
+              required
             >
-              <div className="row">
-                <TextInput
-                  id={'email-address'}
-                  name={'email'}
-                  type={'email'}
-                  value={formData.email}
-                  onChange={onChange}
-                  className={'validate'}
-                  required
-                >
-                  Email
-                </TextInput>
-                <TextInput
-                  id={'password'}
-                  name={'password'}
-                  type={'password'}
-                  value={formData.password}
-                  onChange={onChange}
-                  error={errors.password || ''}
-                  required
-                >
-                  Password
-                </TextInput>
-                <TextInput
-                  id={'password2'}
-                  name={'password2'}
-                  type={'password'}
-                  value={formData.password2}
-                  onChange={onChange}
-                  required=""
-                  aria-required="true"
-                  error={errors.password2 || undefined}
-                >
-                  Confirm Password
-                </TextInput>
-                <Fragment>
-                  {errors.backend &&
-                    errors.backend.map(error => {
-                      return <ErrorBox key={error.msg} errorMsg={error.msg} />;
-                    })}
-                </Fragment>
-                <div className={classNames('center-align', 'col s12')}>
-                  <Button type={'submit'} form={'registration-form'}>
-                    Register
-                  </Button>
-                </div>
-              </div>
-            </form>
-          </div>
+              Email
+            </TextInput>
+            <TextInput
+              id={'password'}
+              name={'password'}
+              type={'password'}
+              value={formData.password}
+              onChange={onChange}
+              error={errors.password || ''}
+              required
+            >
+              Password
+            </TextInput>
+            <TextInput
+              id={'password2'}
+              name={'password2'}
+              type={'password'}
+              value={formData.password2}
+              onChange={onChange}
+              required=""
+              aria-required="true"
+              error={errors.password2 || undefined}
+            >
+              Confirm Password
+            </TextInput>
+            <>
+              {errors.backend &&
+                errors.backend.map(error => {
+                  return <ErrorBox key={error.msg} errorMsg={error.msg} />;
+                })}
+            </>
+            <Button type={'submit'} form={'registration-form'}>
+              Register
+            </Button>
+          </form>
         </div>
       </div>
-    </Fragment>
+    </>
   );
 }
 export function RegistrationComplete() {
   const { user } = useAuth();
   return (
-    <Fragment>
-      <div className="container">
-        <SignUpSuccess />
-      </div>
-    </Fragment>
+    <>
+      <SignUpSuccess />
+    </>
   );
 }

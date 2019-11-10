@@ -80,14 +80,10 @@ export function SignIn(props) {
 
   return (
     <>
-      <div className="login-form">
+      <div className="login-container">
         <h3>Sign in to Pomodoro</h3>
-        <form
-          id={'authentication-form'}
-          className={classNames('col l4 offset-l4 s6 offset-s3')}
-          onSubmit={onSubmit}
-        >
-          <div className="row">
+        <div className="login-form">
+          <form id={'authentication-form'} onSubmit={onSubmit}>
             <TextInput
               id={'email-address'}
               name={'email'}
@@ -116,23 +112,19 @@ export function SignIn(props) {
                   return <ErrorBox key={index} errorMsg={error.msg} />;
                 })}
             </>
-            <div className={classNames('center-align', 'col s12')}>
-              <Button type={'submit'} form={'authentication-form'}>
-                Sign In
-              </Button>
-            </div>
-          </div>
-        </form>
+            <Button type={'submit'} form={'authentication-form'}>
+              Sign In
+            </Button>
+          </form>
+        </div>
       </div>
     </>
   );
 }
 export function RegistrationComplete() {
   return (
-    <Fragment>
-      <div className="container">
-        <SignUpSuccess />
-      </div>
-    </Fragment>
+    <>
+      <SignUpSuccess />
+    </>
   );
 }
