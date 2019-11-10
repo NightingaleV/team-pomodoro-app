@@ -83,11 +83,11 @@ export function SideNavigationBase() {
   }, []);
 
   return (
-    <Fragment>
+    <>
       <aside
         id="slide-out"
         className={
-          'sidenav main-menu blue white-text sidenav-fixed'
+          'sidenav sidenav-fixed main-menu blue-text'
           // For fixed sidebar add 'sidenav-fixed'
         }
       >
@@ -102,8 +102,8 @@ export function SideNavigationBase() {
 
           {setGroups(userGroups)}
           
-          <li>
-            <div className="divider white-text"></div>
+         <li>
+            <div className="divider"></div>
           </li>
           <li>
             <a className="subheader white-text">Manage</a>
@@ -112,14 +112,15 @@ export function SideNavigationBase() {
             <a href="#!" className={'white-text'}>
               <i className="material-icons white-text">add</i>
               New group
+
             </a>
           </li>
         </ul>
       </aside>
-      <a href="#" data-target="slide-out" className="sidenav-trigger">
-        <i className="material-icons">menu</i>
-      </a>
-    </Fragment>
+      {/*<a href="#" data-target="slide-out" className="sidenav-trigger hide-on-large-only">*/}
+      {/*  <i className="material-icons">more_vert</i>*/}
+      {/*</a>*/}
+    </>
   );
 }
 

@@ -6,10 +6,11 @@ import React, {
   useRef,
 } from 'react';
 import axios from 'axios';
+import dotenv from 'dotenv';
 
 import { useAuth } from './useAuth';
 
-const { parsed, error } = require('dotenv').config({
+const { parsed, error } = dotenv.config({
   path: '../config/dev.env',
   debug: true,
 });
@@ -43,6 +44,7 @@ export function ApiProvider({ children }) {
 
 function useSetAuthorizationHeader(api) {
   const { token } = useAuth();
+  // console.log('token', token);
 
   // Using `useLayoutEffect` instead of `useEffect` because it is triggered
   // earlier then other `useEffect` calls that may already use `api`.

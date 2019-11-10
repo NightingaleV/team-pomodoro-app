@@ -18,11 +18,6 @@ console.error(error);
 // Env Variables parsed to disposal
 console.log(parsed);
 
-// Routers
-// import { userRouter } from './routes/user';
-// import { groupRouter } from './routes/group';
-// import { timerRouter } from './routes/timer';
-
 // Init a Express.js
 const app = express();
 const PORT = process.env.PORT || 5000;

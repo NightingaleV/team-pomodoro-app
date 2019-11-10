@@ -25,7 +25,7 @@ export function DropdownTimerMenu(props) {
       <Button
         shape={'bigBtn'}
         actionButton={'dropdown'}
-        className={'dropdown-trigger btn teal'}
+        className={'dropdown-trigger'}
         data-target="dropdown1"
       ></Button>
       <ul

@@ -46,7 +46,7 @@ export function SignIn(props) {
       headers: {
         'Content-Type': 'application/json',
       },
-      timeout: 200,
+      timeout: 5000,
     };
     await axios
       .post('api/user/login', body, config)
@@ -55,7 +55,7 @@ export function SignIn(props) {
         // localStorage.setItem('jwt-token', token);
         console.log(user);
         auth.signin({ token, user });
-        history.replace('/timer');
+        history.replace('/');
       })
       .catch(err => {
         console.log('Not Able to Load DB');
@@ -80,7 +80,6 @@ export function SignIn(props) {
 
   return (
     <Fragment>
-      <TopNavigation />
       <div className="blue lighten-5">
         <div className="container">
           <div className="row">
@@ -137,7 +136,6 @@ export function SignIn(props) {
 export function RegistrationComplete() {
   return (
     <Fragment>
-      <TopNavigation></TopNavigation>
       <div className="container">
         <SignUpSuccess />
       </div>

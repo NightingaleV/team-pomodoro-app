@@ -7,6 +7,7 @@ import './App.scss';
 import { ApiProvider } from './utils/useApi';
 import { AuthProvider } from './utils/useAuth';
 import { Routes } from './Routes';
+import { Container } from './views/Container';
 
 function AllProviders({ children }) {
   return <BrowserRouter>{children}</BrowserRouter>;
@@ -17,7 +18,9 @@ function App() {
     <AuthProvider>
       <ApiProvider>
         <AllProviders>
-          <Routes />
+          <Container>
+            <Routes />
+          </Container>
         </AllProviders>
       </ApiProvider>
     </AuthProvider>

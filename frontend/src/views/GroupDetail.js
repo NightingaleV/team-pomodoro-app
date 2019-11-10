@@ -58,8 +58,6 @@ export function GroupDetail(props) {
 
   return (
     <Fragment>
-      <TopNavigation />
-
       <div className="container">
         <div className="row">
           <div className="col s1 l3">

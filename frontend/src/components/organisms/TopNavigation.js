@@ -1,5 +1,5 @@
 // External imports
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import classNames from 'classnames';
 import M from 'materialize-css';
@@ -24,13 +24,13 @@ export function TopNavigationBase(props) {
   }, []);
 
   return (
-    <Fragment>
+    <>
       <nav className={'top-menu'}>
         <div className="nav-wrapper">
           <Link
             to="/"
             className={classNames('brand-logo', 'left')}
-            style={{ marginLeft: '55px' }}
+            style={{ marginLeft: '15px' }}
           >
             Pomodoro
           </Link>
@@ -39,7 +39,7 @@ export function TopNavigationBase(props) {
           </a>
           <ul className="right hide-on-med-and-down">
             <li>
-              <NavLink to="/timer">Timer</NavLink>
+              <NavLink to="/">Timer</NavLink>
             </li>
             <li>
               <NavLink to="/group/Testovací skupina"
@@ -49,7 +49,7 @@ export function TopNavigationBase(props) {
             {/*  <NavLink to="/protected">Protected Route</NavLink>*/}
             {/*</li>*/}
             {user ? (
-              <Fragment>
+              <>
                 <li>
                   <a className="white-text btn-flat">
                     <i className="material-icons left">account_circle</i>{' '}
@@ -73,9 +73,9 @@ export function TopNavigationBase(props) {
                     Sign Out
                   </a>
                 </li>
-              </Fragment>
+              </>
             ) : (
-              <Fragment>
+              <>
                 <li>
                   <NavLink to="/login">Log In</NavLink>
                 </li>
@@ -87,7 +87,7 @@ export function TopNavigationBase(props) {
                     Sign Up
                   </NavLink>
                 </li>
-              </Fragment>
+              </>
             )}
           </ul>
         </div>
@@ -104,7 +104,7 @@ export function TopNavigationBase(props) {
           </Link>
         </li>
         <li>
-          <Link to="/timer" className={classNames('sidenav-close')}>
+          <Link to="/" className={classNames('sidenav-close')}>
             Timer
           </Link>
         </li>
@@ -115,7 +115,7 @@ export function TopNavigationBase(props) {
           </Link>
         </li>
       </ul>
-    </Fragment>
+    </>
   );
 }
 
