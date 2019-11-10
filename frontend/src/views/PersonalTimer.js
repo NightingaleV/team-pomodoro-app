@@ -14,7 +14,7 @@ export function PersonalTimer({ children }) {
 
       <div className="container">
         <div className="col s12">
-          <PomodoroCycle></PomodoroCycle>
+          <PomodoroCycle/>
         </div>
       </div>
     </Fragment>

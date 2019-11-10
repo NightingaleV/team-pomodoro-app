@@ -80,7 +80,6 @@ export function SignIn(props) {
 
   return (
     <Fragment>
-      <TopNavigation />
       <div className="blue lighten-5">
         <div className="container">
           <div className="row">
@@ -137,7 +136,6 @@ export function SignIn(props) {
 export function RegistrationComplete() {
   return (
     <Fragment>
-      <TopNavigation></TopNavigation>
       <div className="container">
         <SignUpSuccess />
       </div>

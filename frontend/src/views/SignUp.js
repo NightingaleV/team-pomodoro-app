@@ -114,7 +114,6 @@ export function SignUp(props) {
 
   return (
     <Fragment>
-      <TopNavigation />
       <div className="blue lighten-5">
         <div className="container">
           <div className="row">
@@ -184,7 +183,6 @@ export function RegistrationComplete() {
   const { user } = useAuth();
   return (
     <Fragment>
-      <TopNavigation></TopNavigation>
       <div className="container">
         <SignUpSuccess />
       </div>
