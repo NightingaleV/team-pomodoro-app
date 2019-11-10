@@ -26,7 +26,7 @@ export function SideNavigationBase() {
       <aside
         id="slide-out"
         className={
-          'sidenav sidenav-fixed main-menu blue-text'
+          'sidenav sidenav-fixed main-menu'
           // For fixed sidebar add 'sidenav-fixed'
         }
       >
@@ -37,13 +37,13 @@ export function SideNavigationBase() {
           <li>
             <Link
               to="/MainGroup"
-              className={classNames('sidenav-close', 'blue-text')}
+              className={classNames('sidenav-close')}
             >
               <i className="material-icons ">navigate_next</i> MainGroup
             </Link>
             <Link
               to="/MainGroup"
-              className={classNames('sidenav-close', 'blue-text')}
+              className={classNames('sidenav-close')}
             >
               <i className="material-icons">navigate_next</i> Group 2
             </Link>
@@ -55,12 +55,12 @@ export function SideNavigationBase() {
             <a className="subheader">Subheader</a>
           </li>
           <li>
-            <a href="#!" className={'blue-text'}>
+            <a href="#!">
               <i className="material-icons">cloud</i>First Link With Icon
             </a>
           </li>
           <li>
-            <a href="#!" className={'blue-text'}>
+            <a href="#!">
               <i className="material-icons">group</i> Groups
             </a>
           </li>
@@ -69,7 +69,7 @@ export function SideNavigationBase() {
             <a className="subheader">Subheader</a>
           </li>
           <li>
-            <a className="waves-effect blue-text" href="#!">
+            <a className="waves-effect" href="#!">
               Third Link With Waves
             </a>
           </li>
