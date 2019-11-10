@@ -7,8 +7,14 @@ import dotenv from 'dotenv';
 
 // Internal imports
 import { User } from '../models/User';
-import { validateUser, createUser, addTimer, addGroup, selectUserWithGroups } from '../controllers/user';
-import auth from '../../../middleware/auth';
+import {
+  validateUser,
+  createUser,
+  addTimer,
+  addGroup,
+  selectUserWithGroups,
+} from '../controllers/user';
+import auth from '../middleware/auth';
 
 dotenv.config();
 const router = express.Router();

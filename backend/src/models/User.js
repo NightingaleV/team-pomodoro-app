@@ -19,11 +19,12 @@ const UserSchema = new mongoose.Schema({
   },
   timerIDs: {
     type: [mongoose.Schema.Types.ObjectId],
-    default: []
+    ref: 'Timer',
+    default: [],
   },
   groupIDs: {
     type: [mongoose.Schema.Types.ObjectId],
-    default: []
+    default: [],
   },
 });
 

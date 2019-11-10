@@ -12,39 +12,33 @@ import { GroupDetail } from '../../views/GroupDetail';
 import { async } from 'rxjs/internal/scheduler/async';
 // Assets
 
-
 function setGroups(props) {
-  try 
-   {
-     const userGroups = props.userGroups[0].userGroups;
-     /*console.log('props',userGroups)*/
-      const result = userGroups.map(group => (
-       <div key={group._id}>
+  try {
+    const userGroups = props.userGroups[0].userGroups;
+    /*console.log('props',userGroups)*/
+    const result = userGroups.map(group => (
+      <div key={group._id}>
         <li>
-        <Link
-          to={"/group/" + group.name}
-          className={classNames('sidenav-close', 'white-text')}
-        >
-        <i className="material-icons white-text"
-        >group</i>{' '}
-        {group.name}
-        </Link>
-      </li>
-    </div>
+          <Link
+            to={'/group/' + group.name}
+            className={classNames('sidenav-close', 'white-text')}
+          >
+            <i className="material-icons white-text">group</i> {group.name}
+          </Link>
+        </li>
+      </div>
     ));
 
     return result;
-   }
-   catch (err) {
-   /* console.log(err)*/
-   }
-  return ;
+  } catch (err) {
+    /* console.log(err)*/
+  }
+  return;
 }
-
 
 export function SideNavigationBase() {
   const { user } = useAuth();
-  const [userGroups, setUserGroups] = useState({ name: []});
+  const [userGroups, setUserGroups] = useState({ name: [] });
 
   useEffect(() => {
     const fetchUserGroups = async () => {
@@ -53,10 +47,9 @@ export function SideNavigationBase() {
           headers: {
             'Content-Type': 'application/json',
           },
-            params: { 
-              email: user && user.email
+          params: {
+            email: user && user.email,
           },
-          
         };
 
         const res = await axios.get('api/user/userGroups', config);
@@ -65,7 +58,7 @@ export function SideNavigationBase() {
       } catch (err) {
         /*console.log(err);*/
       }
-    }
+    };
     fetchUserGroups();
   }, []);
 
@@ -101,8 +94,8 @@ export function SideNavigationBase() {
           </span>
 
           {setGroups(userGroups)}
-          
-         <li>
+
+          <li>
             <div className="divider"></div>
           </li>
           <li>
@@ -112,7 +105,6 @@ export function SideNavigationBase() {
             <a href="#!" className={'white-text'}>
               <i className="material-icons white-text">add</i>
               New group
-
             </a>
           </li>
         </ul>

@@ -42,56 +42,61 @@ export async function createUser(req, res) {
   console.log(req.body);
 }
 
-export async function addTimer(req, res){
-  try{        
-    const {email, timerID} = req.body;       
-    await User.updateOne({"email": email}, {$push: {"timerIDs": timerID}});        
-    await res.json({msg: "Timer added to the user"});
-  }catch(err){
-      console.log(err);
-      return res.status(500).send('Server Error, Try it later');
+export async function addTimer(req, res) {
+  try {
+    const { email, timerID } = req.body;
+    await User.updateOne({ email: email }, { $push: { timerIDs: timerID } });
+    await res.json({ msg: 'Timer added to the user' });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send('Server Error, Try it later');
   }
 }
 
-export async function addGroup(req, res){
-  try{        
-    const {email, groupID} = req.body;       
-    await User.updateOne({"email": email}, {$push: {"groupIDs": groupID}});        
-    await res.json({msg: "Group added to the users groups"});
-  }catch(err){
-      console.log(err);
-      return res.status(500).send('Server Error, Try it later');
+export async function addGroup(req, res) {
+  try {
+    const { email, groupID } = req.body;
+    await User.updateOne({ email: email }, { $push: { groupIDs: groupID } });
+    await res.json({ msg: 'Group added to the users groups' });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send('Server Error, Try it later');
   }
 }
 
-export async function selectUserWithGroups(req, res){
-  try{    
-    const email = req.query.email;               
-        
+export async function selectUserWithGroups(req, res) {
+  try {
+    const email = req.query.email;
+
     const userGroups = await User.aggregate([
       {
-        $match:{         
-          'email': email
-        }
+        $match: {
+          email: email,
+        },
       },
       {
-        $lookup:
-        {
-          from: "groups",
-          localField: "groupIDs",
-          foreignField: "_id",
-          as: "userGroups"
-        },              
-      },                     
+        $lookup: {
+          from: 'groups',
+          localField: 'groupIDs',
+          foreignField: '_id',
+          as: 'userGroups',
+        },
+      },
       {
-        $project: {"groupIDs":0, "timerIDs":0, "password": 0, "userGroups.userIDs":0}}
+        $project: {
+          groupIDs: 0,
+          timerIDs: 0,
+          password: 0,
+          'userGroups.userIDs': 0,
+        },
+      },
     ]);
 
-    await res.json({userGroups: userGroups});
-  }catch (err) {
+    await res.json({ userGroups: userGroups });
+  } catch (err) {
     return res.status(500).send('Server Error');
   }
-};
+}
 
 // VALIDATION
 //------------------------------------------------------------------------------

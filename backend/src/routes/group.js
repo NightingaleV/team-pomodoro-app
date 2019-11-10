@@ -3,7 +3,13 @@ import express from 'express';
 
 //Internal imports
 import { groups } from '../models/GroupMocks';
-import {selectGroupByName, createGroup, addMember, selectGroupsByUser, selectAllGroups} from '../controllers/group';
+import {
+  selectGroupByName,
+  createGroup,
+  addMember,
+  selectGroupsByUser,
+  selectAllGroups,
+} from '../controllers/group';
 
 const router = express.Router();
 
