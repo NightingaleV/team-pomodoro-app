@@ -12,24 +12,24 @@ const BUTTON_SHAPES = {
 
 const ACTION_BUTTONS = {
   play: {
-    color: '',
+    color: 'blue',
     icon: 'play_arrow',
   },
   pause: {
-    color: 'amber',
+    color: 'blue',
     icon: 'pause',
   },
   stop: {
-    color: 'red',
+    color: 'blue',
     icon: 'stop',
   },
   restart: {
-    color: 'deep-purple',
+    color: 'blue',
     icon: 'loop',
   },
 
   dropdown: {
-    color: 'teal',
+    color: '',
     icon: 'more_vert',
   },
 };
