@@ -22,68 +22,65 @@ export function SideNavigationBase() {
   }, []);
 
   return (
-    <Fragment>
+    <>
       <aside
         id="slide-out"
         className={
-          'sidenav main-menu blue white-text'
+          'sidenav sidenav-fixed main-menu blue-text'
           // For fixed sidebar add 'sidenav-fixed'
         }
       >
-        <h5 className={'link white-text brand-logo center'}>SideBar</h5>
         <ul>
-          <span
-            className={'link white-text'}
-            style={{ marginLeft: '30px', fontSize: '18pt' }}
-          >
-            Groups
-          </span>
+          <li>
+            <a className="subheader">Groups</a>
+          </li>
           <li>
             <Link
               to="/MainGroup"
-              className={classNames('sidenav-close', 'white-text')}
+              className={classNames('sidenav-close', 'blue-text')}
             >
-              <i className="material-icons white-text">navigate_next</i>{' '}
+              <i className="material-icons ">navigate_next</i>{' '}
               MainGroup
             </Link>
             <Link
               to="/MainGroup"
-              className={classNames('sidenav-close', 'white-text')}
+              className={classNames('sidenav-close', 'blue-text')}
             >
-              <i className="material-icons white-text">navigate_next</i> Group 2
+              <i className="material-icons">navigate_next</i> Group 2
             </Link>
           </li>
           <li>
-            <div className="divider white-text"></div>
+            <div className="divider"></div>
           </li>
           <li>
-            <a className="subheader white-text">Subheader</a>
+            <a className="subheader">Subheader</a>
           </li>
           <li>
-            <a href="#!" className={'white-text'}>
-              <i className="material-icons white-text">cloud</i>First Link With
+            <a href="#!" className={'blue-text'}>
+              <i className="material-icons">cloud</i>First Link With
               Icon
             </a>
           </li>
           <li>
-            <a href="#!" className={'white-text'}>
-              <i className="material-icons white-text">group</i> Groups
+            <a href="#!" className={'blue-text'}>
+              <i className="material-icons">group</i> Groups
             </a>
           </li>
+          <div className="divider"></div>
           <li>
-            <a className="subheader white-text">Subheader</a>
+            <a className="subheader">Subheader</a>
           </li>
           <li>
-            <a className="waves-effect white-text" href="#!">
+            <a className="waves-effect blue-text" href="#!">
               Third Link With Waves
             </a>
           </li>
         </ul>
       </aside>
-      <a href="#" data-target="slide-out" className="sidenav-trigger">
-        <i className="material-icons">menu</i>
-      </a>
-    </Fragment>
+      {/*<a href="#" data-target="slide-out" className="sidenav-trigger hide-on-large-only">*/}
+      {/*  <i className="material-icons">more_vert</i>*/}
+      {/*</a>*/}
+    </>
   );
 }
 
