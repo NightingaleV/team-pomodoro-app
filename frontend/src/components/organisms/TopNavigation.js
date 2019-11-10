@@ -4,6 +4,7 @@ import { withRouter, Redirect } from 'react-router-dom';
 import classNames from 'classnames';
 import M from 'materialize-css';
 // Internal imports
+import { GroupDetail } from '../../views/GroupDetail';
 import { Link, NavLink } from '../atoms/Link';
 import { useAuth } from '../../utils/useAuth';
 import { useApi } from '../../utils/useApi';
@@ -41,7 +42,8 @@ export function TopNavigationBase(props) {
               <NavLink to="/timer">Timer</NavLink>
             </li>
             <li>
-              <NavLink to="/group">GroupDetail</NavLink>
+              <NavLink to="/group/Testovací skupina"
+              >Testovací skupina</NavLink>
             </li>
             {/*<li>*/}
             {/*  <NavLink to="/protected">Protected Route</NavLink>*/}
@@ -107,8 +109,9 @@ export function TopNavigationBase(props) {
           </Link>
         </li>
         <li>
-          <Link to="/group" className={classNames('sidenav-close')}>
-            GroupDetail
+          <Link to="/group/Testovací skupina" className={classNames('sidenav-close')}
+          >
+            Testovací skupina
           </Link>
         </li>
       </ul>

@@ -7,11 +7,31 @@ import {
 import axios from 'axios';
 
 
+function setGroupName (props){
+  try {
+    const groupName = props.location.pathname
+    var str = groupName
+    str = str.split('/')
 
-export function GroupDetail() {
+    console.log('str',str);
+    
+    return str[2]
+  } catch (err) {
+    console.log(err);
+  }
+
+return 'Testovací skupina'
+}
+
+
+
+
+export function GroupDetail(props) {
   const [group, setGroup] =  useState({ name: '', members: [] });
 
-  useEffect(() => {
+  console.log('props:', props);
+
+    useEffect(() => {
     const fetchData = async () => {
       try {
         const config = {
@@ -19,12 +39,12 @@ export function GroupDetail() {
             'Content-Type': 'application/json',
           },
           params: {
-            groupName: 'Testovací skupina',
+            groupName: setGroupName(props) /*'Testovací skupina'*/,
           },
         };
 
         const res = await axios.get('api/group/', config);
-        /*console.log('Result:', res.data);*/
+        console.log('Result:', res.data);
         setGroup(res.data);
       } catch (err) {
         /*console.log(err);*/

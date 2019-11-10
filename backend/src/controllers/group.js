@@ -13,7 +13,7 @@ export async function selectGroupByName(req, res){
             {
               $match:{         
                   'name': groupName
-                // '_id': mongoose.Types.ObjectId(groupID)
+                  //'_id': mongoose.Types.ObjectId(groupID)
               }
             },      
             {

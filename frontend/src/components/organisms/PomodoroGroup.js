@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 function setGroupName(props){
   const group = props;
   try {
-    return <div className="groupName">{group.name}</div>
+    return <div className="groupName">{group._id.name}</div>
   } catch (err) {
     /*console.log(err);*/
  }
@@ -14,9 +14,9 @@ return;
 // udelej z toho molekulu
 function setUsers(props) {
   const group = props;
- /*console.log('members: ',group);*/  
+ /*console.log('members: ',group);*/
   try {
-      const result = group.members.map(member => (
+      const result = group._id.members.map(member => (
         <div className="col s6 m4 l3" key={member.email}>
           <div className="card">
             <div className="card-image">
@@ -40,7 +40,7 @@ function setUsers(props) {
      /* console.log('members: ',group.members);*/
       return result;
   } catch (err) {
-     /*console.log(err);*/
+    /* console.log(err);*/
   }
   return;
 }

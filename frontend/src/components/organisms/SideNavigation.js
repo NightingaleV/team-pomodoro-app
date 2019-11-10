@@ -4,9 +4,11 @@ import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import M from 'materialize-css';
 import axios from 'axios';
+
 // Internal imports
 import { Link } from '../atoms/Link';
 import { useAuth } from '../../utils/useAuth';
+import { GroupDetail } from '../../views/GroupDetail';
 import { async } from 'rxjs/internal/scheduler/async';
 // Assets
 
@@ -23,7 +25,8 @@ function setGroups(props) {
           to={"/group/" + group.name}
           className={classNames('sidenav-close', 'white-text')}
         >
-        <i className="material-icons white-text">group</i>{' '}
+        <i className="material-icons white-text"
+        >group</i>{' '}
         {group.name}
         </Link>
       </li>
@@ -57,7 +60,7 @@ export function SideNavigationBase() {
         };
 
         const res = await axios.get('api/user/userGroups', config);
-        console.log('Result:', res.data);
+        /*console.log('Result:', res.data);*/
         setUserGroups(res.data);
       } catch (err) {
         /*console.log(err);*/
