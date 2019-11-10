@@ -4,32 +4,28 @@ import {
 } from '../components/organisms';
 import axios from 'axios';
 
-
-function setGroupName (props){
+function setGroupName(props) {
   try {
-    const groupName = props.location.pathname
-    var str = groupName
-    str = str.split('/')
+    const groupName = props.location.pathname;
+    var str = groupName;
+    str = str.split('/');
 
-    console.log('str',str);
-    
-    return str[2]
+    console.log('str', str);
+
+    return str[2];
   } catch (err) {
     console.log(err);
   }
 
-return 'Testovací skupina'
+  return 'Testovací skupina';
 }
 
-
-
-
 export function GroupDetail(props) {
-  const [group, setGroup] =  useState({ name: '', members: [] });
+  const [group, setGroup] = useState({ name: '', members: [] });
 
  /*console.log('props:', props);*/
 
-    useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const config = {
@@ -47,8 +43,7 @@ export function GroupDetail(props) {
       } catch (err) {
         console.log(err);
       }
-    }
-
+    };
     fetchData();
   }, []);
 

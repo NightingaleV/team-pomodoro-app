@@ -42,8 +42,7 @@ export function TopNavigationBase(props) {
               <NavLink to="/">Timer</NavLink>
             </li>
             <li>
-              <NavLink to="/group/Testovací skupina"
-              >Testovací skupina</NavLink>
+              <NavLink to="/group/Testovací skupina">Testovací skupina</NavLink>
             </li>
             {/*<li>*/}
             {/*  <NavLink to="/protected">Protected Route</NavLink>*/}
@@ -109,7 +108,9 @@ export function TopNavigationBase(props) {
           </Link>
         </li>
         <li>
-          <Link to="/group/Testovací skupina" className={classNames('sidenav-close')}
+          <Link
+            to="/group/Testovací skupina"
+            className={classNames('sidenav-close')}
           >
             Testovací skupina
           </Link>

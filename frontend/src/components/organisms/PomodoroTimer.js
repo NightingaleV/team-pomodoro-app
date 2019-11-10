@@ -53,22 +53,37 @@ export function PomodoroTimer(props) {
       },
       timeout: 5000,
     };
-    await axios.get('api/timer', config).then(res => {
-      const { remTime, isRunning, settings, _id, indexInCycle } = res.data;
-      setTimerState(prevState => {
-        return {
-          ...prevState,
-          timerID: _id,
-          remTime: remTime,
-          settings: settings,
-          isRunning: isRunning,
-          indexInCycle: indexInCycle,
-        };
+    await axios
+      .get('api/timer', config)
+      .then(res => {
+        if (res.data) {
+          const { remTime, isRunning, settings, _id, indexInCycle } = res.data;
+
+          setTimerState(prevState => {
+            return {
+              ...prevState,
+              timerID: _id,
+              remTime: remTime,
+              settings: settings,
+              isRunning: isRunning,
+              indexInCycle: indexInCycle,
+            };
+          });
+          if (isRunning) {
+            startTimer();
+          }
+        }
+        // If there is no timer
+        else {
+          sendNewTimerData(timerState);
+        }
+      })
+      .catch(err => {
+        console.log(err);
       });
-    });
   }
   // Update current timer
-  async function postTimerData(state) {
+  async function updateTimerData(state) {
     if (state.timerID) {
       const requestConfig = {
         headers: {
@@ -86,7 +101,36 @@ export function PomodoroTimer(props) {
       };
       const body = JSON.stringify(timerToUpdate);
       await axios.post('api/timer/update', body, requestConfig).then(res => {
-        console.log(res.data);
+        console.log('From DB', res.data);
+      });
+    }
+  }
+
+  async function sendNewTimerData(state) {
+    if (!state.timerID) {
+      const requestConfig = {
+        headers: {
+          'x-auth-token': token,
+          'Content-Type': 'application/json',
+        },
+        timeout: 5000,
+      };
+      const newTimer = {
+        remTime: state.remTime,
+        settings: state.settings,
+        isRunning: state.isRunning,
+        indexInCycle: state.indexInCycle,
+      };
+      const body = JSON.stringify(newTimer);
+      await axios.post('api/timer/save', body, requestConfig).then(res => {
+        const { _id } = res.data.timer;
+
+        setTimerState(prevState => {
+          return {
+            ...prevState,
+            timerID: _id,
+          };
+        });
       });
     }
   }
@@ -98,22 +142,22 @@ export function PomodoroTimer(props) {
   });
   useEffect(() => {
     dispatchTimerLoading(fetchTimerData);
-    console.log(timerLoadingState);
+    console.log('TimerRunning', timerState.isRunning);
 
     if (!timerState.isRunning & !timerState.timerID) {
       // console.log(pomodoroCycles);
       initNextTimerInRow();
+      console.log(timerState);
     }
   }, []);
 
-  // EXAMPLE of UsePromise hooku
-
   useEffect(() => {
+    // WHY NOT WORKING
     // api.get('timer').then(({ data }) => {
     //   console.log('Response');
     //   console.log(data);
     // });
-    postTimerData(timerState);
+    updateTimerData(timerState);
   }, [timerState.isRunning]);
 
   useEffect(() => {
@@ -124,10 +168,16 @@ export function PomodoroTimer(props) {
   }, [currentSettings]);
 
   useEffect(() => {
+    updateTimerData(timerState);
+  }, [timerState.settings]);
+
+  useEffect(() => {
     updateProgressBar();
-    console.log(timerState.isRunning);
-    if (timerState.isRunning & (timerState.remTime % 10 === 0)) {
-      postTimerData(timerState);
+    // console.log('Timer Is Running', timerState.isRunning);
+    // Post Timer to db every 10 sec
+    const sendEveryNumOfSec = 5;
+    if (timerState.isRunning & (timerState.remTime % sendEveryNumOfSec === 0)) {
+      updateTimerData(timerState);
     }
   }, [timerState.remTime]);
 

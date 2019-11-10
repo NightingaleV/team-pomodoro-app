@@ -28,6 +28,7 @@ const TimerSchema = new mongoose.Schema({
   userID: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
+    ref: 'User',
   },
   createdAt: {
     type: Date,

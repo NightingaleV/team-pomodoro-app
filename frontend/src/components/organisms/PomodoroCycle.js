@@ -112,9 +112,7 @@ export function PomodoroCycle(props) {
   function setShortBreak() {
     cleanIterations();
     // Pick Settings
-    setPomodoroCycles(prevIterations => {
-      return [...prevIterations, null];
-    });
+    setPomodoroCycles([null]);
     const iterationSetting = POMODORO_SETTINGS.shortBreak;
     // Recreate it
     setNewTimerToCycle(iterationSetting);
@@ -124,7 +122,7 @@ export function PomodoroCycle(props) {
     cleanIterations();
     // Pick Settings
     setPomodoroCycles(prevIterations => {
-      return [...prevIterations, null, null, null, null, null, null, null];
+      return [null, null, null, null, null, null, null];
     });
     const iterationSetting = POMODORO_SETTINGS.longBreak;
     // Recreate it
