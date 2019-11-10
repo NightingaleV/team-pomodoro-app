@@ -1,6 +1,6 @@
 // External imports
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 // Internal imports
 import {
   LandingPage,
@@ -15,7 +15,10 @@ import { ProtectedRoute } from './components/ProtectedRoutes';
 export function Routes() {
   return (
     <Switch>
-      <Route path="/timer" exact component={PersonalTimer} />
+      <Route exact path="/" render={() => (
+          <Redirect to="/timer"/>
+      )}/>
+      <Route exact path="/timer" component={PersonalTimer} />
       <Route path="/login" component={SignIn} />
       {/*<ProtectedRoute*/}
       {/*  exact*/}

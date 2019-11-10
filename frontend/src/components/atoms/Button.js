@@ -29,7 +29,7 @@ const ACTION_BUTTONS = {
   },
 
   dropdown: {
-    color: '',
+    color: 'amber',
     icon: 'more_vert',
   },
 };

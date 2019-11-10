@@ -21,7 +21,7 @@ export function DropdownTimerMenu(props) {
   }, []);
 
   return (
-    <Fragment>
+    <>
       <Button
         shape={'bigBtn'}
         actionButton={'dropdown'}
@@ -50,7 +50,7 @@ export function DropdownTimerMenu(props) {
           </a>
         </li>
       </ul>
-    </Fragment>
+    </>
   );
 }
 
