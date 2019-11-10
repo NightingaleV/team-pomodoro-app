@@ -30,7 +30,7 @@ export async function selectLastTimer(req, res) {
 }
 
 export async function createTimer(req, res) {
-  const { isRunning, remTime, settings, progressBar, indexInCycle } = req.body;
+  const { isRunning, remTime, settings, indexInCycle } = req.body;
   const userID = req.user.id;
   try {
     let timer;
@@ -39,8 +39,8 @@ export async function createTimer(req, res) {
       isRunning,
       remTime,
       settings,
-      indexInCycle,
       userID,
+      indexInCycle,
     });
 
     //save timer to database

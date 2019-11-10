@@ -7,7 +7,13 @@ import dotenv from 'dotenv';
 
 // Internal imports
 import { User } from '../models/User';
-import { validateUser, createUser } from '../controllers/user';
+import {
+  validateUser,
+  createUser,
+  addTimer,
+  addGroup,
+  selectUserWithGroups,
+} from '../controllers/user';
 import auth from '../middleware/auth';
 
 dotenv.config();
@@ -89,5 +95,20 @@ router.post(
     console.log(req.body);
   },
 );
+
+// @route   POST api/user/addTimer
+// @desc    Add timer to user
+// @access  Private
+router.post('/addTimer', addTimer);
+
+// @route   POST api/user/addGroup
+// @desc    Add group to users groups
+// @access  Private
+router.post('/addGroup', addGroup);
+
+// @route   POST api/user/addGroup
+// @desc    Select user with groups
+// @access  Private
+router.get('/userGroups', selectUserWithGroups);
 
 export { router as userRouter };

@@ -17,6 +17,15 @@ const UserSchema = new mongoose.Schema({
   avatar: {
     type: String,
   },
+  timerIDs: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Timer',
+    default: [],
+  },
+  groupIDs: {
+    type: [mongoose.Schema.Types.ObjectId],
+    default: [],
+  },
 });
 
 UserSchema.pre('save', function(next) {
