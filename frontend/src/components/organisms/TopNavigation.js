@@ -27,7 +27,7 @@ export function TopNavigationBase(props) {
       <nav className={'top-menu'}>
         <div className="nav-wrapper">
           <Link
-            to="/"
+            to="/timer"
             className={classNames('brand-logo', 'left')}
             style={{ marginLeft: '30px' }}
           >
@@ -38,7 +38,7 @@ export function TopNavigationBase(props) {
           </a>
           <ul className="right hide-on-med-and-down">
             <li>
-              <NavLink to="/">Timer</NavLink>
+              <NavLink to="/timer">Timer</NavLink>
             </li>
             <li>
               <NavLink to="/group">GroupDetail</NavLink>

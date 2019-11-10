@@ -32,11 +32,11 @@ export function PomodoroGroup(props) {
 
   return (
     // udelej nekdy z toho molekulu ...
-    <Fragment>
+    <>
       <div className="group">
         <div className="groupName">{group.name}</div>
         <div className="row">{setUsers(group.members)}</div>
       </div>
-    </Fragment>
+    </>
   );
 }

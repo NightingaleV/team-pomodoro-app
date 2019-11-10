@@ -15,7 +15,7 @@ import { ProtectedRoute } from './components/ProtectedRoutes';
 export function Routes() {
   return (
     <Switch>
-      <Route path="/" exact component={PersonalTimer} />
+      <Route path="/timer" exact component={PersonalTimer} />
       <Route path="/login" component={SignIn} />
       {/*<ProtectedRoute*/}
       {/*  exact*/}
