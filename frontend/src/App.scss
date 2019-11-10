@@ -9,6 +9,7 @@ $secondary-color: color('blue', 'accent-1') !default;
 @import './components/organisms/PomodoroGroup';
 @import './components/organisms/TopNavigation';
 @import './components/organisms/SideNavigation';
+@import './views/SignIn';
 .parallax-container {
   height: 400px;
 }
