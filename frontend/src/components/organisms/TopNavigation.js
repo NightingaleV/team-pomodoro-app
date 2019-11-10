@@ -80,7 +80,7 @@ export function TopNavigationBase(props) {
                 <li>
                   <NavLink
                     to="/register"
-                    className={'waves-effect waves-light btn'}
+                    className={'waves-effect waves-light btn amber'}
                   >
                     Sign Up
                   </NavLink>
