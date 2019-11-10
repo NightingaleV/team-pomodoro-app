@@ -6,7 +6,7 @@ import { convertMinToSec, formatTime } from '../../utils/pomodoroUtils';
 import { useApi } from '../../utils/useApi';
 import { useAuth } from '../../utils/useAuth';
 import { usePromise } from '../../utils/usePromise';
-import { useFetchRequest } from '../../utils/useFetchRequest';
+// import { useFetchRequest } from '../../utils/useFetchRequest';
 import axios from 'axios';
 
 export function PomodoroTimer(props) {
@@ -100,10 +100,10 @@ export function PomodoroTimer(props) {
     dispatchTimerLoading(fetchTimerData);
     console.log(timerLoadingState);
 
-    // if (!timerState.isRunning) {
-    //   // console.log(pomodoroCycles);
-    //   initNextTimerInRow();
-    // }
+    if (!timerState.isRunning & !timerState.timerID) {
+      // console.log(pomodoroCycles);
+      initNextTimerInRow();
+    }
   }, []);
 
   // EXAMPLE of UsePromise hooku

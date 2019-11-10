@@ -55,7 +55,7 @@ export function SignIn(props) {
         // localStorage.setItem('jwt-token', token);
         console.log(user);
         auth.signin({ token, user });
-        history.replace('/timer');
+        history.replace('/');
       })
       .catch(err => {
         console.log('Not Able to Load DB');
