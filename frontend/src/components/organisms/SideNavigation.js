@@ -36,16 +36,15 @@ export function SideNavigationBase() {
           </li>
           <li>
             <Link
-              to="/MainGroup"
+              to="/group"
               className={classNames('sidenav-close')}
             >
-              <i className="material-icons ">navigate_next</i> MainGroup
-            </Link>
+              <i className="material-icons ">navigate_next</i>Group</Link>
             <Link
-              to="/MainGroup"
+              to="#!"
               className={classNames('sidenav-close')}
             >
-              <i className="material-icons">navigate_next</i> Group 2
+              <i className="material-icons">navigate_next</i>Group 2
             </Link>
           </li>
           <li>

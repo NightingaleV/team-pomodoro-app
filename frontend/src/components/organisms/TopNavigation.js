@@ -41,7 +41,7 @@ export function TopNavigationBase(props) {
               <NavLink to="/timer">Timer</NavLink>
             </li>
             <li>
-              <NavLink to="/group">GroupDetail</NavLink>
+              <NavLink to="/group">Group</NavLink>
             </li>
             {/*<li>*/}
             {/*  <NavLink to="/protected">Protected Route</NavLink>*/}
@@ -102,13 +102,13 @@ export function TopNavigationBase(props) {
           </Link>
         </li>
         <li>
-          <Link to="/" className={classNames('sidenav-close')}>
+          <Link to="/timer" className={classNames('sidenav-close')}>
             Timer
           </Link>
         </li>
         <li>
           <Link to="/group" className={classNames('sidenav-close')}>
-            GroupDetail
+            Group
           </Link>
         </li>
       </ul>

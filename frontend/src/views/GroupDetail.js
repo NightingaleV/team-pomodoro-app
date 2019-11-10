@@ -35,18 +35,8 @@ export function GroupDetail() {
   console.log('Group:', group);
 
   return (
-    <Fragment>
-      <div className="container">
-        <div className="row">
-          <div className="col s1 l3">
-            <SideNavigation></SideNavigation>
-          </div>
-
-          <div className="col s9">
+    <>
             <PomodoroGroup group={group}> </PomodoroGroup>
-          </div>
-        </div>
-      </div>
-    </Fragment>
+    </>
   );
 }
