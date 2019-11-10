@@ -81,7 +81,7 @@ export function SignIn(props) {
   return (
     <>
       <div className="login-form">
-        <h3>Create an account</h3>
+        <h3>Sign in to Pomodoro</h3>
         <form
           id={'authentication-form'}
           className={classNames('col l4 offset-l4 s6 offset-s3')}
@@ -112,9 +112,9 @@ export function SignIn(props) {
             </TextInput>
             <>
               {errors.backend &&
-              errors.backend.map((error, index) => {
-                return <ErrorBox key={index} errorMsg={error.msg} />;
-              })}
+                errors.backend.map((error, index) => {
+                  return <ErrorBox key={index} errorMsg={error.msg} />;
+                })}
             </>
             <div className={classNames('center-align', 'col s12')}>
               <Button type={'submit'} form={'authentication-form'}>
@@ -124,7 +124,6 @@ export function SignIn(props) {
           </div>
         </form>
       </div>
-
     </>
   );
 }
