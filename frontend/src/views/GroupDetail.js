@@ -6,11 +6,13 @@ import {
 } from '../components/organisms';
 import axios from 'axios';
 
+
+
 export function GroupDetail() {
-  const [group, setGroup] = useState({ name: '', members: [] });
+  const [group, setGroup] =  useState({ name: '', members: [] });
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       try {
         const config = {
           headers: {
@@ -21,32 +23,31 @@ export function GroupDetail() {
           },
         };
 
-        const res = await axios.get('api/group/detail', config);
-        console.log('Result:', res.data);
-        setGroup(res.data.filterGroup[0]);
+        const res = await axios.get('api/group/', config);
+        /*console.log('Result:', res.data);*/
+        setGroup(res.data);
       } catch (err) {
-        console.log('Error Statement');
+        /*console.log(err);*/
       }
     }
 
     fetchData();
   }, []);
 
-  console.log('Group:', group);
+  /*console.log('Group:', group.group);*/
 
   return (
     <Fragment>
-      <TopNavigation></TopNavigation>
+      <TopNavigation />
 
       <div className="container">
         <div className="row">
           <div className="col s1 l3">
-            <SideNavigation></SideNavigation>
+            <SideNavigation />
           </div>
-
-          <div className="col s9">
-            <PomodoroGroup group={group}> </PomodoroGroup>
-          </div>
+             <div className="col s9">
+               <PomodoroGroup group={group.group}/>
+            </div>
         </div>
       </div>
     </Fragment>

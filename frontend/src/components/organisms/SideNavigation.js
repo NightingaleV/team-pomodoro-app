@@ -1,13 +1,71 @@
 // External imports
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import M from 'materialize-css';
+import axios from 'axios';
 // Internal imports
 import { Link } from '../atoms/Link';
+import { useAuth } from '../../utils/useAuth';
+import { async } from 'rxjs/internal/scheduler/async';
 // Assets
 
+
+function setGroups(props) {
+  try 
+   {
+     const userGroups = props.userGroups[0].userGroups;
+     /*console.log('props',userGroups)*/
+      const result = userGroups.map(group => (
+       <div key={group._id}>
+        <li>
+        <Link
+          to={"/group/" + group.name}
+          className={classNames('sidenav-close', 'white-text')}
+        >
+        <i className="material-icons white-text">group</i>{' '}
+        {group.name}
+        </Link>
+      </li>
+    </div>
+    ));
+
+    return result;
+   }
+   catch (err) {
+   /* console.log(err)*/
+   }
+  return ;
+}
+
+
 export function SideNavigationBase() {
+  const { user } = useAuth();
+  const [userGroups, setUserGroups] = useState({ name: []});
+
+  useEffect(() => {
+    const fetchUserGroups = async () => {
+      try {
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+            params: { 
+              email: user && user.email
+          },
+          
+        };
+
+        const res = await axios.get('api/user/userGroups', config);
+        console.log('Result:', res.data);
+        setUserGroups(res.data);
+      } catch (err) {
+        /*console.log(err);*/
+      }
+    }
+    fetchUserGroups();
+  }, []);
+
   function initSidebarMenu() {
     const sideNavElement = document.querySelector('.main-menu');
     const options = {};
@@ -30,7 +88,7 @@ export function SideNavigationBase() {
           // For fixed sidebar add 'sidenav-fixed'
         }
       >
-        <h5 className={'link white-text brand-logo center'}>SideBar</h5>
+        <h5 className={'link white-text brand-logo center'}>Menu</h5>
         <ul>
           <span
             className={'link white-text'}
@@ -38,44 +96,19 @@ export function SideNavigationBase() {
           >
             Groups
           </span>
-          <li>
-            <Link
-              to="/MainGroup"
-              className={classNames('sidenav-close', 'white-text')}
-            >
-              <i className="material-icons white-text">navigate_next</i>{' '}
-              MainGroup
-            </Link>
-            <Link
-              to="/MainGroup"
-              className={classNames('sidenav-close', 'white-text')}
-            >
-              <i className="material-icons white-text">navigate_next</i> Group 2
-            </Link>
-          </li>
+
+          {setGroups(userGroups)}
+          
           <li>
             <div className="divider white-text"></div>
           </li>
           <li>
-            <a className="subheader white-text">Subheader</a>
+            <a className="subheader white-text">Manage</a>
           </li>
           <li>
             <a href="#!" className={'white-text'}>
-              <i className="material-icons white-text">cloud</i>First Link With
-              Icon
-            </a>
-          </li>
-          <li>
-            <a href="#!" className={'white-text'}>
-              <i className="material-icons white-text">group</i> Groups
-            </a>
-          </li>
-          <li>
-            <a className="subheader white-text">Subheader</a>
-          </li>
-          <li>
-            <a className="waves-effect white-text" href="#!">
-              Third Link With Waves
+              <i className="material-icons white-text">add</i>
+              New group
             </a>
           </li>
         </ul>
