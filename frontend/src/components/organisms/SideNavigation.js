@@ -23,9 +23,10 @@ function setGroups(props) {
         <li>
         <Link
           to={"/group/" + group.name}
-          className={classNames('sidenav-close', 'white-text')}
+          className={classNames('sidenav-close', 'blue-text')}
+          
         >
-        <i className="material-icons white-text"
+        <i className="material-icons black-text"
         >group</i>{' '}
         {group.name}
         </Link>
@@ -40,7 +41,6 @@ function setGroups(props) {
    }
   return ;
 }
-
 
 export function SideNavigationBase() {
   const { user } = useAuth();
@@ -59,15 +59,17 @@ export function SideNavigationBase() {
           
         };
 
-        const res = await axios.get('api/user/userGroups', config);
+        const res = await axios.get('../api/user/userGroups', config);
         /*console.log('Result:', res.data);*/
         setUserGroups(res.data);
       } catch (err) {
-        /*console.log(err);*/
+        console.log(err);
       }
     }
     fetchUserGroups();
   }, []);
+
+
 
   function initSidebarMenu() {
     const sideNavElement = document.querySelector('.main-menu');
@@ -91,10 +93,9 @@ export function SideNavigationBase() {
           // For fixed sidebar add 'sidenav-fixed'
         }
       >
-        <h5 className={'link white-text brand-logo center'}>Menu</h5>
-        <ul>
+          <ul>
           <span
-            className={'link white-text'}
+            className={'subheade'}
             style={{ marginLeft: '30px', fontSize: '18pt' }}
           >
             Groups
@@ -106,11 +107,11 @@ export function SideNavigationBase() {
             <div className="divider"></div>
           </li>
           <li>
-            <a className="subheader white-text">Manage</a>
+            <a className="subheader blue-text">Manage</a>
           </li>
           <li>
-            <a href="#!" className={'white-text'}>
-              <i className="material-icons white-text">add</i>
+            <a href="#!" className={'blue-text'}>
+              <i className="material-icons black-text">add</i>
               New group
 
             </a>
