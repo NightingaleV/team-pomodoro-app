@@ -1,15 +1,78 @@
 //Internal imports
 import { Group } from '../models/Group';
+import { Timer } from '../models/Timer';
 
 // LOGIC
 //------------------------------------------------------------------------------
-//TO-DO Select by groupID instead of groupName?
+// TO-DO Select by groupID instead of groupName?
+export async function selectGroupByName(req, res) {
+  try {
+    const groupName = req.query.groupName;
+    // const groupID = req.query.groupID;
+
+    const group = await Group.findOne({ name: groupName }, (err, docs) => {
+      let timers = docs.userIDs.map(function(doc) {
+        console.log(doc._id);
+        let timer = Timer.findOne({ userID: doc._id });
+      });
+    }).populate({
+      path: 'userIDs',
+      populate: {
+        path: 'timerIDs',
+        model: 'Timer',
+      },
+    });
+    // await res.json({groups: groups});
+    await res.json({ group: group });
+  } catch (err) {
+    return res.status(500).send('Server Error');
+  }
+}
 // export async function selectGroupByName(req, res) {
 //   try {
 //     const groupName = req.query.groupName;
 //     // const groupID = req.query.groupID;
 //
-//     const group = await Group.findOne({ name: groupName }).populate('userIDs');
+//     const groups = await Group.aggregate([
+//       {
+//         $match: {
+//           name: groupName,
+//           //'_id': mongoose.Types.ObjectId(groupID)
+//         },
+//       },
+//       {
+//         $lookup: {
+//           from: 'users',
+//           localField: 'userIDs',
+//           foreignField: '_id',
+//           as: 'members',
+//         },
+//       },
+//       {
+//         $lookup: {
+//           from: 'timers',
+//           localField: 'members.timerIDs',
+//           foreignField: '_id',
+//           as: 'timers',
+//         },
+//       },
+//       {
+//         $group: {
+//           _id: { name: '$name', members: '$members' },
+//         },
+//       },
+//       {
+//         $project: {
+//           userIDs: 0,
+//           'members.password': 0,
+//           'members.timerIDs': 0,
+//           'members.groupIDs': 0,
+//           'timers.userID': 0,
+//         },
+//       },
+//     ]);
+//
+//     const group = groups[0];
 //
 //     // await res.json({groups: groups});
 //     await res.json({ group: group });
@@ -17,58 +80,6 @@ import { Group } from '../models/Group';
 //     return res.status(500).send('Server Error');
 //   }
 // }
-export async function selectGroupByName(req, res) {
-  try {
-    const groupName = req.query.groupName;
-    // const groupID = req.query.groupID;
-
-    const groups = await Group.aggregate([
-      {
-        $match: {
-          name: groupName,
-          //'_id': mongoose.Types.ObjectId(groupID)
-        },
-      },
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'userIDs',
-          foreignField: '_id',
-          as: 'members',
-        },
-      },
-      {
-        $lookup: {
-          from: 'timers',
-          localField: 'members.timerIDs',
-          foreignField: '_id',
-          as: 'timers',
-        },
-      },
-      {
-        $group: {
-          _id: { name: '$name', members: '$members' },
-        },
-      },
-      {
-        $project: {
-          userIDs: 0,
-          'members.password': 0,
-          'members.timerIDs': 0,
-          'members.groupIDs': 0,
-          'timers.userID': 0,
-        },
-      },
-    ]);
-
-    const group = groups[0];
-
-    // await res.json({groups: groups});
-    await res.json({ group: group });
-  } catch (err) {
-    return res.status(500).send('Server Error');
-  }
-}
 
 export async function selectAllGroups(req, res) {
   try {
