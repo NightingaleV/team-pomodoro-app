@@ -19,14 +19,18 @@ function setGroups(props) {
     const result = userGroups.map(group => (
       <div key={group._id}>
         <li>
-          <Link
-            to={'/group/' + group.name}
-            className={classNames('sidenav-close', 'white-text')}
-          >
-            <i className="material-icons white-text">group</i> {group.name}
-          </Link>
-        </li>
-      </div>
+
+        <Link
+          to={"/group/" + group.name}
+          className={classNames('sidenav-close', 'blue-text')}
+
+        >
+        <i className="material-icons black-text"
+        >group</i>{' '}
+        {group.name}
+        </Link>
+      </li>
+    </div>
     ));
 
     return result;
@@ -52,15 +56,17 @@ export function SideNavigationBase() {
           },
         };
 
-        const res = await axios.get('api/user/userGroups', config);
+        const res = await axios.get('../api/user/userGroups', config);
         /*console.log('Result:', res.data);*/
         setUserGroups(res.data);
       } catch (err) {
-        /*console.log(err);*/
+        console.log(err);
       }
     };
     fetchUserGroups();
   }, []);
+
+
 
   function initSidebarMenu() {
     const sideNavElement = document.querySelector('.main-menu');
@@ -106,7 +112,7 @@ export function SideNavigationBase() {
             <div className="divider"></div>
           </li>
           <li>
-            <a className="subheader">Subheader</a>
+            <a className="subheader white-text">Manage</a>
           </li>
           <li>
             <a href="#!">

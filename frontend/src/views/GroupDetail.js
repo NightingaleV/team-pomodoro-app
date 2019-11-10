@@ -1,8 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import {
-  TopNavigation,
   PomodoroGroup,
-  SideNavigation,
 } from '../components/organisms';
 import axios from 'axios';
 
@@ -25,7 +23,7 @@ function setGroupName(props) {
 export function GroupDetail(props) {
   const [group, setGroup] = useState({ name: '', members: [] });
 
-  console.log('props:', props);
+ /*console.log('props:', props);*/
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,11 +37,11 @@ export function GroupDetail(props) {
           },
         };
 
-        const res = await axios.get('api/group/', config);
+        const res = await axios.get('../api/group/', config);
         console.log('Result:', res.data);
         setGroup(res.data);
       } catch (err) {
-        /*console.log(err);*/
+        console.log(err);
       }
     };
     fetchData();
