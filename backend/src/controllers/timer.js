@@ -56,6 +56,15 @@ export async function createTimer(req, res) {
         }
       },
     );
+
+    const user = User.findOneAndUpdate(
+      { _id: userID },
+      { $push: { timerIDs: timer._id } },
+      { new: true },
+      (err, result) => {
+        // Rest of the action goes here
+      },
+    );
   } catch (err) {
     console.log(err);
     return res.status(500).send('Server Error, Try it later');
