@@ -19,18 +19,14 @@ function setGroups(props) {
     const result = userGroups.map(group => (
       <div key={group._id}>
         <li>
-
-        <Link
-          to={"/group/" + group.name}
-          className={classNames('sidenav-close', 'blue-text')}
-
-        >
-        <i className="material-icons black-text"
-        >group</i>{' '}
-        {group.name}
-        </Link>
-      </li>
-    </div>
+          <Link
+            to={'/group/' + group.name}
+            className={classNames('sidenav-close', 'blue-text')}
+          >
+            <i className="material-icons black-text">group</i> {group.name}
+          </Link>
+        </li>
+      </div>
     ));
 
     return result;
@@ -66,8 +62,6 @@ export function SideNavigationBase() {
     fetchUserGroups();
   }, []);
 
-
-
   function initSidebarMenu() {
     const sideNavElement = document.querySelector('.main-menu');
     const options = {};
@@ -95,15 +89,10 @@ export function SideNavigationBase() {
             <a className="subheader">Groups</a>
           </li>
           <li>
-            <Link
-              to="/group"
-              className={classNames('sidenav-close')}
-            >
-              <i className="material-icons ">navigate_next</i>Group</Link>
-            <Link
-              to="#!"
-              className={classNames('sidenav-close')}
-            >
+            <Link to="/group" className={classNames('sidenav-close')}>
+              <i className="material-icons ">navigate_next</i>Group
+            </Link>
+            <Link to="#!" className={classNames('sidenav-close')}>
               <i className="material-icons">navigate_next</i>Group 2
             </Link>
           </li>

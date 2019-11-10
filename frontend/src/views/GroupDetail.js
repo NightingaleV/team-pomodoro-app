@@ -1,7 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import {
-  PomodoroGroup,
-} from '../components/organisms';
+import { PomodoroGroup } from '../components/organisms';
 import axios from 'axios';
 
 function setGroupName(props) {
@@ -23,7 +21,7 @@ function setGroupName(props) {
 export function GroupDetail(props) {
   const [group, setGroup] = useState({ name: '', members: [] });
 
- /*console.log('props:', props);*/
+  /*console.log('props:', props);*/
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,7 +49,7 @@ export function GroupDetail(props) {
 
   return (
     <>
-            <PomodoroGroup group={group}> </PomodoroGroup>
+      <PomodoroGroup group={group}> </PomodoroGroup>
     </>
   );
 }
