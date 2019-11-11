@@ -44,3 +44,17 @@
   margin: auto;
   text-align: center;
 }
+
+.card .card-content .card-title {
+  overflow: hidden;
+}
+
+.card .card-content {
+  padding: 20px 10px;
+  border-radius: 0 0 2px 2px;
+}
+
+.card .card-title {
+  font-size: 20px;
+  font-weight: 300;
+}

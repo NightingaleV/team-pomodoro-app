@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import classNames from 'classnames';
+import { Button } from '../atoms/Button';
 
 function setGroupName(props) {
   const { group } = props;
@@ -55,7 +56,7 @@ function setUsers(props) {
   console.log('props', group);
   try {
     const result = group.userIDs.map((member, i) => (
-      <div className="col s4 m4" key={i}>
+      <div className="col s6 m4 l3" key={i}>
         <div className="card">
           <div className="wrapper">
             <div className="card-image waves-effect waves-block waves-light">
@@ -65,15 +66,14 @@ function setUsers(props) {
               />
             </div>
 
-            <div className="card-content">
+            <div className="card-content flexbox">
               <span className="card-title activator grey-text text-darken-4">
                 {member.email}
                 <i className="material-icons right">more_vert</i>
               </span>
               <p className={''}>
-                Status:{' '}
                 <span
-                  className={classNames('new badge', {
+                  className={classNames('new badge left', {
                     orange:
                       member.timerID.isRunning &
                       (member.timerID.settings.type === 1),
@@ -96,15 +96,14 @@ function setUsers(props) {
           </div>
           <div className="card-reveal">
             <span className="card-title grey-text text-darken-4">
-              Card Title<i className="material-icons right">close</i>
+              <i className="material-icons right">close</i>
+              {member.email}
             </span>
-            <a className="btn-floating halfway-fab waves-effect waves-light red">
-              <i className="material-icons">add</i>
+            <p>User Info.</p>
+            <a className="waves-effect waves-light btn-small red">
+              <i className="material-icons left">remove_circle</i>Remove from
+              Group
             </a>
-            <p>
-              Here is some more information about this product that is only
-              revealed once clicked on.
-            </p>
           </div>
         </div>
       </div>

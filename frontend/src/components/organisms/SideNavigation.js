@@ -100,19 +100,9 @@ export function SideNavigationBase(props) {
             <div className="divider"></div>
           </li>
           <li>
-            <a className="subheader white-text">Manage</a>
+            <a className="subheader">Manage Groups</a>
           </li>
-          <li>
-            <a href="#!">
-              <i className="material-icons">cloud</i>First Link With Icon
-            </a>
-            <a className="subheader">Manage</a>
-          </li>
-          <li>
-            <a href="#!">
-              <i className="material-icons">group</i> Groups
-            </a>
-          </li>
+          <li></li>
           <div className="divider"></div>
           <li>
             <a className="subheader">Actions</a>
