@@ -115,7 +115,7 @@ export function SideNavigationBase(props) {
           </li>
           <div className="divider"></div>
           <li>
-            <a className="subheader">Subheader</a>
+            <a className="subheader">Actions</a>
           </li>
           <li>
             <a href="#!">

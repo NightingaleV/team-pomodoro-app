@@ -41,11 +41,11 @@ export function TopNavigationBase(props) {
             <li>
               <NavLink to="/timer">Timer</NavLink>
             </li>
-            <li>
-              <NavLink to="/group/5dc8f9b99c6fd62304063fbb">
-                Test Group - UR
-              </NavLink>
-            </li>
+            {/*<li>*/}
+            {/*  <NavLink to="/group/5dc8f9b99c6fd62304063fbb">*/}
+            {/*    Test Group - UR*/}
+            {/*  </NavLink>*/}
+            {/*</li>*/}
             {/*<li>*/}
             {/*  <NavLink to="/protected">Protected Route</NavLink>*/}
             {/*</li>*/}

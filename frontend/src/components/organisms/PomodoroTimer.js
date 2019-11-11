@@ -1,13 +1,12 @@
 // External imports
 import React, { useEffect, useRef, useState, useMemo } from 'react';
+import axios from 'axios';
 // Internal imports
 import { TimerControls, ProgressRing } from '../molecules';
 import { convertMinToSec, formatTime } from '../../utils/pomodoroUtils';
 import { useApi } from '../../utils/useApi';
 import { useAuth } from '../../utils/useAuth';
 import { usePromise } from '../../utils/usePromise';
-// import { useFetchRequest } from '../../utils/useFetchRequest';
-import axios from 'axios';
 
 export function PomodoroTimer(props) {
   const api = useApi();
@@ -15,6 +14,7 @@ export function PomodoroTimer(props) {
   const { user, token } = useAuth();
   // Reference for interval
   let timerRef = useRef();
+
   // Props
   const {
     currentSettings,
@@ -26,7 +26,6 @@ export function PomodoroTimer(props) {
 
   // Component State
   //----------------------------------------------------------------------------
-
   const [timerState, setTimerState] = useState({
     timerID: '',
     remTime: convertMinToSec(25),
@@ -147,18 +146,12 @@ export function PomodoroTimer(props) {
     console.log('TimerRunning', timerState.isRunning);
 
     if (!timerState.isRunning & !timerState.timerID) {
-      // console.log(pomodoroCycles);
       initNextTimerInRow();
       console.log(timerState);
     }
   }, []);
 
   useEffect(() => {
-    // WHY NOT WORKING
-    // api.get('timer').then(({ data }) => {
-    //   console.log('Response');
-    //   console.log(data);
-    // });
     updateTimerData(timerState);
   }, [timerState.isRunning]);
 
@@ -177,7 +170,6 @@ export function PomodoroTimer(props) {
 
   useEffect(() => {
     updateProgressBar();
-    // console.log('Timer Is Running', timerState.isRunning);
     // Post Timer to db every 10 sec
     const sendEveryNumOfSec = 5;
     if (timerState.isRunning & (timerState.remTime % sendEveryNumOfSec === 0)) {
@@ -190,12 +182,9 @@ export function PomodoroTimer(props) {
   // Tick - Run every second
   function tick() {
     subtractSeconds();
-    // console.log(timerState);
-
-    //todo: Save data to DB
   }
 
-  // State Updating Function
+  // SETTERS State Updating Function
   //----------------------------------------------------------------------------
   function subtractSeconds() {
     setTimerState(prevState => {
