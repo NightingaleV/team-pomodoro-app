@@ -13,19 +13,19 @@ const BUTTON_SHAPES = {
 
 const ACTION_BUTTONS = {
   play: {
-    color: 'blue',
+    color: '',
     icon: 'play_arrow',
   },
   pause: {
-    color: 'blue',
+    color: '',
     icon: 'pause',
   },
   stop: {
-    color: 'blue',
+    color: '',
     icon: 'stop',
   },
   restart: {
-    color: 'blue',
+    color: '',
     icon: 'loop',
   },
 
