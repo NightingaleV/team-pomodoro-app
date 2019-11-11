@@ -109,7 +109,7 @@ export function SideNavigationBase(props) {
           </li>
           <li>
             <a href="#!">
-              <i className="material-icons">add</i>
+              <i className="material-icons">group_add</i>
               New group
             </a>
           </li>
