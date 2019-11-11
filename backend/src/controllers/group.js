@@ -10,12 +10,7 @@ export async function selectGroupById(req, res) {
     // const groupName = req.query.groupName;
     const groupID = req.params.groupId;
 
-    const group = await Group.findOne({ _id: groupID }, (err, docs) => {
-      let timers = docs.userIDs.map(function(doc) {
-        // console.log(doc._id);
-        let timer = Timer.findOne({ userID: doc._id });
-      });
-    }).populate({
+    const group = await Group.findOne({ _id: groupID }).populate({
       path: 'userIDs',
       populate: {
         path: 'timerID',
@@ -88,6 +83,30 @@ export async function selectAllGroups(req, res) {
   } catch (err) {
     return res.status(500).send('Server Error');
   }
+}
+
+export async function selectUserGroups(req, res) {
+  console.log('Executed');
+  try {
+    // const groupName = req.query.groupName;
+    const userID = req.user.id;
+    console.log(userID);
+
+    const group = await Group.find({
+      userIDs: mongoose.Types.ObjectId('5dc8f8789c6fd62304063fb5'),
+    });
+    // await res.json({groups: groups});
+    await res.json(group);
+  } catch (err) {
+    return res.status(404).send('awda Error');
+  }
+
+  // try {
+  //   const groups = await Group.find();
+  //   await res.json({ groups: groups });
+  // } catch (err) {
+  //   return res.status(500).send('Server Error');
+  // }
 }
 
 export async function createGroup(req, res) {

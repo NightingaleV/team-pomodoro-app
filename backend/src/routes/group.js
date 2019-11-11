@@ -7,21 +7,21 @@ import {
   selectGroupById,
   createGroup,
   addMember,
-  selectGroupsByUser,
+  selectUserGroups,
   selectAllGroups,
 } from '../controllers/group';
 
 const router = express.Router();
 
-// @route   GET api/group/
-// @desc    get pomodoro group by name
-// @access  Private
-router.get('/:groupId', selectGroupById);
-
 // @route   GET api/group/userGroups
 // @desc    get all pomodoro groups
 // @access  Private
 router.get('/all', selectAllGroups);
+
+// @route   GET api/group/mine
+// @desc    get all pomodoro groups
+// @access  Private
+router.get('/mine', selectUserGroups);
 
 // @route   GET api/group/new
 // @desc    create new pomodoro group
@@ -45,5 +45,10 @@ router.get('/detail', async (req, res) => {
     res.json({ filterGroup });
   }
 });
+
+// @route   GET api/group/
+// @desc    get pomodoro group by name
+// @access  Private
+router.get('/:groupId', selectGroupById);
 
 export { router as groupRouter };
