@@ -74,12 +74,22 @@ function setUsers(props) {
                 Status:{' '}
                 <span
                   className={classNames('new badge', {
-                    orange: member.timerID.isRunning,
+                    orange:
+                      member.timerID.isRunning &
+                      (member.timerID.settings.type === 1),
+                    green:
+                      member.timerID.isRunning &
+                      (member.timerID.settings.type === 2),
+                    indigo:
+                      member.timerID.isRunning &
+                      (member.timerID.settings.type === 3),
                     blue: !member.timerID.isRunning,
                   })}
                   data-badge-caption=""
                 >
-                  {member.timerID.isRunning ? 'Active' : 'Inactive'}
+                  {member.timerID.isRunning
+                    ? 'Active - ' + member.timerID.settings.name
+                    : 'Inactive'}
                 </span>
               </p>
             </div>
