@@ -55,7 +55,7 @@ function setUsers(props) {
   console.log('props', group);
   try {
     const result = group.userIDs.map((member, i) => (
-      <div className="col s4 m4" key={i}>
+      <div className="col s6 m4 l4" key={i}>
         <div className="card">
           <div className="wrapper">
             <div className="card-image waves-effect waves-block waves-light">
