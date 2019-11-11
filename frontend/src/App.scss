@@ -45,6 +45,35 @@ $secondary-color: color('blue', 'accent-1') !default;
   align-items: center;
 }
 
+.footer-copyright{
+  background-color: transparent !important;
+}
+
+.card .card-content .card-title {
+  overflow: hidden;
+}
+
+span.badge.new {
+  font-weight: 300;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #82B1FF;
+  border-radius: 2px;
+}
+
+span.badge {
+  min-width: 3rem;
+  padding: 0 9px;
+  margin-left: 14px;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 25px;
+  height: 27px;
+  color: #757575;
+  float: right;
+  box-sizing: border-box;
+}
+
 html {
   height: 100%;
 }

@@ -5,20 +5,20 @@ import { Timer } from '../models/Timer';
 // LOGIC
 //------------------------------------------------------------------------------
 // TO-DO Select by groupID instead of groupName?
-export async function selectGroupByName(req, res) {
+export async function selectGroupById(req, res) {
   try {
-    const groupName = req.query.groupName;
-    // const groupID = req.query.groupID;
+    // const groupName = req.query.groupName;
+    const groupID = req.params.groupId;
 
-    const group = await Group.findOne({ name: groupName }, (err, docs) => {
+    const group = await Group.findOne({ _id: groupID }, (err, docs) => {
       let timers = docs.userIDs.map(function(doc) {
-        console.log(doc._id);
+        // console.log(doc._id);
         let timer = Timer.findOne({ userID: doc._id });
       });
     }).populate({
       path: 'userIDs',
       populate: {
-        path: 'timerIDs',
+        path: 'timerID',
         model: 'Timer',
       },
     });

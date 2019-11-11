@@ -30,12 +30,15 @@ export function GroupDetail(props) {
           headers: {
             'Content-Type': 'application/json',
           },
-          params: {
-            groupName: setGroupName(props) /*'Testovací skupina'*/,
-          },
+          // params: {
+          //   groupName: setGroupName(props) /*'Testovací skupina'*/,
+          // },
         };
 
-        const res = await axios.get('../api/group/', config);
+        const res = await axios.get(
+          '/api/group/' + setGroupName(props),
+          config,
+        );
         console.log('Result:', res.data);
         setGroup(res.data);
       } catch (err) {

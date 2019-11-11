@@ -4,7 +4,7 @@ import express from 'express';
 //Internal imports
 import { groups } from '../models/GroupMocks';
 import {
-  selectGroupByName,
+  selectGroupById,
   createGroup,
   addMember,
   selectGroupsByUser,
@@ -16,7 +16,7 @@ const router = express.Router();
 // @route   GET api/group/
 // @desc    get pomodoro group by name
 // @access  Private
-router.get('/', selectGroupByName);
+router.get('/:groupId', selectGroupById);
 
 // @route   GET api/group/userGroups
 // @desc    get all pomodoro groups
