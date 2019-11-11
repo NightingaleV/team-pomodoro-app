@@ -10,17 +10,17 @@ import { Link } from '../atoms/Link';
 import { useAuth } from '../../utils/useAuth';
 import { GroupDetail } from '../../views/GroupDetail';
 import { async } from 'rxjs/internal/scheduler/async';
+import { useApi } from '../../utils/useApi';
 // Assets
 
-function setGroups(props) {
+function setGroups(userGroups) {
   try {
-    const userGroups = props.userGroups[0].userGroups;
     /*console.log('props',userGroups)*/
     const result = userGroups.map(group => (
       <div key={group._id}>
         <li>
           <Link
-            to={'/group/' + group.name}
+            to={'/group/' + group._id}
             className={classNames('sidenav-close', 'blue-text')}
           >
             <i className="material-icons black-text">group</i> {group.name}
@@ -36,31 +36,35 @@ function setGroups(props) {
   return;
 }
 
-export function SideNavigationBase() {
-  const { user } = useAuth();
+export function SideNavigationBase(props) {
+  const api = useApi();
+  const auth = useAuth();
+  const { user, token } = useAuth();
   const [userGroups, setUserGroups] = useState({ name: [] });
 
-  useEffect(() => {
-    const fetchUserGroups = async () => {
-      try {
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          params: {
-            email: user && user.email,
-          },
-        };
+  const fetchUserGroups = async () => {
+    try {
+      const requestConfig = {
+        headers: {
+          'x-auth-token': token,
+          'Content-Type': 'application/json',
+        },
+        timeout: 5000,
+      };
+      const res = await axios.get('/api/group/mine', requestConfig);
 
-        const res = await axios.get('../api/user/userGroups', config);
-        /*console.log('Result:', res.data);*/
-        setUserGroups(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchUserGroups();
-  }, []);
+      setUserGroups(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      fetchUserGroups();
+    }
+    console.log('Vyfetchovane User Groups', userGroups);
+  }, [props.history.location]);
 
   function initSidebarMenu() {
     const sideNavElement = document.querySelector('.main-menu');
@@ -86,17 +90,12 @@ export function SideNavigationBase() {
       >
         <ul>
           <li>
-            <a className="subheader">Groups</a>
+            <a className="subheader">My Groups</a>
           </li>
-          <li>
-            <Link to="/group" className={classNames('sidenav-close')}>
-              <i className="material-icons ">navigate_next</i>Group
-            </Link>
-            <Link to="#!" className={classNames('sidenav-close')}>
-              <i className="material-icons">navigate_next</i>Group 2
-            </Link>
-          </li>
+
+          <li></li>
           {setGroups(userGroups)}
+          {/*<GroupMembers groups={userGroups} />*/}
           <li>
             <div className="divider"></div>
           </li>

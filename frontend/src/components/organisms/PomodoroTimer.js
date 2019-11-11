@@ -12,7 +12,7 @@ import axios from 'axios';
 export function PomodoroTimer(props) {
   const api = useApi();
   const auth = useAuth();
-  const { token } = useAuth();
+  const { user, token } = useAuth();
   // Reference for interval
   let timerRef = useRef();
   // Props
@@ -141,7 +141,9 @@ export function PomodoroTimer(props) {
     isLoading: true,
   });
   useEffect(() => {
-    dispatchTimerLoading(fetchTimerData);
+    if (user) {
+      dispatchTimerLoading(fetchTimerData);
+    }
     console.log('TimerRunning', timerState.isRunning);
 
     if (!timerState.isRunning & !timerState.timerID) {
@@ -168,7 +170,9 @@ export function PomodoroTimer(props) {
   }, [currentSettings]);
 
   useEffect(() => {
-    updateTimerData(timerState);
+    if (user) {
+      updateTimerData(timerState);
+    }
   }, [timerState.settings]);
 
   useEffect(() => {

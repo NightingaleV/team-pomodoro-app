@@ -46,7 +46,7 @@ export function GroupDetail(props) {
       }
     };
     fetchData();
-  }, []);
+  }, [props.location.pathname]);
 
   /*console.log('Group:', group.group);*/
 

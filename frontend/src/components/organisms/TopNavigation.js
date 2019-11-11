@@ -43,7 +43,7 @@ export function TopNavigationBase(props) {
             </li>
             <li>
               <NavLink to="/group/5dc8f9b99c6fd62304063fbb">
-                Testovací skupina
+                Test Group - UR
               </NavLink>
             </li>
             {/*<li>*/}

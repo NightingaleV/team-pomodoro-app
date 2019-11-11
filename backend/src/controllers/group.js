@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 //Internal imports
 import { Group } from '../models/Group';
 import { Timer } from '../models/Timer';
@@ -89,16 +90,17 @@ export async function selectUserGroups(req, res) {
   console.log('Executed');
   try {
     // const groupName = req.query.groupName;
+
     const userID = req.user.id;
     console.log(userID);
-
     const group = await Group.find({
-      userIDs: mongoose.Types.ObjectId('5dc8f8789c6fd62304063fb5'),
+      userIDs: mongoose.Types.ObjectId(userID),
     });
     // await res.json({groups: groups});
     await res.json(group);
   } catch (err) {
-    return res.status(404).send('awda Error');
+    console.log(err);
+    return res.status(505).send('awda Error');
   }
 
   // try {

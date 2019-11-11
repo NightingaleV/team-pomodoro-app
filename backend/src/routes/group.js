@@ -10,6 +10,7 @@ import {
   selectUserGroups,
   selectAllGroups,
 } from '../controllers/group';
+import auth from '../middleware/auth';
 
 const router = express.Router();
 
@@ -21,7 +22,7 @@ router.get('/all', selectAllGroups);
 // @route   GET api/group/mine
 // @desc    get all pomodoro groups
 // @access  Private
-router.get('/mine', selectUserGroups);
+router.get('/mine', auth, selectUserGroups);
 
 // @route   GET api/group/new
 // @desc    create new pomodoro group
