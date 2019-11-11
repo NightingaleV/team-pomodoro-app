@@ -87,12 +87,8 @@ export async function selectAllGroups(req, res) {
 }
 
 export async function selectUserGroups(req, res) {
-  console.log('Executed');
   try {
-    // const groupName = req.query.groupName;
-
     const userID = req.user.id;
-    console.log(userID);
     const group = await Group.find({
       userIDs: mongoose.Types.ObjectId(userID),
     });
@@ -102,13 +98,6 @@ export async function selectUserGroups(req, res) {
     console.log(err);
     return res.status(505).send('awda Error');
   }
-
-  // try {
-  //   const groups = await Group.find();
-  //   await res.json({ groups: groups });
-  // } catch (err) {
-  //   return res.status(500).send('Server Error');
-  // }
 }
 
 export async function createGroup(req, res) {

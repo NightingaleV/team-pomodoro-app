@@ -20,15 +20,6 @@ export function LandingPage() {
     //M.AutoInit();
   }, []);
 
-  // EXAMPLE of UsePromise hooku
-  // const [landingState, dispatchLanding] = usePromise({ isLoading: true });
-  // useEffect(() => {
-  //   dispatchLanding(() => api.get('data').then(({ data }) => data)
-  //   )
-  // }, []);
-
-  // console.log('landingState', landingState)
-
   return (
     <div>
       <article>
@@ -65,4 +56,13 @@ export function LandingPage() {
       </article>
     </div>
   );
+
+  // EXAMPLE of UsePromise hooku
+  // const [landingState, dispatchLanding] = usePromise({ isLoading: true });
+  // useEffect(() => {
+  //   dispatchLanding(() => api.get('data').then(({ data }) => data)
+  //   )
+  // }, []);
+
+  // console.log('landingState', landingState)
 }

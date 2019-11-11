@@ -2,6 +2,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
+//TODO REMOVE COLOR FROM DEFAULT CLASSES
 const DEFAULT_BTN_CLASSES = 'waves-effect waves-light amber';
 
 const BUTTON_SHAPES = {

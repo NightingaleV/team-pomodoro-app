@@ -21,8 +21,6 @@ function setGroupName(props) {
 export function GroupDetail(props) {
   const [group, setGroup] = useState({ name: '', members: [] });
 
-  /*console.log('props:', props);*/
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,9 +28,6 @@ export function GroupDetail(props) {
           headers: {
             'Content-Type': 'application/json',
           },
-          // params: {
-          //   groupName: setGroupName(props) /*'Testovací skupina'*/,
-          // },
         };
 
         const res = await axios.get(
@@ -47,8 +42,6 @@ export function GroupDetail(props) {
     };
     fetchData();
   }, [props.location.pathname]);
-
-  /*console.log('Group:', group.group);*/
 
   return (
     <>
