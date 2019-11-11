@@ -103,12 +103,11 @@ export function SideNavigationBase(props) {
             <a className="subheader">Manage Groups</a>
           </li>
           <li></li>
-          <div className="divider"></div>
+          {/*<div className="divider"></div>*/}
           <li>
             <a className="subheader">Actions</a>
-
           </li>
-            <li>
+          <li>
             <a href="#!">
               <i className="material-icons">add</i>
               New group

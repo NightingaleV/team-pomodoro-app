@@ -18,13 +18,10 @@ function setGroupName(props) {
   return 'Testovací skupina';
 }
 
-
-function RefreshOnTime({timePeriod}){
-  setTimeout("location.reload(true);",timePeriod)
-  return(
-  null
-  )
-  }
+function RefreshOnTime({ timePeriod }) {
+  setTimeout('location.reload(true);', timePeriod);
+  return null;
+}
 
 export function GroupDetail(props) {
   const [group, setGroup] = useState({ name: '', members: [] });
@@ -53,7 +50,6 @@ export function GroupDetail(props) {
 
   return (
     <>
-      <RefreshOnTime timePeriod = "15000" />
       <PomodoroGroup group={group}> </PomodoroGroup>
     </>
   );

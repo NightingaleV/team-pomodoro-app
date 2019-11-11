@@ -1,5 +1,6 @@
 // External imports
 import React, { useEffect, useRef, useState, useMemo } from 'react';
+import { withRouter, Redirect } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
 import { TimerControls, ProgressRing } from '../molecules';
@@ -7,8 +8,9 @@ import { convertMinToSec, formatTime } from '../../utils/pomodoroUtils';
 import { useApi } from '../../utils/useApi';
 import { useAuth } from '../../utils/useAuth';
 import { usePromise } from '../../utils/usePromise';
+import { TopNavigationBase } from './TopNavigation';
 
-export function PomodoroTimer(props) {
+export function PomodoroTimerBase(props) {
   const api = useApi();
   const auth = useAuth();
   const { user, token } = useAuth();
@@ -141,8 +143,8 @@ export function PomodoroTimer(props) {
   });
   useEffect(() => {
     if (user) {
-      dispatchTimerLoading(fetchTimerData);
     }
+    dispatchTimerLoading(fetchTimerData);
     console.log('TimerRunning', timerState.isRunning);
 
     if (!timerState.isRunning & !timerState.timerID) {
@@ -152,6 +154,7 @@ export function PomodoroTimer(props) {
   }, []);
 
   useEffect(() => {
+    console.log('Updating Timer');
     updateTimerData(timerState);
   }, [timerState.isRunning]);
 
@@ -163,10 +166,13 @@ export function PomodoroTimer(props) {
   }, [currentSettings]);
 
   useEffect(() => {
-    if (user) {
-      updateTimerData(timerState);
-    }
+    updateTimerData(timerState);
   }, [timerState.settings]);
+
+  useEffect(() => {
+    // cleanup after going to another site
+    updateTimer(null);
+  }, [props.history.location]);
 
   useEffect(() => {
     updateProgressBar();
@@ -308,3 +314,5 @@ export function PomodoroTimer(props) {
     </>
   );
 }
+
+export const PomodoroTimer = withRouter(PomodoroTimerBase);
