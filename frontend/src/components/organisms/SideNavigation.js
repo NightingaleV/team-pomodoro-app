@@ -21,9 +21,9 @@ function setGroups(userGroups) {
         <li>
           <Link
             to={'/group/' + group._id}
-            className={classNames('sidenav-close', 'blue-text')}
+            className={classNames('sidenav-close')}
           >
-            <i className="material-icons black-text">group</i> {group.name}
+            <i className="material-icons">group</i> {group.name}
           </Link>
         </li>
       </div>
@@ -106,8 +106,9 @@ export function SideNavigationBase(props) {
           <div className="divider"></div>
           <li>
             <a className="subheader">Actions</a>
+
           </li>
-          <li>
+            <li>
             <a href="#!">
               <i className="material-icons">add</i>
               New group
