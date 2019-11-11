@@ -39,7 +39,8 @@ export function TopNavigationBase(props) {
           </a>
           <ul className="right hide-on-med-and-down">
             <li>
-              <NavLink to="/timer">Timer</NavLink>
+              <NavLink to="/timer"><i className="material-icons left">watch_later
+              </i>Timer</NavLink>
             </li>
             {/*<li>*/}
             {/*  <NavLink to="/group/5dc8f9b99c6fd62304063fbb">*/}
