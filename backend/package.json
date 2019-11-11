@@ -10,6 +10,7 @@
     "prestart": "run-s build",
     "build": "backpack build",
     "build:watch": "nodemon --watch ./src --exec 'npm run build",
+    "postbuild": "nodetouch tmp/restart.txt",
     "restart": "nodetouch tmp/restart.txt",
     "prettier": "prettier --write \"src/**/*.js\" README.md"
   },
