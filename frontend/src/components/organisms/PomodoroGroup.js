@@ -7,7 +7,7 @@ function setGroupName(props) {
   try {
     return (
       <div className="groupName">
-        <h1>{group.name}</h1>
+        <h3>{group.name}</h3>
       </div>
     );
   } catch (err) {
@@ -28,7 +28,7 @@ function setUsers(props) {
           <div className="wrapper">
             <div className="card-image waves-effect waves-block waves-light">
               <img
-                className="activator"
+                className="circle activator"
                 src="https://ssl.gstatic.com/images/branding/product/1x/avatar_square_blue_512dp.png"
               />
             </div>
