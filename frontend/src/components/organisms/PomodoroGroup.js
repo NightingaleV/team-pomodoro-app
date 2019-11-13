@@ -29,7 +29,7 @@ function setUsers(props) {
             <div className="card-image waves-effect waves-block waves-light">
               <img
                 className="activator"
-                src="https://www.cloudraxak.com/wp-content/uploads/2017/03/profile-pic-placeholder.png"
+                src="https://ssl.gstatic.com/images/branding/product/1x/avatar_square_blue_512dp.png"
               />
             </div>
 
