@@ -15,6 +15,7 @@ export function TextInput(props) {
           name={props.name}
           type={props.type}
           value={props.value}
+          autofocus={props.autofocus}
           placeholder={props.placeholder}
           className={classNames(
             {
