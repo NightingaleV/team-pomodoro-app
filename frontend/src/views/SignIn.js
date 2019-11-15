@@ -121,10 +121,3 @@ export function SignIn(props) {
     </>
   );
 }
-export function RegistrationComplete() {
-  return (
-    <>
-      <SignUpSuccess />
-    </>
-  );
-}

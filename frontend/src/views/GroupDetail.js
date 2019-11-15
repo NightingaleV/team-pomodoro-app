@@ -1,56 +1,63 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { PomodoroGroup } from '../components/organisms';
+import { withRouter, Redirect, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { PomodoroGroup } from '../components/organisms';
+import { useAuth } from '../utils/useAuth';
+import M from 'materialize-css';
 
-function setGroupName(props) {
-  try {
-    const groupName = props.location.pathname;
-    var str = groupName;
-    str = str.split('/');
+// function RefreshOnTime({ timePeriod }) {
+//   setTimeout('location.reload(true);', timePeriod);
+//   return null;
+// }
 
-    console.log('str', str);
-
-    return str[2];
-  } catch (err) {
-    console.log(err);
+export function GroupDetailBase(props) {
+  const { user, token } = useAuth();
+  const [group, setGroup] = useState({ name: '', userIDs: [] });
+  let location = useLocation();
+  const requestConfig = {
+    headers: {
+      'x-auth-token': token,
+      'Content-Type': 'application/json',
+    },
+    timeout: 5000,
+  };
+  function getGroupIdentifier(props) {
+    const url = location.pathname;
+    const urlList = url.split('/');
+    const groupName = urlList[urlList.length - 1];
+    console.log(urlList);
+    return groupName;
   }
 
-  return 'Testovací skupina';
-}
-
-function RefreshOnTime({ timePeriod }) {
-  setTimeout('location.reload(true);', timePeriod);
-  return null;
-}
-
-export function GroupDetail(props) {
-  const [group, setGroup] = useState({ name: '', members: [] });
-
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
+    fetchGroupByUrlId();
+  }, [location.pathname]);
+  useEffect(() => {
+    //initialize parallax
+    let options = {};
+    let parallax_elements = document.querySelectorAll('.parallax');
+    M.Parallax.init(parallax_elements, options);
+    //Or use auto init instead
+    //M.AutoInit();
+  }, []);
 
-        const res = await axios.get(
-          '/api/group/' + setGroupName(props),
-          config,
-        );
-        console.log('Result:', res.data);
-        setGroup(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, [props.location.pathname]);
-
+  async function fetchGroupByUrlId() {
+    console.log(getGroupIdentifier());
+    await axios
+      .get('/api/group/' + getGroupIdentifier(), requestConfig)
+      .then(res => {
+        console.log('Fetched Group Data: ', res.data);
+        setGroup(res.data.group);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
   return (
     <>
-      <PomodoroGroup group={group}> </PomodoroGroup>
+      <PomodoroGroup group={group} />
     </>
   );
 }
+
+export const GroupDetail = withRouter(GroupDetailBase);

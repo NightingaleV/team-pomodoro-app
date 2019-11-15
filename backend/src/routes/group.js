@@ -20,7 +20,7 @@ const router = express.Router();
 router.get('/all', selectAllGroups);
 
 // @route   GET api/group/mine
-// @desc    get all pomodoro groups
+// @desc    get user pomodoro groups
 // @access  Private
 router.get('/mine', auth, selectUserGroups);
 

@@ -11,12 +11,16 @@ export function Container(props) {
   return (
     <>
       <TopNavigation></TopNavigation>
+
       <div className={'row content'}>
         <div className={'col l2 hide-on-small-only'}>
           <SideNavigation></SideNavigation>
         </div>
-        <div className={'col s12 m12 l10 center-align'}>{props.children}</div>
+        <div className={'col l10 m12 s12   center-align'}>
+          <div className="container">{props.children}</div>
+        </div>
       </div>
+
       <FooterNavigation></FooterNavigation>
     </>
   );
