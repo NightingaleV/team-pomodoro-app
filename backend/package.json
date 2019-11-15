@@ -2,7 +2,7 @@
   "name": "team-pomodori",
   "version": "1.0.0",
   "description": "Team Pomodori App",
-  "main": ":/build/main.js",
+  "main": "./build/main.js",
   "scripts": {
     "dev": "backpack",
     "dev:debug": "backpack dev --inspect --debug-brk",
