@@ -3,6 +3,27 @@ import classNames from 'classnames';
 
 export function UserCard(props) {
   const { member, index } = props;
+  const timerIsRunning = member.timerID.isRunning;
+  const timerType = member.timerID.settings.type;
+  const timerName = member.timerID.settings.name;
+  const timerRemTime = member.timerID.remTime;
+  const timerUpdated = new Date(member.timerID.updatedAt);
+  // In minutes
+  const timeDifference = (Date.now() - timerUpdated) / (1000 * 60);
+  const statusObject = {
+    offline: { label: 'Offline', color: 'grey' },
+    idle: { label: 'Idle', color: 'brown lighten-2' },
+    pomodoro: { label: 'Pomodoro', color: 'amber' },
+    sBreak: { label: 'Short Break', color: 'green' },
+    lBreak: { label: 'Long Break', color: 'green' },
+  };
+
+  let status = '';
+  if (timerIsRunning && timerType === 1) status = 'pomodoro';
+  if (timerIsRunning && timerType === 2) status = 'sBreak';
+  if (timerIsRunning && timerType === 3) status = 'lBreak';
+  if (!timerIsRunning && timeDifference > 30) status = 'offline';
+  if (!timerIsRunning) status = 'idle';
 
   return (
     <Fragment>
@@ -23,23 +44,13 @@ export function UserCard(props) {
               </span>
               <p className={''}>
                 <span
-                  className={classNames('new badge left', {
-                    orange:
-                      member.timerID.isRunning &
-                      (member.timerID.settings.type === 1),
-                    green:
-                      member.timerID.isRunning &
-                      (member.timerID.settings.type === 2),
-                    indigo:
-                      member.timerID.isRunning &
-                      (member.timerID.settings.type === 3),
-                    blue: !member.timerID.isRunning,
-                  })}
+                  className={classNames(
+                    'new badge left',
+                    statusObject[status].color,
+                  )}
                   data-badge-caption=""
                 >
-                  {member.timerID.isRunning
-                    ? 'Active - ' + member.timerID.settings.name
-                    : 'Inactive'}
+                  {statusObject[status].label}
                 </span>
               </p>
             </div>
