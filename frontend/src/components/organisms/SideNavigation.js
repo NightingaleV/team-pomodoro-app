@@ -35,6 +35,7 @@ function setGroups(userGroups) {
   }
   return;
 }
+export function GroupList(props) {}
 
 export function SideNavigationBase(props) {
   const api = useApi();
@@ -66,6 +67,13 @@ export function SideNavigationBase(props) {
     console.log('Vyfetchovane User Groups', userGroups);
   }, [props.history.location]);
 
+  useEffect(() => {
+    if (user) {
+      fetchUserGroups();
+    }
+    console.log('Vyfetchovane User Groups', userGroups);
+  }, [user]);
+
   function initSidebarMenu() {
     const sideNavElement = document.querySelector('.main-menu');
     const options = {};
@@ -94,7 +102,7 @@ export function SideNavigationBase(props) {
           </li>
 
           <li></li>
-          {setGroups(userGroups)}
+          {user && setGroups(userGroups)}
           {/*<GroupMembers groups={userGroups} />*/}
           <li>
             <div className="divider"></div>
