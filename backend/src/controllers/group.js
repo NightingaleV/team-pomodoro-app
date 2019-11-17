@@ -8,7 +8,7 @@ import { Timer } from '../models/Timer';
 // TO-DO Select by groupID instead of groupName?
 export async function selectGroupById(req, res) {
   try {
-    // const groupName = req.query.groupName;
+    const userID = req.user.id;
     const groupID = req.params.groupId;
 
     const group = await Group.findOne({ _id: groupID }).populate({
@@ -18,8 +18,18 @@ export async function selectGroupById(req, res) {
         model: 'Timer',
       },
     });
+    let isMember = false;
     // await res.json({groups: groups});
-    await res.json({ group: group });
+    group.userIDs.map(member => {
+      if (member._id == userID) {
+        isMember = true;
+      }
+    });
+    if (isMember) {
+      await res.json({ group: group });
+    } else {
+      return res.status(403).send('You have no permission to see the group.');
+    }
   } catch (err) {
     return res.status(500).send('Server Error');
   }
@@ -92,11 +102,10 @@ export async function selectUserGroups(req, res) {
     const group = await Group.find({
       userIDs: mongoose.Types.ObjectId(userID),
     });
-    // await res.json({groups: groups});
     await res.json(group);
   } catch (err) {
     console.log(err);
-    return res.status(505).send('awda Error');
+    return res.status(505).send('Server Error');
   }
 }
 

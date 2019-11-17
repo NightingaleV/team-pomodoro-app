@@ -58,13 +58,15 @@ export function SignIn(props) {
         history.replace('/');
       })
       .catch(err => {
-        console.log('Not Able to Load DB');
         console.log('Error Statement');
         console.log(err);
 
         //If TimeOut
         if (err.code === 'ECONNABORTED') {
-          setError({ ...errors, backend: [{ msg: 'Timer Out' }] });
+          setError({
+            ...errors,
+            backend: [{ msg: 'Lost connection, try it later.' }],
+          });
           console.log(errors);
         } else {
           if (err.response.data) {
@@ -112,19 +114,12 @@ export function SignIn(props) {
                   return <ErrorBox key={index} errorMsg={error.msg} />;
                 })}
             </>
-            <Button type={'submit'} form={'authentication-form'}>
+            <Button type="submit" form={'authentication-form'}>
               Sign In
             </Button>
           </form>
         </div>
       </div>
-    </>
-  );
-}
-export function RegistrationComplete() {
-  return (
-    <>
-      <SignUpSuccess />
     </>
   );
 }

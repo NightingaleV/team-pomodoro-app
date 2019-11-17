@@ -11,6 +11,8 @@ $secondary-color: color('blue', 'accent-1') !default;
 @import './components/organisms/SideNavigation';
 @import './views/SignIn';
 @import './views/SignUp';
+@import './components/atoms/Preloader';
+
 .parallax-container {
   height: 400px;
 }
@@ -45,16 +47,15 @@ $secondary-color: color('blue', 'accent-1') !default;
   align-items: center;
 }
 
-.footer-copyright{
+.footer-copyright {
   background-color: transparent !important;
 }
-
 
 span.badge.new {
   font-weight: 300;
   font-size: 1.2rem;
   color: #fff;
-  background-color: #82B1FF;
+  background-color: #82b1ff;
   border-radius: 2px;
 }
 
@@ -78,11 +79,18 @@ body {
   min-height: 100%;
   position: relative;
   padding-bottom: 20px;
-  background: #f6f8fa!important;
+  background: #f6f8fa !important;
 }
 footer {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
+}
+.page-footer {
+  padding: 0;
+}
+
+.page-footer .row {
+  margin-bottom: 0px;
 }
