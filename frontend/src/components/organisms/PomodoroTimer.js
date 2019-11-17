@@ -1,8 +1,9 @@
 // External imports
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useEffect, useRef, useState, useMemo, a } from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
+import { Preloader } from '../atoms';
 import { TimerControls, ProgressRing } from '../molecules';
 import { convertMinToSec, formatTime } from '../../utils/pomodoroUtils';
 import { useApi } from '../../utils/useApi';
@@ -139,23 +140,31 @@ export function PomodoroTimerBase(props) {
   // Component Lifecycle
   //----------------------------------------------------------------------------
   const [timerLoadingState, dispatchTimerLoading] = usePromise({
-    isLoading: true,
+    isLoading: false,
   });
+  const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
+    setIsMounted(true);
     if (user) {
+      dispatchTimerLoading(fetchTimerData);
     }
-    dispatchTimerLoading(fetchTimerData);
-    console.log('TimerRunning', timerState.isRunning);
 
     if (!timerState.isRunning & !timerState.timerID) {
       initNextTimerInRow();
-      console.log(timerState);
     }
+    return function cleanup() {
+      // cleanup after going to another site
+      console.log('CleanUp: PersonalTimer');
+      setIsMounted(false);
+      pauseTimer();
+    };
   }, []);
 
   useEffect(() => {
-    console.log('Updating Timer');
-    updateTimerData(timerState);
+    if (isMounted) {
+      console.log('Updating Timer');
+      updateTimerData(timerState);
+    }
   }, [timerState.isRunning]);
 
   useEffect(() => {
@@ -166,20 +175,34 @@ export function PomodoroTimerBase(props) {
   }, [currentSettings]);
 
   useEffect(() => {
-    updateTimerData(timerState);
+    if (isMounted) {
+      updateTimerData(timerState);
+    }
   }, [timerState.settings]);
 
   useEffect(() => {
+    if (isMounted) {
+      updateTimer(null);
+    }
     // cleanup after going to another site
-    updateTimer(null);
+    return function cleanup() {
+      // cleanup after going to another site
+      console.log('CleanUp: PersonalTimer');
+      pauseTimer();
+    };
   }, [props.history.location]);
 
   useEffect(() => {
-    updateProgressBar();
-    // Post Timer to db every 10 sec
-    const sendEveryNumOfSec = 5;
-    if (timerState.isRunning & (timerState.remTime % sendEveryNumOfSec === 0)) {
-      updateTimerData(timerState);
+    if (isMounted) {
+      updateProgressBar();
+      // Post Timer to db every 10 sec
+      const sendEveryNumOfSec = 5;
+      if (
+        timerState.isRunning &
+        (timerState.remTime % sendEveryNumOfSec === 0)
+      ) {
+        updateTimerData(timerState);
+      }
     }
   }, [timerState.remTime]);
 
@@ -261,7 +284,9 @@ export function PomodoroTimerBase(props) {
   function pauseTimer() {
     if (timer) {
       updateTimer(clearInterval(timer));
-      setTimerRunning(false);
+      if (isMounted) {
+        setTimerRunning(false);
+      }
     }
   }
 
@@ -275,43 +300,47 @@ export function PomodoroTimerBase(props) {
     reinitiateCurrentTimer();
   }
 
-  return (
-    <>
-      <div style={{ textAlign: 'center' }}>
-        <div>
-          <h3>
-            <span>You are doing </span>
-            {(currentSettings && currentSettings.name) || 'Nothing'}
-          </h3>
+  const PersonalTimerHtml = (
+    <div style={{ textAlign: 'center' }}>
+      <div>
+        <h3>
+          <span>You are doing </span>
+          {(currentSettings && currentSettings.name) || 'Nothing'}
+        </h3>
+      </div>
+      <div className="circle-container">
+        <ProgressRing
+          // Height & Width
+          radius={150}
+          // Thickness
+          stroke={10}
+          progress={timerState.progressBar}
+          typeOfTimer={timerState.settings && timerState.settings.type}
+        />
+        <div className="circle-countdown" style={{ fontSize: '65px' }}>
+          <span>{formatTime(timerState.remTime)}</span>
         </div>
-        <div className="circle-container">
-          <ProgressRing
-            // Height & Width
-            radius={150}
-            // Thickness
-            stroke={10}
-            progress={timerState.progressBar}
-            typeOfTimer={timerState.settings && timerState.settings.type}
+        <div className="circle-controls flexbox">
+          <TimerControls
+            isRunning={timerState.isRunning}
+            typeOfTimer={timerState.settings.type}
+            controlHandlers={{
+              startTimer: startTimer,
+              pauseTimer: pauseTimer,
+              nextTimer: nextTimer,
+              restartTimer: restartTimer,
+            }}
+            dropdownControlHandlers={dropdownControlHandlers}
           />
-          <div className="circle-countdown" style={{ fontSize: '65px' }}>
-            <span>{formatTime(timerState.remTime)}</span>
-          </div>
-          <div className="circle-controls flexbox">
-            <TimerControls
-              isRunning={timerState.isRunning}
-              typeOfTimer={timerState.settings.type}
-              controlHandlers={{
-                startTimer: startTimer,
-                pauseTimer: pauseTimer,
-                nextTimer: nextTimer,
-                restartTimer: restartTimer,
-              }}
-              dropdownControlHandlers={dropdownControlHandlers}
-            />
-          </div>
         </div>
       </div>
-    </>
+    </div>
+  );
+
+  return (
+    <Preloader isLoading={timerLoadingState.isLoading}>
+      {PersonalTimerHtml}
+    </Preloader>
   );
 }
 

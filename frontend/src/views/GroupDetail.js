@@ -4,18 +4,19 @@ import axios from 'axios';
 import { PomodoroGroup } from '../components/organisms';
 import { useAuth } from '../utils/useAuth';
 import M from 'materialize-css';
-
-//TODO RESTRICT GROUP IF USER NOT A MEMBER
-
-// function RefreshOnTime({ timePeriod }) {
-//   setTimeout('location.reload(true);', timePeriod);
-//   return null;
-// }
+import { Preloader, ErrorBox } from '../components/atoms';
+import { usePromise } from '../utils/usePromise';
 
 export function GroupDetailBase(props) {
   const { user, token } = useAuth();
   const [group, setGroup] = useState({ name: '', userIDs: [] });
+  const [error, setError] = useState('');
   let location = useLocation();
+
+  const [groupLoadingState, dispatchGroupLoading] = usePromise({
+    isLoading: false,
+  });
+
   const requestConfig = {
     headers: {
       'x-auth-token': token,
@@ -31,8 +32,11 @@ export function GroupDetailBase(props) {
   }
 
   useEffect(() => {
-    fetchGroupByUrlId();
-    const subscriptionToGroup = setInterval(() => fetchGroupByUrlId(), 5000);
+    dispatchGroupLoading(fetchGroupByUrlId);
+    let subscriptionToGroup = null;
+    if (user) {
+      subscriptionToGroup = setInterval(() => fetchGroupByUrlId(), 5000);
+    }
 
     return () => {
       console.log('CleanUp: GroupDetail');
@@ -42,27 +46,34 @@ export function GroupDetailBase(props) {
 
   useEffect(() => {
     //initialize parallax
-    let options = {};
-    let parallax_elements = document.querySelectorAll('.parallax');
-    M.Parallax.init(parallax_elements, options);
-    //Or use auto init instead
-    //M.AutoInit();
+    // let options = {};
+    // let parallax_elements = document.querySelectorAll('.parallax');
+    // M.Parallax.init(parallax_elements, options);
   }, []);
 
   async function fetchGroupByUrlId() {
-    await axios
-      .get('/api/group/' + getGroupIdentifier(), requestConfig)
-      .then(res => {
-        console.log('Fetched Group Data: ', res.data.group);
-        setGroup(res.data.group);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    try {
+      await axios
+        .get('/api/group/' + getGroupIdentifier(), requestConfig)
+        .then(res => {
+          console.log('Fetched Group Data: ', res.data.group);
+          setGroup(res.data.group);
+        })
+        .catch(err => {
+          if (err.response.status == 403 || err.response.status == 401) {
+            console.log('You are prohibited to view the group');
+            setError('You are prohibited to view the group');
+          }
+          console.error(err);
+        });
+    } catch {}
   }
   return (
     <>
-      <PomodoroGroup group={group} />
+      <Preloader isLoading={groupLoadingState.isLoading}>
+        {error && <ErrorBox errorMsg={error}></ErrorBox>}
+        <PomodoroGroup group={group} />
+      </Preloader>
     </>
   );
 }

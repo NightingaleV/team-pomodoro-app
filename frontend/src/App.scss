@@ -11,6 +11,8 @@ $secondary-color: color('blue', 'accent-1') !default;
 @import './components/organisms/SideNavigation';
 @import './views/SignIn';
 @import './views/SignUp';
+@import './components/atoms/Preloader';
+
 .parallax-container {
   height: 400px;
 }

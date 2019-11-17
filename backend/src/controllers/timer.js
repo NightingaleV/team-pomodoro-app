@@ -74,9 +74,9 @@ export async function createTimer(req, res) {
 }
 
 export async function updateTimer(req, res) {
-  const { timerID, isRunning, remTime, settings, indexInCycle } = req.body;
-  const userID = req.user.id;
   try {
+    const { timerID, isRunning, remTime, settings, indexInCycle } = req.body;
+    const userID = req.user.id;
     const updatedTimer = {
       isRunning,
       remTime,
@@ -92,8 +92,6 @@ export async function updateTimer(req, res) {
     console.log(err);
     return res.status(500).send('Server Error, Try it later');
   }
-
-  console.log(req.body);
 }
 
 // VALIDATION
