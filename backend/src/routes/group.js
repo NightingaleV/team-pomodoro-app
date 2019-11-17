@@ -20,7 +20,7 @@ const router = express.Router();
 router.get('/all', selectAllGroups);
 
 // @route   GET api/group/mine
-// @desc    get all pomodoro groups
+// @desc    get user pomodoro groups
 // @access  Private
 router.get('/mine', auth, selectUserGroups);
 
@@ -50,6 +50,6 @@ router.get('/detail', async (req, res) => {
 // @route   GET api/group/
 // @desc    get pomodoro group by name
 // @access  Private
-router.get('/:groupId', selectGroupById);
+router.get('/:groupId', auth, selectGroupById);
 
 export { router as groupRouter };
