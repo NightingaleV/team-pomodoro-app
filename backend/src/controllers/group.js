@@ -1,7 +1,10 @@
+//External imports
 import mongoose from 'mongoose';
+import {check, validationResult} from 'express-validator';
 //Internal imports
 import { Group } from '../models/Group';
 import { Timer } from '../models/Timer';
+import { async } from '../../../frontend/node_modules/rxjs/internal/scheduler/async';
 
 // LOGIC
 //------------------------------------------------------------------------------
@@ -100,14 +103,19 @@ export async function selectUserGroups(req, res) {
 }
 
 export async function createGroup(req, res) {
-  const { name, userIDs } = req.body;
+  const userID = req.user.id;
+  // const { name, userIDs } = req.body;
+  const { name } = req.body;
+  const userIDs = [mongoose.Types.ObjectId(userID)];
+  const adminIDs = [mongoose.Types.ObjectId(userID)];
   try {
     let group;
 
     group = new Group({
       name,
       userIDs,
-    });
+      adminIDs,
+    });    
 
     //save group to database
     group.save().then(
@@ -122,6 +130,8 @@ export async function createGroup(req, res) {
         }
       },
     );
+
+    // res.json({memberIDs});
   } catch (err) {
     console.log(err);
     return res.status(500).send('Server Error, Try it later');
@@ -142,4 +152,13 @@ export async function addMember(req, res) {
     console.log(err);
     return res.status(500).send('Server Error, Try it later');
   }
+}
+
+// VALIDATION
+//------------------------------------------------------------------------------
+export function validateGroup(){
+  return[
+    check('name', 'Name is invalid')
+    .not().isEmpty(),
+  ];
 }
