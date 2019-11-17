@@ -5,6 +5,8 @@ import { PomodoroGroup } from '../components/organisms';
 import { useAuth } from '../utils/useAuth';
 import M from 'materialize-css';
 
+//TODO RESTRICT GROUP IF USER NOT A MEMBER
+
 // function RefreshOnTime({ timePeriod }) {
 //   setTimeout('location.reload(true);', timePeriod);
 //   return null;
@@ -25,13 +27,19 @@ export function GroupDetailBase(props) {
     const url = location.pathname;
     const urlList = url.split('/');
     const groupName = urlList[urlList.length - 1];
-    console.log(urlList);
     return groupName;
   }
 
   useEffect(() => {
     fetchGroupByUrlId();
+    const subscriptionToGroup = setInterval(() => fetchGroupByUrlId(), 5000);
+
+    return () => {
+      console.log('CleanUp: GroupDetail');
+      clearInterval(subscriptionToGroup);
+    };
   }, [location.pathname]);
+
   useEffect(() => {
     //initialize parallax
     let options = {};
@@ -42,11 +50,10 @@ export function GroupDetailBase(props) {
   }, []);
 
   async function fetchGroupByUrlId() {
-    console.log(getGroupIdentifier());
     await axios
       .get('/api/group/' + getGroupIdentifier(), requestConfig)
       .then(res => {
-        console.log('Fetched Group Data: ', res.data);
+        console.log('Fetched Group Data: ', res.data.group);
         setGroup(res.data.group);
       })
       .catch(err => {
