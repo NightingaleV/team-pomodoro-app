@@ -11,6 +11,8 @@ $secondary-color: color('blue', 'accent-1') !default;
 @import './components/organisms/SideNavigation';
 @import './views/SignIn';
 @import './views/SignUp';
+@import './components/atoms/Preloader';
+
 .parallax-container {
   height: 400px;
 }
@@ -60,7 +62,7 @@ span.badge.new {
 span.badge {
   min-width: 3rem;
   padding: 0 9px;
-  margin-left: 14px;
+  margin-right: 14px;
   text-align: center;
   font-size: 1rem;
   line-height: 25px;

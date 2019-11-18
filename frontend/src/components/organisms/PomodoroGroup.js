@@ -13,10 +13,14 @@ export function PomodoroGroupBase(props) {
   return (
     <>
       <div className="group">
-        <div className="group-title">{group.name}</div>
+        <h3 className="group-title">{group.name}</h3>
         <div className="row">
           {group.userIDs.map((member, index) => {
-            return <UserCard member={member} index={index}></UserCard>;
+            return (
+              <div key={index}>
+                <UserCard member={member} />
+              </div>
+            );
           })}
         </div>
       </div>
