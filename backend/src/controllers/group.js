@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import {check, validationResult} from 'express-validator';
 //Internal imports
 import { Group } from '../models/Group';
+import { User } from '../models/User';
 import { Timer } from '../models/Timer';
 import { async } from '../../../frontend/node_modules/rxjs/internal/scheduler/async';
 
@@ -151,13 +152,53 @@ export async function createGroup(req, res) {
 }
 
 export async function addMember(req, res) {
-  try {
-    const { groupName, memberID } = req.body;
-    await Group.updateOne(
-      { name: groupName },
-      { $push: { userIDs: memberID } },
-    );
-    await res.json({ msg: 'Member added to the group' });
+  try {    
+    // const { groupID, memberID } = req.body;
+    const { groupID, email } = req.body;
+    const user = await User.findOne({email: email});        
+
+    if(user){
+      // let helpGroup = await Group.findOne({ _id: groupID });
+      let helpGroup = await Group.findOne({ _id: groupID })
+      .populate({
+        path: 'userIDs',});
+      
+      let isNew = true;
+      
+      console.log('Test');
+      console.log(helpGroup.name);
+      console.log(helpGroup.userIDs);
+      console.log('UserID: ' + user._id);
+
+      if(helpGroup){
+        helpGroup.userIDs.map(member => {    
+          console.log(member);
+            if (member._id == user.id) {
+              isNew = false;            
+            }          
+        });
+      }
+
+      const inc = helpGroup.userIDs.includes(user._id);
+      console.log('inc: ' + inc);
+
+        console.log(isNew);
+
+      if(isNew){
+        let group = await Group.findOneAndUpdate(          
+          { _id: groupID },
+          { $push: { userIDs: user._id } },
+        );        
+        
+        //need to figure out how to return the group with modified users
+        await res.json({ group });
+      }
+      else{
+        return res.status(403).send('User is already a member of the group');
+      }
+    }else{
+      return res.status(404).send('No user was found using this email');
+    }  
   } catch (err) {
     console.log(err);
     return res.status(500).send('Server Error, Try it later');

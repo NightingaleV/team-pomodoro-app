@@ -4,12 +4,13 @@ import axios from 'axios';
 import { PomodoroGroup } from '../components/organisms';
 import { useAuth } from '../utils/useAuth';
 import M from 'materialize-css';
-import { Preloader, ErrorBox } from '../components/atoms';
+import { Preloader, ErrorBox, Button, Link } from '../components/atoms';
 import { usePromise } from '../utils/usePromise';
+import { async } from 'rxjs/internal/scheduler/async';
 
 export function GroupDetailBase(props) {
   const { user, token } = useAuth();
-  const [group, setGroup] = useState({ name: '', userIDs: [] });
+  const [group, setGroup] = useState({ name: '', userIDs: [] });  
   const [error, setError] = useState('');
   let location = useLocation();
 
@@ -32,6 +33,7 @@ export function GroupDetailBase(props) {
   }
 
   useEffect(() => {
+    setError('');
     dispatchGroupLoading(fetchGroupByUrlId);
     let subscriptionToGroup = null;
     if (user) {
@@ -67,11 +69,21 @@ export function GroupDetailBase(props) {
           console.error(err);
         });
     } catch {}
-  }
+  } 
+
   return (
-    <>
+    <>    
       <Preloader isLoading={groupLoadingState.isLoading}>
         {error && <ErrorBox errorMsg={error}></ErrorBox>}
+        {!error && 
+          <div className={'singup-container'}>
+            <Link to={'/group/invitation/' + group._id}>
+              <Button form={'invite-user'}>
+                Invite
+              </Button>
+            </Link>      
+          </div>
+        }
         <PomodoroGroup group={group} />
       </Preloader>
     </>
