@@ -94,13 +94,19 @@ export function SideNavigationBase(props) {
           <li>
             <a className="subheader">Actions</a>
           </li>
+
           <li>
             {/* <a href="#!"> */}
             {user && (
-              <a href="/group/new">
-                <i className="material-icons">group_add</i>
-                New group
-              </a>
+              <li className="">
+                <NavLink
+                  to={'/group/new'}
+                  className={classNames('sidenav-close')}
+                >
+                  <i className="material-icons">group_add</i>{' '}
+                  <span className="group-name ">Create new group</span>
+                </NavLink>
+              </li>
             )}
           </li>
         </ul>
