@@ -17,93 +17,61 @@ export function NewGroup() {
     name: '',
   });
 
-  const [errors, setError] = useState({
-    name: '',
-  });
-
-  const validate = e => {
-    let validErrors = errors;
-    let valid = true;
-    const { name, value } = e.target;
-    switch (name) {
-      case 'name':
-        validErrors.name = value === '' ? 'Name can not be empty!' : '';
-        valid = false;
-        break;
-      default:
-        break;
-    }
-
-    setError(validErrors);
-  };
+  const [errors, setError] = useState({});
 
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    validate(e);
   };
 
   const onSubmit = async e => {
     e.preventDefault();
 
-    if (errors.name) {
-      console.log('Not Valid');
-      console.log(errors);
-    } else {
-      console.log('Valid');
-      const newGroup = { name: formData.name };
+    const newGroup = { name: formData.name };
 
-      const config = {
-        headers: {
-          'x-auth-token': token,
-          'Content-Type': 'application/json',
-        },
-      };
+    const config = {
+      headers: {
+        'x-auth-token': token,
+        'Content-Type': 'application/json',
+      },
+    };
 
-      const body = JSON.stringify(newGroup);
+    const body = JSON.stringify(newGroup);
 
-      await axios
-        // .post('api/group/new', body, config)
-        .post('/api/group/new', body, config)
-        .then(res => {
-          console.log('Valid Statement');
-          console.log(res.data.group);
-          if (res.data.group) {
-            history.push({
-              pathname: '/group/' + res.data.group._id,
-            });
-          }
-        })
-        .catch(err => {
-          console.log('Error Statement');
-          if (err.response.data) {
-            setError({ ...errors, backend: err.response.data.errors });
-            console.log(err.response.data.errors);
-            if (err.response.data.errors) {
-              err.response.data.errors.map(error => {
-                console.log(error);
-              });
-            }
-          }
-        });
-    }
+    await axios
+      .post('/api/group/new', body, config)
+      .then(res => {
+        console.log('Valid Statement');
+        console.log(res.data.group);
+        if (res.data.group) {
+          history.push({
+            pathname: '/group/' + res.data.group._id,
+          });
+        }
+      })
+      .catch(err => {
+        console.log('Error Statement');
+        if (err.response.data) {
+          setError({ ...errors, backend: err.response.data.errors });
+          console.log(err.response.data.errors);
+        }
+      });
   };
 
   return (
     <>
-      <div className={'singup-container'}>
+      <div className={'create-group-container'}>
         <h3>Create new group</h3>
         <div>
           <form id={'create-group-form'} onSubmit={onSubmit}>
             <TextInput
               id={'name'}
               name={'name'}
-              type={'name'}
+              type={'text'}
               value={formData.name}
               onChange={onChange}
-              error={errors.name || ''}
               required
             >
-              Name
+              Group name
             </TextInput>
             <>
               {errors.backend &&
@@ -112,7 +80,7 @@ export function NewGroup() {
                 })}
             </>
             <Button type={'submit'} form={'create-group-form'}>
-              Create
+              Create group
             </Button>
           </form>
         </div>

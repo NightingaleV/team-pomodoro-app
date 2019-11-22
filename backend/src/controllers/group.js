@@ -159,25 +159,8 @@ export async function addMember(req, res) {
 //------------------------------------------------------------------------------
 export function validateGroup() {
   return [
-    check('name', 'Name is invalid')
+    check('name', 'Group name is required.')
       .not()
       .isEmpty(),
   ];
-}
-
-// VALIDATION
-//------------------------------------------------------------------------------
-// Check if group is already in database
-export function isGroupAlreadyCreated(value, { req }) {
-  return new Promise((resolve, reject) => {
-    Group.findOne({ name: req.body.name }, function(err, user) {
-      if (err) {
-        reject(new Error('Server Error'));
-      }
-      if (Boolean(user)) {
-        reject(new Error('This group already exists.'));
-      }
-      resolve(true);
-    });
-  });
 }
