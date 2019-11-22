@@ -5,6 +5,7 @@ import {
   TopNavigation,
   SideNavigation,
   FooterNavigation,
+  CreateGroupModal,
 } from '../components/organisms';
 
 export function Container(props) {
@@ -20,7 +21,9 @@ export function Container(props) {
           <div className="container">{props.children}</div>
         </div>
       </div>
-
+      <div className="modals-container">
+        <CreateGroupModal />
+      </div>
       <FooterNavigation></FooterNavigation>
     </>
   );

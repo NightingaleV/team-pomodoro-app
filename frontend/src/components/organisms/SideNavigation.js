@@ -69,9 +69,19 @@ export function SideNavigationBase(props) {
     // instance.open();
     console.log(instance.isOpen);
   }
+
+  function initNewGroupModal() {
+    const createGroupModalElement = document.querySelector(
+      '.create-group-modal',
+    );
+    const options = {};
+    var elem = M.Modal.init(createGroupModalElement, options);
+  }
+
   useEffect(() => {
     //initialize hamburger menu
     initSidebarMenu();
+    initNewGroupModal();
   }, []);
 
   return (
@@ -94,18 +104,16 @@ export function SideNavigationBase(props) {
           <li>
             <a className="subheader">Actions</a>
           </li>
-
           <li>
-            {/* <a href="#!"> */}
             {user && (
-              <li className="">
-                <NavLink
-                  to={'/group/new'}
-                  className={classNames('sidenav-close')}
+              <li>
+                <a
+                  href="#createGroupModal"
+                  className={classNames('sidenav-close', 'modal-trigger')}
                 >
                   <i className="material-icons">group_add</i>{' '}
                   <span className="group-name ">Create new group</span>
-                </NavLink>
+                </a>
               </li>
             )}
           </li>
