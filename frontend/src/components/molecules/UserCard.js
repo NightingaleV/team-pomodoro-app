@@ -2,14 +2,6 @@ import React, { Fragment } from 'react';
 import classNames from 'classnames';
 
 export function UserCard(props) {
-  const { member } = props;
-  const timerIsRunning = member.timerID.isRunning;
-  const timerType = member.timerID.settings.type;
-  const timerName = member.timerID.settings.name;
-  const timerRemTime = member.timerID.remTime;
-  const timerUpdated = new Date(member.timerID.updatedAt);
-  // In minutes
-  const timeDifference = (Date.now() - timerUpdated) / (1000 * 60);
   const statusObject = {
     offline: { label: 'Offline', color: 'grey' },
     idle: { label: 'Idle', color: 'brown lighten-2' },
@@ -17,6 +9,24 @@ export function UserCard(props) {
     sBreak: { label: 'Short Break', color: 'green' },
     lBreak: { label: 'Long Break', color: 'green' },
   };
+  const { member } = props;
+  let timerIsRunning = null;
+  let timerType = null;
+  let timerName = null;
+  let timerRemTime = null;
+  let timerUpdated = null;
+  // In minutes
+  let timeDifference = null;
+
+  if (member.timerID) {
+    timerIsRunning = member.timerID.isRunning;
+    timerType = member.timerID.settings.type;
+    timerName = member.timerID.settings.name;
+    timerRemTime = member.timerID.remTime;
+    timerUpdated = new Date(member.timerID.updatedAt);
+    // In minutes
+    timeDifference = (Date.now() - timerUpdated) / (1000 * 60);
+  }
 
   let status = '';
   if (timerIsRunning && timerType === 1) status = 'pomodoro';
