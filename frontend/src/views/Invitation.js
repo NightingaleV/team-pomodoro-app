@@ -9,129 +9,135 @@ import { useAuth } from '../utils/useAuth';
 import { useApi } from '../utils/useApi';
 import { async } from 'rxjs/internal/scheduler/async';
 
-export function Invitation(){
-    const api = useApi();
-    const history = useHistory();
-    const { user, token } = useAuth();
-    let location = useLocation();
-    const [message, setMessage] = useState('');
-    const [group, setGroup] = useState({ name: '', userIDs: [] });
-    const [authError, setAuthError] = useState('');
+export function Invitation() {
+  const api = useApi();
+  const history = useHistory();
+  const { user, token } = useAuth();
+  let location = useLocation();
+  const [message, setMessage] = useState('');
+  const [group, setGroup] = useState({ name: '', userIDs: [] });
+  const [authError, setAuthError] = useState('');
 
-    const [formData, setFormData] = useState({
-        email: '',
-    });
-   
-    const [error, setError] = useState('');
+  const [formData, setFormData] = useState({
+    email: '',
+  });
 
-    const onChange = e => {
-        setFormData({ ...formData, [e.target.name]: e.target.value});        
-    };
+  const [error, setError] = useState('');
 
-    const requestConfig = {
-        headers: {
-          'x-auth-token': token,
-          'Content-Type': 'application/json',
-        },        
-      };
+  const onChange = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-    useEffect(() => {
-        fetchGroupByUrlId();
-    }, []);
+  const requestConfig = {
+    headers: {
+      'x-auth-token': token,
+      'Content-Type': 'application/json',
+    },
+  };
 
-    function getGroupIdentifier(props) {
-        const url = location.pathname;
-        const urlList = url.split('/');
-        const groupID = urlList[urlList.length - 1];
-        return groupID;
-    }    
+  useEffect(() => {
+    fetchGroupByUrlId();
+  }, []);
 
-    async function fetchGroupByUrlId() {
-        try {
-          await axios
-            .get('/api/group/' + getGroupIdentifier(), requestConfig)
-            .then(res => {
-              console.log('Fetched Group Data: ', res.data.group);
-              setGroup(res.data.group);
-            })
-            .catch(err => {
-              if (err.response.status == 403 || err.response.status == 401) {
-                console.log('You are prohibited to invite users into the group');
-                setAuthError('You are prohibited to invite users into the group');
-              }
-              console.error(err);
-            });
-        } catch {}
-      }
+  function getGroupIdentifier(props) {
+    const url = location.pathname;
+    const urlList = url.split('/');
+    const groupID = urlList[urlList.length - 1];
+    return groupID;
+  }
 
-    async function addMember(){
-
-        const config = {
-            headers: {                
-                'Content-Type': 'application/json',
-            },
-        };
-        
-        const invitation = {groupID: getGroupIdentifier(), email: formData.email};
-        
-        const body = JSON.stringify(invitation);
-
-        await axios
-        .post('/api/group/addMember', body, config)
+  async function fetchGroupByUrlId() {
+    try {
+      await axios
+        .get('/api/group/' + getGroupIdentifier(), requestConfig)
         .then(res => {
-            console.log('Valid statement');
-            console.log(res.data.group);
-            if(res.data.group){                                
-                setMessage('User ' + invitation.email + ' has been invited to group ' + res.data.group.name);
-            }
+          console.log('Fetched Group Data: ', res.data.group);
+          setGroup(res.data.group);
         })
-        .catch(err => {            
-            if(err.response.status == 404){
-                console.log('Unable to find user ' + formData.email);
-                setError('Unable to find user ' + formData.email);
-            }
-            else if(err.response.status == 403){
-                console.log('User ' + formData.email + ' is already a member of this group');
-                setError('User ' + formData.email + ' is already a member of this group');
-            }
-          });
-    }
+        .catch(err => {
+          if (err.response.status == 403 || err.response.status == 401) {
+            console.log('You are prohibited to invite users into the group');
+            setAuthError('You are prohibited to invite users into the group');
+          }
+          console.error(err);
+        });
+    } catch {}
+  }
 
-    const onSubmit = async e => {
-        e.preventDefault();
-        setError('');
-        setMessage('');
-                        
-        addMember();        
+  async function addMember() {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
     };
 
-    return(
-        <>
-            
-            {authError && <ErrorBox errorMsg={authError}></ErrorBox>}
-            
-            {!authError &&
-                <div className={'singup-container'}>
-                    <h3>Invite user into group: {group.name}</h3>
-                    <p>{message}</p>
-                    <form id='user-invitation' onSubmit={onSubmit}>
-                        <TextInput
-                            id={'email'}
-                            name={'email'}
-                            type={'email'}
-                            value={formData.email}
-                            onChange={onChange}
-                            error={error || ''}
-                            required
-                        >
-                            Email
-                        </TextInput>
-                        <Button type={'submit'} form={'user-invitation'}>
-                            Invite
-                        </Button>
-                    </form>            
-                </div>
-            }
-        </>
-    );
+    const invitation = { groupID: getGroupIdentifier(), email: formData.email };
+
+    const body = JSON.stringify(invitation);
+
+    await axios
+      .post('/api/group/addMember', body, config)
+      .then(res => {
+        console.log('Valid statement');
+        console.log(res.data.group);
+        if (res.data.group) {
+          setMessage(
+            'User ' +
+              invitation.email +
+              ' has been invited to group ' +
+              res.data.group.name,
+          );
+        }
+      })
+      .catch(err => {
+        if (err.response.status == 404) {
+          console.log('Unable to find user ' + formData.email);
+          setError('Unable to find user ' + formData.email);
+        } else if (err.response.status == 403) {
+          console.log(
+            'User ' + formData.email + ' is already a member of this group',
+          );
+          setError(
+            'User ' + formData.email + ' is already a member of this group',
+          );
+        }
+      });
+  }
+
+  const onSubmit = async e => {
+    e.preventDefault();
+    setError('');
+    setMessage('');
+
+    addMember();
+  };
+
+  return (
+    <>
+      {authError && <ErrorBox errorMsg={authError}></ErrorBox>}
+
+      {!authError && (
+        <div className={'singup-container'}>
+          <h3>Invite user into group: {group.name}</h3>
+          <p>{message}</p>
+          <form id="user-invitation" onSubmit={onSubmit}>
+            <TextInput
+              id={'email'}
+              name={'email'}
+              type={'email'}
+              value={formData.email}
+              onChange={onChange}
+              error={error || ''}
+              required
+            >
+              Email
+            </TextInput>
+            <Button type={'submit'} form={'user-invitation'}>
+              Invite
+            </Button>
+          </form>
+        </div>
+      )}
+    </>
+  );
 }

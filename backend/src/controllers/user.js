@@ -43,18 +43,17 @@ export async function createUser(req, res) {
   console.log(req.body);
 }
 
-export async function selectUserByName(req, res){
-  try{
+export async function selectUserByName(req, res) {
+  try {
     const userEmail = req.params.email;
 
-    const user = await User.findOne({email: userEmail});
-    if(user){
-      await res.json({user: user});
-    }
-    else{
+    const user = await User.findOne({ email: userEmail });
+    if (user) {
+      await res.json({ user: user });
+    } else {
       return res.status(403).send('No user was found using this email');
     }
-  }catch(err){
+  } catch (err) {
     console.log(err);
     return res.status(500).send('Server Error, Try it later');
   }

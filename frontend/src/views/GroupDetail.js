@@ -10,7 +10,7 @@ import { async } from 'rxjs/internal/scheduler/async';
 
 export function GroupDetailBase(props) {
   const { user, token } = useAuth();
-  const [group, setGroup] = useState({ name: '', userIDs: [] });  
+  const [group, setGroup] = useState({ name: '', userIDs: [] });
   const [error, setError] = useState('');
   let location = useLocation();
 
@@ -69,21 +69,19 @@ export function GroupDetailBase(props) {
           console.error(err);
         });
     } catch {}
-  } 
+  }
 
   return (
-    <>    
+    <>
       <Preloader isLoading={groupLoadingState.isLoading}>
         {error && <ErrorBox errorMsg={error}></ErrorBox>}
-        {!error && 
+        {!error && (
           <div className={'singup-container'}>
             <Link to={'/group/invitation/' + group._id}>
-              <Button form={'invite-user'}>
-                Invite
-              </Button>
-            </Link>      
+              <Button form={'invite-user'}>Invite</Button>
+            </Link>
           </div>
-        }
+        )}
         <PomodoroGroup group={group} />
       </Preloader>
     </>

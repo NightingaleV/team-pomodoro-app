@@ -10,7 +10,7 @@ import {
   RegistrationComplete,
   GroupDetail,
   NewGroup,
-  Invitation
+  Invitation,
 } from './views';
 import { ProtectedRoute } from './components/ProtectedRoutes';
 
@@ -27,9 +27,9 @@ export function Routes() {
       {/*/>*/}
       <Route exact path="/register" component={SignUp} />
       <Route exact path="/register/success" component={RegistrationComplete} />
-      <Route exact path="/group/new" component={NewGroup}/>
-      <Route path="/group/invitation" component={Invitation}/>
-      <Route path="/group" component={GroupDetail} />      
+      <Route exact path="/group/new" component={NewGroup} />
+      <Route path="/group/invitation" component={Invitation} />
+      <Route path="/group" component={GroupDetail} />
     </Switch>
   );
 }
