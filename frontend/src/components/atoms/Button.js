@@ -13,7 +13,7 @@ const BUTTON_SHAPES = {
 
 const ACTION_BUTTONS = {
   play: {
-    color: '',
+    color: 'amber',
     icon: 'play_arrow',
   },
   pause: {
@@ -30,7 +30,7 @@ const ACTION_BUTTONS = {
   },
 
   dropdown: {
-    color: 'amber',
+    color: '',
     icon: 'more_vert',
   },
 };
