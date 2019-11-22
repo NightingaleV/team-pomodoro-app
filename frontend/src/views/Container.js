@@ -25,7 +25,7 @@ export function Container(props) {
       <div className="modals-container">
         <CreateGroupModal />
       </div>
-      <FooterNavigation></FooterNavigation>
+      <FooterNavigation />
     </>
   );
 
@@ -40,7 +40,7 @@ export function Container(props) {
       <div className="modals-container">
         <CreateGroupModal />
       </div>
-      <FooterNavigation></FooterNavigation>
+      <FooterNavigation />
     </>
   );
 
