@@ -14,12 +14,12 @@ export function Container(props) {
   const layoutWhenLogedIn = (
     <>
       <TopNavigation />
-      <div className={'row content'}>
-        <div className={'col l2 hide-on-small-only'}>
+      <div className={'row container'}>
+        <div>
           {user && <SideNavigation />}
         </div>
-        <div className={'col l10 m12 s12   center-align'}>
-          <div className="container">{props.children}</div>
+        <div className={'col s12'}>
+          <div>{props.children}</div>
         </div>
       </div>
       <div className="modals-container">
@@ -32,9 +32,9 @@ export function Container(props) {
   const layoutWhenAnonymous = (
     <>
       <TopNavigation />
-      <div className={'row content'}>
-        <div className={'col l12 m12 s12   center-align'}>
-          <div className="container">{props.children}</div>
+      <div className={'row container'}>
+        <div className={'col s12'}>
+          <div>{props.children}</div>
         </div>
       </div>
       <div className="modals-container">
