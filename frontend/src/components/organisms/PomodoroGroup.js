@@ -14,29 +14,39 @@ export function PomodoroGroupBase(props) {
   const { group } = props;
   const { user, token } = useAuth();
 
-  const addMemberModalTrigger = (
-    <>
-      {user && (
-        <>
-          <Button
-            icon={'person_add'}
-            iconPosition={'right'}
-            href={'#addMemberModal'}
-            className={classNames('hide-on-med-and-down', 'modal-trigger')}
-          >
-            <span className="btn-title">Invite User</span>
-          </Button>
-          <Button
-            icon={'person_add'}
-            shape={'bigCircular'}
-            iconPosition={'right'}
-            href={'#addMemberModal'}
-            className={classNames('hide-on-large-only', 'modal-trigger')}
-          />
-        </>
-      )}
-    </>
-  );
+  let userIsAdmin = false;
+  let addMemberModalTrigger = '';
+  if (group) {
+    group.adminIDs.map((admin, index) => {
+      if (admin == user._id) userIsAdmin = true;
+    });
+  }
+
+  if (userIsAdmin) {
+    addMemberModalTrigger = (
+      <>
+        {user && (
+          <>
+            <Button
+              icon={'person_add'}
+              iconPosition={'right'}
+              href={'#addMemberModal'}
+              className={classNames('hide-on-med-and-down', 'modal-trigger')}
+            >
+              <span className="btn-title">Invite User</span>
+            </Button>
+            <Button
+              icon={'person_add'}
+              shape={'bigCircular'}
+              iconPosition={'right'}
+              href={'#addMemberModal'}
+              className={classNames('hide-on-large-only', 'modal-trigger')}
+            />
+          </>
+        )}
+      </>
+    );
+  }
 
   function initNewGroupModal() {
     const addMemberModalElement = document.querySelector('.add-member-modal');
