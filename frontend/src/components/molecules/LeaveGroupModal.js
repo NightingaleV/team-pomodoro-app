@@ -21,7 +21,7 @@ export function LeaveGroupModal({ group }) {
 
   // Component Control
   //----------------------------------------------------------------------------
-  function closeModalAfterSubmit() {
+  function closeModal() {
     const addMemberModalElement = document.querySelector('.leave-group-modal');
     const elem = M.Modal.getInstance(addMemberModalElement);
     elem.close();
@@ -29,13 +29,10 @@ export function LeaveGroupModal({ group }) {
 
   // Form Control
   //----------------------------------------------------------------------------
-  const onSubmit = async e => {
-    e.preventDefault();
-
+  const leaveGroup = async e => {
     const requestData = {
       groupID: group._id,
     };
-    console.log(requestData);
 
     const config = {
       headers: {
@@ -46,12 +43,9 @@ export function LeaveGroupModal({ group }) {
 
     const body = JSON.stringify(requestData);
     await axios
-      .post('/api/group/addmember', body, config)
+      .post('/api/group/leave', body, config)
       .then(res => {
-        console.log('Valid Statement');
-        closeModalAfterSubmit();
-        console.log(res.data);
-        //Show a new user in group
+        closeModal();
       })
       .catch(err => {
         console.log('Error Statement');
@@ -80,6 +74,7 @@ export function LeaveGroupModal({ group }) {
               color={'blue lighten-1'}
               type={'button'}
               className={'mx-4'}
+              onClick={closeModal}
             >
               Stay
             </Button>
@@ -89,6 +84,7 @@ export function LeaveGroupModal({ group }) {
               color={'red lighten-1'}
               type={'button'}
               className={'mx-4'}
+              onClick={leaveGroup()}
             >
               Leave
             </Button>
