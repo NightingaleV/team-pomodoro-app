@@ -9,6 +9,7 @@ import { Link, NavLink } from '../atoms/Link';
 import { useAuth } from '../../utils/useAuth';
 import { useApi } from '../../utils/useApi';
 import { Button } from '../atoms';
+import timerIcon from '../../assets/icon/timer_white_192x192.png';
 // Assets
 
 export function TopNavigationBase(props) {
@@ -27,22 +28,25 @@ export function TopNavigationBase(props) {
     <>
       <nav className={'top-menu'}>
         <div className="nav-wrapper">
-          <a href="#" data-target="slide-out" className="sidenav-trigger left show-on-large"><i className="material-icons">menu</i></a>
-          <a href="#" data-target="slide-out" className="sidenav-trigger left hide-on-med-and-down"><i className="material-icons">menu</i></a>
-          <Link
-            to="/timer"
-            className="brand-logo left hide-on-large-only show-on-medium-and-down"
-            style={{ marginLeft: '45px' }}
+          <a
+            href="#"
+            data-target="slide-out"
+            className="sidenav-trigger left show-on-medium-and-down"
           >
-            Pomodoro
-          </Link>
-          <Link
-            to="/timer"
-            className="brand-logo left show-on-large hide-on-med-and-down"
-            style={{ marginLeft: '55px' }}
-          >
-            Pomodoro
-          </Link>
+            <i className="material-icons">menu</i>
+          </a>
+
+          <div className={'left valign-wrapper logo hide-on-large-only'}>
+            <img
+              className={classNames('logo-icon')}
+              src={timerIcon}
+              alt="Team Pomodoro App"
+              width="35"
+            />
+            <Link to="/timer" className="logo-text white-text">
+              Pomodoro
+            </Link>
+          </div>
           <a href="#" data-target="mobile-top-menu" className="sidenav-trigger">
             <i className="material-icons">more_vert</i>
           </a>
@@ -52,14 +56,6 @@ export function TopNavigationBase(props) {
                 <i className="material-icons left">watch_later</i>Timer
               </NavLink>
             </li>
-            {/*<li>*/}
-            {/*  <NavLink to="/group/5dc8f9b99c6fd62304063fbb">*/}
-            {/*    Test Group - UR*/}
-            {/*  </NavLink>*/}
-            {/*</li>*/}
-            {/*<li>*/}
-            {/*  <NavLink to="/protected">Protected Route</NavLink>*/}
-            {/*</li>*/}
             {user ? (
               <>
                 <li>

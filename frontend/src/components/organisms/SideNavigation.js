@@ -6,6 +6,7 @@ import M from 'materialize-css';
 import axios from 'axios';
 
 // Internal imports
+import timerIcon from '../../assets/icon/timer_white_192x192.png';
 import { Link, NavLink } from '../atoms/Link';
 import { useAuth } from '../../utils/useAuth';
 import { GroupDetail } from '../../views/GroupDetail';
@@ -84,40 +85,62 @@ export function SideNavigationBase(props) {
     initNewGroupModal();
   }, []);
 
+  const sideNavContent = (
+    <ul className={'sidenav-list'}>
+      <li className={'logo blue '}>
+        <div className="valign-wrapper">
+          <img
+            className={classNames('left', 'logo-icon')}
+            src={timerIcon}
+            alt="Team Pomodoro App"
+            width="35"
+          />
+          <Link to="/timer" className="logo-text white-text blue">
+            Pomodoro
+          </Link>
+        </div>
+      </li>
+      {user && (
+        <li>
+          <a
+            href="#createGroupModal"
+            className={classNames('sidenav-close', 'modal-trigger')}
+          >
+            <i className="material-icons">group_add</i>{' '}
+            <span className="group-name ">Create new group</span>
+          </a>
+        </li>
+      )}
+      <li>
+        <div className="divider"></div>
+      </li>
+      <li>
+        <a className="subheader">
+          <i className="material-icons">group</i> My Groups
+        </a>
+      </li>
+      {user && <GroupList groups={userGroups}></GroupList>}
+      <li>
+        <div className="divider"></div>
+      </li>
+      <li>
+        <a className="subheader">Manage Groups</a>
+      </li>
+    </ul>
+  );
+
   return (
     <>
-      <aside id="slide-out" className={'sidenav main-menu'}>
-        <ul>
-          <li>
-            {user && (
-              <li>
-                <a
-                  href="#createGroupModal"
-                  className={classNames('sidenav-close', 'modal-trigger')}
-                >
-                  <i className="material-icons">group_add</i>{' '}
-                  <span className="group-name ">Create new group</span>
-                </a>
-              </li>
-            )}
-          </li>
-          <li>
-            <div className="divider"></div>
-          </li>
-          <li>
-            <a className="subheader">
-              <i className="material-icons">group</i> My Groups
-            </a>
-          </li>
-          {user && <GroupList groups={userGroups}></GroupList>}
-          <li>
-            <div className="divider"></div>
-          </li>
-          <li>
-            <a className="subheader">Manage Groups</a>
-          </li>
-        </ul>
-      </aside>
+      <div className={'hide-on-med-and-down'}>
+        <aside id="" className={'sidenav sidenav-fixed'}>
+          {sideNavContent}
+        </aside>
+      </div>
+      <div className={'.hide-on-large-only'}>
+        <aside id="slide-out" className={'sidenav main-menu'}>
+          {sideNavContent}
+        </aside>
+      </div>
     </>
   );
 }

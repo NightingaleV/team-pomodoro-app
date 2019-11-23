@@ -13,14 +13,15 @@ export function Container(props) {
   const { user, token } = useAuth();
   const layoutWhenLogedIn = (
     <>
-      <TopNavigation />
+      <header className={'header'}>
+        <TopNavigation />
+        {user && <SideNavigation />}
+      </header>
+      <main className={'content'}>
+        <div className="">{props.children}</div>
+      </main>
       <div className={'row content'}>
-        <div className={'col l2 hide-on-small-only'}>
-          {user && <SideNavigation />}
-        </div>
-        <div className={'col l10 m12 s12   center-align'}>
-          <div className="container">{props.children}</div>
-        </div>
+        <div className={'col l10 m12 s12   center-align'}></div>
       </div>
       <div className="modals-container">
         <CreateGroupModal />

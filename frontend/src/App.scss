@@ -5,6 +5,15 @@ $secondary-color: color('blue', 'accent-1') !default;
 @import '~materialize-css/sass/components/_variables';
 @import '~materialize-css/sass/materialize';
 
+//Mixins
+@import './assets/mixins';
+
+//General
+@import './assets/base';
+@import './assets/layout';
+
+//Custom CSS
+@import './components/organisms/PomodoroTimer';
 @import './components/organisms/PomodoroTimer';
 @import './components/organisms/PomodoroGroup';
 @import './components/organisms/TopNavigation';
@@ -18,6 +27,9 @@ $secondary-color: color('blue', 'accent-1') !default;
 .parallax-container {
   height: 400px;
 }
+
+//BASE
+
 
 .App {
   text-align: center;

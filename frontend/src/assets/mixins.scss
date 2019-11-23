@@ -1,0 +1,14 @@
+
+@mixin for-size($size) {
+  @if $size == sm {
+    @media (max-width: 600px) { @content; }
+  } @else if $size == md {
+    @media (min-width: 601px) { @content; }
+  } @else if $size == lg {
+    @media (min-width: 992px) { @content; }
+  } @else if $size == xlg {
+    @media (min-width: 1200px) { @content; }
+  } @else if $size == xxl {
+    @media (min-width: 1800px) { @content; }
+  }
+}
