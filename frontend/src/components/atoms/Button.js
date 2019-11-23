@@ -8,6 +8,7 @@ const DEFAULT_COLOR = 'amber';
 
 const BUTTON_SHAPES = {
   defaultBtn: DEFAULT_BTN_CLASSES,
+  circular: 'btn-floating waves-effect waves-light',
   bigCircular: 'btn-floating btn-large waves-effect waves-light',
   bigBtn: 'btn-large waves-effect waves-light',
 };

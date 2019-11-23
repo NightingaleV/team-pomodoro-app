@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { Button } from '../atoms/Button';
 import { UserCard } from '../molecules/UserCard';
 import { useAuth } from '../../utils/useAuth';
-import { InviteUserModal } from '../molecules/InviteUserModal';
+import { InviteUserModal, LeaveGroupModal } from '../molecules';
 import M from 'materialize-css';
 
 export function PomodoroGroupBase(props) {
@@ -31,16 +31,24 @@ export function PomodoroGroupBase(props) {
               icon={'person_add'}
               iconPosition={'right'}
               href={'#addMemberModal'}
-              className={classNames('hide-on-med-and-down', 'modal-trigger')}
+              className={classNames(
+                'hide-on-med-and-down',
+                'modal-trigger',
+                'group-action-button',
+              )}
             >
               <span className="btn-title">Invite User</span>
             </Button>
             <Button
               icon={'person_add'}
-              shape={'bigCircular'}
+              shape={'circular'}
               iconPosition={'right'}
               href={'#addMemberModal'}
-              className={classNames('hide-on-large-only', 'modal-trigger')}
+              className={classNames(
+                'hide-on-large-only',
+                'modal-trigger',
+                'group-action-button',
+              )}
             />
           </>
         )}
@@ -48,14 +56,54 @@ export function PomodoroGroupBase(props) {
     );
   }
 
-  function initNewGroupModal() {
+  const leaveGroupModalTrigger = (
+    <>
+      {user && (
+        <>
+          <Button
+            icon={'delete_sweep'}
+            color={'red'}
+            iconPosition={'right'}
+            href={'#leaveGroupModal'}
+            className={classNames(
+              'hide-on-med-and-down',
+              'modal-trigger',
+              'group-action-button',
+            )}
+          >
+            <span className="btn-title">Leave</span>
+          </Button>
+          <Button
+            icon={'delete_sweep'}
+            color={'red'}
+            shape={'circular'}
+            iconPosition={'right'}
+            href={'#leaveGroupModal'}
+            className={classNames(
+              'hide-on-large-only',
+              'modal-trigger',
+              'group-action-button',
+            )}
+          />
+        </>
+      )}
+    </>
+  );
+
+  function initInviteUserModal() {
     const addMemberModalElement = document.querySelector('.add-member-modal');
+    const options = {};
+    var elem = M.Modal.init(addMemberModalElement, options);
+  }
+  function initLeaveGroupModal() {
+    const addMemberModalElement = document.querySelector('.leave-group-modal');
     const options = {};
     var elem = M.Modal.init(addMemberModalElement, options);
   }
 
   useEffect(() => {
-    initNewGroupModal();
+    initInviteUserModal();
+    initLeaveGroupModal();
   }, []);
 
   return (
@@ -66,7 +114,10 @@ export function PomodoroGroupBase(props) {
             <div className="">
               <h3 className="group-title">{group.name}</h3>
             </div>
-            <div className="valign-wrapper ">{addMemberModalTrigger}</div>
+            <div className="valign-wrapper ">
+              {addMemberModalTrigger}
+              {leaveGroupModalTrigger}
+            </div>
           </div>
         </div>
 
@@ -81,6 +132,7 @@ export function PomodoroGroupBase(props) {
         </div>
         <div className="group-modals">
           <InviteUserModal refetchGroup={props.refetchGroup} group={group} />
+          <LeaveGroupModal group={group} />
         </div>
       </div>
     </>
