@@ -7,6 +7,7 @@ import M from 'materialize-css';
 import { Preloader, ErrorBox, Button, Link } from '../components/atoms';
 import { usePromise } from '../utils/usePromise';
 import { async } from 'rxjs/internal/scheduler/async';
+import classNames from 'classnames';
 
 export function GroupDetailBase(props) {
   const { user, token } = useAuth();
@@ -46,19 +47,14 @@ export function GroupDetailBase(props) {
     };
   }, [location.pathname]);
 
-  useEffect(() => {
-    //initialize parallax
-    // let options = {};
-    // let parallax_elements = document.querySelectorAll('.parallax');
-    // M.Parallax.init(parallax_elements, options);
-  }, []);
+  useEffect(() => {}, []);
 
   async function fetchGroupByUrlId() {
     try {
       await axios
         .get('/api/group/' + getGroupIdentifier(), requestConfig)
         .then(res => {
-          console.log('Fetched Group Data: ', res.data.group);
+          // console.log('Fetched Group Data: ', res.data.group);
           setGroup(res.data.group);
         })
         .catch(err => {
@@ -77,13 +73,10 @@ export function GroupDetailBase(props) {
       <Preloader isLoading={groupLoadingState.isLoading}>
         {error && <ErrorBox errorMsg={error}></ErrorBox>}
         {!error && (
-          <div className={'singup-container'}>
-            <Link to={'/group/invitation/' + group._id}>
-              <Button form={'invite-user'}>Invite</Button>
-            </Link>
-          </div>
+          <>
+            <PomodoroGroup group={group} refetchGroup={fetchGroupByUrlId} />
+          </>
         )}
-        <PomodoroGroup group={group} />
       </Preloader>
       </div>
     </>

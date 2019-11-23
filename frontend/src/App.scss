@@ -9,7 +9,8 @@ $secondary-color: color('blue', 'accent-1') !default;
 @import './components/organisms/PomodoroGroup';
 @import './components/organisms/TopNavigation';
 @import './components/organisms/SideNavigation';
-@import './components/organisms/CreateGroupModal';
+@import './components/molecules/CreateGroupModal';
+@import './components/molecules/InviteUserModal';
 @import './views/SignIn';
 @import './views/SignUp';
 @import './components/atoms/Preloader';
@@ -96,6 +97,8 @@ footer {
   margin-bottom: 0px;
 }
 
-.clearfix{
-  clear:both
+.btn-invitation{
+  .btn-title{
+    line-height: 40px;
+  }
 }
