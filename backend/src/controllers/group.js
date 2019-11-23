@@ -9,7 +9,6 @@ import { async } from '../../../frontend/node_modules/rxjs/internal/scheduler/as
 
 // LOGIC
 //------------------------------------------------------------------------------
-// TO-DO Select by groupID instead of groupName?
 export async function selectGroupById(req, res) {
   try {
     const userID = req.user.id;
@@ -104,62 +103,68 @@ export async function createGroup(req, res) {
 
 export async function addMember(req, res) {
   try {
-    // const { groupID, memberID } = req.body;
+    //Return validation
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     const { groupID, email } = req.body;
-    const user = await User.findOne({ email: email });
+    const adminID = req.user.id;
+    const newMember = await User.findOne({ email: email });
 
-    if (user) {
-      // let helpGroup = await Group.findOne({ _id: groupID });
-      let helpGroup = await Group.findOne({ _id: groupID }).populate({
-        path: 'userIDs',
-      });
+    if (newMember) {
+      let group = await Group.findOne({ _id: groupID });
 
-      let isNew = true;
+      const memberIsNew = !group.userIDs.includes(newMember._id);
+      const userIsAdminOfGroup = group.adminIDs.includes(adminID);
+      console.log('memberIsNew: ', memberIsNew);
+      console.log('userIsAdminOfGroup: ', userIsAdminOfGroup);
 
-      console.log('Test');
-      console.log(helpGroup.name);
-      console.log(helpGroup.userIDs);
-      console.log('UserID: ' + user._id);
-
-      if (helpGroup) {
-        helpGroup.userIDs.map(member => {
-          console.log(member);
-          if (member._id == user.id) {
-            isNew = false;
-          }
+      if (userIsAdminOfGroup) {
+        if (memberIsNew) {
+          group = await Group.findOneAndUpdate(
+            { _id: groupID },
+            { $push: { userIDs: newMember._id } },
+          );
+          await res.json({ group });
+        } else {
+          //member already in the group
+          res.status(403).json({
+            errors: [{ msg: 'User is already a member of the group' }],
+          });
+        }
+      } else {
+        //requesting user is not admin
+        res.status(403).json({
+          errors: [{ msg: "You don't have the permission to do that." }],
         });
       }
-
-      const inc = helpGroup.userIDs.includes(user._id);
-      console.log('inc: ' + inc);
-
-      console.log(isNew);
-
-      if (isNew) {
-        let group = await Group.findOneAndUpdate(
-          { _id: groupID },
-          { $push: { userIDs: user._id } },
-        );
-
-        //need to figure out how to return the group with modified users
-        await res.json({ group });
-      } else {
-        return res.status(403).send('User is already a member of the group');
-      }
     } else {
-      return res.status(404).send('No user was found using this email');
+      //No User Found
+      return res
+        .status(404)
+        .json({ errors: [{ msg: 'No user was found using this email' }] });
     }
   } catch (err) {
     console.log(err);
-    return res.status(500).send('Server Error, Try it later');
+    res.status(500).json({ errors: [{ msg: 'Server Error, Try it later' }] });
   }
 }
 
 // VALIDATION
 //------------------------------------------------------------------------------
-export function validateGroup() {
+export function validateNewGroup() {
   return [
     check('name', 'Group name is required.')
+      .not()
+      .isEmpty(),
+  ];
+}
+
+export function validateNewMember() {
+  return [
+    check('email', 'User email is required.')
       .not()
       .isEmpty(),
   ];

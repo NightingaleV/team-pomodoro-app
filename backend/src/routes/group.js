@@ -9,7 +9,8 @@ import {
   addMember,
   selectUserGroups,
   selectAllGroups,
-  validateGroup,
+  validateNewGroup,
+  validateNewMember,
 } from '../controllers/group';
 import auth from '../middleware/auth';
 
@@ -30,12 +31,12 @@ router.get('/mine', auth, selectUserGroups);
 // @access  Private
 // router.post('/new', createGroup);
 // router.post('/new', validateGroup(), auth, createGroup);
-router.post('/new', auth, validateGroup(), createGroup);
+router.post('/new', auth, validateNewGroup(), createGroup);
 
 // @route   GET api/group/addMember
 // @desc    add member to pomodoro group
 // @access  Private
-router.post('/addMember', addMember);
+router.post('/addmember', auth, validateNewMember(), addMember);
 
 // @route   GET api/group/detail
 // @desc    Detail of pomodoro group
