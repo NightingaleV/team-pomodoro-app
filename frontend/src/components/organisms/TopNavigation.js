@@ -27,15 +27,24 @@ export function TopNavigationBase(props) {
     <>
       <nav className={'top-menu'}>
         <div className="nav-wrapper">
+          <a href="#" data-target="slide-out" className="sidenav-trigger left show-on-large"><i className="material-icons">menu</i></a>
+          <a href="#" data-target="slide-out" className="sidenav-trigger left hide-on-med-and-down"><i className="material-icons">menu</i></a>
           <Link
             to="/timer"
-            className={classNames('brand-logo', 'left')}
-            style={{ marginLeft: '30px' }}
+            className="brand-logo left hide-on-large-only show-on-medium-and-down"
+            style={{ marginLeft: '45px' }}
+          >
+            Pomodoro
+          </Link>
+          <Link
+            to="/timer"
+            className="brand-logo left show-on-large hide-on-med-and-down"
+            style={{ marginLeft: '55px' }}
           >
             Pomodoro
           </Link>
           <a href="#" data-target="mobile-top-menu" className="sidenav-trigger">
-            <i className="material-icons">menu</i>
+            <i className="material-icons">more_vert</i>
           </a>
           <ul className="right hide-on-med-and-down">
             <li>
@@ -118,7 +127,7 @@ export function TopNavigationBase(props) {
             to="/group/5dc8f9b99c6fd62304063fbb"
             className={classNames('sidenav-close')}
           >
-            Testovací skupina
+            Test Group
           </Link>
         </li>
       </ul>

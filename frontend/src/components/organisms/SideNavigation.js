@@ -86,7 +86,7 @@ export function SideNavigationBase(props) {
 
   return (
     <>
-      <aside id="slide-out" className={'sidenav sidenav-fixed main-menu'}>
+      <aside id="slide-out" className={'sidenav main-menu'}>
         <ul>
           <li>
             <a className="subheader">
