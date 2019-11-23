@@ -4,4 +4,4 @@ export { FooterNavigation } from './FooterNavigation';
 export { PomodoroTimer } from './PomodoroTimer';
 export { PomodoroCycle } from './PomodoroCycle';
 export { PomodoroGroup } from './PomodoroGroup';
-export { CreateGroupModal } from './CreateGroupModal';
+export { CreateGroupModal } from '../molecules/CreateGroupModal';

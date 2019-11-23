@@ -89,22 +89,6 @@ export function SideNavigationBase(props) {
       <aside id="slide-out" className={'sidenav sidenav-fixed main-menu'}>
         <ul>
           <li>
-            <a className="subheader">
-              <i className="material-icons">group</i> My Groups
-            </a>
-          </li>
-          {user && <GroupList groups={userGroups}></GroupList>}
-          <li>
-            <div className="divider"></div>
-          </li>
-          <li>
-            <a className="subheader">Manage Groups</a>
-          </li>
-          <li></li>
-          <li>
-            <a className="subheader">Actions</a>
-          </li>
-          <li>
             {user && (
               <li>
                 <a
@@ -116,6 +100,21 @@ export function SideNavigationBase(props) {
                 </a>
               </li>
             )}
+          </li>
+          <li>
+            <div className="divider"></div>
+          </li>
+          <li>
+            <a className="subheader">
+              <i className="material-icons">group</i> My Groups
+            </a>
+          </li>
+          {user && <GroupList groups={userGroups}></GroupList>}
+          <li>
+            <div className="divider"></div>
+          </li>
+          <li>
+            <a className="subheader">Manage Groups</a>
           </li>
         </ul>
       </aside>

@@ -23,7 +23,7 @@ export function DropdownTimerMenu(props) {
   return (
     <>
       <Button
-        shape={'bigBtn'}
+        shape={'bigCircular'}
         actionButton={'dropdown'}
         className={'dropdown-trigger'}
         data-target="dropdown1"
@@ -71,7 +71,11 @@ export function TimerControls(props) {
   if (!isRunning) {
     return (
       <Fragment>
-        <Button shape={'bigBtn'} actionButton={'play'} onClick={startTimer}>
+        <Button
+          shape={'bigCircular'}
+          actionButton={'play'}
+          onClick={startTimer}
+        >
           {CTA} {children}
         </Button>
         <DropdownTimerMenu controlMethods={props.dropdownControlHandlers} />
@@ -80,14 +84,23 @@ export function TimerControls(props) {
   } else {
     return (
       <Fragment>
-        <Button shape={'bigBtn'} actionButton={'stop'} onClick={nextTimer}>
-          {children}
-        </Button>
-        <Button shape={'bigBtn'} actionButton={'pause'} onClick={pauseTimer}>
+        <Button
+          shape={'bigCircular'}
+          color={'amber'}
+          actionButton={'stop'}
+          onClick={nextTimer}
+        >
           {children}
         </Button>
         <Button
-          shape={'bigBtn'}
+          shape={'bigCircular'}
+          actionButton={'pause'}
+          onClick={pauseTimer}
+        >
+          {children}
+        </Button>
+        <Button
+          shape={'bigCircular'}
           actionButton={'restart'}
           onClick={restartTimer}
         >
