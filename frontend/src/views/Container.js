@@ -21,7 +21,7 @@ export function Container(props) {
         <div className="">{props.children}</div>
       </main>
       <div className={'row content'}>
-        <div className={'col l10 m12 s12   center-align'}></div>
+        <div className={'col l10 m12 s12 center-align'}></div>
       </div>
       <div className="modals-container">
         <CreateGroupModal />
@@ -34,7 +34,7 @@ export function Container(props) {
     <>
       <TopNavigation />
       <div className={'row content'}>
-        <div className={'col l12 m12 s12   center-align'}>
+        <div className={'col l12 m12 s12 center-align'}>
           <div className="container">{props.children}</div>
         </div>
       </div>
