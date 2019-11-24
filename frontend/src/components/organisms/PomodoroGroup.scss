@@ -3,58 +3,76 @@
 @import '~materialize-css/sass/components/_variables';
 @import '~materialize-css/sass/materialize';
 
-.iconImg {
-  height: 100px;
-  width: 100px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 10px;
+
+.group-title-wrapper{
+  margin:0px 20px 0 20px;
+  .group-title-bar{
+    display: flex;
+    justify-content: space-evenly;
+    overflow-wrap: break-word;
+    flex-flow: wrap;
+    .group-title{
+      margin:1.168rem 0 1.168rem 0;
+      font-size: 2.25rem;
+      @include for-size(sm){
+        font-size: 1.7rem;
+      }
+    }
+  }
+  .group-action-button{
+    margin-left: 15px;
+  }
 }
 
-.group {
-  margin: auto;
+.members {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
 
-.groupName {
-  margin: auto;
-  padding-bottom: 30px;
-  text-align: center;
-  font-size: 40px;
-  color: DodgerBlue;
+.members .member {
+  width: 220px;
+  margin-right: 15px;
+  margin-bottom: 15px;
 }
 
-.member {
-  display: inline-table;
-  position: relative;
-  margin: 10px;
-  padding: 10px;
-  background-color: WhiteSmoke;
-  height: 150px;
-  width: 150px;
+.card .card-image {
+  padding: 15px;
 }
 
-.memberName {
-  margin: auto;
-  padding: 10px;
-  text-align: center;
-}
-
-.memberTimer {
-  margin: auto;
-  text-align: center;
-}
-
-.card .card-content .card-title {
-  overflow: hidden;
+.card .card-image img {
+  border-radius: 50%;
+  border: 2px solid lightgray;
 }
 
 .card .card-content {
-  padding: 20px 10px;
-  border-radius: 0 0 2px 2px;
+  height: 110px;
+  padding: 20px;
 }
 
-.card .card-title {
-  font-size: 20px;
-  font-weight: 300;
+.card .card-content .user-name {
+  font-size: 1.2rem;
+  padding-right: 20px;
+}
+
+.card .card-content .more-icon {
+  position: absolute;
+  right: 10px;
+  top: 219px;
+}
+
+span.badge.new {
+  margin: 0 auto;
+  float: none;
+  padding: 5px 20px;
+  text-transform: uppercase;
+  font-size: 15px;
+}
+
+.card-content .notification {
+  right: 24px;
+  bottom: 91px;
 }

@@ -3,6 +3,7 @@ import { check, validationResult } from 'express-validator';
 
 //Internal imports
 import { User } from '../models/User';
+import { async } from '../../../frontend/node_modules/rxjs/internal/scheduler/async';
 
 // LOGIC
 //------------------------------------------------------------------------------
@@ -40,6 +41,22 @@ export async function createUser(req, res) {
     return res.status(500).send('Server Error, Try it later');
   }
   console.log(req.body);
+}
+
+export async function selectUserByName(req, res) {
+  try {
+    const userEmail = req.params.email;
+
+    const user = await User.findOne({ email: userEmail });
+    if (user) {
+      await res.json({ user: user });
+    } else {
+      return res.status(403).send('No user was found using this email');
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send('Server Error, Try it later');
+  }
 }
 
 export async function addTimer(req, res) {

@@ -14,6 +14,7 @@ import {
   addTimer,
   addGroup,
   selectUserWithGroups,
+  selectUserByName,
 } from '../controllers/user';
 
 import auth from '../middleware/auth';
@@ -97,6 +98,11 @@ router.post(
     console.log(req.body);
   },
 );
+
+// @route   GET api/user/invite
+// @desc    Get user to invite into a group
+// @access  Private
+router.get('/invite/:email', selectUserByName);
 
 // @route   POST api/user/addTimer
 // @desc    Add timer to user

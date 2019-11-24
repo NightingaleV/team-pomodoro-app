@@ -1,11 +1,14 @@
+//External imports
 import mongoose from 'mongoose';
+import { check, validationResult } from 'express-validator';
 //Internal imports
 import { Group } from '../models/Group';
+import { User } from '../models/User';
 import { Timer } from '../models/Timer';
+import { async } from '../../../frontend/node_modules/rxjs/internal/scheduler/async';
 
 // LOGIC
 //------------------------------------------------------------------------------
-// TO-DO Select by groupID instead of groupName?
 export async function selectGroupById(req, res) {
   try {
     const userID = req.user.id;
@@ -34,58 +37,6 @@ export async function selectGroupById(req, res) {
     return res.status(500).send('Server Error');
   }
 }
-// export async function selectGroupByName(req, res) {
-//   try {
-//     const groupName = req.query.groupName;
-//     // const groupID = req.query.groupID;
-//
-//     const groups = await Group.aggregate([
-//       {
-//         $match: {
-//           name: groupName,
-//           //'_id': mongoose.Types.ObjectId(groupID)
-//         },
-//       },
-//       {
-//         $lookup: {
-//           from: 'users',
-//           localField: 'userIDs',
-//           foreignField: '_id',
-//           as: 'members',
-//         },
-//       },
-//       {
-//         $lookup: {
-//           from: 'timers',
-//           localField: 'members.timerIDs',
-//           foreignField: '_id',
-//           as: 'timers',
-//         },
-//       },
-//       {
-//         $group: {
-//           _id: { name: '$name', members: '$members' },
-//         },
-//       },
-//       {
-//         $project: {
-//           userIDs: 0,
-//           'members.password': 0,
-//           'members.timerIDs': 0,
-//           'members.groupIDs': 0,
-//           'timers.userID': 0,
-//         },
-//       },
-//     ]);
-//
-//     const group = groups[0];
-//
-//     // await res.json({groups: groups});
-//     await res.json({ group: group });
-//   } catch (err) {
-//     return res.status(500).send('Server Error');
-//   }
-// }
 
 export async function selectAllGroups(req, res) {
   try {
@@ -110,13 +61,23 @@ export async function selectUserGroups(req, res) {
 }
 
 export async function createGroup(req, res) {
-  const { name, userIDs } = req.body;
+  //Return validation
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  // If No validation Error ->
+  const userID = req.user.id;
+  const { name } = req.body;
+  const userIDs = [mongoose.Types.ObjectId(userID)];
+  const adminIDs = [mongoose.Types.ObjectId(userID)];
   try {
     let group;
-
     group = new Group({
       name,
       userIDs,
+      adminIDs,
     });
 
     //save group to database
@@ -142,14 +103,89 @@ export async function createGroup(req, res) {
 
 export async function addMember(req, res) {
   try {
-    const { groupName, memberID } = req.body;
-    await Group.updateOne(
-      { name: groupName },
-      { $push: { userIDs: memberID } },
-    );
-    await res.json({ msg: 'Member added to the group' });
+    //Return validation
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { groupID, email } = req.body;
+    const adminID = req.user.id;
+    const newMember = await User.findOne({ email: email });
+
+    if (newMember) {
+      let group = await Group.findOne({ _id: groupID });
+
+      const memberIsNew = !group.userIDs.includes(newMember._id);
+      const userIsAdminOfGroup = group.adminIDs.includes(adminID);
+      console.log('memberIsNew: ', memberIsNew);
+      console.log('userIsAdminOfGroup: ', userIsAdminOfGroup);
+
+      if (userIsAdminOfGroup) {
+        if (memberIsNew) {
+          group = await Group.findOneAndUpdate(
+            { _id: groupID },
+            { $push: { userIDs: newMember._id } },
+          );
+          await res.json({ group });
+        } else {
+          //member already in the group
+          res.status(403).json({
+            errors: [{ msg: 'User is already a member of the group' }],
+          });
+        }
+      } else {
+        //requesting user is not admin
+        res.status(403).json({
+          errors: [{ msg: "You don't have the permission to do that." }],
+        });
+      }
+    } else {
+      //No User Found
+      return res
+        .status(404)
+        .json({ errors: [{ msg: 'No user was found using this email' }] });
+    }
   } catch (err) {
     console.log(err);
-    return res.status(500).send('Server Error, Try it later');
+    res.status(500).json({ errors: [{ msg: 'Server Error, Try it later' }] });
   }
+}
+
+export async function leaveGroup(req, res) {
+  try {
+    const { groupID } = req.body;
+    const member = req.user.id;
+
+    let group = await Group.findOneAndUpdate(
+      { _id: groupID },
+      {
+        $pullAll: { userIDs: [member] },
+      },
+    );
+    if (group) {
+      await res.status(200).json({ status: 'success' });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ errors: [{ msg: 'Server Error, Try it later' }] });
+  }
+}
+
+// VALIDATION
+//------------------------------------------------------------------------------
+export function validateNewGroup() {
+  return [
+    check('name', 'Group name is required.')
+      .not()
+      .isEmpty(),
+  ];
+}
+
+export function validateNewMember() {
+  return [
+    check('email', 'User email is required.')
+      .not()
+      .isEmpty(),
+  ];
 }

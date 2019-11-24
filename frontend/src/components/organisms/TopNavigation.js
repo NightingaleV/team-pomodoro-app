@@ -9,6 +9,7 @@ import { Link, NavLink } from '../atoms/Link';
 import { useAuth } from '../../utils/useAuth';
 import { useApi } from '../../utils/useApi';
 import { Button } from '../atoms';
+import timerIcon from '../../assets/icon/timer_white_192x192.png';
 // Assets
 
 export function TopNavigationBase(props) {
@@ -23,19 +24,79 @@ export function TopNavigationBase(props) {
     initBurgerMenu();
   }, []);
 
+  const mobileLeftSidebar = (
+    <ul className="sidenav mobile-top-menu" id={'mobile-top-menu'}>
+      <li>
+        <Link to="/timer" className={classNames('sidenav-close')}>
+          <i className="material-icons left">watch_later</i>Timer
+        </Link>
+      </li>
+      {user ? (
+        <>
+          <li>
+            <a className="">
+              <i className="material-icons left">account_circle</i>{' '}
+              {user && user.email}
+            </a>
+          </li>
+          <li>
+            <a
+              className={''}
+              icon={'exit_to_app'}
+              onClick={e => {
+                signout();
+                props.history.push('/');
+                e.preventDefault();
+                console.log('click');
+              }}
+            >
+              <i className={classNames('material-icons left')}>exit_to_app</i>
+              Sign Out
+            </a>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <NavLink to="/login">Log In</NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/register"
+              className={'waves-effect waves-light btn amber'}
+            >
+              Sign Up
+            </NavLink>
+          </li>
+        </>
+      )}
+    </ul>
+  );
+
   return (
     <>
       <nav className={'top-menu'}>
         <div className="nav-wrapper">
-          <Link
-            to="/timer"
-            className={classNames('brand-logo', 'left')}
-            style={{ marginLeft: '30px' }}
+          <a
+            href="#"
+            data-target="slide-out"
+            className="sidenav-trigger left show-on-medium-and-down"
           >
-            Pomodoro
-          </Link>
-          <a href="#" data-target="mobile-top-menu" className="sidenav-trigger">
             <i className="material-icons">menu</i>
+          </a>
+          <div className={'left valign-wrapper logo hide-on-large-only'}>
+            <img
+              className={classNames('logo-icon')}
+              src={timerIcon}
+              alt="Team Pomodoro App"
+              width="35"
+            />
+            <Link to="/timer" className="logo-text white-text">
+              Pomodoro
+            </Link>
+          </div>
+          <a href="#" data-target="mobile-top-menu" className="sidenav-trigger">
+            <i className="material-icons">more_vert</i>
           </a>
           <ul className="right hide-on-med-and-down">
             <li>
@@ -43,14 +104,6 @@ export function TopNavigationBase(props) {
                 <i className="material-icons left">watch_later</i>Timer
               </NavLink>
             </li>
-            {/*<li>*/}
-            {/*  <NavLink to="/group/5dc8f9b99c6fd62304063fbb">*/}
-            {/*    Test Group - UR*/}
-            {/*  </NavLink>*/}
-            {/*</li>*/}
-            {/*<li>*/}
-            {/*  <NavLink to="/protected">Protected Route</NavLink>*/}
-            {/*</li>*/}
             {user ? (
               <>
                 <li>
@@ -61,7 +114,7 @@ export function TopNavigationBase(props) {
                 </li>
                 <li>
                   <a
-                    className={'blue lighten-1'}
+                    className={'blue-grey'}
                     icon={'exit_to_app'}
                     onClick={e => {
                       signout();
@@ -73,14 +126,19 @@ export function TopNavigationBase(props) {
                     <i className={classNames('material-icons left')}>
                       exit_to_app
                     </i>
-                    Sign Out
+                    Log Out
                   </a>
                 </li>
               </>
             ) : (
               <>
                 <li>
-                  <NavLink to="/login">Log In</NavLink>
+                  <NavLink to="/login">
+                    Log In
+                    <i className={classNames('material-icons left')}>
+                      exit_to_app
+                    </i>
+                  </NavLink>
                 </li>
                 <li>
                   <NavLink
@@ -95,33 +153,7 @@ export function TopNavigationBase(props) {
           </ul>
         </div>
       </nav>
-      <ul className="sidenav mobile-top-menu" id={'mobile-top-menu'}>
-        <li>
-          <Link to="/login" className={classNames('sidenav-close')}>
-            Log In
-          </Link>
-        </li>
-        <li>
-          <Link to="/register" className={classNames('sidenav-close')}>
-            Sign Up
-          </Link>
-        </li>
-        <li>
-          <Link to="/timer" className={classNames('sidenav-close')}>
-            Timer
-          </Link>
-        </li>
-        <li>
-          {/*<Link to="/group" className={classNames('sidenav-close')}>*/}
-          {/*  Group*/}
-          <Link
-            to="/group/5dc8f9b99c6fd62304063fbb"
-            className={classNames('sidenav-close')}
-          >
-            Testovací skupina
-          </Link>
-        </li>
-      </ul>
+      {mobileLeftSidebar}
     </>
   );
 }

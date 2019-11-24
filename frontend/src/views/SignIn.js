@@ -94,6 +94,7 @@ export function SignIn(props) {
               onChange={onChange}
               className={'validate'}
               required
+              autofocus={'autofocus'}
             >
               Email
             </TextInput>
