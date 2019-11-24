@@ -17,7 +17,7 @@ export function LeaveGroupModal({ group }) {
 
   // Component State
   //----------------------------------------------------------------------------
-  const [errors, setError] = useState({});
+  const [errors, setError] = useState({ backend: '' });
 
   // Component Control
   //----------------------------------------------------------------------------
@@ -45,14 +45,15 @@ export function LeaveGroupModal({ group }) {
     await axios
       .post('/api/group/leave', body, config)
       .then(res => {
-        closeModal();
+        history.push('/');
       })
       .catch(err => {
         console.log('Error Statement');
-        if (err.response.data) {
-          setError({ ...errors, backend: err.response.data.errors });
-          console.log(err.response.data.errors);
-        }
+        console.log(err);
+        // if (err.response.data) {
+        //   setError({ ...errors, backend: err.response.data.errors });
+        //   console.log(err.response.data.errors);
+        // }
       });
   };
 
@@ -67,6 +68,12 @@ export function LeaveGroupModal({ group }) {
         <div className="modal-content">
           <h4>Leaving {group.name}</h4>
           <p>Do you really want to leave this group?</p>
+          <>
+            {errors.backend &&
+              errors.backend.map(error => {
+                return <ErrorBox key={error.msg} errorMsg={error.msg} />;
+              })}
+          </>
           <div>
             <Button
               icon={'undo'}

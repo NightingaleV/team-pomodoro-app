@@ -120,12 +120,6 @@ export function SideNavigationBase(props) {
         </a>
       </li>
       {user && <GroupList groups={userGroups}></GroupList>}
-      <li>
-        <div className="divider"></div>
-      </li>
-      <li>
-        <a className="subheader">Manage Groups</a>
-      </li>
     </ul>
   );
 

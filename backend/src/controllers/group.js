@@ -157,10 +157,15 @@ export async function leaveGroup(req, res) {
     const { groupID } = req.body;
     const member = req.user.id;
 
-    await Group.updateOne({
-      $pullAll: { userIDs: [member], adminIDs: [member] },
-    });
-    await res.status(200).json({ status: 'success' });
+    let group = await Group.findOneAndUpdate(
+      { _id: groupID },
+      {
+        $pullAll: { userIDs: [member] },
+      },
+    );
+    if (group) {
+      await res.status(200).json({ status: 'success' });
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json({ errors: [{ msg: 'Server Error, Try it later' }] });
