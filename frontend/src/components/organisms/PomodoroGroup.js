@@ -120,7 +120,7 @@ export function PomodoroGroupBase(props) {
         <div className="row group-title-wrapper">
           <div className="group-title-bar">
             <div className="valign-wrapper">
-              <h3 className="group-title truncate">{group.name}</h3>
+              <h3 className="group-title">{group.name}</h3>
             </div>
             <div className="valign-wrapper ">
               {addMemberModalTrigger}
