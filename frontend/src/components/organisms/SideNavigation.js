@@ -75,7 +75,15 @@ export function SideNavigationBase(props) {
     const createGroupModalElement = document.querySelector(
       '.create-group-modal',
     );
-    const options = {};
+    const mainInputElem = document.querySelector('.main-input');
+    const options = {
+      onOpenStart: () => {
+        mainInputElem.value = '';
+      },
+      onOpenEnd: () => {
+        mainInputElem.focus();
+      },
+    };
     var elem = M.Modal.init(createGroupModalElement, options);
   }
 

@@ -92,7 +92,15 @@ export function PomodoroGroupBase(props) {
 
   function initInviteUserModal() {
     const addMemberModalElement = document.querySelector('.add-member-modal');
-    const options = {};
+    const mainInputElem = document.querySelector('.main-input');
+    const options = {
+      onOpenStart: () => {
+        mainInputElem.value = '';
+      },
+      onOpenEnd: () => {
+        mainInputElem.focus();
+      },
+    };
     var elem = M.Modal.init(addMemberModalElement, options);
   }
   function initLeaveGroupModal() {

@@ -1,5 +1,5 @@
 //External import
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
@@ -27,7 +27,6 @@ export function CreateGroupModal() {
     const createGroupModalElement = document.querySelector(
       '.create-group-modal',
     );
-    const options = {};
     const elem = M.Modal.getInstance(createGroupModalElement);
     elem.close();
   }
@@ -85,6 +84,7 @@ export function CreateGroupModal() {
           <div>
             <form id={'create-group-form'} onSubmit={onSubmit}>
               <TextInput
+                className={'main-input'}
                 id={'name'}
                 name={'name'}
                 type={'text'}

@@ -82,6 +82,7 @@ export function InviteUserModal(props) {
           <div>
             <form id={'add-member-form'} onSubmit={onSubmit}>
               <TextInput
+                className="main-input"
                 id={'email'}
                 name={'email'}
                 type={'email'}
