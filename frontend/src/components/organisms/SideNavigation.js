@@ -21,10 +21,10 @@ export function GroupList(props) {
       <li className="group-item" key={index}>
         <NavLink
           to={'/group/' + group._id}
-          className={classNames('group-link sidenav-close')}
+          className={classNames('group-link sidenav-close truncate')}
         >
-          <i className="material-icons">keyboard_arrow_right</i>{' '}
-          <span className="group-name ">{group.name}</span>
+          <i className="material-icons">keyboard_arrow_right</i>
+          {group.name} <span className="badge" data-badge-caption="">4</span>
         </NavLink>
       </li>
     ));
