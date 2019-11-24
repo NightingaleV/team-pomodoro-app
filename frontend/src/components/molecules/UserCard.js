@@ -1,5 +1,11 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import classNames from 'classnames';
+import { RemoveUserModal } from './RemoveUserModal';
+import axios from 'axios';
+import { useAuth } from '../../utils/useAuth';
+import { useLocation } from 'react-router-dom';
+import M from 'materialize-css';
+import { Button } from '../atoms/Button';
 
 export function UserCard(props) {
   const statusObject = {
@@ -17,6 +23,12 @@ export function UserCard(props) {
   let timerUpdated = null;
   // In minutes
   let timeDifference = null;
+
+  const { user, token } = useAuth();
+  const [group, setGroup] = useState({ name: '', userIDs: [] });
+  const [error, setError] = useState('');
+  let location = useLocation();
+  const [modalId, setModalId] = useState('');
 
   if (member.timerID) {
     timerIsRunning = member.timerID.isRunning;
@@ -37,6 +49,48 @@ export function UserCard(props) {
 
   let styles = {
     width: '85%',
+  };
+
+  useEffect(() => {
+    fetchGroupByUrlId();
+  }, []);
+
+  function getGroupIdentifier(props) {
+    const url = location.pathname;
+    const urlList = url.split('/');
+    const groupID = urlList[urlList.length - 1];
+    return groupID;
+  }
+
+  const requestConfig = {
+    headers: {
+      'x-auth-token': token,
+      'Content-Type': 'application/json',
+    },
+  };
+
+  async function fetchGroupByUrlId() {
+    try {
+      await axios
+        .get('/api/group/' + getGroupIdentifier(), requestConfig)
+        .then(res => {
+          // console.log('Fetched Group Data: ', res.data.group);
+          setGroup(res.data.group);
+        })
+        .catch(err => {
+          if (err.response.status == 403 || err.response.status == 401) {
+            console.log('You are prohibited to view the group');
+            setError('You are prohibited to view the group');
+          }
+          console.error(err);
+        });
+    } catch {}
+  }
+
+  const onClick = async e => {
+    // console.log('Member: ' + member.email);
+    // fetchGroupByUrlId();
+    console.log(member);
   };
 
   return (
@@ -70,13 +124,23 @@ export function UserCard(props) {
       <div className="card-reveal">
         <span className="card-title grey-text text-darken-4 truncate">
           <i className="material-icons right">close</i>
-          {member.email}
+          User
         </span>
-        <p>User Info.</p>
-        <a className="waves-effect waves-light btn-small red">
-          <i className="material-icons left">remove_circle</i>Remove
-        </a>
+        <p>{member.email}</p>
+        {props.currentUserIsAdmin && (
+          <Button
+            className={'modal-trigger'}
+            href={'#removeMemberModal'}
+            color={'red lighten-1 '}
+            onClick={() => {
+              props.sendMemberToRemove(member);
+            }}
+          >
+            <i className="material-icons left">delete</i>Remove
+          </Button>
+        )}
       </div>
+      <div className="group-modals"></div>
     </div>
   );
 }

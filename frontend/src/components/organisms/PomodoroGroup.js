@@ -7,22 +7,32 @@ import classNames from 'classnames';
 import { Button } from '../atoms/Button';
 import { UserCard } from '../molecules/UserCard';
 import { useAuth } from '../../utils/useAuth';
-import { InviteUserModal, LeaveGroupModal } from '../molecules';
+import {
+  InviteUserModal,
+  LeaveGroupModal,
+  RemoveUserModal,
+} from '../molecules';
 import M from 'materialize-css';
 
 export function PomodoroGroupBase(props) {
   const { group } = props;
   const { user, token } = useAuth();
 
-  let userIsAdmin = false;
-  let addMemberModalTrigger = '';
-  if (group) {
-    group.adminIDs.map((admin, index) => {
-      if (admin == user._id) userIsAdmin = true;
-    });
-  }
+  // Is Signed User Admin?
+  //----------------------------------------------------------------------------
+  const [currentUserIsAdmin, setCurrentUserIsAdmin] = useState(false);
+  useEffect(() => {
+    if (group) {
+      if (group.adminIDs.includes(user._id)) {
+        setCurrentUserIsAdmin(true);
+      }
+    }
+  }, [group]);
 
-  if (userIsAdmin) {
+  // Modal Buttons
+  //----------------------------------------------------------------------------
+  let addMemberModalTrigger = '';
+  if (currentUserIsAdmin) {
     addMemberModalTrigger = (
       <>
         {user && (
@@ -37,7 +47,7 @@ export function PomodoroGroupBase(props) {
                 'group-action-button',
               )}
             >
-              <span className="btn-title">Invite User</span>
+              <span className="btn-title">Invite</span>
             </Button>
             <Button
               icon={'person_add'}
@@ -71,7 +81,7 @@ export function PomodoroGroupBase(props) {
               'group-action-button',
             )}
           >
-            <span className="btn-title">Leave group</span>
+            <span className="btn-title">Leave</span>
           </Button>
           <Button
             icon={'directions_run'}
@@ -90,6 +100,8 @@ export function PomodoroGroupBase(props) {
     </>
   );
 
+  // Modals Control
+  //----------------------------------------------------------------------------
   function initInviteUserModal() {
     const addMemberModalElement = document.querySelector('.add-member-modal');
     const mainInputElem = document.querySelector('.main-input');
@@ -103,16 +115,31 @@ export function PomodoroGroupBase(props) {
     };
     var elem = M.Modal.init(addMemberModalElement, options);
   }
+
   function initLeaveGroupModal() {
     const addMemberModalElement = document.querySelector('.leave-group-modal');
     const options = {};
     var elem = M.Modal.init(addMemberModalElement, options);
   }
+  function initRemoveMemberModal() {
+    const removeMemberModalElement = document.querySelector(
+      '.remove-member-modal',
+    );
+    const options = {};
+    var elem = M.Modal.init(removeMemberModalElement, options);
+  }
 
   useEffect(() => {
     initInviteUserModal();
     initLeaveGroupModal();
+    initRemoveMemberModal();
   }, []);
+
+  //Callback from Remove User Button
+  const [memberToRemove, setMemberToRemove] = useState({});
+  function sendMemberToRemoveCallback(member) {
+    setMemberToRemove(member);
+  }
 
   return (
     <>
@@ -131,8 +158,12 @@ export function PomodoroGroupBase(props) {
         <div className="row members">
           {group.userIDs.map((member, index) => {
             return (
-              <div key={index} className="member col ">
-                <UserCard member={member} />
+              <div key={index} className="member col">
+                <UserCard
+                  member={member}
+                  sendMemberToRemove={sendMemberToRemoveCallback}
+                  currentUserIsAdmin={currentUserIsAdmin}
+                />
               </div>
             );
           })}
@@ -140,6 +171,11 @@ export function PomodoroGroupBase(props) {
         <div className="group-modals">
           <InviteUserModal refetchGroup={props.refetchGroup} group={group} />
           <LeaveGroupModal group={group} />
+          <RemoveUserModal
+            refetchGroup={props.refetchGroup}
+            group={group}
+            member={memberToRemove}
+          />
         </div>
       </div>
     </>
