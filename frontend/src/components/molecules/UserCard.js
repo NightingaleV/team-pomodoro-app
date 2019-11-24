@@ -46,7 +46,9 @@ export function UserCard(props) {
       </div>
       <div className="divider"></div>
       <div className="card-content">
-        <a className="btn-floating small halfway-fab waves-effect waves-light orange notification"><i className="material-icons">notifications_none</i></a>
+        <a className="btn-floating small halfway-fab waves-effect waves-light orange notification">
+          <i className="material-icons">notifications_none</i>
+        </a>
         <div className="card-title activator grey-text text-darken-4">
           <p className="user-name truncate">{member.email}</p>
           <span className="more-icon">
