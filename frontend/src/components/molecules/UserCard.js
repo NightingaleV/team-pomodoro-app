@@ -35,6 +35,10 @@ export function UserCard(props) {
   if (!timerIsRunning) status = 'idle';
   if (!timerIsRunning && timeDifference > 30) status = 'offline';
 
+  let styles = {
+    width: '85%',
+  };
+
   return (
     <div className="card hoverable">
       <div className="card-image waves-effect waves-block waves-light">
@@ -56,12 +60,11 @@ export function UserCard(props) {
           </span>
         </div>
         <div className="member-info center-align">
-          <span
-            className={classNames('new badge', statusObject[status].color)}
-            data-badge-caption=""
-          >
-            {statusObject[status].label}
-          </span>
+          <div className="progress">
+            <div className={classNames('new badge progress-bar', statusObject[status].color)} style={styles}>
+              <p className="progress-percent">{statusObject[status].label}</p>
+            </div>
+          </div>
         </div>
       </div>
       <div className="card-reveal">
