@@ -121,25 +121,19 @@ export function UserCard(props) {
       <div className="card-reveal">
         <span className="card-title grey-text text-darken-4 truncate">
           <i className="material-icons right">close</i>
-          {member.email}
+          User
         </span>
-        <p>User Info.</p>
+        <p>{member.email}</p>
         {props.currentUserIsAdmin && (
           <Button
-            // href={'#removeMemberModal'}
+            className={'modal-trigger'}
             href={'#removeMemberModal'}
-            className={classNames(
-              'waves-effect',
-              'waves-light',
-              'btn-small',
-              'red',
-              'modal-trigger',
-            )}
+            color={'red lighten-1 '}
             onClick={() => {
               props.sendMemberToRemove(member);
             }}
           >
-            <i className="material-icons left">remove_circle</i>Remove
+            <i className="material-icons left">delete</i>Remove
           </Button>
         )}
       </div>

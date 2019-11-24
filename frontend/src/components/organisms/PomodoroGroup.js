@@ -47,7 +47,7 @@ export function PomodoroGroupBase(props) {
                 'group-action-button',
               )}
             >
-              <span className="btn-title">Invite User</span>
+              <span className="btn-title">Invite</span>
             </Button>
             <Button
               icon={'person_add'}
@@ -81,7 +81,7 @@ export function PomodoroGroupBase(props) {
               'group-action-button',
             )}
           >
-            <span className="btn-title">Leave group</span>
+            <span className="btn-title">Leave</span>
           </Button>
           <Button
             icon={'directions_run'}
