@@ -114,7 +114,7 @@ export function TopNavigationBase(props) {
                 </li>
                 <li>
                   <a
-                    className={'blue darken-1'}
+                    className={'blue-grey'}
                     icon={'exit_to_app'}
                     onClick={e => {
                       signout();
