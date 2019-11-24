@@ -33,7 +33,7 @@ export function Container(props) {
   const layoutWhenAnonymous = (
     <>
       <TopNavigation />
-      <div className={'row content'}>
+      <div className={'row content sidebar-fix'}>
         <div className={'col l12 m12 s12 center-align'}>
           <div className="container">{props.children}</div>
         </div>

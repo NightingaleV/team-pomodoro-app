@@ -24,6 +24,55 @@ export function TopNavigationBase(props) {
     initBurgerMenu();
   }, []);
 
+  const mobileLeftSidebar = (
+    <ul className="sidenav mobile-top-menu" id={'mobile-top-menu'}>
+      <li>
+        <Link to="/timer" className={classNames('sidenav-close')}>
+          <i className="material-icons left">watch_later</i>Timer
+        </Link>
+      </li>
+      {user ? (
+        <>
+          <li>
+            <a className="">
+              <i className="material-icons left">account_circle</i>{' '}
+              {user && user.email}
+            </a>
+          </li>
+          <li>
+            <a
+              className={''}
+              icon={'exit_to_app'}
+              onClick={e => {
+                signout();
+                props.history.push('/');
+                e.preventDefault();
+                console.log('click');
+              }}
+            >
+              <i className={classNames('material-icons left')}>exit_to_app</i>
+              Sign Out
+            </a>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <NavLink to="/login">Log In</NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/register"
+              className={'waves-effect waves-light btn amber'}
+            >
+              Sign Up
+            </NavLink>
+          </li>
+        </>
+      )}
+    </ul>
+  );
+
   return (
     <>
       <nav className={'top-menu'}>
@@ -35,8 +84,11 @@ export function TopNavigationBase(props) {
           >
             <i className="material-icons">menu</i>
           </a>
-
-          <div className={'left valign-wrapper logo hide-on-large-only'}>
+          <div
+            className={classNames('left valign-wrapper logo ', {
+              'hide-on-large-only': user != null,
+            })}
+          >
             <img
               className={classNames('logo-icon')}
               src={timerIcon}
@@ -66,7 +118,7 @@ export function TopNavigationBase(props) {
                 </li>
                 <li>
                   <a
-                    className={'blue lighten-1'}
+                    className={'blue-grey'}
                     icon={'exit_to_app'}
                     onClick={e => {
                       signout();
@@ -78,14 +130,19 @@ export function TopNavigationBase(props) {
                     <i className={classNames('material-icons left')}>
                       exit_to_app
                     </i>
-                    Sign Out
+                    Log Out
                   </a>
                 </li>
               </>
             ) : (
               <>
                 <li>
-                  <NavLink to="/login">Log In</NavLink>
+                  <NavLink to="/login">
+                    Log In
+                    <i className={classNames('material-icons left')}>
+                      exit_to_app
+                    </i>
+                  </NavLink>
                 </li>
                 <li>
                   <NavLink
@@ -100,33 +157,7 @@ export function TopNavigationBase(props) {
           </ul>
         </div>
       </nav>
-      <ul className="sidenav mobile-top-menu" id={'mobile-top-menu'}>
-        <li>
-          <Link to="/login" className={classNames('sidenav-close')}>
-            Log In
-          </Link>
-        </li>
-        <li>
-          <Link to="/register" className={classNames('sidenav-close')}>
-            Sign Up
-          </Link>
-        </li>
-        <li>
-          <Link to="/timer" className={classNames('sidenav-close')}>
-            Timer
-          </Link>
-        </li>
-        <li>
-          {/*<Link to="/group" className={classNames('sidenav-close')}>*/}
-          {/*  Group*/}
-          <Link
-            to="/group/5dc8f9b99c6fd62304063fbb"
-            className={classNames('sidenav-close')}
-          >
-            Test Group
-          </Link>
-        </li>
-      </ul>
+      {mobileLeftSidebar}
     </>
   );
 }

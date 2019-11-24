@@ -39,7 +39,7 @@ export function PomodoroGroupBase(props) {
           <>
             <Button
               icon={'person_add'}
-              iconPosition={'right'}
+              iconPosition={'left'}
               href={'#addMemberModal'}
               className={classNames(
                 'hide-on-med-and-down',
@@ -52,7 +52,7 @@ export function PomodoroGroupBase(props) {
             <Button
               icon={'person_add'}
               shape={'circular'}
-              iconPosition={'right'}
+              iconPosition={'left'}
               href={'#addMemberModal'}
               className={classNames(
                 'hide-on-large-only',
@@ -71,9 +71,9 @@ export function PomodoroGroupBase(props) {
       {user && (
         <>
           <Button
-            icon={'delete_sweep'}
-            color={'red'}
-            iconPosition={'right'}
+            icon={'directions_run'}
+            color={'red lighten-1'}
+            iconPosition={'left'}
             href={'#leaveGroupModal'}
             className={classNames(
               'hide-on-med-and-down',
@@ -81,11 +81,11 @@ export function PomodoroGroupBase(props) {
               'group-action-button',
             )}
           >
-            <span className="btn-title">Leave</span>
+            <span className="btn-title">Leave group</span>
           </Button>
           <Button
-            icon={'delete_sweep'}
-            color={'red'}
+            icon={'directions_run'}
+            color={'red lighten-1'}
             shape={'circular'}
             iconPosition={'right'}
             href={'#leaveGroupModal'}
@@ -146,10 +146,10 @@ export function PomodoroGroupBase(props) {
       <div className="group">
         <div className="row group-title-wrapper">
           <div className="group-title-bar">
-            <div className="valign-wrapper">
-              <h3 className="group-title truncate">{group.name}</h3>
+            <div className="">
+              <h3 className="group-title">{group.name}</h3>
             </div>
-            <div className="valign-wrapper ">
+            <div className="">
               {addMemberModalTrigger}
               {leaveGroupModalTrigger}
             </div>

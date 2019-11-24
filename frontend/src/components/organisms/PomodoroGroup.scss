@@ -8,9 +8,11 @@
   margin:0px 20px 0 20px;
   .group-title-bar{
     display: flex;
-    justify-content: space-evenly;
+    align-items: center;
+    justify-content: center;
     overflow-wrap: break-word;
     flex-flow: wrap;
+    align-content: center;
     .group-title{
       margin:1.168rem 0 1.168rem 0;
       font-size: 2.25rem;
@@ -70,4 +72,9 @@ span.badge.new {
   padding: 5px 20px;
   text-transform: uppercase;
   font-size: 15px;
+}
+
+.card-content .notification {
+  right: 24px;
+  bottom: 91px;
 }
