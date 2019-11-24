@@ -86,7 +86,7 @@ export function LeaveGroupModal({ group }) {
               Stay
             </Button>
             <Button
-              icon={'delete_sweep'}
+              icon={'directions_run'}
               iconPosition={'left'}
               color={'red lighten-1'}
               type={'button'}
