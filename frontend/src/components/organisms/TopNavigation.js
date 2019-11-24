@@ -84,7 +84,11 @@ export function TopNavigationBase(props) {
           >
             <i className="material-icons">menu</i>
           </a>
-          <div className={'left valign-wrapper logo hide-on-large-only'}>
+          <div
+            className={classNames('left valign-wrapper logo ', {
+              'hide-on-large-only': user != null,
+            })}
+          >
             <img
               className={classNames('logo-icon')}
               src={timerIcon}

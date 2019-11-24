@@ -25,6 +25,7 @@ export function GroupList(props) {
         >
           <i className="material-icons">keyboard_arrow_right</i>{' '}
           <span className="group-name ">{group.name}</span>
+          {/*<span className="badge">{group.userIDs.length}</span>*/}
         </NavLink>
       </li>
     ));
@@ -49,6 +50,7 @@ export function SideNavigationBase(props) {
         timeout: 5000,
       };
       const res = await axios.get('/api/group/mine', requestConfig);
+      console.log(res.data);
       setUserGroups(res.data);
     } catch (err) {
       console.log(err);
@@ -115,7 +117,7 @@ export function SideNavigationBase(props) {
             className={classNames('sidenav-close', 'modal-trigger')}
           >
             <i className="material-icons">group_add</i>{' '}
-            <span className="group-name ">Create new group</span>
+            <span className="group-name ">Create a new group</span>
           </a>
         </li>
       )}

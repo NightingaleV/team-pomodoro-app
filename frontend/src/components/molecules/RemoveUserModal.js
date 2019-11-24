@@ -8,8 +8,9 @@ import { SignUpSuccess } from '../../templates';
 import { useAuth } from '../../utils/useAuth';
 import { useApi } from '../../utils/useApi';
 import M from 'materialize-css';
+import { async } from 'rxjs/internal/scheduler/async';
 
-export function LeaveGroupModal({ group }) {
+export function RemoveUserModal({ group, member, refetchGroup }) {
   const history = useHistory();
   let location = useLocation();
   const api = useApi();
@@ -22,17 +23,22 @@ export function LeaveGroupModal({ group }) {
   // Component Control
   //----------------------------------------------------------------------------
   function closeModal() {
-    const addMemberModalElement = document.querySelector('.leave-group-modal');
-    const elem = M.Modal.getInstance(addMemberModalElement);
+    const removeMemberModalElement = document.querySelector(
+      '.remove-member-modal',
+    );
+    const elem = M.Modal.getInstance(removeMemberModalElement);
     elem.close();
   }
 
   // Form Control
   //----------------------------------------------------------------------------
-  const leaveGroup = async e => {
+  const sendRequest = async e => {
+    e.preventDefault();
     const requestData = {
       groupID: group._id,
+      memberID: member._id,
     };
+    console.log(requestData);
 
     const config = {
       headers: {
@@ -43,17 +49,17 @@ export function LeaveGroupModal({ group }) {
 
     const body = JSON.stringify(requestData);
     await axios
-      .post('/api/group/leave', body, config)
+      .post('/api/group/remove', body, config)
       .then(res => {
-        history.push('/');
+        refetchGroup();
+        closeModal();
       })
       .catch(err => {
         console.log('Error Statement');
-        console.log(err);
-        // if (err.response.data) {
-        //   setError({ ...errors, backend: err.response.data.errors });
-        //   console.log(err.response.data.errors);
-        // }
+        if (err.response.data) {
+          console.log('Error Statement');
+          console.log(err);
+        }
       });
   };
 
@@ -62,40 +68,35 @@ export function LeaveGroupModal({ group }) {
   return (
     <>
       <div
-        id="leaveGroupModal"
-        className="leave-group-modal modal center-align"
+        id={'removeMemberModal'}
+        className="remove-member-modal modal center-align"
       >
         <div className="modal-content">
-          <h4>Leaving {group.name}</h4>
-          <p>Do you really want to leave this group?</p>
-          <>
-            {errors.backend &&
-              errors.backend.map(error => {
-                return <ErrorBox key={error.msg} errorMsg={error.msg} />;
-              })}
-          </>
-          <div>
-            <Button
-              icon={'undo'}
-              iconPosition={'left'}
-              color={'blue lighten-1'}
-              type={'button'}
-              className={'mx-4'}
-              onClick={closeModal}
-            >
-              Stay
-            </Button>
-            <Button
-              icon={'directions_run'}
-              iconPosition={'left'}
-              color={'red lighten-1'}
-              type={'button'}
-              className={'mx-4'}
-              onClick={leaveGroup}
-            >
-              Leave
-            </Button>
-          </div>
+          <h4>Do you want to remove {member.email}?</h4>
+          <p>
+            Do you really want to remove {member.email} from {group.name}?
+          </p>
+          <Button
+            icon={'undo'}
+            iconPosition={'left'}
+            color={'blue lighten-1'}
+            type={'button'}
+            className={'mx-4'}
+            onClick={closeModal}
+          >
+            Cancel
+          </Button>
+          <Button
+            icon={'delete_sweep'}
+            iconPosition={'left'}
+            color={'red lighten-1'}
+            type={'submit'}
+            form={'add-member-form'}
+            className={'mx-4'}
+            onClick={sendRequest}
+          >
+            Remove
+          </Button>
         </div>
       </div>
     </>

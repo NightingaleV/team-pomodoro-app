@@ -12,6 +12,7 @@ import {
   validateNewGroup,
   validateNewMember,
   leaveGroup,
+  removeMember,
 } from '../controllers/group';
 import auth from '../middleware/auth';
 
@@ -36,6 +37,11 @@ router.post('/new', auth, validateNewGroup(), createGroup);
 // @desc    leave pomodoro group
 // @access  Private
 router.post('/leave', auth, leaveGroup);
+
+// @route   GET api/group/remove
+// @desc    remove member  from pomodoro group
+// @access  Private
+router.post('/remove', auth, removeMember);
 
 // @route   GET api/group/addMember
 // @desc    add member to pomodoro group
