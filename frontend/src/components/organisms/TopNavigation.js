@@ -66,7 +66,7 @@ export function TopNavigationBase(props) {
                 </li>
                 <li>
                   <a
-                    className={'blue lighten-1'}
+                    className={'blue darken-1'}
                     icon={'exit_to_app'}
                     onClick={e => {
                       signout();
@@ -78,14 +78,16 @@ export function TopNavigationBase(props) {
                     <i className={classNames('material-icons left')}>
                       exit_to_app
                     </i>
-                    Sign Out
+                    Log Out
                   </a>
                 </li>
               </>
             ) : (
               <>
                 <li>
-                  <NavLink to="/login">Log In</NavLink>
+                  <NavLink to="/login">Log In<i className={classNames('material-icons left')}>
+                    exit_to_app
+                  </i></NavLink>
                 </li>
                 <li>
                   <NavLink
