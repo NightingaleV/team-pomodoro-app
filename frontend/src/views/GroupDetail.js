@@ -69,6 +69,7 @@ export function GroupDetailBase(props) {
 
   return (
     <>
+      <div className="group-container">
       <Preloader isLoading={groupLoadingState.isLoading}>
         {error && <ErrorBox errorMsg={error}></ErrorBox>}
         {!error && (
@@ -77,6 +78,7 @@ export function GroupDetailBase(props) {
           </>
         )}
       </Preloader>
+      </div>
     </>
   );
 }

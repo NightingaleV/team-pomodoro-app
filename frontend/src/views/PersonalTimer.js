@@ -9,12 +9,8 @@ import {
 
 export function PersonalTimer({ children }) {
   return (
-    <Fragment>
-      <div className="container">
-        <div className="col s12">
+    <>
           <PomodoroCycle />
-        </div>
-      </div>
-    </Fragment>
+    </>
   );
 }

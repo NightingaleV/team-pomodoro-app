@@ -124,7 +124,7 @@ export function PomodoroGroupBase(props) {
         <div className="row">
           {group.userIDs.map((member, index) => {
             return (
-              <div key={index}>
+              <div key={index} className="member">
                 <UserCard member={member} />
               </div>
             );
