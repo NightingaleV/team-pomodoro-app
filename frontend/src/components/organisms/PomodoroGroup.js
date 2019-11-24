@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { Button } from '../atoms/Button';
 import { UserCard } from '../molecules/UserCard';
 import { useAuth } from '../../utils/useAuth';
-import { InviteUserModal, LeaveGroupModal } from '../molecules';
+import { InviteUserModal, LeaveGroupModal, RemoveUserModal } from '../molecules';
 import M from 'materialize-css';
 
 export function PomodoroGroupBase(props) {
@@ -109,9 +109,16 @@ export function PomodoroGroupBase(props) {
     var elem = M.Modal.init(addMemberModalElement, options);
   }
 
+  function initRemoveMemberModal() {
+    const addMemberModalElement = document.querySelector('.remove-member-modal');
+    const options = {};
+    var elem = M.Modal.init(addMemberModalElement, options);
+  }
+
   useEffect(() => {
     initInviteUserModal();
     initLeaveGroupModal();
+    initRemoveMemberModal();
   }, []);
 
   return (
@@ -140,6 +147,8 @@ export function PomodoroGroupBase(props) {
         <div className="group-modals">
           <InviteUserModal refetchGroup={props.refetchGroup} group={group} />
           <LeaveGroupModal group={group} />
+          {/* <RemoveUserModal group={group} member={member} /> */}
+          {/* <RemoveUserModal group={group} member={user}/> */}
         </div>
       </div>
     </>
