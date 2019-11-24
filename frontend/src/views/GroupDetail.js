@@ -70,14 +70,14 @@ export function GroupDetailBase(props) {
   return (
     <>
       <div className="group-container">
-      <Preloader isLoading={groupLoadingState.isLoading}>
-        {error && <ErrorBox errorMsg={error}></ErrorBox>}
-        {!error && (
-          <>
-            <PomodoroGroup group={group} refetchGroup={fetchGroupByUrlId} />
-          </>
-        )}
-      </Preloader>
+        <Preloader isLoading={groupLoadingState.isLoading}>
+          {error && <ErrorBox errorMsg={error}></ErrorBox>}
+          {!error && (
+            <>
+              <PomodoroGroup group={group} refetchGroup={fetchGroupByUrlId} />
+            </>
+          )}
+        </Preloader>
       </div>
     </>
   );

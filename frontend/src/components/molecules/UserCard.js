@@ -36,31 +36,41 @@ export function UserCard(props) {
   if (!timerIsRunning && timeDifference > 30) status = 'offline';
 
   return (
-      <div className="card hoverable">
-          <div className="card-image waves-effect waves-block waves-light">
-            <img className="activator" src="https://www.cloudraxak.com/wp-content/uploads/2017/03/profile-pic-placeholder.png" alt="Profile Picture"/>
-          </div>
-        <div className="divider"></div>
-          <div className="card-content">
-            <div className="card-title activator grey-text text-darken-4">
-              <p className="user-name truncate">{member.email}</p>
-              <span className="more-icon"><i className="material-icons right">more_vert</i></span>
-            </div>
-            <div className="member-info center-align">
-              <span className={classNames('new badge', statusObject[status].color,)} data-badge-caption="" >
-                {statusObject[status].label}
-              </span>
-            </div>
-          </div>
-        <div className="card-reveal">
-          <span className="card-title grey-text text-darken-4 truncate">
-            <i className="material-icons right">close</i>
-            {member.email}
+    <div className="card hoverable">
+      <div className="card-image waves-effect waves-block waves-light">
+        <img
+          className="activator"
+          src="https://www.cloudraxak.com/wp-content/uploads/2017/03/profile-pic-placeholder.png"
+          alt="Profile Picture"
+        />
+      </div>
+      <div className="divider"></div>
+      <div className="card-content">
+        <div className="card-title activator grey-text text-darken-4">
+          <p className="user-name truncate">{member.email}</p>
+          <span className="more-icon">
+            <i className="material-icons right">more_vert</i>
           </span>
-          <p>User Info.</p>
-          <a className="waves-effect waves-light btn-small red">
-            <i className="material-icons left">remove_circle</i>Remove</a>
+        </div>
+        <div className="member-info center-align">
+          <span
+            className={classNames('new badge', statusObject[status].color)}
+            data-badge-caption=""
+          >
+            {statusObject[status].label}
+          </span>
         </div>
       </div>
+      <div className="card-reveal">
+        <span className="card-title grey-text text-darken-4 truncate">
+          <i className="material-icons right">close</i>
+          {member.email}
+        </span>
+        <p>User Info.</p>
+        <a className="waves-effect waves-light btn-small red">
+          <i className="material-icons left">remove_circle</i>Remove
+        </a>
+      </div>
+    </div>
   );
 }
