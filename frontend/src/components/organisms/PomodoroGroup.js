@@ -111,8 +111,8 @@ export function PomodoroGroupBase(props) {
       <div className="group">
         <div className="row group-title-wrapper">
           <div className="group-title-bar">
-            <div className="">
-              <h3 className="group-title">{group.name}</h3>
+            <div className="valign-wrapper">
+              <h3 className="group-title truncate">{group.name}</h3>
             </div>
             <div className="valign-wrapper ">
               {addMemberModalTrigger}
@@ -120,11 +120,10 @@ export function PomodoroGroupBase(props) {
             </div>
           </div>
         </div>
-
-        <div className="row">
+        <div className="row members">
           {group.userIDs.map((member, index) => {
             return (
-              <div key={index} className="col l3 m4 s6 member">
+              <div key={index} className="member col ">
                 <UserCard member={member} />
               </div>
             );

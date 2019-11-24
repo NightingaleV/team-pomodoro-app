@@ -8,15 +8,20 @@
   margin:0px 20px 0 20px;
   .group-title-bar{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    overflow-wrap: break-word;
+    flex-flow: wrap;
     .group-title{
       margin:1.168rem 0 1.168rem 0;
       font-size: 2.25rem;
+      @include for-size(sm){
+        font-size: 1.7rem;
+      }
     }
   }
-.group-action-button{
-  margin-left: 15px;
-}
+  .group-action-button{
+    margin-left: 15px;
+  }
 }
 
 .members {
@@ -30,8 +35,8 @@
 
 .members .member {
   width: 220px;
-  margin-right: 20px;
-  margin-bottom: 20px;
+  margin-right: 15px;
+  margin-bottom: 15px;
 }
 
 .card .card-image {

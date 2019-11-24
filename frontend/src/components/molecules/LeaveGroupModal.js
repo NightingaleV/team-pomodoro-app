@@ -84,7 +84,7 @@ export function LeaveGroupModal({ group }) {
               color={'red lighten-1'}
               type={'button'}
               className={'mx-4'}
-              onClick={leaveGroup()}
+              onClick={leaveGroup}
             >
               Leave
             </Button>
