@@ -172,39 +172,39 @@ export async function leaveGroup(req, res) {
   }
 }
 
-export async function removeMember(req, res){
-  try{
+export async function removeMember(req, res) {
+  try {
     const { groupID, memberID } = req.body;
     const adminID = req.user.id;
-
+    let group = await Group.findOne({ _id: groupID });
     const userIsMember = group.userIDs.includes(memberID);
     const userIsAdminOfGroup = group.adminIDs.includes(adminID);
 
-    if(userIsAdminOfGroup){
-        if(userIsMember){
-          let group = await Group.findOneAndUpdate(
-            { _id: groupID },
-            {
-              $pullAll: { userIDs: [memberID] },
-            },
-          );
+    if (userIsAdminOfGroup) {
+      if (userIsMember) {
+        group = await Group.findOneAndUpdate(
+          { _id: groupID },
+          {
+            $pullAll: { userIDs: [memberID] },
+          },
+        );
 
-          if(group){
-            await res.status(200).json({ status: 'success' });
-          }
-        }else {
-          //member already in the group
-          res.status(403).json({
-            errors: [{ msg: 'User is not a member of the group' }],
-          });
+        if (group) {
+          await res.status(200).json({ status: 'success' });
         }
-    }else {
+      } else {
+        //member already in the group
+        res.status(403).json({
+          errors: [{ msg: 'User is not a member of the group' }],
+        });
+      }
+    } else {
       //requesting user is not admin
       res.status(403).json({
         errors: [{ msg: "You don't have the permission to do that." }],
       });
     }
-  }catch (err) {
+  } catch (err) {
     console.log(err);
     res.status(500).json({ errors: [{ msg: 'Server Error, Try it later' }] });
   }

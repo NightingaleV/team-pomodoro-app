@@ -10,101 +10,95 @@ import { useApi } from '../../utils/useApi';
 import M from 'materialize-css';
 import { async } from 'rxjs/internal/scheduler/async';
 
-export function RemoveUserModal({ group, member, modalId }){    
-    const history = useHistory();
-    let location = useLocation();
-    const api = useApi();
-    const { user, token } = useAuth();    
+export function RemoveUserModal({ group, member, refetchGroup }) {
+  const history = useHistory();
+  let location = useLocation();
+  const api = useApi();
+  const { user, token } = useAuth();
 
-    console.log(member);
+  // Component State
+  //----------------------------------------------------------------------------
+  const [errors, setError] = useState({ backend: '' });
 
-    // Component State
-    //----------------------------------------------------------------------------
-    const [errors, setError] = useState({ backend: '' });
+  // Component Control
+  //----------------------------------------------------------------------------
+  function closeModal() {
+    const removeMemberModalElement = document.querySelector(
+      '.remove-member-modal',
+    );
+    const elem = M.Modal.getInstance(removeMemberModalElement);
+    elem.close();
+  }
 
-    // Component Control
-    //----------------------------------------------------------------------------
-    function closeModal() {
-        const removeMemberModalElement = document.querySelector('.remove-member-modal');        
-        const elem = M.Modal.getInstance(removeMemberModalElement);        
-        console.log(member);
-        elem.close();
-    }
+  // Form Control
+  //----------------------------------------------------------------------------
+  const sendRequest = async e => {
+    e.preventDefault();
+    const requestData = {
+      groupID: group._id,
+      memberID: member._id,
+    };
+    console.log(requestData);
 
-    // Form Control
-    //----------------------------------------------------------------------------
-    const removeMember = async e => {
-        const requestData = {
-            groupID: group._id,
-            memberID: member._id,
-        };    
-
-        const config = {
-            headers: {
-                'x-auth-token': token,
-                'Content-Type': 'application/json',
-            },
-        };
-
-        const body = JSON.stringify(requestData);
-        await axios
-            .post('/api/group/remove', body, config)
-            .then(res => {
-                history.push('/');
-            })
-            .catch(err => {
-                console.log('Error Statement');
-                if (err.response.data) {
-                    console.log('Error Statement');
-                    console.log(err);
-                    // if (err.response.data) {
-                    //   setError({ ...errors, backend: err.response.data.errors });
-                    //   console.log(err.response.data.errors);
-                    // }
-                }
-            });
+    const config = {
+      headers: {
+        'x-auth-token': token,
+        'Content-Type': 'application/json',
+      },
     };
 
-    // Modal Content
-    //----------------------------------------------------------------------------
-    return (
-        <>
-            <div
-                // id="removeMemberModal"
-                id={modalId}
-                className="remove-member-modal modal center-align"
-            >
-                <div className="modal-content">
-                    <h4>Removing member { member.email } from group { group.name }</h4>
-                    <p>Do you really want to remove this member from the group?</p>
-                    <>
-                        {errors.backend &&
-                        errors.backend.map(error => {
-                            return <ErrorBox key={error.msg} errorMsg={error.msg} />;
-                        })}
-                    </>
-                </div>
-                <Button
-                    icon={'undo'}
-                    iconPosition={'left'}
-                    color={'blue lighten-1'}
-                    type={'button'}
-                    className={'mx-4'}
-                    onClick={closeModal}
-                >
-                    Cancel
-                </Button>
-                <Button
-                    icon={'delete_sweep'}
-                    iconPosition={'left'}
-                    color={'red lighten-1'}
-                    type={'button'}
-                    className={'mx-4'}
-                    onClick={removeMember}
-                >
-                    Remove
-                </Button>
-            </div>
-        </>
-    );
+    const body = JSON.stringify(requestData);
+    await axios
+      .post('/api/group/remove', body, config)
+      .then(res => {
+        refetchGroup();
+        closeModal();
+      })
+      .catch(err => {
+        console.log('Error Statement');
+        if (err.response.data) {
+          console.log('Error Statement');
+          console.log(err);
+        }
+      });
+  };
+
+  // Modal Content
+  //----------------------------------------------------------------------------
+  return (
+    <>
+      <div
+        id={'removeMemberModal'}
+        className="remove-member-modal modal center-align"
+      >
+        <div className="modal-content">
+          <h4>Do you want to remove {member.email}?</h4>
+          <p>
+            Do you really want to remove {member.email} from {group.name}?
+          </p>
+          <Button
+            icon={'undo'}
+            iconPosition={'left'}
+            color={'blue lighten-1'}
+            type={'button'}
+            className={'mx-4'}
+            onClick={closeModal}
+          >
+            Cancel
+          </Button>
+          <Button
+            icon={'delete_sweep'}
+            iconPosition={'left'}
+            color={'red lighten-1'}
+            type={'submit'}
+            form={'add-member-form'}
+            className={'mx-4'}
+            onClick={sendRequest}
+          >
+            Remove
+          </Button>
+        </div>
+      </div>
+    </>
+  );
 }

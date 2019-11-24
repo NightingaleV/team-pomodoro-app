@@ -28,7 +28,7 @@ export function UserCard(props) {
   const [group, setGroup] = useState({ name: '', userIDs: [] });
   const [error, setError] = useState('');
   let location = useLocation();
-  const [modalId, setModalId] = useState('');  
+  const [modalId, setModalId] = useState('');
 
   if (member.timerID) {
     timerIsRunning = member.timerID.isRunning;
@@ -47,16 +47,8 @@ export function UserCard(props) {
   if (!timerIsRunning) status = 'idle';
   if (!timerIsRunning && timeDifference > 30) status = 'offline';
 
-  function initRemoveMemberModal() {
-    const addMemberModalElement = document.querySelector('.remove-member-modal');    
-    const options = {};
-    var elem = M.Modal.init(addMemberModalElement, options);
-  }
-
   useEffect(() => {
     fetchGroupByUrlId();
-    setModalId('CardID' + member.email);    
-    initRemoveMemberModal();
   }, []);
 
   function getGroupIdentifier(props) {
@@ -89,7 +81,7 @@ export function UserCard(props) {
           console.error(err);
         });
     } catch {}
-  }  
+  }
 
   const onClick = async e => {
     // console.log('Member: ' + member.email);
@@ -129,47 +121,26 @@ export function UserCard(props) {
           {member.email}
         </span>
         <p>User Info.</p>
-        {/* <a 
-          href={'#removeMemberModal'}
-          className="waves-effect waves-light btn-small red"         
-        > */}
-        {/* <a 
-          href={'#removeMemberModal'}
-          className={classNames(
-            'waves-effect',
-            'waves-light',
-            'btn-small',
-            'red',
-            'modal-trigger',
-          )}         
-        > */}
-        <Button 
-          // href={'#removeMemberModal'}
-          href={'#' + modalId}
-          className={classNames(
-            'waves-effect',
-            'waves-light',
-            'btn-small',
-            'red',
-            'modal-trigger',
-          )}   
-          onClick={onClick}
-        >
-          <i className="material-icons left">remove_circle</i>Remove
-        </Button>
-        {/* <Button type={'button'} onClick={onClick}>
-          Test
-        </Button> */}
-         {group && <Button type={'button'} onClick={onClick}>
-          Test
-        </Button>}
+        {props.currentUserIsAdmin && (
+          <Button
+            // href={'#removeMemberModal'}
+            href={'#removeMemberModal'}
+            className={classNames(
+              'waves-effect',
+              'waves-light',
+              'btn-small',
+              'red',
+              'modal-trigger',
+            )}
+            onClick={() => {
+              props.sendMemberToRemove(member);
+            }}
+          >
+            <i className="material-icons left">remove_circle</i>Remove
+          </Button>
+        )}
       </div>
-      <div className="group-modals">
-        {/* {console.log(member)} */}
-        {/* <RemoveUserModal group={group} member={member} /> */}
-        {/* {group && <RemoveUserModal group={group} member={member} />} */}
-        <RemoveUserModal group={group} member={member} modalId={modalId}/>
-      </div>
+      <div className="group-modals"></div>
     </div>
   );
 }
