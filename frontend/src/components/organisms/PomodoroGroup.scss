@@ -63,7 +63,7 @@
 .card .card-content .more-icon {
   position: absolute;
   right: 10px;
-  top: 219px;
+  top: 217px;
 }
 
 .group-link span.badge {
@@ -71,10 +71,12 @@
 }
 
 .group-link span.badge {
+  position: absolute;
+  right: 0;
   min-width: 3rem;
   padding: 0 6px;
   margin-left: 14px;
-  margin-right: 0;
+  margin-right: 5px;
   text-align: center;
   font-size: 0.95rem;
   line-height: 22px;

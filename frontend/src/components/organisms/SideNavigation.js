@@ -109,13 +109,13 @@ export function SideNavigationBase(props) {
         </div>
       </li>
       {user && (
-        <li>
+        <li className="group-name">
           <a
             href="#createGroupModal"
             className={classNames('sidenav-close', 'modal-trigger')}
           >
             <i className="material-icons">group_add</i>{' '}
-            <span className="group-name ">Create a new group</span>
+            <span>Create a new group</span>
           </a>
         </li>
       )}
