@@ -9,13 +9,11 @@ export function FooterNavigationBase(props) {
     <>
       <footer className="page-footer">
         <div className="footer-copyright">
-          <div className="container">
             <div className="row">
               <div className="s12">
-                <span className={'right'}>© 2019 Pomodoro Team 2</span>
+                <span className="copyrights">© 2019 Pomodoro Team 2</span>
               </div>
             </div>
-          </div>
         </div>
       </footer>
     </>
