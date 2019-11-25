@@ -115,7 +115,7 @@ export function UserCard(props) {
         </div>
         <div className="member-info center-align">
           <div className="progress">
-            <div className={classNames('new badge progress-bar', statusObject[status].color)} style={styles}>
+            <div className={classNames('progress-bar', statusObject[status].color)} style={styles}>
               <p className="progress-percent">{statusObject[status].label}</p>
             </div>
           </div>

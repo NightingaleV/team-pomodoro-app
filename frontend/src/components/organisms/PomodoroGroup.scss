@@ -87,6 +87,14 @@
   box-sizing: border-box;
 }
 
+.blue span.badge {
+  color: white;
+}
+
+.sidenav li > .blue > i.material-icons {
+  color: white;
+}
+
 .card-content .notification {
   right: 24px;
   bottom: 91px;

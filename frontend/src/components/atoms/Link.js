@@ -14,7 +14,7 @@ export function NavLink({ children, className, classActive, ...rest }) {
   return (
     <RouterNavLink
       className={classNames('link', className)}
-      activeClassName={classNames('blue lighten-1 white-text', classActive)}
+      activeClassName={classNames('blue darken-1 white-text', classActive)}
       {...rest}
     >
       {children}
