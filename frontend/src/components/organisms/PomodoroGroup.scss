@@ -66,35 +66,6 @@
   top: 217px;
 }
 
-.group-link span.badge {
-  margin-top: calc(24px - 11px);
-}
-
-.group-link span.badge {
-  position: absolute;
-  right: 0;
-  min-width: 3rem;
-  padding: 0 6px;
-  margin-left: 14px;
-  margin-right: 5px;
-  text-align: center;
-  font-size: 0.95rem;
-  line-height: 22px;
-  height: 22px;
-  color: #757575;
-  float: right;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.blue span.badge {
-  color: white;
-}
-
-.sidenav li > .blue > i.material-icons {
-  color: white;
-}
-
 .card-content .notification {
   right: 24px;
   bottom: 91px;
