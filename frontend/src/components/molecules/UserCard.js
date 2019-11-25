@@ -7,6 +7,9 @@ import { useLocation } from 'react-router-dom';
 import M from 'materialize-css';
 import { Button } from '../atoms/Button';
 
+import profileImage from '../../assets/images/profile-pic-placeholder.png';
+import timerIcon from '../../assets/icon/timer_white_192x192.png';
+
 export function UserCard(props) {
   const statusObject = {
     offline: { label: 'Offline', color: 'grey' },
@@ -96,11 +99,7 @@ export function UserCard(props) {
   return (
     <div className="card hoverable">
       <div className="card-image waves-effect waves-block waves-light">
-        <img
-          className="activator"
-          src="https://www.cloudraxak.com/wp-content/uploads/2017/03/profile-pic-placeholder.png"
-          alt="Profile Picture"
-        />
+        <img className="activator" src={profileImage} alt="Profile Picture" />
       </div>
       <div className="divider"></div>
       <div className="card-content">
