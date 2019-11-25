@@ -24,7 +24,10 @@ export function GroupList(props) {
           className={classNames('group-link sidenav-close truncate')}
         >
           <i className="material-icons">keyboard_arrow_right</i>
-          {group.name} <span className="badge" data-badge-caption="">{group.userIDs.length}</span>
+          {group.name}{' '}
+          <span className="badge" data-badge-caption="">
+            {group.userIDs.length}
+          </span>
         </NavLink>
       </li>
     ));
