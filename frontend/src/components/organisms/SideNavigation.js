@@ -21,11 +21,13 @@ export function GroupList(props) {
       <li className="group-item" key={index}>
         <NavLink
           to={'/group/' + group._id}
-          className={classNames('group-link sidenav-close')}
+          className={classNames('group-link sidenav-close truncate')}
         >
-          <i className="material-icons">keyboard_arrow_right</i>{' '}
-          <span className="group-name ">{group.name}</span>
-          {/*<span className="badge">{group.userIDs.length}</span>*/}
+          <i className="material-icons">keyboard_arrow_right</i>
+          {group.name}{' '}
+          <span className="badge" data-badge-caption="">
+            {group.userIDs.length}
+          </span>
         </NavLink>
       </li>
     ));
@@ -111,13 +113,13 @@ export function SideNavigationBase(props) {
         </div>
       </li>
       {user && (
-        <li>
+        <li className="group-name">
           <a
             href="#createGroupModal"
             className={classNames('sidenav-close', 'modal-trigger')}
           >
             <i className="material-icons">group_add</i>{' '}
-            <span className="group-name ">Create a new group</span>
+            <span>Create a new group</span>
           </a>
         </li>
       )}

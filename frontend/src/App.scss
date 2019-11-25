@@ -118,3 +118,24 @@ footer {
 .sidebar-fix {
   padding-left: 0px;
 }
+
+/* Mobile Styles */
+@media only screen and (max-width: 400px) {
+  .page-footer {
+    z-index: 0;
+  }
+}
+
+/* Tablet Styles */
+@media only screen and (min-width: 401px) and (max-width: 960px) {
+  .page-footer {
+    z-index: 0;
+  }
+}
+
+/* Desktop Styles */
+@media only screen and (min-width: 961px) {
+  .page-footer {
+    z-index: 999;
+  }
+}

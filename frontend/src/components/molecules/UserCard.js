@@ -47,6 +47,10 @@ export function UserCard(props) {
   if (!timerIsRunning) status = 'idle';
   if (!timerIsRunning && timeDifference > 30) status = 'offline';
 
+  let styles = {
+    width: '85%',
+  };
+
   useEffect(() => {
     fetchGroupByUrlId();
   }, []);
@@ -110,20 +114,22 @@ export function UserCard(props) {
           </span>
         </div>
         <div className="member-info center-align">
-          <span
-            className={classNames('new badge', statusObject[status].color)}
-            data-badge-caption=""
-          >
-            {statusObject[status].label}
-          </span>
+          <div className="progress">
+            <div
+              className={classNames('progress-bar', statusObject[status].color)}
+              style={styles}
+            >
+              <p className="progress-percent">{statusObject[status].label}</p>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="card-reveal">
+      <div className="card-reveal center-align">
         <span className="card-title grey-text text-darken-4 truncate">
           <i className="material-icons right">close</i>
           User
         </span>
-        <p>{member.email}</p>
+        <p className={'truncate'}>{member.email}</p>
         {props.currentUserIsAdmin && (
           <Button
             className={'modal-trigger'}
