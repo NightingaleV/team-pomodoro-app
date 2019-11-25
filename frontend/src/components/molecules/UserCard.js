@@ -121,12 +121,12 @@ export function UserCard(props) {
           </div>
         </div>
       </div>
-      <div className="card-reveal">
+      <div className="card-reveal center-align">
         <span className="card-title grey-text text-darken-4 truncate">
           <i className="material-icons right">close</i>
           User
         </span>
-        <p>{member.email}</p>
+        <p className={'truncate'}>{member.email}</p>
         {props.currentUserIsAdmin && (
           <Button
             className={'modal-trigger'}
