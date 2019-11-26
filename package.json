@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/jakubpivonka-vse/pomodori#readme",
   "dependencies": {
+    "jquery": "^3.4.1",
     "node-sass": "^4.12.0"
   },
   "devDependencies": {
