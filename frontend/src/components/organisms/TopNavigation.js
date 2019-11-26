@@ -58,12 +58,12 @@ export function TopNavigationBase(props) {
       ) : (
         <>
           <li>
-            <NavLink to="/login">Log In</NavLink>
+            <NavLink to="/login" className={'sidenav-close'}>Log In</NavLink>
           </li>
           <li>
             <NavLink
               to="/register"
-              className={'waves-effect waves-light btn amber'}
+              className={'waves-effect waves-light btn amber sidenav-close'}
             >
               Sign Up
             </NavLink>
