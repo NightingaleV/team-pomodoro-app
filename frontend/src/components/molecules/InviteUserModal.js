@@ -78,7 +78,7 @@ export function InviteUserModal(props) {
     <>
       <div id="addMemberModal" className="add-member-modal modal center-align">
         <div className="modal-content">
-          <h4>Add a user to the Group</h4>
+          <h4>Add a new member</h4>
           <div>
             <form id={'add-member-form'} onSubmit={onSubmit}>
               <TextInput
@@ -99,7 +99,7 @@ export function InviteUserModal(props) {
                   })}
               </>
               <Button type={'submit'} form={'add-member-form'}>
-                Add member
+                Add
               </Button>
             </form>
           </div>
