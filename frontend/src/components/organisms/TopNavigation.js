@@ -83,17 +83,21 @@ export function TopNavigationBase(props) {
           <a
             href="#"
             data-target="slide-out"
-            className="sidenav-trigger left show-on-medium-and-down"
+            className={classNames('sidenav-trigger left', {
+              'hide-on-med-and-down': user == null,
+            })}
           >
             <i className="material-icons">menu</i>
           </a>
           <div
-            className={classNames('left valign-wrapper logo-fix ', {
+            className={classNames('left valign-wrapper', {
               'hide-on-large-only': user != null,
             })}
           >
             <img
-              className={classNames('logo-icon')}
+              className={classNames('logo-icon', {
+                'margin-fix': user == null,
+              })}
               src={timerIcon}
               alt="Team Pomodoro App"
               width="35"

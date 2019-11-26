@@ -6,9 +6,16 @@ nav .sidenav-trigger {
   padding-top: 15px;
 }
 
+.margin-fix {
+  margin-left: 20px;
+}
+
 @media only screen and (min-device-width: 300px) and (max-device-width: 1024px) {
   .logo-icon {
     margin: 0px 10px 0 0;
+  }
+  .margin-fix {
+    margin-left: 20px;
   }
 }
 
