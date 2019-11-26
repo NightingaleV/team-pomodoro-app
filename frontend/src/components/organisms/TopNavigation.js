@@ -34,7 +34,7 @@ export function TopNavigationBase(props) {
       {user ? (
         <>
           <li>
-            <a className="">
+            <a className="truncate">
               <i className="material-icons left">account_circle</i>{' '}
               {user && user.email}
             </a>
