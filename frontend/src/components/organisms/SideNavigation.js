@@ -99,7 +99,7 @@ export function SideNavigationBase(props) {
 
   const sideNavContent = (
     <ul className={'sidenav-list'}>
-      <li className={'logo blue '}>
+      <li className={'logo blue'}>
         <div className="valign-wrapper">
           <img
             className={classNames('left', 'logo-icon')}

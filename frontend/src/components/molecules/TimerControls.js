@@ -1,5 +1,6 @@
 // External imports
 import React, { Fragment, useEffect } from 'react';
+import $ from 'jquery';
 // Internal imports
 import { Button } from '../atoms';
 import { useAuth } from '../../utils/useAuth';
@@ -20,6 +21,13 @@ export function DropdownTimerMenu(props) {
     initDropdownMenu();
   }, []);
 
+  $('#pulse').toggle(
+    function() {
+      $(this)
+        .removeClass('pulse')
+    },
+  );
+
   return (
     <>
       <Button
@@ -27,7 +35,7 @@ export function DropdownTimerMenu(props) {
         actionButton={'dropdown'}
         className={'dropdown-trigger'}
         data-target="dropdown1"
-      ></Button>
+      />
       <ul
         id="dropdown1"
         className="dropdown-content"
@@ -70,20 +78,21 @@ export function TimerControls(props) {
 
   if (!isRunning) {
     return (
-      <Fragment>
+      <>
         <Button
           shape={'bigCircular'}
           actionButton={'play'}
           onClick={startTimer}
+          id="pulse"
         >
           {CTA} {children}
         </Button>
         <DropdownTimerMenu controlMethods={props.dropdownControlHandlers} />
-      </Fragment>
+      </>
     );
   } else {
     return (
-      <Fragment>
+      <>
         <Button
           shape={'bigCircular'}
           color={'amber'}
@@ -106,7 +115,7 @@ export function TimerControls(props) {
         >
           {children}
         </Button>
-      </Fragment>
+      </>
     );
   }
 }
