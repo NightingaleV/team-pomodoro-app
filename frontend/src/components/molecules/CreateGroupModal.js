@@ -80,7 +80,7 @@ export function CreateGroupModal() {
         className="create-group-modal modal center-align"
       >
         <div className="modal-content">
-          <h4>Create new group</h4>
+          <h4>Create a new group</h4>
           <div>
             <form id={'create-group-form'} onSubmit={onSubmit}>
               <TextInput
@@ -92,7 +92,7 @@ export function CreateGroupModal() {
                 onChange={onChange}
                 required
               >
-                Group name
+                Name
               </TextInput>
               <>
                 {errors.backend &&
@@ -101,7 +101,7 @@ export function CreateGroupModal() {
                   })}
               </>
               <Button type={'submit'} form={'create-group-form'}>
-                Create group
+                Create
               </Button>
             </form>
           </div>
