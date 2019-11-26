@@ -117,8 +117,8 @@ export function TopNavigationBase(props) {
             </li>
             {user ? (
               <>
-                <li>
-                  <a className="white-text btn-flat">
+                <li className={'valign-wrapper'}>
+                  <a className="white-text btn-flat account-name">
                     <i className="material-icons left">account_circle</i>{' '}
                     {user && user.email}
                   </a>

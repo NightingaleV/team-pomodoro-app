@@ -10,6 +10,18 @@ nav .sidenav-trigger {
   margin-left: 20px;
 }
 
+.nav-wrapper li:nth-child(2) {
+  max-width: 240px;
+}
+
+.account-name {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 15px !important;
+}
+
 @media only screen and (min-device-width: 300px) and (max-device-width: 1024px) {
   .logo-icon {
     margin: 0px 10px 0 0;
