@@ -116,7 +116,11 @@ export function SideNavigationBase(props) {
         <li className="group-name">
           <a
             href="#createGroupModal"
-            className={classNames('sidenav-close', 'modal-trigger')}
+            className={classNames(
+              'sidenav-close',
+              'modal-trigger',
+              'waves-effect',
+            )}
           >
             <i className="material-icons">group_add</i>{' '}
             <span>Create a new group</span>
