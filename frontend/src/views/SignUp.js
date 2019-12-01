@@ -160,7 +160,7 @@ export function SignUp(props) {
                 })}
             </>
             <Button type={'submit'} form={'registration-form'}>
-              Register
+              Sign Up
             </Button>
           </form>
         </div>
