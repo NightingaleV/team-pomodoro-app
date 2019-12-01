@@ -1,6 +1,5 @@
 // External imports
 import React, { Fragment, useEffect } from 'react';
-import $ from 'jquery';
 // Internal imports
 import { Button } from '../atoms';
 import { useAuth } from '../../utils/useAuth';
@@ -20,13 +19,6 @@ export function DropdownTimerMenu(props) {
   useEffect(() => {
     initDropdownMenu();
   }, []);
-
-  $('#pulse').toggle(
-    function() {
-      $(this)
-        .removeClass('pulse')
-    },
-  );
 
   return (
     <>
