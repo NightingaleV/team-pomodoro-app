@@ -126,7 +126,7 @@ export function UserCard(props) {
       <div className="card-reveal center-align">
         <span className="card-title grey-text text-darken-4 truncate">
           <i className="material-icons right">close</i>
-          User
+          Member
         </span>
         <p className={'truncate'}>{member.email}</p>
         {props.currentUserIsAdmin && (
