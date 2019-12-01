@@ -12,11 +12,11 @@ import timerIcon from '../../assets/icon/timer_white_192x192.png';
 
 export function UserCard(props) {
   const statusObject = {
-    offline: { label: 'Offline', color: 'grey' },
-    idle: { label: 'Idle', color: 'brown lighten-2' },
-    pomodoro: { label: 'Pomodoro', color: 'amber' },
-    sBreak: { label: 'Short Break', color: 'green' },
-    lBreak: { label: 'Long Break', color: 'green' },
+    offline: { label: 'OFFLINE', color: 'grey' },
+    idle: { label: 'IDLE', color: 'brown lighten-2' },
+    pomodoro: { label: 'POMODORO', color: 'amber' },
+    sBreak: { label: 'SHORT BREAK', color: 'green' },
+    lBreak: { label: 'LONG BREAK', color: 'indigo' },
   };
   const { member } = props;
   let timerIsRunning = null;
