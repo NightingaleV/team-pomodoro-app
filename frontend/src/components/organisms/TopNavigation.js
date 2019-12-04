@@ -8,6 +8,7 @@ import { GroupDetail } from '../../views/GroupDetail';
 import { Link, NavLink } from '../atoms/Link';
 import { useAuth } from '../../utils/useAuth';
 import { useApi } from '../../utils/useApi';
+import { useTimer } from '../providers/TimerProvider';
 import { Button } from '../atoms';
 import timerIcon from '../../assets/icon/timer_white_192x192.png';
 import { formatTime } from '../../utils/pomodoroUtils';
@@ -15,6 +16,7 @@ import { formatTime } from '../../utils/pomodoroUtils';
 
 export function TopNavigationBase(props) {
   const { user, signout } = useAuth();
+  const { timer, timerAction } = useTimer();
   function initBurgerMenu() {
     const sideNavElement = document.querySelectorAll('.mobile-top-menu');
     const options = { edge: 'right' };
@@ -25,11 +27,28 @@ export function TopNavigationBase(props) {
     initBurgerMenu();
   }, []);
 
-  const mobileLeftSidebar = (
-    <ul className="sidenav mobile-top-menu" id={'mobile-top-menu'}>
-      <li>
-        <Link to="/timer" className={classNames('sidenav-close')}>
-          <i className="material-icons left">watch_later</i>Timer
+  const topNavigationLeftSide = (
+    <>
+      <a
+        href="#"
+        data-target="slide-out"
+        className="sidenav-trigger left show-on-medium-and-down"
+      >
+        <i className="material-icons">menu</i>
+      </a>
+      <div
+        className={classNames('left valign-wrapper logo ', {
+          'hide-on-large-only': user != null,
+        })}
+      >
+        <img
+          className={classNames('logo-icon')}
+          src={timerIcon}
+          alt="Team Pomodoro App"
+          width="35"
+        />
+        <Link to="/timer" className="logo-text white-text">
+          Pomodoro
         </Link>
       </li>
       {user ? (
