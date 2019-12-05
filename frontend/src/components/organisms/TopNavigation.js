@@ -26,6 +26,7 @@ export function TopNavigationBase(props) {
 
   const mobileLeftSidebar = (
     <ul className="sidenav mobile-top-menu" id={'mobile-top-menu'}>
+      <li></li>
       <li>
         <NavLink to="/timer" className={classNames('sidenav-close')}>
           <i className="material-icons left">watch_later</i>Timer
@@ -102,6 +103,7 @@ export function TopNavigationBase(props) {
               alt="Team Pomodoro App"
               width="35"
             />
+
             <Link to="/timer" className="logo-text white-text">
               Pomodoro
             </Link>
@@ -109,6 +111,23 @@ export function TopNavigationBase(props) {
           <a href="#" data-target="mobile-top-menu" className="sidenav-trigger">
             <i className="material-icons">more_vert</i>
           </a>
+          <ul className="hide-on-small-only">
+            <li class="mini-controls">
+              <span className="timer-countdown">22:15</span>
+              <a class="btn-floating btn-small btn-flat waves-effect waves-light amber">
+                <i className="material-icons">play_arrow</i>
+              </a>
+              <a class="btn-floating btn-small btn-flat waves-effect waves-light blue lighten-1">
+                <i className="material-icons">pause</i>
+              </a>
+              <a class="btn-floating btn-small btn-flat waves-effect waves-light blue lighten-1">
+                <i className="material-icons">stop</i>
+              </a>
+              <a class="btn-floating btn-small btn-flat waves-effect waves-light blue lighten-1">
+                <i className="material-icons">loop</i>
+              </a>
+            </li>
+          </ul>
           <ul className="right hide-on-med-and-down">
             <li>
               <NavLink to="/timer">
