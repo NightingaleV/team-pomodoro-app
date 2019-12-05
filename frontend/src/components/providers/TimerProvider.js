@@ -6,29 +6,35 @@ import React, {
   useState,
   useReducer,
   useRef,
+  useEffect,
 } from 'react';
+import axios from 'axios';
 import { convertMinToSec } from '../../utils/pomodoroUtils';
 import { useAuth } from '../../utils/useAuth';
 import { TimerReducer } from '../reducers';
-import axios from 'axios';
+import { usePomodoro } from '../providers/PomodoroProvider';
 
-const initialState = {
+const initialTimerState = {
   timerID: '',
   remTime: convertMinToSec(25),
   isRunning: false,
   settings: { type: 1, name: 'Work', totTime: convertMinToSec(25) },
   progressBar: 100,
-  indexInCycle: 3,
+  indexInCycle: 1,
   isMounted: true,
 };
 
 export function TimerProvider({ children }) {
   const { token } = useAuth();
+
   //----------------------------------------------------------------------------
   // Component State
   //----------------------------------------------------------------------------
+  function setInitialState() {
+    return initialTimerState;
+  }
   // Timer Properties
-  const [timerState, setTimerState] = useState(initialState);
+  const [timerState, setTimerState] = useState(setInitialState());
   // Managing Running Timer
   let timerRef = useRef(null);
   let [timerRefState, setTimerRefState] = useState(null);
@@ -58,12 +64,12 @@ export function TimerProvider({ children }) {
 // CREATE THE CONTEXT
 //----------------------------------------------------------------------------
 // Initiate Timer Context
-const TimerContext = createContext(createContextValue({ timer: initialState }));
-function createContextValue(props) {
-  const { timer, setTimerState, timerReference } = props;
+const TimerContext = createContext(createContextValue({ timer: {} }));
+function createContextValue(timerContextData) {
+  const { timer, setTimerState, timerReference } = timerContextData;
   return {
     timer,
-    timerAction: TimerReducer({ timer, setTimerState, timerReference }),
+    timerAction: TimerReducer(timerContextData),
   };
 }
 // function to provide Timer across Components

@@ -1,17 +1,78 @@
 import { convertMinToSec } from '../../utils/pomodoroUtils';
+import { usePomodoro } from '../providers/PomodoroProvider';
+import { useEffect } from 'react';
 
-const initialState = {
-  timer: {
-    timerID: '',
-    remTime: convertMinToSec(25),
-    isRunning: false,
-    settings: { type: 1, name: 'Work', totTime: convertMinToSec(25) },
-    progressBar: 100,
-    indexInCycle: 3,
-  },
+const POMODORO_SETTINGS = {
+  pomodoro: { type: 1, name: 'Work', totTime: convertMinToSec(25) },
+  shortBreak: { type: 2, name: 'Short Break', totTime: convertMinToSec(5) },
+  longBreak: { type: 3, name: 'Long Break', totTime: convertMinToSec(15) },
 };
 
-export function TimerReducer({ timer, setTimerState, timerReference }) {
+export function TimerReducer(timerContextData) {
+  const { timer, setTimerState, timerReference } = timerContextData;
+
+  //----------------------------------------------------------------------------
+  // Timer Settings Control
+  //----------------------------------------------------------------------------
+  function pickTimerSettings(typeId = 0, reinitiate = false) {
+    if (typeId) {
+      switch (typeId) {
+        case 1:
+          return POMODORO_SETTINGS.pomodoro;
+          break;
+        case 2:
+          return POMODORO_SETTINGS.shortBreak;
+          break;
+        case 3:
+          return POMODORO_SETTINGS.longBreak;
+          break;
+      }
+    } else {
+      // Short Break
+      let newTimerIndex = reinitiate
+        ? timer.indexInCycle
+        : timer.indexInCycle + 1;
+      if (newTimerIndex % 8 === 0) {
+        return POMODORO_SETTINGS.longBreak;
+      }
+      // Long Break
+      else if (newTimerIndex % 2 === 0) {
+        return POMODORO_SETTINGS.shortBreak;
+      }
+      // Pomodoro
+      else {
+        return POMODORO_SETTINGS.pomodoro;
+      }
+    }
+  }
+  function setTimerSettings(settings) {
+    setTimerSettingsState(settings);
+    setRemTime(settings.totTime);
+    const newIndex = timer.indexInCycle + 1;
+    setIndexInCycle(newIndex);
+  }
+
+  function initNextTimer() {
+    let nextTimerSettings = pickTimerSettings();
+    setTimerSettings(nextTimerSettings);
+  }
+
+  function setWork() {
+    let nextTimerSettings = pickTimerSettings(1);
+    setTimerSettings(nextTimerSettings);
+    setIndexInCycle(1);
+  }
+  function setShortBreak() {
+    let nextTimerSettings = pickTimerSettings(2);
+    setTimerSettings(nextTimerSettings);
+    setIndexInCycle(2);
+  }
+  function setLongBreak() {
+    let nextTimerSettings = pickTimerSettings(3);
+    setTimerSettings(nextTimerSettings);
+    setIndexInCycle(8);
+  }
+
   //----------------------------------------------------------------------------
   // Timer State Control functions
   //----------------------------------------------------------------------------
@@ -23,7 +84,6 @@ export function TimerReducer({ timer, setTimerState, timerReference }) {
       };
     });
   }
-
   // wrap for timer state
   function updateTimer(value) {
     timerReference.timerRef.current = value;
@@ -35,6 +95,32 @@ export function TimerReducer({ timer, setTimerState, timerReference }) {
       return {
         ...prevState,
         isRunning: isRunning,
+      };
+    });
+  }
+
+  function setTimerSettingsState(newSettings) {
+    setTimerState(prevState => {
+      return {
+        ...prevState,
+        settings: newSettings,
+      };
+    });
+  }
+
+  function setRemTime(numOfSec) {
+    setTimerState(prevState => {
+      return {
+        ...prevState,
+        remTime: numOfSec,
+      };
+    });
+  }
+  function setIndexInCycle(newIndex) {
+    setTimerState(prevState => {
+      return {
+        ...prevState,
+        indexInCycle: newIndex,
       };
     });
   }
@@ -58,6 +144,7 @@ export function TimerReducer({ timer, setTimerState, timerReference }) {
   // Tick - Run every second
   function tick() {
     subtractSeconds();
+    updateProgressBar();
   }
   //----------------------------------------------------------------------------
   // Timer Control High Lvl API
@@ -82,26 +169,27 @@ export function TimerReducer({ timer, setTimerState, timerReference }) {
 
   function nextTimer() {
     pauseTimer();
-    // initNextTimerInRow();
+    initNextTimer();
   }
 
   function restartTimer() {
     pauseTimer();
-    // reinitiateCurrentTimer();
+    let timerSettings = pickTimerSettings(0, true);
+    setTimerSettings(timerSettings);
   }
 
   return {
-    subtractSeconds: () => {
-      subtractSeconds();
-      console.log(timerReference);
-    },
     startTimer: () => {
       startTimer();
     },
     pauseTimer: () => {
       pauseTimer();
     },
-    nextTimer: () => {},
-    restartTimer: () => {},
+    nextTimer: () => {
+      nextTimer();
+    },
+    restartTimer: () => {
+      restartTimer();
+    },
   };
 }
