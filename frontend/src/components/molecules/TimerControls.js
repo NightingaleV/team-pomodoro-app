@@ -1,13 +1,15 @@
 // External imports
 import React, { Fragment, useEffect } from 'react';
+import M from 'materialize-css';
 // Internal imports
 import { Button } from '../atoms';
 import { useAuth } from '../../utils/useAuth';
 import { TopNavigation } from '../organisms';
 import { SignUpSuccess } from '../../templates';
-import M from 'materialize-css';
+import { useTimer } from '../providers/TimerProvider';
 
 export function DropdownTimerMenu(props) {
+  const { timerAction } = useTimer();
   const { user } = useAuth();
   function initDropdownMenu() {
     const dropdownMenuElement = document.querySelectorAll('.dropdown-trigger');
@@ -34,18 +36,18 @@ export function DropdownTimerMenu(props) {
         style={{ minWidth: '165px' }}
       >
         <li>
-          <a onClick={props.controlMethods.setWork}>
+          <a onClick={timerAction.setWork}>
             <i className="material-icons">business_center</i>
             Work
           </a>
         </li>
         <li>
-          <a onClick={props.controlMethods.setShortBreak}>
+          <a onClick={timerAction.setShortBreak}>
             <i className="material-icons">free_breakfast</i>Take a break
           </a>
         </li>
         <li>
-          <a onClick={props.controlMethods.setLongBreak}>
+          <a onClick={timerAction.setLongBreak}>
             <i className="material-icons">weekend</i>Take a long break
           </a>
         </li>
@@ -55,31 +57,22 @@ export function DropdownTimerMenu(props) {
 }
 
 export function TimerControls(props) {
+  const { timer, timerAction } = useTimer();
   let CTA = 'Call to Action';
-  const { isRunning, typeOfTimer, children } = props;
-  if (typeOfTimer === 1) CTA = '';
-  if (typeOfTimer === 2) CTA = '';
-  if (typeOfTimer === 3) CTA = '';
+  const { children } = props;
 
-  const {
-    startTimer,
-    pauseTimer,
-    nextTimer,
-    restartTimer,
-  } = props.controlHandlers;
-
-  if (!isRunning) {
+  if (!timer.isRunning) {
     return (
       <>
         <Button
           shape={'bigCircular'}
           actionButton={'play'}
-          onClick={startTimer}
+          onClick={timerAction.startTimer}
           id="pulse"
         >
           {CTA} {children}
         </Button>
-        <DropdownTimerMenu controlMethods={props.dropdownControlHandlers} />
+        <DropdownTimerMenu />
       </>
     );
   } else {
@@ -89,21 +82,21 @@ export function TimerControls(props) {
           shape={'bigCircular'}
           color={'amber'}
           actionButton={'stop'}
-          onClick={nextTimer}
+          onClick={timerAction.nextTimer}
         >
           {children}
         </Button>
         <Button
           shape={'bigCircular'}
           actionButton={'pause'}
-          onClick={pauseTimer}
+          onClick={timerAction.pauseTimer}
         >
           {children}
         </Button>
         <Button
           shape={'bigCircular'}
           actionButton={'restart'}
-          onClick={restartTimer}
+          onClick={timerAction.restartTimer}
         >
           {children}
         </Button>

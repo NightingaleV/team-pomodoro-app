@@ -1,6 +1,4 @@
 import { convertMinToSec } from '../../utils/pomodoroUtils';
-import { usePomodoro } from '../providers/PomodoroProvider';
-import { useEffect } from 'react';
 
 const POMODORO_SETTINGS = {
   pomodoro: { type: 1, name: 'Work', totTime: convertMinToSec(25) },
@@ -14,61 +12,31 @@ export function TimerReducer(timerContextData) {
   //----------------------------------------------------------------------------
   // Timer Settings Control
   //----------------------------------------------------------------------------
-  function pickTimerSettings(typeId = 0, reinitiate = false) {
-    if (typeId) {
-      switch (typeId) {
-        case 1:
-          return POMODORO_SETTINGS.pomodoro;
-          break;
-        case 2:
-          return POMODORO_SETTINGS.shortBreak;
-          break;
-        case 3:
-          return POMODORO_SETTINGS.longBreak;
-          break;
-      }
-    } else {
-      // Short Break
-      let newTimerIndex = reinitiate
-        ? timer.indexInCycle
-        : timer.indexInCycle + 1;
-      if (newTimerIndex % 8 === 0) {
-        return POMODORO_SETTINGS.longBreak;
-      }
-      // Long Break
-      else if (newTimerIndex % 2 === 0) {
-        return POMODORO_SETTINGS.shortBreak;
-      }
-      // Pomodoro
-      else {
-        return POMODORO_SETTINGS.pomodoro;
-      }
-    }
-  }
   function setTimerSettings(settings) {
     setTimerSettingsState(settings);
     setRemTime(settings.totTime);
+    resetProgress();
+  }
+
+  function initNextTimer() {
+    let nextTimerSettings = pickTimerSettings(timer);
+    setTimerSettings(nextTimerSettings);
     const newIndex = timer.indexInCycle + 1;
     setIndexInCycle(newIndex);
   }
 
-  function initNextTimer() {
-    let nextTimerSettings = pickTimerSettings();
-    setTimerSettings(nextTimerSettings);
-  }
-
   function setWork() {
-    let nextTimerSettings = pickTimerSettings(1);
+    let nextTimerSettings = pickTimerSettings(timer, 1);
     setTimerSettings(nextTimerSettings);
     setIndexInCycle(1);
   }
   function setShortBreak() {
-    let nextTimerSettings = pickTimerSettings(2);
+    let nextTimerSettings = pickTimerSettings(timer, 2);
     setTimerSettings(nextTimerSettings);
     setIndexInCycle(2);
   }
   function setLongBreak() {
-    let nextTimerSettings = pickTimerSettings(3);
+    let nextTimerSettings = pickTimerSettings(timer, 3);
     setTimerSettings(nextTimerSettings);
     setIndexInCycle(8);
   }
@@ -76,11 +44,12 @@ export function TimerReducer(timerContextData) {
   //----------------------------------------------------------------------------
   // Timer State Control functions
   //----------------------------------------------------------------------------
-  function subtractSeconds() {
+  function tick() {
     setTimerState(prevState => {
       return {
         ...prevState,
         remTime: prevState.remTime - 1,
+        progressBar: updateProgressBar(prevState.remTime - 1),
       };
     });
   }
@@ -124,27 +93,20 @@ export function TimerReducer(timerContextData) {
       };
     });
   }
-
-  function updateProgressBar() {
-    //Round to 2 digits
-    let progressBar =
-      Math.round((timer.remTime / timer.settings.totTime) * 10000) / 100;
-
+  function resetProgress() {
     setTimerState(prevState => {
       return {
         ...prevState,
-        progressBar: progressBar,
+        progressBar: 100,
       };
     });
   }
-  //----------------------------------------------------------------------------
-  // Timer Control High Lvl API
-  //----------------------------------------------------------------------------
 
-  // Tick - Run every second
-  function tick() {
-    subtractSeconds();
-    updateProgressBar();
+  function updateProgressBar(remTime) {
+    //Round to 2 digits
+    let newProgressValue =
+      Math.round((remTime / timer.settings.totTime) * 10000) / 100;
+    return newProgressValue;
   }
   //----------------------------------------------------------------------------
   // Timer Control High Lvl API
@@ -174,22 +136,49 @@ export function TimerReducer(timerContextData) {
 
   function restartTimer() {
     pauseTimer();
-    let timerSettings = pickTimerSettings(0, true);
+    let timerSettings = pickTimerSettings(timer, 0, true);
     setTimerSettings(timerSettings);
   }
 
   return {
-    startTimer: () => {
-      startTimer();
-    },
-    pauseTimer: () => {
-      pauseTimer();
-    },
-    nextTimer: () => {
-      nextTimer();
-    },
-    restartTimer: () => {
-      restartTimer();
-    },
+    startTimer: startTimer,
+    pauseTimer: pauseTimer,
+    nextTimer: nextTimer,
+    restartTimer: restartTimer,
+    setWork: setWork,
+    setShortBreak: setShortBreak,
+    setLongBreak: setLongBreak,
   };
+}
+
+function pickTimerSettings(timer, typeId = 0, reinitiate = false) {
+  if (typeId) {
+    switch (typeId) {
+      case 1:
+        return POMODORO_SETTINGS.pomodoro;
+        break;
+      case 2:
+        return POMODORO_SETTINGS.shortBreak;
+        break;
+      case 3:
+        return POMODORO_SETTINGS.longBreak;
+        break;
+    }
+  } else {
+    // Short Break
+    let newTimerIndex = reinitiate
+      ? timer.indexInCycle
+      : timer.indexInCycle + 1;
+    if (newTimerIndex % 8 === 0) {
+      return POMODORO_SETTINGS.longBreak;
+    }
+    // Long Break
+    else if (newTimerIndex % 2 === 0) {
+      return POMODORO_SETTINGS.shortBreak;
+    }
+    // Pomodoro
+    else {
+      return POMODORO_SETTINGS.pomodoro;
+    }
+  }
 }

@@ -27,6 +27,19 @@ export function TopNavigationBase(props) {
     initBurgerMenu();
   }, []);
 
+  //----------------------------------------------------------------------------
+  // Dynamic Title
+  //----------------------------------------------------------------------------
+  useEffect(() => {
+    const currentTimer = timer.settings.name;
+    const docTitle = currentTimer.concat(
+      ' | ',
+      formatTime(timer.remTime),
+      ' - Team Pomodoro',
+    );
+    document.title = docTitle;
+  }, [timer.remTime]);
+
   const topNavigationLeftSide = (
     <>
       <a

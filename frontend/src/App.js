@@ -12,25 +12,23 @@ import { Container } from './views/Container';
 
 function AllProviders({ children }) {
   return (
-    <PomodoroProvider>
-      <TimerProvider>
-        <BrowserRouter>{children}</BrowserRouter>
-      </TimerProvider>
-    </PomodoroProvider>
+    <AuthProvider>
+      <ApiProvider>
+        <TimerProvider>
+          <BrowserRouter>{children}</BrowserRouter>
+        </TimerProvider>
+      </ApiProvider>
+    </AuthProvider>
   );
 }
 
 function App() {
   return (
-    <AuthProvider>
-      <ApiProvider>
-        <AllProviders>
-          <Container>
-            <Routes />
-          </Container>
-        </AllProviders>
-      </ApiProvider>
-    </AuthProvider>
+    <AllProviders>
+      <Container>
+        <Routes />
+      </Container>
+    </AllProviders>
   );
 }
 

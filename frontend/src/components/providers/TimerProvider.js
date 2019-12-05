@@ -12,7 +12,6 @@ import axios from 'axios';
 import { convertMinToSec } from '../../utils/pomodoroUtils';
 import { useAuth } from '../../utils/useAuth';
 import { TimerReducer } from '../reducers';
-import { usePomodoro } from '../providers/PomodoroProvider';
 
 const initialTimerState = {
   timerID: '',
