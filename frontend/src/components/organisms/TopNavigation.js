@@ -27,9 +27,9 @@ export function TopNavigationBase(props) {
   const mobileLeftSidebar = (
     <ul className="sidenav mobile-top-menu" id={'mobile-top-menu'}>
       <li>
-        <Link to="/timer" className={classNames('sidenav-close')}>
+        <NavLink to="/timer" className={classNames('sidenav-close')}>
           <i className="material-icons left">watch_later</i>Timer
-        </Link>
+        </NavLink>
       </li>
       {user ? (
         <>
