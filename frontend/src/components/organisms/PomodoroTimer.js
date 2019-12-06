@@ -29,27 +29,11 @@ export function PomodoroTimerBase(props) {
     dropdownControlHandlers,
   } = props;
 
-  // Component State
+  // let [timer, setTimer] = useState(null);
+
+  // Request Functions
   //----------------------------------------------------------------------------
-  // const [timerState, setTimerState] = useState({
-  //   timerID: '',
-  //   remTime: convertMinToSec(25),
-  //   isRunning: false,
-  //   settings: { type: 1, name: 'Work', totTime: convertMinToSec(25) },
-  //   progressBar: 100,
-  //   indexInCycle: 3,
-  // });
-  //
-  // const timerContext = useMemo(() => ({ timerState, setTimerState }), [
-  //   timerState,
-  //   setTimerState,
-  // ]);
-  //
-  // // let [timer, setTimer] = useState(null);
-  //
-  // // Request Functions
-  // //----------------------------------------------------------------------------
-  // // Get Last Timer
+  // Get Last Timer
   // async function fetchTimerData() {
   //   const config = {
   //     headers: {
@@ -209,98 +193,6 @@ export function PomodoroTimerBase(props) {
   // }, [timerState.remTime]);
   //
   // useEffect(() => {}, [timerState]);
-  //
-  // // Tick - Run every second
-  // function tick() {
-  //   subtractSeconds();
-  // }
-  //
-  // // SETTERS State Updating Function
-  // //----------------------------------------------------------------------------
-  // function subtractSeconds() {
-  //   setTimerState(prevState => {
-  //     return {
-  //       ...prevState,
-  //       remTime: prevState.remTime - 1,
-  //     };
-  //   });
-  // }
-  //
-  // // Calculate Progress for Circle
-  // function updateProgressBar() {
-  //   //Round to 2 digits
-  //   let progressBar =
-  //     Math.round((timerState.remTime / timerState.settings.totTime) * 10000) /
-  //     100;
-  //
-  //   setTimerState(prevState => {
-  //     return {
-  //       ...prevState,
-  //       progressBar: progressBar,
-  //     };
-  //   });
-  // }
-  // // wrap for timer state
-  // function updateTimer(value) {
-  //   timerRef.current = value;
-  //   setTimer(timerRef.current);
-  // }
-  //
-  // function setTimerRunning(isRunning = false) {
-  //   setTimerState(prevState => {
-  //     return {
-  //       ...prevState,
-  //       isRunning: isRunning,
-  //     };
-  //   });
-  // }
-  //
-  // function setTimerSettings(newSettings) {
-  //   setTimerState(prevState => {
-  //     return {
-  //       ...prevState,
-  //       settings: newSettings,
-  //     };
-  //   });
-  // }
-  //
-  // function setRemTime(numOfSec) {
-  //   setTimerState(prevState => {
-  //     return {
-  //       ...prevState,
-  //       remTime: numOfSec,
-  //     };
-  //   });
-  // }
-  // // TIMER CONTROLS
-  // //----------------------------------------------------------------------------
-  // function startTimer() {
-  //   updateTimer(
-  //     setInterval(() => {
-  //       tick();
-  //     }, 1000),
-  //   );
-  //   setTimerRunning(true);
-  // }
-  //
-  // function pauseTimer() {
-  //   if (timer) {
-  //     updateTimer(clearInterval(timer));
-  //     if (isMounted) {
-  //       setTimerRunning(false);
-  //     }
-  //   }
-  // }
-  //
-  // function nextTimer() {
-  //   pauseTimer();
-  //   initNextTimerInRow();
-  // }
-  //
-  // function restartTimer() {
-  //   pauseTimer();
-  //   reinitiateCurrentTimer();
-  // }
 
   const PersonalTimerHtml = (
     <div style={{ textAlign: 'center' }}>

@@ -1,4 +1,6 @@
 import { convertMinToSec } from '../../utils/pomodoroUtils';
+import { TimerDispatcher } from './TimerDispatcher';
+import axios from 'axios';
 
 const POMODORO_SETTINGS = {
   pomodoro: { type: 1, name: 'Work', totTime: convertMinToSec(25) },
@@ -42,15 +44,68 @@ export function TimerReducer(timerContextData) {
   }
 
   //----------------------------------------------------------------------------
+  // Timer Api Control
+  //----------------------------------------------------------------------------
+  const token =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWRjOGY4ODU5YzZmZDYyMzA0MDYzZmI2In0sImlhdCI6MTU3NTY1MjY0OX0.acyeL37d4MHR9UeEi40WE_Qx4AxyCVZdIn_xxNkh9rI';
+
+  const { fetchTimerData, sendNewTimerData, updateTimerData } = TimerDispatcher(
+    token,
+  );
+  async function initTimer() {
+    const timerDataPromise = fetchTimerData();
+    await timerDataPromise.then(timerData => {
+      console.log(timerData);
+      if (timerData) {
+        const { remTime, isRunning, settings, _id, indexInCycle } = timerData;
+        setTimerState(prevState => {
+          return {
+            ...prevState,
+            timerID: _id,
+            remTime: remTime,
+            settings: settings,
+            isRunning: isRunning,
+            indexInCycle: indexInCycle,
+            progressBar: updateProgressBar(remTime),
+          };
+        });
+        if (isRunning) {
+          startTimer();
+        }
+      } else {
+        // Send the data
+        const newTimerData = sendNewTimerData(timer);
+        newTimerData.then(timerData => {
+          // Set the timer ID
+          const { _id } = timerData;
+          setTimerState(prevState => {
+            return {
+              ...prevState,
+              timerID: _id,
+            };
+          });
+        });
+      }
+    });
+  }
+
+  //----------------------------------------------------------------------------
   // Timer State Control functions
   //----------------------------------------------------------------------------
   function tick() {
     setTimerState(prevState => {
-      return {
+      // updateTimerData({
+      //   ...prevState,
+      //   remTime: prevState.remTime - 1,
+      //   progressBar: updateProgressBar(prevState.remTime - 1),
+      // });
+      const newState = {
         ...prevState,
         remTime: prevState.remTime - 1,
         progressBar: updateProgressBar(prevState.remTime - 1),
       };
+      updateTimerData(newState);
+      return newState;
     });
   }
   // wrap for timer state
@@ -61,19 +116,23 @@ export function TimerReducer(timerContextData) {
 
   function setTimerRunning(isRunning = false) {
     setTimerState(prevState => {
-      return {
+      const newState = {
         ...prevState,
         isRunning: isRunning,
       };
+      updateTimerData(newState);
+      return newState;
     });
   }
 
   function setTimerSettingsState(newSettings) {
     setTimerState(prevState => {
-      return {
+      const newState = {
         ...prevState,
         settings: newSettings,
       };
+      updateTimerData(newState);
+      return newState;
     });
   }
 
@@ -87,10 +146,12 @@ export function TimerReducer(timerContextData) {
   }
   function setIndexInCycle(newIndex) {
     setTimerState(prevState => {
-      return {
+      const newState = {
         ...prevState,
         indexInCycle: newIndex,
       };
+      updateTimerData(newState);
+      return newState;
     });
   }
   function resetProgress() {
@@ -141,13 +202,14 @@ export function TimerReducer(timerContextData) {
   }
 
   return {
-    startTimer: startTimer,
-    pauseTimer: pauseTimer,
-    nextTimer: nextTimer,
-    restartTimer: restartTimer,
-    setWork: setWork,
-    setShortBreak: setShortBreak,
-    setLongBreak: setLongBreak,
+    initTimer,
+    startTimer,
+    pauseTimer,
+    nextTimer,
+    restartTimer,
+    setWork,
+    setShortBreak,
+    setLongBreak,
   };
 }
 
