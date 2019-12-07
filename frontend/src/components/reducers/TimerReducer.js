@@ -1,5 +1,6 @@
 import { convertMinToSec } from '../../utils/pomodoroUtils';
 import { TimerDispatcher } from './TimerDispatcher';
+import { updateProgressBar } from '../../utils/pomodoroUtils';
 import axios from 'axios';
 
 const POMODORO_SETTINGS = {
@@ -9,7 +10,7 @@ const POMODORO_SETTINGS = {
 };
 
 export function TimerReducer(timerContextData) {
-  const { timer, setTimerState, timerReference } = timerContextData;
+  const { timer, setTimerState, timerReference, token } = timerContextData;
 
   //----------------------------------------------------------------------------
   // Timer Settings Control
@@ -46,9 +47,6 @@ export function TimerReducer(timerContextData) {
   //----------------------------------------------------------------------------
   // Timer Api Control
   //----------------------------------------------------------------------------
-  const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWRjOGY4ODU5YzZmZDYyMzA0MDYzZmI2In0sImlhdCI6MTU3NTY1MjY0OX0.acyeL37d4MHR9UeEi40WE_Qx4AxyCVZdIn_xxNkh9rI';
-
   const { fetchTimerData, sendNewTimerData, updateTimerData } = TimerDispatcher(
     token,
   );
@@ -66,7 +64,7 @@ export function TimerReducer(timerContextData) {
             settings: settings,
             isRunning: isRunning,
             indexInCycle: indexInCycle,
-            progressBar: updateProgressBar(remTime),
+            progressBar: updateProgressBar(remTime, settings.totTime),
           };
         });
         if (isRunning) {
@@ -94,15 +92,13 @@ export function TimerReducer(timerContextData) {
   //----------------------------------------------------------------------------
   function tick() {
     setTimerState(prevState => {
-      // updateTimerData({
-      //   ...prevState,
-      //   remTime: prevState.remTime - 1,
-      //   progressBar: updateProgressBar(prevState.remTime - 1),
-      // });
       const newState = {
         ...prevState,
         remTime: prevState.remTime - 1,
-        progressBar: updateProgressBar(prevState.remTime - 1),
+        progressBar: updateProgressBar(
+          prevState.remTime - 1,
+          prevState.settings.totTime,
+        ),
       };
       updateTimerData(newState);
       return newState;
@@ -161,13 +157,6 @@ export function TimerReducer(timerContextData) {
         progressBar: 100,
       };
     });
-  }
-
-  function updateProgressBar(remTime) {
-    //Round to 2 digits
-    let newProgressValue =
-      Math.round((remTime / timer.settings.totTime) * 10000) / 100;
-    return newProgressValue;
   }
   //----------------------------------------------------------------------------
   // Timer Control High Lvl API

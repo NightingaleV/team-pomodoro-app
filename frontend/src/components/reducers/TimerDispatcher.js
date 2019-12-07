@@ -3,6 +3,9 @@
 //----------------------------------------------------------------------------
 
 import axios from 'axios';
+let axiosInstance = axios.create({
+  baseURL: process.env.PORT || 'http://localhost:3000/',
+});
 
 export function TimerDispatcher(token) {
   const requestConfig = {
@@ -14,8 +17,9 @@ export function TimerDispatcher(token) {
   };
 
   async function fetchTimerData() {
-    const timerDataRes = await axios
-      .get('api/timer', requestConfig)
+    console.log('token', token);
+    const timerDataRes = await axiosInstance
+      .get('/api/timer', requestConfig)
       .catch(err => {
         console.log(err);
       });
@@ -36,9 +40,11 @@ export function TimerDispatcher(token) {
         indexInCycle: state.indexInCycle,
       };
       const body = JSON.stringify(newTimer);
-      await axios.post('api/timer/save', body, requestConfig).then(res => {
-        return res.data.timer;
-      });
+      await axiosInstance
+        .post('/api/timer/save', body, requestConfig)
+        .then(res => {
+          return res.data.timer;
+        });
     }
   }
 
@@ -53,9 +59,11 @@ export function TimerDispatcher(token) {
         indexInCycle: state.indexInCycle,
       };
       const body = JSON.stringify(timerToUpdate);
-      await axios.post('api/timer/update', body, requestConfig).then(res => {
-        console.log('From DB', res.data);
-      });
+      await axiosInstance
+        .post('api/timer/update', body, requestConfig)
+        .then(res => {
+          console.log('From DB', res.data);
+        });
     }
   }
   return { fetchTimerData, sendNewTimerData, updateTimerData };

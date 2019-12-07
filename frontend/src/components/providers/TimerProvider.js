@@ -24,7 +24,7 @@ const initialTimerState = {
 };
 
 export function TimerProvider({ children }) {
-  const { token } = useAuth();
+  const { user, token } = useAuth();
 
   //----------------------------------------------------------------------------
   // Component State
@@ -46,6 +46,7 @@ export function TimerProvider({ children }) {
     timer: timerState,
     setTimerState: setTimerState,
     timerReference: { timerRef, timerRefState, setTimerRefState },
+    token: token,
   };
   // Send data to context
   const contextValue = useMemo(() => {

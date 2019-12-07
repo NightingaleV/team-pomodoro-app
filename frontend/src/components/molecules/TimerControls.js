@@ -15,7 +15,6 @@ export function DropdownTimerMenu(props) {
     const dropdownMenuElement = document.querySelectorAll('.dropdown-trigger');
     const options = { constrainWidth: false };
     M.Dropdown.init(dropdownMenuElement, options);
-    // dropdown.open();
   }
 
   useEffect(() => {
