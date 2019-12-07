@@ -8,6 +8,7 @@ import {
   CreateGroupModal,
 } from '../components/organisms';
 import { useAuth } from '../utils/useAuth';
+import { FloatingButton } from '../components/atoms';
 
 export function Container(props) {
   const { user, token } = useAuth();
@@ -19,6 +20,7 @@ export function Container(props) {
       </header>
       <main className={'content'}>
         <div className="">{props.children}</div>
+        <FloatingButton></FloatingButton>
       </main>
       <div className={'row content'}>
         <div className={'col l10 m12 s12 center-align'}></div>
@@ -36,6 +38,7 @@ export function Container(props) {
       <div className={'row content sidebar-fix'}>
         <div className={'col l12 m12 s12 center-align'}>
           <div className="container">{props.children}</div>
+          <FloatingButton></FloatingButton>
         </div>
       </div>
       <div className="modals-container">
