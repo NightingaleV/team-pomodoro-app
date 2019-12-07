@@ -30,6 +30,18 @@ export function TopNavigationBase(props) {
     timerAction.initTimer();
   }, []);
 
+  useEffect(() => {
+    // TIMER SUBSCRIPTION
+    // let subscriptionToTimer;
+    // if (!timer.isRunning) {
+    //   subscriptionToTimer = setInterval(() => timerAction.initTimer(), 5000);
+    // }
+    // return () => {
+    //   console.log('CleanUp: subscriptionToTimer');
+    //   clearInterval(subscriptionToTimer);
+    // };
+  }, [timer.isRunning]);
+
   //----------------------------------------------------------------------------
   // Dynamic Title
   //----------------------------------------------------------------------------
