@@ -6,6 +6,7 @@ import { useAuth } from '../../utils/useAuth';
 import { useLocation } from 'react-router-dom';
 import M from 'materialize-css';
 import { Button } from '../atoms/Button';
+import { updateProgressBar } from '../../utils/pomodoroUtils';
 
 import profileImage from '../../assets/images/profile-pic-placeholder.png';
 import timerIcon from '../../assets/icon/timer_white_192x192.png';
@@ -19,13 +20,13 @@ export function UserCard(props) {
     lBreak: { label: 'LONG BREAK', color: 'indigo' },
   };
   const { member } = props;
-  let timerIsRunning = null;
-  let timerType = null;
-  let timerName = null;
-  let timerRemTime = null;
-  let timerUpdated = null;
-  // In minutes
-  let timeDifference = null;
+  let timerIsRunning,
+    timerType,
+    timerName,
+    timerRemTime,
+    timerUpdated,
+    timeDifference,
+    timerTotTime = null;
 
   const { user, token } = useAuth();
   const [group, setGroup] = useState({ name: '', userIDs: [] });
@@ -38,6 +39,7 @@ export function UserCard(props) {
     timerType = member.timerID.settings.type;
     timerName = member.timerID.settings.name;
     timerRemTime = member.timerID.remTime;
+    timerTotTime = member.timerID.settings.totTime;
     timerUpdated = new Date(member.timerID.updatedAt);
     // In minutes
     timeDifference = (Date.now() - timerUpdated) / (1000 * 60);
@@ -50,8 +52,9 @@ export function UserCard(props) {
   if (!timerIsRunning) status = 'idle';
   if (!timerIsRunning && timeDifference > 30) status = 'offline';
 
-  let styles = {
-    width: '85%',
+  let styles;
+  styles = {
+    width: ''.concat(updateProgressBar(timerRemTime, timerTotTime), '%'),
   };
 
   useEffect(() => {
