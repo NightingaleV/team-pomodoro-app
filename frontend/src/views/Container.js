@@ -20,11 +20,8 @@ export function Container(props) {
       </header>
       <main className={'content'}>
         <div className="">{props.children}</div>
-        <FloatingButton></FloatingButton>
+        <FloatingButton />
       </main>
-      <div className={'row content'}>
-        <div className={'col l10 m12 s12 center-align'}></div>
-      </div>
       <div className="modals-container">
         <CreateGroupModal />
       </div>
@@ -38,7 +35,7 @@ export function Container(props) {
       <div className={'row content sidebar-fix'}>
         <div className={'col l12 m12 s12 center-align'}>
           <div className="container">{props.children}</div>
-          <FloatingButton></FloatingButton>
+          <FloatingButton />
         </div>
       </div>
       <div className="modals-container">
