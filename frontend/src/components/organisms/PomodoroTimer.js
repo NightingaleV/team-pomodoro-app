@@ -333,6 +333,22 @@ export function PomodoroTimerBase(props) {
             dropdownControlHandlers={dropdownControlHandlers}
           />
         </div>
+        <div className="progress-bullets">
+          <ul className="progress-tracker progress-tracker--center progress-tracker--spaced">
+            <li className="progress-step is-complete">
+              <div className="progress-marker"></div>
+            </li>
+            <li className="progress-step is-complete">
+              <div className="progress-marker"></div>
+            </li>
+            <li className="progress-step is-active">
+              <div className="progress-marker"></div>
+            </li>
+            <li className="progress-step">
+              <div className="progress-marker"></div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );
