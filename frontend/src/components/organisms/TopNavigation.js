@@ -107,6 +107,12 @@ export function TopNavigationBase(props) {
             <Link to="/timer" className="logo-text white-text">
               Pomodoro
             </Link>
+            <ul className="hide-on-med-and-up">
+              {' '}
+              <li className="mini-controls">
+                <span className="timer-countdown">22:15</span>
+              </li>
+            </ul>
           </div>
           <a href="#" data-target="mobile-top-menu" className="sidenav-trigger">
             <i className="material-icons">more_vert</i>
