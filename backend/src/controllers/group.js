@@ -125,7 +125,8 @@ export async function addMember(req, res) {
         if (memberIsNew) {
           group = await Group.findOneAndUpdate(
             { _id: groupID },
-            { $push: { userIDs: newMember._id } },
+            // { $push: { userIDs: newMember._id } },
+            { $push: { userIDs: newMember._id, guestIDs: newMember._id } },
           );
           await res.json({ group });
         } else {
@@ -160,7 +161,8 @@ export async function leaveGroup(req, res) {
     let group = await Group.findOneAndUpdate(
       { _id: groupID },
       {
-        $pullAll: { userIDs: [member] },
+        // $pullAll: { userIDs: [member] },
+        $pullAll: {userIDs: [member], adminIDs: [member], guestIDs: [member] },
       },
     );
     if (group) {
@@ -185,7 +187,8 @@ export async function removeMember(req, res) {
         group = await Group.findOneAndUpdate(
           { _id: groupID },
           {
-            $pullAll: { userIDs: [memberID] },
+            // $pullAll: { userIDs: [memberID] },
+            $pullAll: {userIDs: [memberID], adminIDs: [memberID], guestIDs: [memberID] },
           },
         );
 
@@ -203,6 +206,26 @@ export async function removeMember(req, res) {
       res.status(403).json({
         errors: [{ msg: "You don't have the permission to do that." }],
       });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ errors: [{ msg: 'Server Error, Try it later' }] });
+  }
+}
+
+export async function acceptInvitation(req, res) {
+  try {
+    const { groupID } = req.body;
+    const member = req.user.id;
+
+    let group = await Group.findOneAndUpdate(
+      { _id: groupID },
+      {
+        $pullAll: { guestIDs: [member] },
+      },
+    );
+    if (group) {
+      await res.status(200).json({ status: 'success' });
     }
   } catch (err) {
     console.log(err);

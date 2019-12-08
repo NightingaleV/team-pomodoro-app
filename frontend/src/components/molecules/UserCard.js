@@ -54,47 +54,66 @@ export function UserCard(props) {
     width: '85%',
   };
 
+  const [memberIsGuest, setMemberIsGuest] = useState(false);
   useEffect(() => {
-    fetchGroupByUrlId();
-  }, []);
+    if (props.group) {
+      if (props.group.guestIDs.includes(member._id)) {
+        setMemberIsGuest(true);
+      }
+    }
+  }, [props.group]);
 
-  function getGroupIdentifier(props) {
-    const url = location.pathname;
-    const urlList = url.split('/');
-    const groupID = urlList[urlList.length - 1];
-    return groupID;
-  }
+  const [memberIsUser, setMemberIsUser] = useState(false);
+  useEffect(() => {
+    if (user) {
+      if (user._id == member._id) {
+        setMemberIsUser(true);
+        // console.log('memberIsUser:' + memberIsUser);
+      }
+    }
+  }, [user]);
 
-  const requestConfig = {
-    headers: {
-      'x-auth-token': token,
-      'Content-Type': 'application/json',
-    },
-  };
+  // useEffect(() => {
+  //   fetchGroupByUrlId();
+  // }, []);
 
-  async function fetchGroupByUrlId() {
-    try {
-      await axios
-        .get('/api/group/' + getGroupIdentifier(), requestConfig)
-        .then(res => {
-          // console.log('Fetched Group Data: ', res.data.group);
-          setGroup(res.data.group);
-        })
-        .catch(err => {
-          if (err.response.status == 403 || err.response.status == 401) {
-            console.log('You are prohibited to view the group');
-            setError('You are prohibited to view the group');
-          }
-          console.error(err);
-        });
-    } catch {}
-  }
+  // function getGroupIdentifier(props) {
+  //   const url = location.pathname;
+  //   const urlList = url.split('/');
+  //   const groupID = urlList[urlList.length - 1];
+  //   return groupID;
+  // }
 
-  const onClick = async e => {
-    // console.log('Member: ' + member.email);
-    // fetchGroupByUrlId();
-    console.log(member);
-  };
+  // const requestConfig = {
+  //   headers: {
+  //     'x-auth-token': token,
+  //     'Content-Type': 'application/json',
+  //   },
+  // };
+
+  // async function fetchGroupByUrlId() {
+  //   try {
+  //     await axios
+  //       .get('/api/group/' + getGroupIdentifier(), requestConfig)
+  //       .then(res => {
+  //         // console.log('Fetched Group Data: ', res.data.group);
+  //         setGroup(res.data.group);
+  //       })
+  //       .catch(err => {
+  //         if (err.response.status == 403 || err.response.status == 401) {
+  //           console.log('You are prohibited to view the group');
+  //           setError('You are prohibited to view the group');
+  //         }
+  //         console.error(err);
+  //       });
+  //   } catch {}
+  // }
+
+  // const onClick = async e => {
+  //   // console.log('Member: ' + member.email);
+  //   // fetchGroupByUrlId();
+  //   console.log(member);
+  // };
 
   return (
     <div className="card hoverable">
@@ -112,6 +131,10 @@ export function UserCard(props) {
             <i className="material-icons right">more_vert</i>
           </span>
         </div>
+        {/* Here hide if guest? */}
+        {/* {!props.currentUserIsGuest || (props.currentUserIsGuest && memberIsUser) || memberIsGuest && ( */}
+          {/* {(!props.currentUserIsGuest && !memberIsGuest) || (memberIsGuest && memberIsUser) && ( */}
+            {(!props.currentUserIsGuest && !memberIsGuest) && (
         <div className="member-info center-align">
           <div className="progress">
             <div
@@ -122,6 +145,7 @@ export function UserCard(props) {
             </div>
           </div>
         </div>
+        )}
       </div>
       <div className="card-reveal center-align">
         <span className="card-title grey-text text-darken-4 truncate">
