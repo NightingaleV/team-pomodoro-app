@@ -4,7 +4,7 @@ import { withRouter, Redirect } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
 import { Preloader } from '../atoms';
-import { TimerControls, ProgressRing } from '../molecules';
+import { TimerControls, ProgressRing, StepProgressBar } from '../molecules';
 import { convertMinToSec, formatTime } from '../../utils/pomodoroUtils';
 import { useTimer } from '../providers/TimerProvider';
 import { useApi } from '../../utils/useApi';
@@ -204,6 +204,9 @@ export function PomodoroTimerBase(props) {
         <div className="circle-controls flexbox">
           <TimerControls />
         </div>
+        <StepProgressBar
+          typeOfTimer={timerState.settings && timerState.settings.type}
+        />
       </div>
     </div>
   );

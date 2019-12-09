@@ -33,6 +33,7 @@ nav .nav-wrapper .btn i.material-icons{
   margin-left: 25px;
   margin-right: 10px;
   margin-top: 5px;
+  font-size: larger;
 }
 
 .mini-controls a {
@@ -53,7 +54,11 @@ nav .nav-wrapper .btn-small i.material-icons{
     margin-left: 20px;
   }
 }
-
+@media only screen and (min-device-width: 300px) and (max-device-width: 600px) {
+  .mini-controls .timer-countdown {
+    margin-left: 10px;
+  }
+}
 @media only screen and (min-width: 995px) {
   .logo-icon {
     margin: 0px 10px 0 20px;
