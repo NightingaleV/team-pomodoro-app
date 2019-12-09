@@ -40,6 +40,11 @@ nav .nav-wrapper .btn i.material-icons{
   margin-left: 0 !important;
 }
 
+nav .nav-wrapper .btn-small i.material-icons{
+  height: inherit;
+  line-height: inherit;
+}
+
 @media only screen and (min-device-width: 300px) and (max-device-width: 1024px) {
   .logo-icon {
     margin: 0px 10px 0 0;

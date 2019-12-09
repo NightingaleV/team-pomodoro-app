@@ -1,40 +1,63 @@
 // External imports
-import React from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import M from 'materialize-css';
+import { useTimer } from '../providers/TimerProvider';
 
 export function FloatingButtonBase(props) {
-  {
+  const { timer, timerAction } = useTimer();
+
+  function initFloatingButton() {
     const elems = document.querySelectorAll('.fixed-action-btn');
     const options = { toolbarEnabled: true };
-    M.FloatingActionButton.init(elems, options);
+    M.FloatingActionButton.init(elems, options, true);
   }
+
+  useEffect(() => {
+    //initialize hamburger menu
+    initFloatingButton();
+    const createGroupModalElement = document.querySelector('.fixed-action-btn');
+    const elem = M.FloatingActionButton.getInstance(createGroupModalElement);
+    elem.open();
+    // // timerAction.initTimer();
+  }, []);
+
+  const playControls = (
+    <>
+      <li className="waves-effect waves-light">
+        <a onClick={timerAction.startTimer}>
+          <i className="material-icons">play_arrow</i>
+        </a>
+      </li>
+    </>
+  );
+  const stopControls = (
+    <Fragment>
+      <li className="waves-effect waves-light">
+        <a onClick={timerAction.pauseTimer}>
+          <i className="material-icons">pause</i>
+        </a>
+      </li>
+      <li className="waves-effect waves-light">
+        <a onClick={timerAction.stop}>
+          <i className="material-icons">stop</i>
+        </a>
+      </li>
+    </Fragment>
+  );
 
   return (
     <>
-      <div class="fixed-action-btn toolbar direction-top hide-on-med-and-up">
-        <a class="btn-floating btn-large blue">
-          <i class="large material-icons">watch_later</i>
+      <div className="fixed-action-btn toolbar direction-top hide-on-med-and-up fixed">
+        <a className="btn-floating btn-large blue">
+          <i className="large material-icons">watch_later</i>
         </a>
         <ul>
-          <li class="waves-effect waves-light">
-            <a href="#!">
-              <i class="material-icons">play_arrow</i>
-            </a>
-          </li>
-          <li class="waves-effect waves-light">
-            <a href="#!">
-              <i class="material-icons">pause</i>
-            </a>
-          </li>
-          <li class="waves-effect waves-light">
-            <a href="#!">
-              <i class="material-icons">stop</i>
-            </a>
-          </li>
-          <li class="waves-effect waves-light">
-            <a href="#!">
-              <i class="material-icons">loop</i>
+          {timer.isRunning ? stopControls : playControls}
+
+          <li className="waves-effect waves-light">
+            <a onClick={timerAction.restartTimer}>
+              <i className="material-icons">loop</i>
             </a>
           </li>
         </ul>

@@ -127,7 +127,6 @@ export function TimerReducer(timerContextData) {
         ...prevState,
         settings: newSettings,
       };
-      updateTimerData(newState);
       return newState;
     });
   }
@@ -162,12 +161,14 @@ export function TimerReducer(timerContextData) {
   // Timer Control High Lvl API
   //----------------------------------------------------------------------------
   function startTimer() {
-    updateTimer(
-      setInterval(() => {
-        tick();
-      }, 1000),
-    );
-    setTimerRunning(true);
+    if (!timer.isRunning) {
+      updateTimer(
+        setInterval(() => {
+          tick();
+        }, 1000),
+      );
+      setTimerRunning(true);
+    }
   }
 
   function pauseTimer() {

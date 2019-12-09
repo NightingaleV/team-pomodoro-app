@@ -1,5 +1,5 @@
 // External imports
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import classNames from 'classnames';
 import M from 'materialize-css';
@@ -29,6 +29,19 @@ export function TopNavigationBase(props) {
     initBurgerMenu();
     timerAction.initTimer();
   }, []);
+
+  //----------------------------------------------------------------------------
+  // Dynamic Title
+  //----------------------------------------------------------------------------
+  useEffect(() => {
+    const currentTimer = timer.settings.name;
+    const docTitle = currentTimer.concat(
+      ' | ',
+      formatTime(timer.remTime),
+      ' - Team Pomodoro',
+    );
+    document.title = docTitle;
+  }, [timer.remTime]);
 
   const mobileLeftSidebar = (
     <ul className="sidenav mobile-top-menu" id={'mobile-top-menu'}>
@@ -83,6 +96,32 @@ export function TopNavigationBase(props) {
     </ul>
   );
 
+  const playControl = (
+    <button
+      className="btn-floating btn-small btn-flat waves-effect waves-light amber"
+      onClick={timerAction.startTimer}
+    >
+      <i className="material-icons">play_arrow</i>
+    </button>
+  );
+
+  const stopControl = (
+    <Fragment>
+      <button
+        className="btn-floating btn-small btn-flat waves-effect waves-light blue lighten-1"
+        onClick={timerAction.nextTimer}
+      >
+        <i className="material-icons">stop</i>
+      </button>
+      <button
+        className="btn-floating btn-small btn-flat waves-effect waves-light blue lighten-1"
+        onClick={timerAction.pauseTimer}
+      >
+        <i className="material-icons">pause</i>
+      </button>
+    </Fragment>
+  );
+
   return (
     <>
       <nav className={'top-menu'}>
@@ -116,7 +155,9 @@ export function TopNavigationBase(props) {
             <ul className="hide-on-med-and-up">
               {' '}
               <li className="mini-controls">
-                <span className="timer-countdown">22:15</span>
+                <span className="timer-countdown">
+                  {formatTime(timer.remTime)}
+                </span>
               </li>
             </ul>
           </div>
@@ -124,20 +165,18 @@ export function TopNavigationBase(props) {
             <i className="material-icons">more_vert</i>
           </a>
           <ul className="hide-on-small-only">
-            <li class="mini-controls">
-              <span className="timer-countdown">22:15</span>
-              <a class="btn-floating btn-small btn-flat waves-effect waves-light amber">
-                <i className="material-icons">play_arrow</i>
-              </a>
-              <a class="btn-floating btn-small btn-flat waves-effect waves-light blue lighten-1">
-                <i className="material-icons">pause</i>
-              </a>
-              <a class="btn-floating btn-small btn-flat waves-effect waves-light blue lighten-1">
-                <i className="material-icons">stop</i>
-              </a>
-              <a class="btn-floating btn-small btn-flat waves-effect waves-light blue lighten-1">
+            <li className="mini-controls">
+              <span className="timer-countdown">
+                {formatTime(timer.remTime)}
+              </span>
+
+              {timer.isRunning ? stopControl : playControl}
+              <button
+                className="btn-floating btn-small btn-flat waves-effect waves-light blue lighten-1"
+                onClick={timerAction.restartTimer}
+              >
                 <i className="material-icons">loop</i>
-              </a>
+              </button>
             </li>
           </ul>
           <ul className="right hide-on-med-and-down">

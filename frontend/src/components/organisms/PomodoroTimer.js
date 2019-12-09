@@ -196,12 +196,6 @@ export function PomodoroTimerBase(props) {
 
   const PersonalTimerHtml = (
     <div style={{ textAlign: 'center' }}>
-      <div>
-        <h3>
-          <span>You are doing </span>
-          {(currentSettings && currentSettings.name) || 'Nothing'}
-        </h3>
-      </div>
       <div className="circle-container">
         <ProgressRing />
         <div className="circle-countdown" style={{ fontSize: '65px' }}>

@@ -17,7 +17,6 @@ export function TimerDispatcher(token) {
   };
 
   async function fetchTimerData() {
-    console.log('token', token);
     const timerDataRes = await axiosInstance
       .get('/api/timer', requestConfig)
       .catch(err => {
