@@ -57,7 +57,7 @@ export function DropdownTimerMenu(props) {
 
 export function TimerControls(props) {
   const { timer, timerAction } = useTimer();
-  let CTA = 'Call to Action';
+  let CTA = '';
   const { children } = props;
 
   if (!timer.isRunning) {

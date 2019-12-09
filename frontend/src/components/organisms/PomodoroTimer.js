@@ -205,7 +205,7 @@ export function PomodoroTimerBase(props) {
           <TimerControls />
         </div>
         <StepProgressBar
-          typeOfTimer={timerState.settings && timerState.settings.type}
+        // typeOfTimer={timerState.settings && timerState.settings.type}
         />
       </div>
     </div>
