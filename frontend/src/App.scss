@@ -20,6 +20,7 @@ $secondary-color: color('blue', 'accent-1') !default;
 @import './components/organisms/SideNavigation';
 @import './components/molecules/CreateGroupModal';
 @import './components/molecules/InviteUserModal';
+@import './components/molecules/StepProgressBar';
 @import './views/SignIn';
 @import './views/SignUp';
 @import './components/atoms/Preloader';

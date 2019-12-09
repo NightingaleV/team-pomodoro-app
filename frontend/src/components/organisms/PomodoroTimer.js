@@ -4,7 +4,7 @@ import { withRouter, Redirect } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
 import { Preloader } from '../atoms';
-import { TimerControls, ProgressRing } from '../molecules';
+import { TimerControls, ProgressRing, StepProgressBar } from '../molecules';
 import { convertMinToSec, formatTime } from '../../utils/pomodoroUtils';
 import { useApi } from '../../utils/useApi';
 import { useAuth } from '../../utils/useAuth';
@@ -333,22 +333,9 @@ export function PomodoroTimerBase(props) {
             dropdownControlHandlers={dropdownControlHandlers}
           />
         </div>
-        <div className="progress-bullets">
-          <ul className="progress-tracker progress-tracker--center progress-tracker--spaced">
-            <li className="progress-step is-complete">
-              <div className="progress-marker"></div>
-            </li>
-            <li className="progress-step is-complete">
-              <div className="progress-marker"></div>
-            </li>
-            <li className="progress-step is-active">
-              <div className="progress-marker"></div>
-            </li>
-            <li className="progress-step">
-              <div className="progress-marker"></div>
-            </li>
-          </ul>
-        </div>
+        <StepProgressBar
+          typeOfTimer={timerState.settings && timerState.settings.type}
+        />
       </div>
     </div>
   );
