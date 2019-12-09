@@ -133,10 +133,12 @@ export function TimerReducer(timerContextData) {
 
   function setRemTime(numOfSec) {
     setTimerState(prevState => {
-      return {
+      const newState = {
         ...prevState,
         remTime: numOfSec,
       };
+      updateTimerData(newState);
+      return newState;
     });
   }
   function setIndexInCycle(newIndex) {
