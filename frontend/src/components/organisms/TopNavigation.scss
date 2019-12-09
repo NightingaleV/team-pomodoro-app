@@ -26,6 +26,20 @@ nav .nav-wrapper .btn i.material-icons{
   margin-top: 15px !important;
 }
 
+.mini-controls .timer-countdown {
+  padding: 9px 10px 10px 10px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  margin-left: 25px;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+.mini-controls a {
+  margin-right: 5px !important;
+  margin-left: 0 !important;
+}
+
 @media only screen and (min-device-width: 300px) and (max-device-width: 1024px) {
   .logo-icon {
     margin: 0px 10px 0 0;

@@ -6,35 +6,35 @@ import M from 'materialize-css';
 export function FloatingButtonBase(props) {
   {
     const elems = document.querySelectorAll('.fixed-action-btn');
-    const options = { direction: 'bottom' };
+    const options = { toolbarEnabled: true };
     M.FloatingActionButton.init(elems, options);
   }
 
   return (
     <>
-      <div class="fixed-action-btn">
-        <a class="btn-floating btn-large red">
-          <i class="large material-icons">mode_edit</i>
+      <div class="fixed-action-btn toolbar direction-top hide-on-med-and-up">
+        <a class="btn-floating btn-large blue">
+          <i class="large material-icons">watch_later</i>
         </a>
         <ul>
-          <li>
-            <a class="btn-floating red">
-              <i class="material-icons">insert_chart</i>
+          <li class="waves-effect waves-light">
+            <a href="#!">
+              <i class="material-icons">play_arrow</i>
             </a>
           </li>
-          <li>
-            <a class="btn-floating yellow darken-1">
-              <i class="material-icons">format_quote</i>
+          <li class="waves-effect waves-light">
+            <a href="#!">
+              <i class="material-icons">pause</i>
             </a>
           </li>
-          <li>
-            <a class="btn-floating green">
-              <i class="material-icons">publish</i>
+          <li class="waves-effect waves-light">
+            <a href="#!">
+              <i class="material-icons">stop</i>
             </a>
           </li>
-          <li>
-            <a class="btn-floating blue">
-              <i class="material-icons">attach_file</i>
+          <li class="waves-effect waves-light">
+            <a href="#!">
+              <i class="material-icons">loop</i>
             </a>
           </li>
         </ul>
