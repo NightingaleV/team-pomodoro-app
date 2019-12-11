@@ -54,11 +54,11 @@ export function UserCard(props) {
     width: '85%',
   };
 
-  const [memberIsGuest, setMemberIsGuest] = useState(false);
+  const [memberIsGuest, setMemberIsGuest] = useState(true);
   useEffect(() => {
     if (props.group) {
-      if (props.group.guestIDs.includes(member._id)) {
-        setMemberIsGuest(true);
+      if (!props.group.guestIDs.includes(member._id)) {
+        setMemberIsGuest(false);
       }
     }
   }, [props.group]);
@@ -133,18 +133,21 @@ export function UserCard(props) {
         </div>
         {/* Here hide if guest? */}
         {/* {!props.currentUserIsGuest || (props.currentUserIsGuest && memberIsUser) || memberIsGuest && ( */}
-          {/* {(!props.currentUserIsGuest && !memberIsGuest) || (memberIsGuest && memberIsUser) && ( */}
-            {(!props.currentUserIsGuest && !memberIsGuest) && (
-        <div className="member-info center-align">
-          <div className="progress">
-            <div
-              className={classNames('progress-bar', statusObject[status].color)}
-              style={styles}
-            >
-              <p className="progress-percent">{statusObject[status].label}</p>
+        {/* {(!props.currentUserIsGuest && !memberIsGuest) || (memberIsGuest && memberIsUser) && ( */}
+        {!props.currentUserIsGuest && !memberIsGuest && (
+          <div className="member-info center-align">
+            <div className="progress">
+              <div
+                className={classNames(
+                  'progress-bar',
+                  statusObject[status].color,
+                )}
+                style={styles}
+              >
+                <p className="progress-percent">{statusObject[status].label}</p>
+              </div>
             </div>
           </div>
-        </div>
         )}
       </div>
       <div className="card-reveal center-align">

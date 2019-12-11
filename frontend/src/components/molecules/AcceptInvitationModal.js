@@ -10,7 +10,7 @@ import { useApi } from '../../utils/useApi';
 import M from 'materialize-css';
 
 // export function AcceptInvitationModal({ group, refetchGroup }) {
-export function AcceptInvitationModal(props) {
+export function AcceptInvitationModal({ group, refetchGroup }) {
   const history = useHistory();
   let location = useLocation();
   const api = useApi();
@@ -23,7 +23,9 @@ export function AcceptInvitationModal(props) {
   // Component Control
   //----------------------------------------------------------------------------
   function closeModal() {
-    const addMemberModalElement = document.querySelector('.accept-invitation-modal');
+    const addMemberModalElement = document.querySelector(
+      '.accept-invitation-modal',
+    );
     const elem = M.Modal.getInstance(addMemberModalElement);
     elem.close();
   }
@@ -31,8 +33,9 @@ export function AcceptInvitationModal(props) {
   // Form Control
   //----------------------------------------------------------------------------
   const acceptInvitation = async e => {
+    e.preventDefault();
     const requestData = {
-      groupID: props.group._id,
+      groupID: group._id,
     };
 
     const config = {
@@ -50,13 +53,12 @@ export function AcceptInvitationModal(props) {
         console.log('Valid Statement');
         console.log(res.data);
         //Show a new user in group
+        refetchGroup();
         closeModal();
-        props.refetchGroup();
-        
       })
       .catch(err => {
         console.log('Error Statement');
-        console.log(err);        
+        console.log(err);
       });
   };
 
@@ -69,7 +71,7 @@ export function AcceptInvitationModal(props) {
         className="accept-invitation-modal modal center-align"
       >
         <div className="modal-content">
-          <h4>Accepting invitation into {props.group.name}</h4>
+          <h4>Accepting invitation into {group.name}</h4>
           <p>Do you really want to become a member of this group?</p>
           <>
             {errors.backend &&
@@ -89,11 +91,11 @@ export function AcceptInvitationModal(props) {
               Cancel
             </Button>
             <Button
-            //   icon={'directions_run'}
+              //   icon={'directions_run'}
               icon={'check'}
               iconPosition={'left'}
               color={'red lighten-1'}
-              type={'button'}
+              type={'submit'}
               className={'mx-4'}
               onClick={acceptInvitation}
             >

@@ -162,7 +162,7 @@ export async function leaveGroup(req, res) {
       { _id: groupID },
       {
         // $pullAll: { userIDs: [member] },
-        $pullAll: {userIDs: [member], adminIDs: [member], guestIDs: [member] },
+        $pullAll: { userIDs: [member], adminIDs: [member], guestIDs: [member] },
       },
     );
     if (group) {
@@ -188,7 +188,11 @@ export async function removeMember(req, res) {
           { _id: groupID },
           {
             // $pullAll: { userIDs: [memberID] },
-            $pullAll: {userIDs: [memberID], adminIDs: [memberID], guestIDs: [memberID] },
+            $pullAll: {
+              userIDs: [memberID],
+              adminIDs: [memberID],
+              guestIDs: [memberID],
+            },
           },
         );
 
@@ -216,16 +220,20 @@ export async function removeMember(req, res) {
 export async function acceptInvitation(req, res) {
   try {
     const { groupID } = req.body;
-    const member = req.user.id;
+    const memberID = req.user.id;
 
     let group = await Group.findOneAndUpdate(
       { _id: groupID },
       {
-        $pullAll: { guestIDs: [member] },
+        $pullAll: {
+          guestIDs: [memberID],
+        },
       },
     );
+
+    group = await Group.findOne({ _id: groupID });
     if (group) {
-      await res.status(200).json({ status: 'success' });
+      await res.status(200).json(group);
     }
   } catch (err) {
     console.log(err);

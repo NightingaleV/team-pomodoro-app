@@ -4,4 +4,4 @@ export { UserCard } from './UserCard';
 export { LeaveGroupModal } from './LeaveGroupModal';
 export { InviteUserModal } from './InviteUserModal';
 export { RemoveUserModal } from './RemoveUserModal';
-export { AcceptInvitationModal} from './AcceptInvitationModal';
+export { AcceptInvitationModal } from './AcceptInvitationModal';

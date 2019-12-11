@@ -32,11 +32,11 @@ export function PomodoroGroupBase(props) {
 
   // Is Signed User Guest?
   //----------------------------------------------------------------------------
-  const [currentUserIsGuest, setCurrentUserIsGuest] = useState(false);
+  const [currentUserIsGuest, setCurrentUserIsGuest] = useState(true);
   useEffect(() => {
     if (group) {
-      if (group.guestIDs.includes(user._id)) {
-        setCurrentUserIsGuest(true);
+      if (!group.guestIDs.includes(user._id)) {
+        setCurrentUserIsGuest(false);
       }
     }
   }, [group]);
@@ -241,7 +241,10 @@ export function PomodoroGroupBase(props) {
             group={group}
             member={memberToRemove}
           />
-          <AcceptInvitationModal refetchGroup={props.refetchGroup} group={group} />
+          <AcceptInvitationModal
+            refetchGroup={props.refetchGroup}
+            group={group}
+          />
         </div>
       </div>
     </>

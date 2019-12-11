@@ -13,7 +13,7 @@ import {
   validateNewMember,
   leaveGroup,
   removeMember,
-  acceptInvitation
+  acceptInvitation,
 } from '../controllers/group';
 import auth from '../middleware/auth';
 
