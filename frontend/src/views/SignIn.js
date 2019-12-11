@@ -83,7 +83,7 @@ export function SignIn(props) {
   return (
     <>
       <div className="login-container">
-        <h3>Log in to Pomodoro</h3>
+        <h3>Log in</h3>
         <div className="login-form">
           <form id={'authentication-form'} onSubmit={onSubmit}>
             <TextInput
