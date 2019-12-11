@@ -207,6 +207,10 @@ export function PomodoroTimerBase(props) {
         <div className="circle-controls flexbox">
           <TimerControls />
         </div>
+        <StepProgressBar
+          typeOfTimer={timer.settings.type}
+          indexInCycle={timer.indexInCycle}
+        />
       </div>
     </div>
   );

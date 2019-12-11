@@ -25,7 +25,8 @@ $secondary-color: color('blue', 'accent-1') !default;
 @import './views/SignUp';
 @import './components/atoms/Preloader';
 
-@import 'node_modules/progress-tracker/src/styles/progress-tracker.scss';
+@import '~progress-tracker/src/styles/progress-tracker.scss';
+//@import 'node_modules/progress-tracker/src/styles/progress-tracker.scss';
 
 .parallax-container {
   height: 400px;
