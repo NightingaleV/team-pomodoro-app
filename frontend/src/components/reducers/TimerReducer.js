@@ -24,7 +24,7 @@ export function TimerReducer(timerContextData) {
   function initNextTimer() {
     let nextTimerSettings = pickTimerSettings(timer);
     setTimerSettings(nextTimerSettings);
-    const newIndex = timer.indexInCycle + 1;
+    const newIndex = timer.indexInCycle >= 8 ? 1 : timer.indexInCycle + 1;
     setIndexInCycle(newIndex);
   }
 
@@ -51,40 +51,42 @@ export function TimerReducer(timerContextData) {
     token,
   );
   async function initTimer() {
-    const timerDataPromise = fetchTimerData();
-    await timerDataPromise.then(timerData => {
-      console.log(timerData);
-      if (timerData) {
-        const { remTime, isRunning, settings, _id, indexInCycle } = timerData;
-        setTimerState(prevState => {
-          return {
-            ...prevState,
-            timerID: _id,
-            remTime: remTime,
-            settings: settings,
-            isRunning: isRunning,
-            indexInCycle: indexInCycle,
-            progressBar: updateProgressBar(remTime, settings.totTime),
-          };
-        });
-        if (isRunning) {
-          startTimer();
-        }
-      } else {
-        // Send the data
-        const newTimerData = sendNewTimerData(timer);
-        newTimerData.then(timerData => {
-          // Set the timer ID
-          const { _id } = timerData;
+    if (token) {
+      const timerDataPromise = fetchTimerData();
+      await timerDataPromise.then(timerData => {
+        console.log(timerData);
+        if (timerData) {
+          const { remTime, isRunning, settings, _id, indexInCycle } = timerData;
           setTimerState(prevState => {
             return {
               ...prevState,
               timerID: _id,
+              remTime: remTime,
+              settings: settings,
+              isRunning: isRunning,
+              indexInCycle: indexInCycle,
+              progressBar: updateProgressBar(remTime, settings.totTime),
             };
           });
-        });
-      }
-    });
+          if (isRunning) {
+            startTimer();
+          }
+        } else {
+          // Send the data
+          const newTimerData = sendNewTimerData(timer);
+          newTimerData.then(timerData => {
+            // Set the timer ID
+            const { _id } = timerData;
+            setTimerState(prevState => {
+              return {
+                ...prevState,
+                timerID: _id,
+              };
+            });
+          });
+        }
+      });
+    }
   }
 
   //----------------------------------------------------------------------------
@@ -100,7 +102,10 @@ export function TimerReducer(timerContextData) {
           prevState.settings.totTime,
         ),
       };
-      updateTimerData(newState);
+      // If user signed, then update in DB
+      if (token) {
+        updateTimerData(newState);
+      }
       return newState;
     });
   }
@@ -116,7 +121,9 @@ export function TimerReducer(timerContextData) {
         ...prevState,
         isRunning: isRunning,
       };
-      updateTimerData(newState);
+      if (token) {
+        updateTimerData(newState);
+      }
       return newState;
     });
   }
@@ -137,7 +144,9 @@ export function TimerReducer(timerContextData) {
         ...prevState,
         remTime: numOfSec,
       };
-      updateTimerData(newState);
+      if (token) {
+        updateTimerData(newState);
+      }
       return newState;
     });
   }
@@ -147,7 +156,9 @@ export function TimerReducer(timerContextData) {
         ...prevState,
         indexInCycle: newIndex,
       };
-      updateTimerData(newState);
+      if (token) {
+        updateTimerData(newState);
+      }
       return newState;
     });
   }
@@ -220,9 +231,12 @@ function pickTimerSettings(timer, typeId = 0, reinitiate = false) {
     }
   } else {
     // Short Break
-    let newTimerIndex = reinitiate
-      ? timer.indexInCycle
-      : timer.indexInCycle + 1;
+    let newTimerIndex;
+    if (reinitiate) {
+      newTimerIndex = timer.indexInCycle;
+    } else {
+      newTimerIndex = timer.indexInCycle >= 8 ? 1 : timer.indexInCycle + 1;
+    }
     if (newTimerIndex % 8 === 0) {
       return POMODORO_SETTINGS.longBreak;
     }

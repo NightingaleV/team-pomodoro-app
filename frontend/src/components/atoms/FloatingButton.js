@@ -49,7 +49,7 @@ export function FloatingButtonBase(props) {
   return (
     <>
       <div className="fixed-action-btn toolbar direction-top hide-on-med-and-up fixed">
-        <a className="btn-floating btn-large blue">
+        <a className="btn-floating btn-large blue lighten-1">
           <i className="large material-icons">watch_later</i>
         </a>
         <ul>
