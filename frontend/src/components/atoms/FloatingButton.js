@@ -16,9 +16,9 @@ export function FloatingButtonBase(props) {
   useEffect(() => {
     //initialize hamburger menu
     initFloatingButton();
-    const createGroupModalElement = document.querySelector('.fixed-action-btn');
-    const elem = M.FloatingActionButton.getInstance(createGroupModalElement);
-    elem.open();
+    // const createGroupModalElement = document.querySelector('.fixed-action-btn');
+    // const elem = M.FloatingActionButton.getInstance(createGroupModalElement);
+    // elem.open();
     // // timerAction.initTimer();
   }, []);
 
@@ -39,7 +39,7 @@ export function FloatingButtonBase(props) {
         </a>
       </li>
       <li className="waves-effect waves-light">
-        <a onClick={timerAction.stop}>
+        <a onClick={timerAction.nextTimer}>
           <i className="material-icons">stop</i>
         </a>
       </li>
@@ -57,7 +57,7 @@ export function FloatingButtonBase(props) {
 
           <li className="waves-effect waves-light">
             <a onClick={timerAction.restartTimer}>
-              <i className="material-icons">loop</i>
+              <i className="material-icons">history</i>
             </a>
           </li>
         </ul>

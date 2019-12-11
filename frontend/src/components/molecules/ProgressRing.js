@@ -15,7 +15,7 @@ export function ProgressRing(props) {
   // Height & Width
   const RADIUS = 150;
   // Thickness
-  const STROKE = 15;
+  const STROKE = 13;
   //----------------------------------------------------------------------------
   // Calculated Properties
   //----------------------------------------------------------------------------

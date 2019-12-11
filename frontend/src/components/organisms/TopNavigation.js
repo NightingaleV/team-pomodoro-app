@@ -1,5 +1,5 @@
 // External imports
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import classNames from 'classnames';
 import M from 'materialize-css';
@@ -14,6 +14,7 @@ import timerIcon from '../../assets/icon/timer_white_192x192.png';
 import { formatTime } from '../../utils/pomodoroUtils';
 import { DynamicTitle } from '../molecules/DynamicTitle';
 import { DynamicFavicon } from '../molecules/DynamicFavicon';
+import notificationSound from '../../assets/sounds/bubble_pop2.mp3';
 // Assets
 
 export function TopNavigationBase(props) {
@@ -24,28 +25,15 @@ export function TopNavigationBase(props) {
     const options = { edge: 'right' };
     M.Sidenav.init(sideNavElement, options);
   }
+
   useEffect(() => {
     //initialize hamburger menu
     initBurgerMenu();
     timerAction.initTimer();
   }, []);
 
-  //----------------------------------------------------------------------------
-  // Dynamic Title
-  //----------------------------------------------------------------------------
-  useEffect(() => {
-    const currentTimer = timer.settings.name;
-    const docTitle = currentTimer.concat(
-      ' | ',
-      formatTime(timer.remTime),
-      ' - Team Pomodoro',
-    );
-    document.title = docTitle;
-  }, [timer.remTime]);
-
   const mobileLeftSidebar = (
     <ul className="sidenav mobile-top-menu" id={'mobile-top-menu'}>
-      <li></li>
       <li>
         <NavLink to="/timer" className={classNames('sidenav-close')}>
           <i className="material-icons left">watch_later</i>Timer
@@ -125,6 +113,8 @@ export function TopNavigationBase(props) {
   return (
     <>
       <nav className={'top-menu'}>
+        <DynamicTitle />
+        <DynamicFavicon />
         <div className="nav-wrapper">
           <a
             href="#"
@@ -178,7 +168,7 @@ export function TopNavigationBase(props) {
                     className="btn-floating btn-small btn-flat waves-effect waves-light blue lighten-1"
                     onClick={timerAction.restartTimer}
                   >
-                    <i className="material-icons">loop</i>
+                    <i className="material-icons">history</i>
                   </button>
                 </div>
               </div>
