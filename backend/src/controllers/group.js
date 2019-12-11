@@ -118,8 +118,8 @@ export async function addMember(req, res) {
 
       const memberIsNew = !group.userIDs.includes(newMember._id);
       const userIsAdminOfGroup = group.adminIDs.includes(adminID);
-      console.log('memberIsNew: ', memberIsNew);
-      console.log('userIsAdminOfGroup: ', userIsAdminOfGroup);
+      // console.log('memberIsNew: ', memberIsNew);
+      // console.log('userIsAdminOfGroup: ', userIsAdminOfGroup);
 
       if (userIsAdminOfGroup) {
         if (memberIsNew) {
