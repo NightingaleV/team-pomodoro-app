@@ -1,5 +1,5 @@
 // External imports
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import classNames from 'classnames';
 import M from 'materialize-css';
@@ -24,6 +24,7 @@ export function TopNavigationBase(props) {
     const options = { edge: 'right' };
     M.Sidenav.init(sideNavElement, options);
   }
+
   useEffect(() => {
     //initialize hamburger menu
     initBurgerMenu();
@@ -31,17 +32,8 @@ export function TopNavigationBase(props) {
   }, []);
 
   //----------------------------------------------------------------------------
-  // Dynamic Title
+  // Alert Sound
   //----------------------------------------------------------------------------
-  useEffect(() => {
-    const currentTimer = timer.settings.name;
-    const docTitle = currentTimer.concat(
-      ' | ',
-      formatTime(timer.remTime),
-      ' - Team Pomodoro',
-    );
-    document.title = docTitle;
-  }, [timer.remTime]);
 
   const mobileLeftSidebar = (
     <ul className="sidenav mobile-top-menu" id={'mobile-top-menu'}>
@@ -125,6 +117,8 @@ export function TopNavigationBase(props) {
   return (
     <>
       <nav className={'top-menu'}>
+        <DynamicTitle />
+        <DynamicFavicon />
         <div className="nav-wrapper">
           <a
             href="#"
