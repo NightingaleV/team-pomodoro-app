@@ -4,7 +4,7 @@
 
 import axios from 'axios';
 let axiosInstance = axios.create({
-  baseURL: process.env.PORT || 'http://localhost:3000/',
+  baseURL: process.env.PORT || 'http://frontend.team02.vse.handson.pro/',
 });
 
 export function TimerDispatcher(token) {
