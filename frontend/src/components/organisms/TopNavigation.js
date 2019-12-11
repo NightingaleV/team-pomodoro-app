@@ -145,9 +145,11 @@ export function TopNavigationBase(props) {
             <ul className="hide-on-med-and-up">
               {' '}
               <li className="mini-controls">
-                <span className="timer-countdown">
-                  {formatTime(timer.remTime)}
-                </span>
+                <div className="timer-panel">
+                  <div className="timer-countdown valign-wrapper">
+                    <span className="time">{formatTime(timer.remTime)}</span>
+                  </div>
+                </div>
               </li>
             </ul>
           </div>
@@ -156,17 +158,20 @@ export function TopNavigationBase(props) {
           </a>
           <ul className="hide-on-small-only">
             <li className="mini-controls">
-              <span className="timer-countdown">
-                {formatTime(timer.remTime)}
-              </span>
-
-              {timer.isRunning ? stopControl : playControl}
-              <button
-                className="btn-floating btn-small btn-flat waves-effect waves-light blue lighten-1"
-                onClick={timerAction.restartTimer}
-              >
-                <i className="material-icons">history</i>
-              </button>
+              <div className="timer-panel">
+                <div className="timer-countdown valign-wrapper">
+                  <span className="time">{formatTime(timer.remTime)}</span>
+                </div>
+                <div className="timer-buttons">
+                  {timer.isRunning ? stopControl : playControl}
+                  <button
+                    className="btn-floating btn-small btn-flat waves-effect waves-light blue lighten-1"
+                    onClick={timerAction.restartTimer}
+                  >
+                    <i className="material-icons">history</i>
+                  </button>
+                </div>
+              </div>
             </li>
           </ul>
           <ul className="right hide-on-med-and-down">
