@@ -106,9 +106,9 @@ export function TopNavigationBase(props) {
   );
 
   const stopControl = (
-    <Fragment>
+    <>
       <button
-        className="btn-floating btn-small btn-flat waves-effect waves-light blue lighten-1"
+        className="btn-floating btn-small btn-flat waves-effect waves-light blue lighten-1 amber"
         onClick={timerAction.nextTimer}
       >
         <i className="material-icons">stop</i>
@@ -119,7 +119,7 @@ export function TopNavigationBase(props) {
       >
         <i className="material-icons">pause</i>
       </button>
-    </Fragment>
+    </>
   );
 
   return (
