@@ -28,7 +28,7 @@ const ACTION_BUTTONS = {
   },
   restart: {
     color: 'blue lighten-2',
-    icon: 'loop',
+    icon: 'history',
   },
 
   dropdown: {

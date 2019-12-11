@@ -175,7 +175,7 @@ export function TopNavigationBase(props) {
                 className="btn-floating btn-small btn-flat waves-effect waves-light blue lighten-1"
                 onClick={timerAction.restartTimer}
               >
-                <i className="material-icons">loop</i>
+                <i className="material-icons">history</i>
               </button>
             </li>
           </ul>
