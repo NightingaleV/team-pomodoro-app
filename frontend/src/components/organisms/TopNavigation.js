@@ -96,7 +96,7 @@ export function TopNavigationBase(props) {
   const stopControl = (
     <>
       <button
-        className="btn-floating btn-small btn-flat waves-effect waves-light blue lighten-1 amber"
+        className="btn-floating btn-small btn-flat waves-effect waves-light amber"
         onClick={timerAction.nextTimer}
       >
         <i className="material-icons">stop</i>
