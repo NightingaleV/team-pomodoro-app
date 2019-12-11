@@ -3,27 +3,30 @@
 @import '~materialize-css/sass/components/_variables';
 @import '~materialize-css/sass/materialize';
 
-
-.group-title-wrapper{
-  margin:0px 20px 0 20px;
-  .group-title-bar{
+.group-title-wrapper {
+  margin: 0px 20px 0 20px;
+  .group-title-bar {
     display: flex;
     align-items: center;
     justify-content: center;
     overflow-wrap: break-word;
     flex-flow: wrap;
     align-content: center;
-    .group-title{
-      margin:1.168rem 0 1.168rem 0;
+    .group-title {
+      margin: 1.168rem 0 1.168rem 0;
       font-size: 2.25rem;
-      @include for-size(sm){
+      @include for-size(sm) {
         font-size: 1.7rem;
       }
     }
   }
-  .group-action-button{
+  .group-action-button {
     margin-left: 15px;
   }
+}
+
+.group-container {
+  margin-top: 10px;
 }
 
 .members {
@@ -55,6 +58,7 @@
   padding: 20px;
 }
 
+
 .card .card-content .user-name {
   font-size: 1.2rem;
   padding-right: 20px;
@@ -65,6 +69,10 @@
   right: 10px;
   top: 217px;
 }
+.card .card-content p {
+  margin: 0;
+  box-sizing: content-box;
+}
 
 .card-content .notification {
   right: 24px;
@@ -72,30 +80,31 @@
 }
 
 .progress {
-  margin:0 auto;
-  padding:0;
-  width:90%;
-  height:30px;
-  overflow:hidden;
-  background:#e5e5e5;
-  border-radius:6px;
+  margin: 0 auto;
+  padding: 0;
+  width: 90%;
+  height: 30px;
+  overflow: hidden;
+  background: #bdbdbdc4;
+  border-radius: 6px;
+  border: 1px solid #00000059;
+  box-sizing: content-box;
 }
 
 .progress-bar {
-  position:relative;
-  float:left;
-  min-width:1%;
-  height:100%;
-  background:cornflowerblue;
+  float: left;
+  min-width: 1%;
+  height: 100%;
 }
 
 .progress-percent {
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  margin:0;
-  font-family:tahoma,arial,helvetica;
-  font-size:12px;
-  color:white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  font-family: tahoma, arial, helvetica;
+  font-size: 11px;
+  color: white;
+  text-shadow: 0.1em 0.1em 0.3em rgba(0, 0, 0, 0.6);
 }

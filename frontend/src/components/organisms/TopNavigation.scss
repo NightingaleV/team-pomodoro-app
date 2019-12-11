@@ -5,3 +5,100 @@ nav .sidenav-trigger {
 #mobile-top-menu {
   padding-top: 15px;
 }
+
+nav .nav-wrapper .btn i.material-icons {
+  height: 40px;
+  line-height: 40px;
+}
+.margin-fix {
+  margin-left: 20px;
+}
+
+.nav-wrapper li:nth-child(2) {
+  max-width: 240px;
+}
+
+.account-name {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 15px !important;
+}
+
+.mini-controls {
+  margin-left: 20px;
+}
+
+.mini-controls .timer-panel {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.timer-panel .timer-countdown {
+  font-size: 19px;
+
+  border-radius: 5px;
+  padding: 5px 10px;
+  min-width: 55px;
+  height: 44px;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-right: 5px;
+}
+
+.timer-countdown span {
+  display: inline-block;
+  width: 50px;
+  line-height: 20px;
+}
+
+// .mini-controls .mini-controls-panel {
+//   border-radius: 5px;
+//   padding: 5px;
+//   margin-top: 10px;
+//   min-width: 150px;
+//   height: 44px;
+//   background-color: rgba(0, 0, 0, 0.1);
+// }
+
+.timer-panel .timer-buttons {
+  border-radius: 5px;
+  padding: 5px 10px;
+  height: 44px;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: flex;
+}
+
+.timer-buttons button {
+  margin-right: 3px !important;
+  margin-left: 0 !important;
+}
+
+.timer-buttons button:last-child {
+  margin-right: 0px !important;
+}
+
+nav .nav-wrapper .btn-small i.material-icons {
+  line-height: inherit;
+}
+
+@media only screen and (min-device-width: 300px) and (max-device-width: 1024px) {
+  .logo-icon {
+    margin: 0px 10px 0 0;
+  }
+  .margin-fix {
+    margin-left: 20px;
+  }
+}
+@media only screen and (min-device-width: 300px) and (max-device-width: 600px) {
+  .mini-controls .timer-panel {
+    margin-top: 0px;
+  }
+}
+@media only screen and (min-width: 995px) {
+  .logo-icon {
+    margin: 0px 10px 0 20px;
+  }
+}

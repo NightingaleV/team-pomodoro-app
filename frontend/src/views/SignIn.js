@@ -83,7 +83,7 @@ export function SignIn(props) {
   return (
     <>
       <div className="login-container">
-        <h3>Sign in to Pomodoro</h3>
+        <h3>Log in to Pomodoro</h3>
         <div className="login-form">
           <form id={'authentication-form'} onSubmit={onSubmit}>
             <TextInput
@@ -116,7 +116,7 @@ export function SignIn(props) {
                 })}
             </>
             <Button type="submit" form={'authentication-form'}>
-              Sign In
+              Log In
             </Button>
           </form>
         </div>

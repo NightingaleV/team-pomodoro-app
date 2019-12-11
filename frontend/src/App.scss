@@ -20,16 +20,19 @@ $secondary-color: color('blue', 'accent-1') !default;
 @import './components/organisms/SideNavigation';
 @import './components/molecules/CreateGroupModal';
 @import './components/molecules/InviteUserModal';
+@import './components/molecules/StepProgressBar';
 @import './views/SignIn';
 @import './views/SignUp';
 @import './components/atoms/Preloader';
+
+@import '~progress-tracker/src/styles/progress-tracker.scss';
+//@import 'node_modules/progress-tracker/src/styles/progress-tracker.scss';
 
 .parallax-container {
   height: 400px;
 }
 
 //BASE
-
 
 .App {
   text-align: center;
@@ -109,14 +112,22 @@ footer {
   margin-bottom: 0px;
 }
 
-.btn-invitation{
-  .btn-title{
+.btn-invitation {
+  .btn-title {
     line-height: 40px;
   }
 }
 
 .sidebar-fix {
   padding-left: 0px;
+}
+
+.footer-copyright .copyright {
+  margin-left: 20px;
+}
+
+.fixed-action-btn {
+  bottom: 73px;
 }
 
 /* Mobile Styles */

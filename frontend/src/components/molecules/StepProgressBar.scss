@@ -1,0 +1,31 @@
+.indexedStep {
+  color: white;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  background-color: rgba(211, 211, 211, 0.8);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.indexedStep.accomplished {
+  background-color: #ffb300      ;
+}
+
+.step-progressbar {
+  margin-top: 60px;
+  margin-bottom: 30px;
+}
+
+.RSPBprogressBar .RSPBprogression {
+  position: absolute;
+  transition: width 0.3s ease;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 10px;
+  background: #ffca28            !important ;
+  z-index: -1;
+}

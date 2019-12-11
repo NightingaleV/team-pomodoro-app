@@ -28,7 +28,7 @@ const ACTION_BUTTONS = {
   },
   restart: {
     color: 'blue lighten-2',
-    icon: 'loop',
+    icon: 'history',
   },
 
   dropdown: {
@@ -46,6 +46,7 @@ export function Button({
   actionButton,
   className,
   iconPosition,
+  id,
   href = '',
   ...rest
 }) {
@@ -65,6 +66,7 @@ export function Button({
         color || DEFAULT_COLOR,
         shapeClasses,
         className,
+        id,
       )}
       type={type}
       {...rest}
@@ -84,6 +86,7 @@ export function Button({
         color || DEFAULT_COLOR,
         shapeClasses,
         className,
+        id,
       )}
       {...rest}
     >

@@ -10,7 +10,7 @@ import {
 export function PersonalTimer({ children }) {
   return (
     <>
-      <PomodoroCycle />
+      <PomodoroTimer />
     </>
   );
 }

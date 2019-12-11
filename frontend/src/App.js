@@ -6,24 +6,29 @@ import './App.scss';
 // Custom Hooks
 import { ApiProvider } from './utils/useApi';
 import { AuthProvider } from './utils/useAuth';
+import { PomodoroProvider, TimerProvider } from './components/providers';
 import { Routes } from './Routes';
 import { Container } from './views/Container';
 
 function AllProviders({ children }) {
-  return <BrowserRouter>{children}</BrowserRouter>;
+  return (
+    <AuthProvider>
+      <ApiProvider>
+        <TimerProvider>
+          <BrowserRouter>{children}</BrowserRouter>
+        </TimerProvider>
+      </ApiProvider>
+    </AuthProvider>
+  );
 }
 
 function App() {
   return (
-    <AuthProvider>
-      <ApiProvider>
-        <AllProviders>
-          <Container>
-            <Routes />
-          </Container>
-        </AllProviders>
-      </ApiProvider>
-    </AuthProvider>
+    <AllProviders>
+      <Container>
+        <Routes />
+      </Container>
+    </AllProviders>
   );
 }
 

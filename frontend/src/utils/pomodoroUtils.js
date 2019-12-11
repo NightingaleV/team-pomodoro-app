@@ -30,3 +30,9 @@ export function formatTime(seconds) {
     return timeFormated;
   }
 }
+
+export function updateProgressBar(remTime, totTime) {
+  //Round to 2 digits
+  let newProgressValue = Math.round((remTime / totTime) * 10000) / 100;
+  return newProgressValue;
+}

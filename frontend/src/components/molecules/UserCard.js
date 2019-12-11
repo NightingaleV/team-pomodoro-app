@@ -6,23 +6,27 @@ import { useAuth } from '../../utils/useAuth';
 import { useLocation } from 'react-router-dom';
 import M from 'materialize-css';
 import { Button } from '../atoms/Button';
+import { updateProgressBar } from '../../utils/pomodoroUtils';
+
+import profileImage from '../../assets/images/profile-pic-placeholder.png';
+import timerIcon from '../../assets/icon/timer_white_192x192.png';
 
 export function UserCard(props) {
   const statusObject = {
-    offline: { label: 'Offline', color: 'grey' },
-    idle: { label: 'Idle', color: 'brown lighten-2' },
-    pomodoro: { label: 'Pomodoro', color: 'amber' },
-    sBreak: { label: 'Short Break', color: 'green' },
-    lBreak: { label: 'Long Break', color: 'green' },
+    offline: { label: 'OFFLINE', color: 'grey' },
+    idle: { label: 'IDLE', color: 'brown lighten-2' },
+    pomodoro: { label: 'POMODORO', color: 'amber' },
+    sBreak: { label: 'SHORT BREAK', color: 'green' },
+    lBreak: { label: 'LONG BREAK', color: 'indigo' },
   };
   const { member } = props;
-  let timerIsRunning = null;
-  let timerType = null;
-  let timerName = null;
-  let timerRemTime = null;
-  let timerUpdated = null;
-  // In minutes
-  let timeDifference = null;
+  let timerIsRunning,
+    timerType,
+    timerName,
+    timerRemTime,
+    timerUpdated,
+    timeDifference,
+    timerTotTime = null;
 
   const { user, token } = useAuth();
   const [group, setGroup] = useState({ name: '', userIDs: [] });
@@ -35,6 +39,7 @@ export function UserCard(props) {
     timerType = member.timerID.settings.type;
     timerName = member.timerID.settings.name;
     timerRemTime = member.timerID.remTime;
+    timerTotTime = member.timerID.settings.totTime;
     timerUpdated = new Date(member.timerID.updatedAt);
     // In minutes
     timeDifference = (Date.now() - timerUpdated) / (1000 * 60);
@@ -47,87 +52,111 @@ export function UserCard(props) {
   if (!timerIsRunning) status = 'idle';
   if (!timerIsRunning && timeDifference > 30) status = 'offline';
 
-  let styles = {
-    width: '85%',
+  let styles;
+  styles = {
+    width: ''.concat(updateProgressBar(timerRemTime, timerTotTime), '%'),
   };
 
+  const [memberIsGuest, setMemberIsGuest] = useState(true);
   useEffect(() => {
-    fetchGroupByUrlId();
-  }, []);
+    if (props.group) {
+      if (!props.group.guestIDs.includes(member._id)) {
+        setMemberIsGuest(false);
+      }
+    }
+  }, [props.group]);
 
-  function getGroupIdentifier(props) {
-    const url = location.pathname;
-    const urlList = url.split('/');
-    const groupID = urlList[urlList.length - 1];
-    return groupID;
-  }
+  const [memberIsUser, setMemberIsUser] = useState(false);
+  useEffect(() => {
+    if (user) {
+      if (user._id == member._id) {
+        setMemberIsUser(true);
+        // console.log('memberIsUser:' + memberIsUser);
+      }
+    }
+  }, [user]);
 
-  const requestConfig = {
-    headers: {
-      'x-auth-token': token,
-      'Content-Type': 'application/json',
-    },
-  };
+  // useEffect(() => {
+  //   fetchGroupByUrlId();
+  // }, []);
 
-  async function fetchGroupByUrlId() {
-    try {
-      await axios
-        .get('/api/group/' + getGroupIdentifier(), requestConfig)
-        .then(res => {
-          // console.log('Fetched Group Data: ', res.data.group);
-          setGroup(res.data.group);
-        })
-        .catch(err => {
-          if (err.response.status == 403 || err.response.status == 401) {
-            console.log('You are prohibited to view the group');
-            setError('You are prohibited to view the group');
-          }
-          console.error(err);
-        });
-    } catch {}
-  }
+  // function getGroupIdentifier(props) {
+  //   const url = location.pathname;
+  //   const urlList = url.split('/');
+  //   const groupID = urlList[urlList.length - 1];
+  //   return groupID;
+  // }
 
-  const onClick = async e => {
-    // console.log('Member: ' + member.email);
-    // fetchGroupByUrlId();
-    console.log(member);
-  };
+  // const requestConfig = {
+  //   headers: {
+  //     'x-auth-token': token,
+  //     'Content-Type': 'application/json',
+  //   },
+  // };
+
+  // async function fetchGroupByUrlId() {
+  //   try {
+  //     await axios
+  //       .get('/api/group/' + getGroupIdentifier(), requestConfig)
+  //       .then(res => {
+  //         // console.log('Fetched Group Data: ', res.data.group);
+  //         setGroup(res.data.group);
+  //       })
+  //       .catch(err => {
+  //         if (err.response.status == 403 || err.response.status == 401) {
+  //           console.log('You are prohibited to view the group');
+  //           setError('You are prohibited to view the group');
+  //         }
+  //         console.error(err);
+  //       });
+  //   } catch {}
+  // }
+
+  // const onClick = async e => {
+  //   // console.log('Member: ' + member.email);
+  //   // fetchGroupByUrlId();
+  //   console.log(member);
+  // };
 
   return (
     <div className="card hoverable">
       <div className="card-image waves-effect waves-block waves-light">
-        <img
-          className="activator"
-          src="https://www.cloudraxak.com/wp-content/uploads/2017/03/profile-pic-placeholder.png"
-          alt="Profile Picture"
-        />
+        <img className="activator" src={profileImage} alt="Profile Picture" />
       </div>
       <div className="divider"></div>
       <div className="card-content">
-        <a className="btn-floating small halfway-fab waves-effect waves-light grey lighten-1 notification">
+        {/* <a className="btn-floating small halfway-fab waves-effect waves-light grey lighten-1 notification">
           <i className="material-icons">notifications_none</i>
-        </a>
+        </a> */}
         <div className="card-title activator grey-text text-darken-4">
           <p className="user-name truncate">{member.email}</p>
           <span className="more-icon">
             <i className="material-icons right">more_vert</i>
           </span>
         </div>
-        <div className="member-info center-align">
-          <div className="progress">
-            <div
-              className={classNames('progress-bar', statusObject[status].color)}
-              style={styles}
-            >
-              <p className="progress-percent">{statusObject[status].label}</p>
+        {/* Here hide if guest? */}
+        {/* {!props.currentUserIsGuest || (props.currentUserIsGuest && memberIsUser) || memberIsGuest && ( */}
+        {/* {(!props.currentUserIsGuest && !memberIsGuest) || (memberIsGuest && memberIsUser) && ( */}
+        {!props.currentUserIsGuest && !memberIsGuest && (
+          <div className="member-info center-align">
+            <div className="progress">
+              <div
+                className={classNames(
+                  'progress-bar',
+                  statusObject[status].color,
+                )}
+                style={styles}
+              >
+                <p className="progress-percent">{statusObject[status].label}</p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
       <div className="card-reveal center-align">
         <span className="card-title grey-text text-darken-4 truncate">
           <i className="material-icons right">close</i>
-          User
+          Member
         </span>
         <p className={'truncate'}>{member.email}</p>
         {props.currentUserIsAdmin && (

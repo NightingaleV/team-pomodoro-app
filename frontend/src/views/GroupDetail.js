@@ -38,7 +38,9 @@ export function GroupDetailBase(props) {
     dispatchGroupLoading(fetchGroupByUrlId);
     let subscriptionToGroup = null;
     if (user) {
-      subscriptionToGroup = setInterval(() => fetchGroupByUrlId(), 5000);
+      subscriptionToGroup = setInterval(() => {
+        fetchGroupByUrlId();
+      }, 5000);
     }
 
     return () => {
@@ -56,6 +58,7 @@ export function GroupDetailBase(props) {
         .then(res => {
           // console.log('Fetched Group Data: ', res.data.group);
           setGroup(res.data.group);
+          console.log('Group', res.data.group);
         })
         .catch(err => {
           if (err.response.status == 403 || err.response.status == 401) {

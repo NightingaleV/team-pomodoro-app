@@ -99,7 +99,7 @@ export function SideNavigationBase(props) {
 
   const sideNavContent = (
     <ul className={'sidenav-list'}>
-      <li className={'logo blue '}>
+      <li className={'logo blue'}>
         <div className="valign-wrapper">
           <img
             className={classNames('left', 'logo-icon')}
@@ -116,7 +116,11 @@ export function SideNavigationBase(props) {
         <li className="group-name">
           <a
             href="#createGroupModal"
-            className={classNames('sidenav-close', 'modal-trigger')}
+            className={classNames(
+              'sidenav-close',
+              'modal-trigger',
+              'waves-effect',
+            )}
           >
             <i className="material-icons">group_add</i>{' '}
             <span>Create a new group</span>

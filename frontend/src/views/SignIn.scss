@@ -1,8 +1,14 @@
 .login-container {
   margin: auto;
+  min-height: auto;
+  margin-bottom: 50px;
 }
 
 .login-form {
   width: 300px;
   margin: auto;
+}
+
+.login-container .card .card-content {
+  height: auto;
 }
