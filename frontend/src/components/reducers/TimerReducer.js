@@ -2,6 +2,7 @@ import { convertMinToSec } from '../../utils/pomodoroUtils';
 import { TimerDispatcher } from './TimerDispatcher';
 import { updateProgressBar } from '../../utils/pomodoroUtils';
 import axios from 'axios';
+import notificationSound from '../../assets/sounds/bubble_pop2.mp3';
 
 const POMODORO_SETTINGS = {
   pomodoro: { type: 1, name: 'Work', totTime: convertMinToSec(25) },
@@ -102,6 +103,18 @@ export function TimerReducer(timerContextData) {
           prevState.settings.totTime,
         ),
       };
+
+      // NOTIFICATION SOUND
+      if (prevState.remTime - 1 <= 0) {
+        const audio = new Audio(notificationSound);
+        if (prevState.remTime - 1 == 0) {
+          audio.play();
+        }
+        //run every 5 minutes
+        if (prevState.remTime % convertMinToSec(5) == 0) {
+          audio.play();
+        }
+      }
       // If user signed, then update in DB
       if (token) {
         updateTimerData(newState);
@@ -202,6 +215,8 @@ export function TimerReducer(timerContextData) {
     pauseTimer();
     let timerSettings = pickTimerSettings(timer, 0, true);
     setTimerSettings(timerSettings);
+    const audio = new Audio(notificationSound);
+    audio.play();
   }
 
   return {

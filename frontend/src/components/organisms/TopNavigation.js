@@ -14,6 +14,7 @@ import timerIcon from '../../assets/icon/timer_white_192x192.png';
 import { formatTime } from '../../utils/pomodoroUtils';
 import { DynamicTitle } from '../molecules/DynamicTitle';
 import { DynamicFavicon } from '../molecules/DynamicFavicon';
+import notificationSound from '../../assets/sounds/bubble_pop2.mp3';
 // Assets
 
 export function TopNavigationBase(props) {
@@ -31,13 +32,8 @@ export function TopNavigationBase(props) {
     timerAction.initTimer();
   }, []);
 
-  //----------------------------------------------------------------------------
-  // Alert Sound
-  //----------------------------------------------------------------------------
-
   const mobileLeftSidebar = (
     <ul className="sidenav mobile-top-menu" id={'mobile-top-menu'}>
-      <li></li>
       <li>
         <NavLink to="/timer" className={classNames('sidenav-close')}>
           <i className="material-icons left">watch_later</i>Timer
