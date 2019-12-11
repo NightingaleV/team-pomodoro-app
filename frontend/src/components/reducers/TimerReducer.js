@@ -107,11 +107,8 @@ export function TimerReducer(timerContextData) {
       // NOTIFICATION SOUND
       if (prevState.remTime - 1 <= 0) {
         const audio = new Audio(notificationSound);
-        if (prevState.remTime - 1 == 0) {
-          audio.play();
-        }
         //run every 5 minutes
-        if (prevState.remTime % convertMinToSec(5) == 0) {
+        if ((prevState.remTime - 1) % convertMinToSec(5) == 0) {
           audio.play();
         }
       }
