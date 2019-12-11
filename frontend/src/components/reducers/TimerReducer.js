@@ -24,7 +24,7 @@ export function TimerReducer(timerContextData) {
   function initNextTimer() {
     let nextTimerSettings = pickTimerSettings(timer);
     setTimerSettings(nextTimerSettings);
-    const newIndex = timer.indexInCycle + 1;
+    const newIndex = timer.indexInCycle >= 8 ? 1 : timer.indexInCycle + 1;
     setIndexInCycle(newIndex);
   }
 
@@ -220,9 +220,12 @@ function pickTimerSettings(timer, typeId = 0, reinitiate = false) {
     }
   } else {
     // Short Break
-    let newTimerIndex = reinitiate
-      ? timer.indexInCycle
-      : timer.indexInCycle + 1;
+    let newTimerIndex;
+    if (reinitiate) {
+      newTimerIndex = timer.indexInCycle;
+    } else {
+      newTimerIndex = timer.indexInCycle >= 8 ? 1 : timer.indexInCycle + 1;
+    }
     if (newTimerIndex % 8 === 0) {
       return POMODORO_SETTINGS.longBreak;
     }

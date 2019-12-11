@@ -15,7 +15,7 @@ export function ProgressRing(props) {
   // Height & Width
   const RADIUS = 150;
   // Thickness
-  const STROKE = 10;
+  const STROKE = 15;
   //----------------------------------------------------------------------------
   // Calculated Properties
   //----------------------------------------------------------------------------
@@ -29,8 +29,8 @@ export function ProgressRing(props) {
   //----------------------------------------------------------------------------
   const typeOfTimer = timer.settings.type;
   let color = 'blue';
-  if (typeOfTimer === 1) color = '#ffa000';
-  if (typeOfTimer === 2) color = '#43a047';
+  if (typeOfTimer === 1) color = '#ffca28';
+  if (typeOfTimer === 2) color = '#66bb6a';
   if (typeOfTimer === 3) color = '#5c6bc0';
 
   return (
