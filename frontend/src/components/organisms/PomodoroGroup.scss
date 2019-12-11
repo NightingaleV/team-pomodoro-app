@@ -58,6 +58,7 @@
   padding: 20px;
 }
 
+
 .card .card-content .user-name {
   font-size: 1.2rem;
   padding-right: 20px;
@@ -67,6 +68,10 @@
   position: absolute;
   right: 10px;
   top: 217px;
+}
+.card .card-content p {
+  margin: 0;
+  box-sizing: content-box;
 }
 
 .card-content .notification {
@@ -83,6 +88,7 @@
   background: #bdbdbdc4;
   border-radius: 6px;
   border: 1px solid #00000059;
+  box-sizing: content-box;
 }
 
 .progress-bar {
