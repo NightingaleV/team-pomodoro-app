@@ -11,6 +11,7 @@ import {
   InviteUserModal,
   LeaveGroupModal,
   RemoveUserModal,
+  AcceptInvitationModal,
 } from '../molecules';
 import M from 'materialize-css';
 
@@ -25,6 +26,17 @@ export function PomodoroGroupBase(props) {
     if (group) {
       if (group.adminIDs.includes(user._id)) {
         setCurrentUserIsAdmin(true);
+      }
+    }
+  }, [group]);
+
+  // Is Signed User Guest?
+  //----------------------------------------------------------------------------
+  const [currentUserIsGuest, setCurrentUserIsGuest] = useState(true);
+  useEffect(() => {
+    if (group) {
+      if (!group.guestIDs.includes(user._id)) {
+        setCurrentUserIsGuest(false);
       }
     }
   }, [group]);
@@ -100,6 +112,41 @@ export function PomodoroGroupBase(props) {
     </>
   );
 
+  let acceptInvitationModalTrigger = '';
+  if (currentUserIsGuest) {
+    acceptInvitationModalTrigger = (
+      <>
+        {user && (
+          <>
+            <Button
+              icon={'check'}
+              iconPosition={'left'}
+              href={'#acceptInvitationModal'}
+              className={classNames(
+                'hide-on-med-and-down',
+                'modal-trigger',
+                'group-action-button',
+              )}
+            >
+              <span className="btn-title">Accept invitation</span>
+            </Button>
+            <Button
+              icon={'person_add'}
+              shape={'circular'}
+              iconPosition={'left'}
+              href={'#acceptInvitationModal'}
+              className={classNames(
+                'hide-on-large-only',
+                'modal-trigger',
+                'group-action-button',
+              )}
+            />
+          </>
+        )}
+      </>
+    );
+  }
+
   // Modals Control
   //----------------------------------------------------------------------------
   function initInviteUserModal() {
@@ -121,6 +168,7 @@ export function PomodoroGroupBase(props) {
     const options = {};
     var elem = M.Modal.init(addMemberModalElement, options);
   }
+
   function initRemoveMemberModal() {
     const removeMemberModalElement = document.querySelector(
       '.remove-member-modal',
@@ -129,10 +177,19 @@ export function PomodoroGroupBase(props) {
     var elem = M.Modal.init(removeMemberModalElement, options);
   }
 
+  function initAcceptInvitationModal() {
+    const acceptInvitationModalElement = document.querySelector(
+      '.accept-invitation-modal',
+    );
+    const options = {};
+    var elem = M.Modal.init(acceptInvitationModalElement, options);
+  }
+
   useEffect(() => {
     initInviteUserModal();
     initLeaveGroupModal();
     initRemoveMemberModal();
+    initAcceptInvitationModal();
   }, []);
 
   //Callback from Remove User Button
@@ -152,6 +209,7 @@ export function PomodoroGroupBase(props) {
             <div className="">
               {addMemberModalTrigger}
               {leaveGroupModalTrigger}
+              {acceptInvitationModalTrigger}
             </div>
           </div>
         </div>
@@ -159,10 +217,17 @@ export function PomodoroGroupBase(props) {
           {group.userIDs.map((member, index) => {
             return (
               <div key={index} className="member col">
+                {/* <UserCard
+                  member={member}
+                  sendMemberToRemove={sendMemberToRemoveCallback}
+                  currentUserIsAdmin={currentUserIsAdmin}
+                /> */}
                 <UserCard
                   member={member}
                   sendMemberToRemove={sendMemberToRemoveCallback}
                   currentUserIsAdmin={currentUserIsAdmin}
+                  currentUserIsGuest={currentUserIsGuest}
+                  group={group}
                 />
               </div>
             );
@@ -175,6 +240,10 @@ export function PomodoroGroupBase(props) {
             refetchGroup={props.refetchGroup}
             group={group}
             member={memberToRemove}
+          />
+          <AcceptInvitationModal
+            refetchGroup={props.refetchGroup}
+            group={group}
           />
         </div>
       </div>
