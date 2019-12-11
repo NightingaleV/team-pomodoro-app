@@ -197,6 +197,9 @@ export function PomodoroTimerBase(props) {
   const PersonalTimerHtml = (
     <div style={{ textAlign: 'center' }}>
       <div className="circle-container">
+        <StepProgressBar
+        // typeOfTimer={timerState.settings && timerState.settings.type}
+        />
         <ProgressRing />
         <div className="circle-countdown" style={{ fontSize: '65px' }}>
           <span>{formatTime(timer.remTime)}</span>
@@ -204,9 +207,6 @@ export function PomodoroTimerBase(props) {
         <div className="circle-controls flexbox">
           <TimerControls />
         </div>
-        <StepProgressBar
-        // typeOfTimer={timerState.settings && timerState.settings.type}
-        />
       </div>
     </div>
   );

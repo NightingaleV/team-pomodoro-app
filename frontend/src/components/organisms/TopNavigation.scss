@@ -6,7 +6,7 @@ nav .sidenav-trigger {
   padding-top: 15px;
 }
 
-nav .nav-wrapper .btn i.material-icons{
+nav .nav-wrapper .btn i.material-icons {
   height: 40px;
   line-height: 40px;
 }
@@ -26,6 +26,10 @@ nav .nav-wrapper .btn i.material-icons{
   margin-top: 15px !important;
 }
 
+.mini-controls {
+  // width: 60px !important;
+}
+
 .mini-controls .timer-countdown {
   padding: 9px 10px 10px 10px;
   background-color: rgba(0, 0, 0, 0.1);
@@ -41,7 +45,7 @@ nav .nav-wrapper .btn i.material-icons{
   margin-left: 0 !important;
 }
 
-nav .nav-wrapper .btn-small i.material-icons{
+nav .nav-wrapper .btn-small i.material-icons {
   height: inherit;
   line-height: inherit;
 }
