@@ -217,11 +217,6 @@ export function PomodoroGroupBase(props) {
           {group.userIDs.map((member, index) => {
             return (
               <div key={index} className="member col">
-                {/* <UserCard
-                  member={member}
-                  sendMemberToRemove={sendMemberToRemoveCallback}
-                  currentUserIsAdmin={currentUserIsAdmin}
-                /> */}
                 <UserCard
                   member={member}
                   sendMemberToRemove={sendMemberToRemoveCallback}

@@ -9,9 +9,11 @@ import { TextInput, Button, ErrorBox } from '../components/atoms';
 import { SignUpSuccess } from '../templates';
 import { useAuth } from '../utils/useAuth';
 import { useApi } from '../utils/useApi';
+import { useTimer } from '../components/providers/TimerProvider';
 
 export function SignIn(props) {
   const history = useHistory();
+  const { timer, timerAction } = useTimer();
   const auth = useAuth();
   const api = useApi();
 
@@ -54,6 +56,7 @@ export function SignIn(props) {
         const { token, user } = res.data;
         // localStorage.setItem('jwt-token', token);
         console.log(user);
+        timerAction.pauseTimer();
         auth.signin({ token, user });
         history.replace('/');
       })
