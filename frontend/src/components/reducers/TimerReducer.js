@@ -77,13 +77,15 @@ export function TimerReducer(timerContextData) {
           const newTimerData = sendNewTimerData(timer);
           newTimerData.then(timerData => {
             // Set the timer ID
-            const { _id } = timerData;
-            setTimerState(prevState => {
-              return {
-                ...prevState,
-                timerID: _id,
-              };
-            });
+            console.log(timerData);
+            if (timerData) {
+              setTimerState(prevState => {
+                return {
+                  ...prevState,
+                  timerID: timerData._id,
+                };
+              });
+            }
           });
         }
       });

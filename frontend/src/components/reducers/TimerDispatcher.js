@@ -1,8 +1,13 @@
 //----------------------------------------------------------------------------
 // Timer State Control functions
 //----------------------------------------------------------------------------
-
+import dotenv from 'dotenv';
 import axios from 'axios';
+const { parsed, error } = dotenv.config({
+  path: '../config/dev.env',
+  debug: false,
+});
+
 let axiosInstance = axios.create({
   baseURL: process.env.PORT || 'http://localhost:3000/',
 });
@@ -31,19 +36,21 @@ export function TimerDispatcher(token) {
   }
 
   async function sendNewTimerData(state) {
-    if (!state.timerID) {
-      const newTimer = {
-        remTime: state.remTime,
-        settings: state.settings,
-        isRunning: state.isRunning,
-        indexInCycle: state.indexInCycle,
-      };
-      const body = JSON.stringify(newTimer);
-      await axiosInstance
-        .post('/api/timer/save', body, requestConfig)
-        .then(res => {
-          return res.data.timer;
-        });
+    const newTimer = {
+      remTime: state.remTime,
+      settings: state.settings,
+      isRunning: state.isRunning,
+      indexInCycle: state.indexInCycle,
+    };
+    const body = JSON.stringify(newTimer);
+
+    const newTimerCreated = await axiosInstance.post(
+      '/api/timer/save',
+      body,
+      requestConfig,
+    );
+    if (newTimerCreated) {
+      return newTimerCreated.data.timer;
     }
   }
 
