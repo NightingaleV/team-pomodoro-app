@@ -4,7 +4,9 @@
 
 import axios from 'axios';
 let axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_GLOBAL_URL || 'http://frontend.team02.vse.handson.pro/',
+  baseURL:
+    process.env.REACT_APP_GLOBAL_URL ||
+    'http://frontend.team02.vse.handson.pro/',
 });
 
 export function TimerDispatcher(token) {
