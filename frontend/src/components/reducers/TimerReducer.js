@@ -30,16 +30,19 @@ export function TimerReducer(timerContextData) {
   }
 
   function setWork() {
+    pauseTimer();
     let nextTimerSettings = pickTimerSettings(timer, 1);
     setTimerSettings(nextTimerSettings);
     setIndexInCycle(1);
   }
   function setShortBreak() {
+    pauseTimer();
     let nextTimerSettings = pickTimerSettings(timer, 2);
     setTimerSettings(nextTimerSettings);
     setIndexInCycle(2);
   }
   function setLongBreak() {
+    pauseTimer();
     let nextTimerSettings = pickTimerSettings(timer, 3);
     setTimerSettings(nextTimerSettings);
     setIndexInCycle(8);
@@ -73,17 +76,22 @@ export function TimerReducer(timerContextData) {
             startTimer();
           }
         } else {
+          // NO TIMER IN DB
           // Send the data
           const newTimerData = sendNewTimerData(timer);
           newTimerData.then(timerData => {
+            // Set the new timer
+            setWork();
+            console.log(timerData);
             // Set the timer ID
-            const { _id } = timerData;
-            setTimerState(prevState => {
-              return {
-                ...prevState,
-                timerID: _id,
-              };
-            });
+            if (timerData) {
+              setTimerState(prevState => {
+                return {
+                  ...prevState,
+                  timerID: timerData._id,
+                };
+              });
+            }
           });
         }
       });

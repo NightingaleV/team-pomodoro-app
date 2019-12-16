@@ -14,7 +14,7 @@ const { parsed, error } = dotenv.config({
   path: '../config/dev.env',
   debug: true,
 });
-console.log(parsed);
+// console.log(parsed);
 
 const globalApiInstance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL || '/api',

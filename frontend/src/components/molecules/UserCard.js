@@ -12,6 +12,12 @@ import profileImage from '../../assets/images/profile-pic-placeholder.png';
 import timerIcon from '../../assets/icon/timer_white_192x192.png';
 
 export function UserCard(props) {
+  const { user, token } = useAuth();
+  const [group, setGroup] = useState({ name: '', userIDs: [] });
+  const [error, setError] = useState('');
+  let location = useLocation();
+  const [modalId, setModalId] = useState('');
+
   const statusObject = {
     offline: { label: 'OFFLINE', color: 'grey' },
     idle: { label: 'IDLE', color: 'brown lighten-2' },
@@ -37,12 +43,6 @@ export function UserCard(props) {
     timeDifference,
     timerTotTime = null;
 
-  const { user, token } = useAuth();
-  const [group, setGroup] = useState({ name: '', userIDs: [] });
-  const [error, setError] = useState('');
-  let location = useLocation();
-  const [modalId, setModalId] = useState('');
-
   if (member.timerID) {
     timerIsRunning = member.timerID.isRunning;
     timerType = member.timerID.settings.type;
@@ -55,15 +55,19 @@ export function UserCard(props) {
   }
 
   let status = '';
+
   if (timerIsRunning && timerType === 1) status = 'pomodoro';
   if (timerIsRunning && timerType === 2) status = 'sBreak';
   if (timerIsRunning && timerType === 3) status = 'lBreak';
   if (!timerIsRunning) status = 'idle';
   if (!timerIsRunning && timeDifference > 30) status = 'offline';
+  if (!timerType) status = 'offline';
 
   let styles;
   styles = {
-    width: ''.concat(updateProgressBar(timerRemTime, timerTotTime), '%'),
+    width: timerType
+      ? ''.concat(updateProgressBar(timerRemTime, timerTotTime), '%')
+      : '100%',
   };
 
   const [memberIsGuest, setMemberIsGuest] = useState(true);

@@ -18,7 +18,7 @@ import notificationSound from '../../assets/sounds/bubble_pop2.mp3';
 // Assets
 
 export function TopNavigationBase(props) {
-  const { user, signout } = useAuth();
+  const { user, signout, token } = useAuth();
   const { timer, timerAction } = useTimer();
   function initBurgerMenu() {
     const sideNavElement = document.querySelectorAll('.mobile-top-menu');
@@ -31,6 +31,13 @@ export function TopNavigationBase(props) {
     initBurgerMenu();
     timerAction.initTimer();
   }, []);
+
+  //after logout - reset timer
+  useEffect(() => {
+    if (!token) {
+      timerAction.setWork();
+    }
+  }, [token]);
 
   const mobileLeftSidebar = (
     <ul className="sidenav mobile-top-menu" id={'mobile-top-menu'}>
@@ -193,10 +200,11 @@ export function TopNavigationBase(props) {
                     className={'blue-grey'}
                     icon={'exit_to_app'}
                     onClick={e => {
+                      e.preventDefault();
+                      // Turn off timer before logout
+                      timerAction.pauseTimer();
                       signout();
                       props.history.push('/');
-                      e.preventDefault();
-                      console.log('click');
                     }}
                   >
                     <i className={classNames('material-icons left')}>

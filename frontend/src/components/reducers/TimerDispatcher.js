@@ -1,10 +1,15 @@
 //----------------------------------------------------------------------------
 // Timer State Control functions
 //----------------------------------------------------------------------------
-
+import dotenv from 'dotenv';
 import axios from 'axios';
+const { parsed, error } = dotenv.config({
+  path: '../config/dev.env',
+  debug: false,
+});
+
 let axiosInstance = axios.create({
-  baseURL: process.env.PORT || 'http://localhost:3000/',
+  baseURL: process.env.REACT_APP_GLOBAL_URL || 'http://localhost:3000/',
 });
 
 export function TimerDispatcher(token) {
@@ -17,21 +22,23 @@ export function TimerDispatcher(token) {
   };
 
   async function fetchTimerData() {
-    const timerDataRes = await axiosInstance
-      .get('/api/timer', requestConfig)
-      .catch(err => {
-        console.log(err);
-      });
-    if (timerDataRes) {
-      return timerDataRes.data;
-    } else {
-      // sendNewTimerData(timerState);
-      return null;
+    if (token) {
+      const timerDataRes = await axiosInstance
+        .get('/api/timer', requestConfig)
+        .catch(err => {
+          console.log(err);
+        });
+      if (timerDataRes) {
+        return timerDataRes.data;
+      } else {
+        // sendNewTimerData(timerState);
+        return null;
+      }
     }
   }
 
   async function sendNewTimerData(state) {
-    if (!state.timerID) {
+    if (token) {
       const newTimer = {
         remTime: state.remTime,
         settings: state.settings,
@@ -39,30 +46,36 @@ export function TimerDispatcher(token) {
         indexInCycle: state.indexInCycle,
       };
       const body = JSON.stringify(newTimer);
-      await axiosInstance
-        .post('/api/timer/save', body, requestConfig)
-        .then(res => {
-          return res.data.timer;
-        });
+
+      const newTimerCreated = await axiosInstance.post(
+        '/api/timer/save',
+        body,
+        requestConfig,
+      );
+      if (newTimerCreated) {
+        return newTimerCreated.data.timer;
+      }
     }
   }
 
   // Update current timer
   async function updateTimerData(state) {
-    if (state.timerID) {
-      const timerToUpdate = {
-        timerID: state.timerID,
-        remTime: state.remTime,
-        settings: state.settings,
-        isRunning: state.isRunning,
-        indexInCycle: state.indexInCycle,
-      };
-      const body = JSON.stringify(timerToUpdate);
-      await axiosInstance
-        .post('api/timer/update', body, requestConfig)
-        .then(res => {
-          console.log('From DB', res.data);
-        });
+    if (token) {
+      if (state.timerID) {
+        const timerToUpdate = {
+          timerID: state.timerID,
+          remTime: state.remTime,
+          settings: state.settings,
+          isRunning: state.isRunning,
+          indexInCycle: state.indexInCycle,
+        };
+        const body = JSON.stringify(timerToUpdate);
+        await axiosInstance
+          .post('api/timer/update', body, requestConfig)
+          .then(res => {
+            console.log('From DB', res.data);
+          });
+      }
     }
   }
   return { fetchTimerData, sendNewTimerData, updateTimerData };
