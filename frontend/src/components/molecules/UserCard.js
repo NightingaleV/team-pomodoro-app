@@ -21,9 +21,18 @@ export function UserCard(props) {
   const statusObject = {
     offline: { label: 'OFFLINE', color: 'grey' },
     idle: { label: 'IDLE', color: 'brown lighten-2' },
-    pomodoro: { label: 'POMODORO', color: 'amber' },
-    sBreak: { label: 'SHORT BREAK', color: 'green' },
-    lBreak: { label: 'LONG BREAK', color: 'indigo' },
+    pomodoro: {
+      label: 'POMODORO',
+      color: 'amber stripes animated reverse slower',
+    },
+    sBreak: {
+      label: 'SHORT BREAK',
+      color: 'green stripes animated reverse slower',
+    },
+    lBreak: {
+      label: 'LONG BREAK',
+      color: 'indigo stripes animated reverse slower',
+    },
   };
   const { member } = props;
   let timerIsRunning,
@@ -108,7 +117,7 @@ export function UserCard(props) {
             <div className="progress">
               <div
                 className={classNames(
-                  'progress-bar',
+                  'progress-bar progress-bar',
                   statusObject[status].color,
                 )}
                 style={styles}
