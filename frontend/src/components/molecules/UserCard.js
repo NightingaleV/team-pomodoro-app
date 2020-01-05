@@ -83,7 +83,11 @@ export function UserCard(props) {
   return (
     <div className="card hoverable">
       <div className="card-image waves-effect waves-block waves-light">
-        <img className="activator" src={member.avatar} alt="Profile Picture" />
+        <img
+          className="activator"
+          src={member.avatar || profileImage}
+          alt="Profile Picture"
+        />
       </div>
       <div className="divider"></div>
       <div className="card-content">
