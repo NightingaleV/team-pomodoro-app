@@ -1,5 +1,6 @@
 //External imports
 import { check, validationResult } from 'express-validator';
+import gravatar from 'gravatar';
 
 //Internal imports
 import { User } from '../models/User';
@@ -16,11 +17,18 @@ export async function createUser(req, res) {
 
   // If validation is alright
   const { name, email, password } = req.body;
+
+  const avatar = gravatar.url(email, {
+    s: '200',
+    r: 'pg',
+    d: 'mp',
+  });
   try {
     let user;
     user = new User({
       name,
       email,
+      avatar,
       password,
     });
     // save user to database
