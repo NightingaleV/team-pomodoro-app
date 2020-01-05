@@ -191,7 +191,13 @@ export function TopNavigationBase(props) {
               <>
                 <li className={'valign-wrapper'}>
                   <a className="white-text btn-flat account-name">
-                    <i className="material-icons left">account_circle</i>{' '}
+                    <img
+                      src={user.avatar}
+                      alt=""
+                      className="circle responsive-img"
+                      width="50"
+                    />
+                    {/*<i className="material-icons left">account_circle</i>{' '}*/}
                     {user && user.email}
                   </a>
                 </li>

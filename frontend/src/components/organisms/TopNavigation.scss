@@ -19,11 +19,19 @@ nav .nav-wrapper .btn i.material-icons {
 }
 
 .account-name {
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-top: 15px !important;
+  height: 100%;
+  display: flex;
+  min-height: 65px;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 !important;
+  padding: 0 15px;
+  img{
+    margin-right: 10px;
+  }
+}
+.nav-wrapper li:nth-child(2) {
+  max-width: 280px !important;
 }
 
 .mini-controls {
