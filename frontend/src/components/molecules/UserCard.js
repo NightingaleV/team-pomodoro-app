@@ -80,52 +80,10 @@ export function UserCard(props) {
     }
   }, [user]);
 
-  // useEffect(() => {
-  //   fetchGroupByUrlId();
-  // }, []);
-
-  // function getGroupIdentifier(props) {
-  //   const url = location.pathname;
-  //   const urlList = url.split('/');
-  //   const groupID = urlList[urlList.length - 1];
-  //   return groupID;
-  // }
-
-  // const requestConfig = {
-  //   headers: {
-  //     'x-auth-token': token,
-  //     'Content-Type': 'application/json',
-  //   },
-  // };
-
-  // async function fetchGroupByUrlId() {
-  //   try {
-  //     await axios
-  //       .get('/api/group/' + getGroupIdentifier(), requestConfig)
-  //       .then(res => {
-  //         // console.log('Fetched Group Data: ', res.data.group);
-  //         setGroup(res.data.group);
-  //       })
-  //       .catch(err => {
-  //         if (err.response.status == 403 || err.response.status == 401) {
-  //           console.log('You are prohibited to view the group');
-  //           setError('You are prohibited to view the group');
-  //         }
-  //         console.error(err);
-  //       });
-  //   } catch {}
-  // }
-
-  // const onClick = async e => {
-  //   // console.log('Member: ' + member.email);
-  //   // fetchGroupByUrlId();
-  //   console.log(member);
-  // };
-
   return (
     <div className="card hoverable">
       <div className="card-image waves-effect waves-block waves-light">
-        <img className="activator" src={profileImage} alt="Profile Picture" />
+        <img className="activator" src={member.avatar} alt="Profile Picture" />
       </div>
       <div className="divider"></div>
       <div className="card-content">
