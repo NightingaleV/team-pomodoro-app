@@ -25,10 +25,16 @@ export function TopNavigationBase(props) {
     const options = { edge: 'right' };
     M.Sidenav.init(sideNavElement, options);
   }
+  function initEmailTooltip() {
+    const accountNameElement = document.querySelectorAll('.account-name');
+    const options = { position: 'bottom' };
+    M.Tooltip.init(accountNameElement, options);
+  }
 
   useEffect(() => {
     //initialize hamburger menu
     initBurgerMenu();
+    initEmailTooltip();
     timerAction.initTimer();
   }, []);
 
@@ -49,10 +55,10 @@ export function TopNavigationBase(props) {
       {user ? (
         <>
           <li>
-            <a className="truncate">
+            <NavLink to="/settings" className={'truncate'}>
               <i className="material-icons left">account_circle</i>{' '}
-              {user && user.email}
-            </a>
+              {user && user.username}
+            </NavLink>
           </li>
           <li>
             <a
@@ -190,16 +196,20 @@ export function TopNavigationBase(props) {
             {user ? (
               <>
                 <li className={'valign-wrapper'}>
-                  <a className="white-text btn-flat account-name">
+                  <NavLink
+                    to="/settings"
+                    className={'white-text btn-flat account-name'}
+                    data-position="bottom"
+                    data-tooltip={user.email}
+                  >
                     <img
                       src={user.avatar}
                       alt=""
                       className="circle responsive-img"
                       width="50"
                     />
-                    {/*<i className="material-icons left">account_circle</i>{' '}*/}
-                    {user && user.email}
-                  </a>
+                    {user && user.username}
+                  </NavLink>
                 </li>
                 <li>
                   <a

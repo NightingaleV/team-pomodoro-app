@@ -111,7 +111,7 @@ export async function addMember(req, res) {
 
     const { groupID, email } = req.body;
     const adminID = req.user.id;
-    const newMember = await User.findOne({ email: email });
+    const newMember = await User.findOne({ email: email }).select('-password');
 
     if (newMember) {
       let group = await Group.findOne({ _id: groupID });

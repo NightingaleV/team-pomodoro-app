@@ -15,6 +15,7 @@ import {
   addGroup,
   selectUserWithGroups,
   selectUserByName,
+  changeSettings,
 } from '../controllers/user';
 
 import auth from '../middleware/auth';
@@ -42,8 +43,6 @@ router.post('/register', validateUser(), createUser);
 // @route    POST api/user/login
 // @desc     Authenticate user & get token
 // @access   Public
-// TODO uncought error Cannot read property 'type' - after bad password
-// TODO use promises instead of callbacks
 router.post(
   '/login',
   [
@@ -108,6 +107,11 @@ router.get('/invite/:email', selectUserByName);
 // @desc    Add timer to user
 // @access  Private
 router.post('/addTimer', addTimer);
+
+// @route   POST api/user/settings
+// @desc    Change settings to user
+// @access  Private
+router.post('/settings', auth, changeSettings);
 
 // @route   POST api/user/addGroup
 // @desc    Add group to users groups
