@@ -100,5 +100,5 @@ export function TimerDispatcher(token) {
     }
   }
 
-  return { fetchTimerData, sendNewTimerData, updateTimerData };
+  return { fetchTimerData, sendNewTimerData, updateTimerData, saveTimerLog };
 }
