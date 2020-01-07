@@ -62,6 +62,9 @@ export function InviteUserModal(props) {
         console.log(res.data);
         //Show a new user in group
         props.refetchGroup();
+        history.push({
+          pathname: '/group/' + props.group._id,
+        });
       })
       .catch(err => {
         console.log('Error Statement');
