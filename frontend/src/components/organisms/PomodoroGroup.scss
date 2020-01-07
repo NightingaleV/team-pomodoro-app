@@ -29,6 +29,10 @@
   margin-top: 10px;
 }
 
+.card-content .member-info {
+  margin-top: 8px;
+}
+
 .members {
   display: flex;
   flex-direction: row;
@@ -54,7 +58,7 @@
 }
 
 .card .card-content {
-  height: 110px;
+  max-height: 110px;
   padding: 20px;
 }
 
@@ -76,6 +80,10 @@
 .card-content .notification {
   right: 24px;
   bottom: 91px;
+}
+
+.card .card-content .card-title {
+  margin-bottom: 0px;
 }
 
 .progress {
