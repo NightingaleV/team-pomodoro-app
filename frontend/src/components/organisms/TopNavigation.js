@@ -27,7 +27,7 @@ export function TopNavigationBase(props) {
   }
   function initEmailTooltip() {
     const accountNameElement = document.querySelectorAll('.account-name');
-    const options = { position: 'bottom' };
+    const options = { position: 'top' };
     M.Tooltip.init(accountNameElement, options);
   }
 

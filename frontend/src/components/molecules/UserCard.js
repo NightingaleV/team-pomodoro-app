@@ -10,6 +10,7 @@ import { updateProgressBar } from '../../utils/pomodoroUtils';
 
 import profileImage from '../../assets/images/profile-pic-placeholder.png';
 import timerIcon from '../../assets/icon/timer_white_192x192.png';
+import { NavLink } from '../atoms';
 
 export function UserCard(props) {
   const { user, token } = useAuth();
@@ -55,7 +56,6 @@ export function UserCard(props) {
   }
 
   let status = '';
-
   if (timerIsRunning && timerType === 1) status = 'pomodoro';
   if (timerIsRunning && timerType === 2) status = 'sBreak';
   if (timerIsRunning && timerType === 3) status = 'lBreak';
@@ -69,6 +69,17 @@ export function UserCard(props) {
       ? ''.concat(updateProgressBar(timerRemTime, timerTotTime), '%')
       : '100%',
   };
+
+  // Email Tooltip
+  function initEmailTooltip() {
+    const userNameElement = document.querySelectorAll('.user-name');
+    const options = { position: 'top' };
+    M.Tooltip.init(userNameElement, options);
+  }
+
+  useEffect(() => {
+    initEmailTooltip();
+  }, []);
 
   const [memberIsGuest, setMemberIsGuest] = useState(true);
   useEffect(() => {
@@ -100,7 +111,9 @@ export function UserCard(props) {
       <div className="divider"></div>
       <div className="card-content">
         <div className="card-title activator grey-text text-darken-4">
-          <p className="user-name truncate">{member.email}</p>
+          <p className="user-name truncate" data-tooltip={member.email}>
+            {member.username}
+          </p>
           <span className="more-icon">
             <i className="material-icons right">more_vert</i>
           </span>
