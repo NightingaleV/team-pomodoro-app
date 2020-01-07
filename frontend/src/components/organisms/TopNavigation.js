@@ -206,7 +206,7 @@ export function TopNavigationBase(props) {
                       src={user.avatar}
                       alt=""
                       className="circle responsive-img"
-                      width="50"
+                      width="40"
                     />
                     {user && user.username}
                   </NavLink>
