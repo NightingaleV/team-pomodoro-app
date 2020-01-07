@@ -114,7 +114,7 @@ export function SignUp(props) {
 
   return (
     <>
-      <div className={'singup-container'}>
+      <div className="singup-container card-panel">
         <h3>Sign up</h3>
         <div className={'singup-form'}>
           <form id={'registration-form'} onSubmit={onSubmit}>
