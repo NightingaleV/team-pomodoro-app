@@ -112,6 +112,11 @@ export function SideNavigationBase(props) {
           </Link>
         </div>
       </li>
+      <li className="group-name">
+        <NavLink to="/analytics" className={classNames('waves-effect')}>
+          <i className="material-icons">insert_chart</i> <span>Analytics</span>
+        </NavLink>
+      </li>
       {user && (
         <li className="group-name">
           <a
