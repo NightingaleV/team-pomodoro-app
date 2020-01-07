@@ -4,7 +4,10 @@
 @import '~materialize-css/sass/materialize';
 
 .group-title-wrapper {
-  margin: 0px 20px 0 20px;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 25px;
+  max-width: 600px;
   .group-title-bar {
     display: flex;
     align-items: center;
@@ -23,6 +26,10 @@
   .group-action-button {
     margin-left: 15px;
   }
+}
+
+.group .card-panel {
+  padding: 5px;
 }
 
 .group-container {
