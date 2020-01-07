@@ -7,6 +7,7 @@ import {
   createTimer,
   updateTimer,
   selectLastTimer,
+  saveTimerLog,
 } from '../controllers/timer';
 import auth from '../middleware/auth';
 
@@ -21,6 +22,11 @@ router.get('/', auth, selectLastTimer);
 // @desc    Save timer status
 // @access  Private
 router.post('/save', auth, createTimer);
+
+// @route   POST api/timer/save
+// @desc    Save timer log for statistics
+// @access  Private
+router.post('/saveLog', auth, saveTimerLog);
 
 // @route   POST api/timer/save
 // @desc    Save timer status

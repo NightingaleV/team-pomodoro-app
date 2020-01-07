@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 //Internal imports
 import { Timer } from '../models/Timer';
 import { User } from '../models/User';
+import { TimerLog } from '../models/TimerLog';
 
 // LOGIC
 //------------------------------------------------------------------------------
@@ -92,6 +93,42 @@ export async function updateTimer(req, res) {
     console.log(err);
     return res.status(500).send('Server Error, Try it later');
   }
+}
+
+export async function saveTimerLog(req, res) {
+  // Data from request
+
+  try {
+    const { type, length, indexInCycle } = req.body;
+    const userID = req.user.id;
+    let timerLog;
+
+    timerLog = new TimerLog({
+      type,
+      length,
+      indexInCycle,
+      userID,
+    });
+
+    //save timer to database
+    timerLog.save().then(
+      timerLog => {
+        res.json({
+          timerLog,
+        });
+      },
+      err => {
+        if (err) {
+          throw err;
+        }
+      },
+    );
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send('Server Error, Try it later');
+  }
+
+  console.log(req.body);
 }
 
 // VALIDATION
