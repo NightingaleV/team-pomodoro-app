@@ -1,3 +1,14 @@
+.pomodoro-container {
+  max-width: 400px;
+  margin-bottom: 20px;
+  margin: auto;
+  margin-top: 30px;
+}
+
+.pomodoro-container .card-panel {
+  padding-bottom: 50px;
+}
+
 .pomodoroCircle {
   transition: stroke-dashoffset 0.35s;
   transform: rotate(-90deg);
