@@ -4,7 +4,7 @@
 
 - Node.js v10.16.2 or later
 - `yarn` (`npm install --global yarn`)
-- MySQL database
+- MongoDB database
 
 ## Installation
 
@@ -12,9 +12,7 @@
 yarn install
 ```
 
-Copy `./.env.template` to `./.env` and add DB connection configuration.
-
-Run SQL seed script `./db/seed.sql` in MySQL to initialize tables and data.
+Copy `dev.env` to `/config` and add DB connection configuration.
 
 ## Run Local Dev Server
 
@@ -22,7 +20,7 @@ Run SQL seed script `./db/seed.sql` in MySQL to initialize tables and data.
 yarn dev
 ```
 
-Open [localhost:3001](http://localhost:3001/).
+Open [localhost:5000](http://localhost:5000/).
 
 ## Production Build
 
@@ -35,12 +33,12 @@ yarn start
 Use SSH to login to server and run this:
 
 ```sh
-cd code/cviceni/backend
+cd pomodori/backend
 yarn install
 yarn build:watch
 ```
 
-Open [dev.backend.USERNAME.vse.handson.pro](http://dev.backend.USERNAME.vse.handson.pro/) (replace `USERNAME` with your login).
+Open [dev.backend.team02.vse.handson.pro](http://dev.backend.team02.vse.handson.pro/).
 
 Now you can edit code in Atom. To stop editing switch back to running SSH, press <kbd>Ctrl</kbd>+<kbd>C</kbd> and log off.
 
