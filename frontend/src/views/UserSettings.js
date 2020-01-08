@@ -71,7 +71,7 @@ export function UserSettings(props) {
 
   return (
     <>
-      <div className="container center-align">
+      <div className="login-container center-align card-panel">
         <h3>Profile Settings</h3>
         <div className="login-form">
           <>{success && <SuccessBox msg="You setting has been changed" />}</>
