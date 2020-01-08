@@ -85,43 +85,36 @@ export function UserAnalytics(props) {
 
   return (
     <>
-      <div className="login-container">
-        <h3>Log in</h3>
-        <div className="login-form">
-          <form id={'authentication-form'} onSubmit={onSubmit}>
-            <TextInput
-              id={'email-address'}
-              name={'email'}
-              type={'email'}
-              value={formData.email}
-              onChange={onChange}
-              className={'validate'}
-              required
-              autofocus={'autofocus'}
-            >
-              Email
-            </TextInput>
-            <TextInput
-              id={'password'}
-              name={'password'}
-              type={'password'}
-              value={formData.password}
-              onChange={onChange}
-              error={errors.password || ''}
-              required
-            >
-              Password
-            </TextInput>
-            <>
-              {errors.backend &&
-                errors.backend.map((error, index) => {
-                  return <ErrorBox key={index} errorMsg={error.msg} />;
-                })}
-            </>
-            <Button type="submit" form={'authentication-form'}>
-              Log In
-            </Button>
-          </form>
+      <div className="container statistics-container">
+        <h3>Analytics</h3>
+        <div className="statistics-content">
+          <table className="highlight">
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Name of the Day</th>
+                <th>Pomodoro Time</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Alvin</td>
+                <td>Eclair</td>
+                <td>$0.87</td>
+              </tr>
+              <tr>
+                <td>Alan</td>
+                <td>Jellybean</td>
+                <td>$3.76</td>
+              </tr>
+              <tr>
+                <td>Jonathan</td>
+                <td>Lollipop</td>
+                <td>$7.00</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </>

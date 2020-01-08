@@ -131,5 +131,30 @@ export async function saveTimerLog(req, res) {
   console.log(req.body);
 }
 
+export async function getTimerLog(req, res) {
+  // Data from request
+  try {
+    const userID = req.user.id;
+    // const getStats = await TimerLog.find({ userID: userID });
+    // const aggregatedResult = await TimerLog.distinct('type');
+    const aggregatedResult = await TimerLog.aggregate([
+      { $match: { userID: new mongoose.Types.ObjectId(userID) } },
+      {
+        $group: {
+          _id: {
+            createdAt: { $dayOfYear: '$createdAt' },
+            date: '$createdAt',
+          },
+          total: { $sum: '$length' },
+        },
+      },
+    ]);
+    await res.json(aggregatedResult);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send('Server Error');
+  }
+}
+
 // VALIDATION
 //------------------------------------------------------------------------------
