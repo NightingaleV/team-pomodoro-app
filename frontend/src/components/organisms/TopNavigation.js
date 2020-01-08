@@ -48,6 +48,11 @@ export function TopNavigationBase(props) {
       </li>
       {user ? (
         <>
+        <li>
+          <NavLink to={'/public/' + user._id}>
+            <p className="user-name truncate">Public page</p>
+          </NavLink>
+        </li>
           <li>
             <a className="truncate">
               <i className="material-icons left">account_circle</i>{' '}
@@ -189,6 +194,12 @@ export function TopNavigationBase(props) {
             </li>
             {user ? (
               <>
+                <li className={'valign-wrapper'}>
+                  <NavLink to={'/public/' + user._id}>
+                    {/* <p className="user-name truncate">Public page</p> */}
+                    Public page
+                  </NavLink>
+                </li>
                 <li className={'valign-wrapper'}>
                   <a className="white-text btn-flat account-name">
                     <img

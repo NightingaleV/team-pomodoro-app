@@ -5,3 +5,4 @@ export { SignIn } from './SignIn';
 export { GroupDetail } from './GroupDetail';
 export { Container } from './Container';
 export { Invitation } from './Invitation';
+export { PublicPage } from './PublicPage';

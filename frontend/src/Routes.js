@@ -11,6 +11,7 @@ import {
   GroupDetail,
   CreateGroupModal,
   Invitation,
+  PublicPage,  
 } from './views';
 import { ProtectedRoute } from './components/ProtectedRoutes';
 
@@ -29,6 +30,7 @@ export function Routes() {
       <Route exact path="/register/success" component={RegistrationComplete} />
       <Route path="/group/invitation" component={Invitation} />
       <Route path="/group" component={GroupDetail} />
+      <Route pathh="/public" component={PublicPage} />
     </Switch>
   );
 }

@@ -15,6 +15,7 @@ import {
   addGroup,
   selectUserWithGroups,
   selectUserByName,
+  selectUserById,
 } from '../controllers/user';
 
 import auth from '../middleware/auth';
@@ -98,6 +99,11 @@ router.post(
     console.log(req.body);
   },
 );
+
+// @route   GET api/user/get
+// @desc    Get user by ID
+// @access  Private
+router.get('/get/:id', selectUserById);
 
 // @route   GET api/user/invite
 // @desc    Get user to invite into a group
