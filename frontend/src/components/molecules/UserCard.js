@@ -1,23 +1,15 @@
+//External imports
 import React, { Fragment, useState, useEffect } from 'react';
 import classNames from 'classnames';
-import { RemoveUserModal } from './RemoveUserModal';
-import axios from 'axios';
-import { useAuth } from '../../utils/useAuth';
-import { useLocation } from 'react-router-dom';
 import M from 'materialize-css';
+//Internal imports
+import { useAuth } from '../../utils/useAuth';
 import { Button } from '../atoms/Button';
 import { updateProgressBar } from '../../utils/pomodoroUtils';
-
 import profileImage from '../../assets/images/profile-pic-placeholder.png';
-import timerIcon from '../../assets/icon/timer_white_192x192.png';
-import { NavLink } from '../atoms';
 
 export function UserCard(props) {
-  const { user, token } = useAuth();
-  const [group, setGroup] = useState({ name: '', userIDs: [] });
-  const [error, setError] = useState('');
-  let location = useLocation();
-  const [modalId, setModalId] = useState('');
+  const { user } = useAuth();
 
   const statusObject = {
     offline: { label: 'OFFLINE', color: 'grey' },

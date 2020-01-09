@@ -1,11 +1,9 @@
 // External imports
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import M from 'materialize-css';
 // Internal imports
 import { Button } from '../atoms';
 import { useAuth } from '../../utils/useAuth';
-import { TopNavigation } from '../organisms';
-import { SignUpSuccess } from '../../templates';
 import { useTimer } from '../providers/TimerProvider';
 
 export function DropdownTimerMenu(props) {

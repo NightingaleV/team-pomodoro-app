@@ -1,19 +1,15 @@
 //External import
-import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
-import { TextInput, Button, ErrorBox } from '../atoms';
-import { SignUpSuccess } from '../../templates';
+import { Button, ErrorBox } from '../atoms';
 import { useAuth } from '../../utils/useAuth';
-import { useApi } from '../../utils/useApi';
 import M from 'materialize-css';
 
 export function LeaveGroupModal({ group }) {
   const history = useHistory();
-  let location = useLocation();
-  const api = useApi();
-  const { user, token } = useAuth();
+  const { token } = useAuth();
 
   // Component State
   //----------------------------------------------------------------------------
@@ -50,10 +46,6 @@ export function LeaveGroupModal({ group }) {
       .catch(err => {
         console.log('Error Statement');
         console.log(err);
-        // if (err.response.data) {
-        //   setError({ ...errors, backend: err.response.data.errors });
-        //   console.log(err.response.data.errors);
-        // }
       });
   };
 

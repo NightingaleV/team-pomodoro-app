@@ -1,5 +1,5 @@
 // External imports
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
 // Internal imports
 import { formatTime } from '../../utils/pomodoroUtils';
 import { useTimer } from '../providers/TimerProvider';
@@ -8,7 +8,7 @@ import favShortBreak from '../../assets/favicon/favicon-short_brake.ico';
 import favLongBreak from '../../assets/favicon/favicon-long_break.ico';
 
 export function DynamicFavicon(props) {
-  const { timer, timerAction } = useTimer();
+  const { timer } = useTimer();
   useEffect(() => {
     const currentTimer = timer.settings.type;
     const favicon = document.getElementById('favicon');

@@ -1,20 +1,15 @@
 //External import
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
-import { TextInput, Button, ErrorBox } from '../atoms';
-import { SignUpSuccess } from '../../templates';
+import { Button, ErrorBox } from '../atoms';
 import { useAuth } from '../../utils/useAuth';
 import { useApi } from '../../utils/useApi';
 import M from 'materialize-css';
 
-// export function AcceptInvitationModal({ group, refetchGroup }) {
 export function AcceptInvitationModal({ group, refetchGroup }) {
-  const history = useHistory();
-  let location = useLocation();
-  const api = useApi();
-  const { user, token } = useAuth();
+  const { token } = useAuth();
 
   // Component State
   //----------------------------------------------------------------------------
@@ -49,7 +44,6 @@ export function AcceptInvitationModal({ group, refetchGroup }) {
     await axios
       .post('/api/group/acceptInvitation', body, config)
       .then(res => {
-        // history.push('/group/' + props.group._id);
         console.log('Valid Statement');
         console.log(res.data);
         //Show a new user in group
@@ -91,7 +85,6 @@ export function AcceptInvitationModal({ group, refetchGroup }) {
               Cancel
             </Button>
             <Button
-              //   icon={'directions_run'}
               icon={'check'}
               iconPosition={'left'}
               color={'red lighten-1'}

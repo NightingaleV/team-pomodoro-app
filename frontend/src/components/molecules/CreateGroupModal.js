@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
 import { TextInput, Button, ErrorBox } from '../atoms';
-import { SignUpSuccess } from '../../templates';
 import { useAuth } from '../../utils/useAuth';
 import { useApi } from '../../utils/useApi';
 import M from 'materialize-css';

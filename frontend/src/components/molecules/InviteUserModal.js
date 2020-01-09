@@ -11,9 +11,7 @@ import M from 'materialize-css';
 
 export function InviteUserModal(props) {
   const history = useHistory();
-  let location = useLocation();
-  const api = useApi();
-  const { user, token } = useAuth();
+  const { token } = useAuth();
 
   // Component State
   //----------------------------------------------------------------------------

@@ -1,16 +1,10 @@
 // External imports
-import React, { Fragment, useEffect, useState } from 'react';
+import React from 'react';
 // Internal imports
-import { Button } from '../atoms';
-import { useAuth } from '../../utils/useAuth';
-import { TopNavigation } from '../organisms';
-import { SignUpSuccess } from '../../templates';
-import M from 'materialize-css';
 import { useTimer } from '../providers/TimerProvider';
 
 export function ProgressRing(props) {
-  const { timer, timerAction } = useTimer();
-  // const { radius, stroke } = props;
+  const { timer } = useTimer();
 
   // Height & Width
   const RADIUS = 150;

@@ -1,24 +1,16 @@
 //External import
-import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React from 'react';
 import axios from 'axios';
 // Internal imports
-import { TextInput, Button, ErrorBox } from '../atoms';
-import { SignUpSuccess } from '../../templates';
+import { Button } from '../atoms';
 import { useAuth } from '../../utils/useAuth';
-import { useApi } from '../../utils/useApi';
 import M from 'materialize-css';
-import { async } from 'rxjs/internal/scheduler/async';
 
 export function RemoveUserModal({ group, member, refetchGroup }) {
-  const history = useHistory();
-  let location = useLocation();
-  const api = useApi();
-  const { user, token } = useAuth();
+  const { token } = useAuth();
 
   // Component State
   //----------------------------------------------------------------------------
-  const [errors, setError] = useState({ backend: '' });
 
   // Component Control
   //----------------------------------------------------------------------------

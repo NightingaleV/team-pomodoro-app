@@ -4,7 +4,7 @@ import { ProgressBar, Step } from 'react-step-progress-bar';
 import classNames from 'classnames';
 
 export function StepProgressBar(props) {
-  const { typeOfTimer, indexInCycle } = props;
+  const { indexInCycle } = props;
   //----------------------------------------------------------------------------
   // Manipulate with width of bar
   //----------------------------------------------------------------------------
