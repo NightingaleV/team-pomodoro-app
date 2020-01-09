@@ -1,5 +1,5 @@
 // External imports
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import M from 'materialize-css';
 // Internal imports
 
@@ -9,8 +9,6 @@ export function LandingPage() {
     let options = {};
     let parallax_elements = document.querySelectorAll('.parallax');
     M.Parallax.init(parallax_elements, options);
-    //Or use auto init instead
-    //M.AutoInit();
   }, []);
 
   return (

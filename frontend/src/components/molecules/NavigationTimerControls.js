@@ -2,7 +2,7 @@ import React from 'react';
 import { useTimer } from '../providers/TimerProvider';
 
 export function PlayControl(props) {
-  const { timer, timerAction } = useTimer();
+  const { timerAction } = useTimer();
 
   return (
     <>
@@ -17,7 +17,7 @@ export function PlayControl(props) {
 }
 
 export function StopControl(props) {
-  const { timer, timerAction } = useTimer();
+  const { timerAction } = useTimer();
 
   return (
     <>

@@ -50,7 +50,7 @@ export function Invitation() {
           setGroup(res.data.group);
         })
         .catch(err => {
-          if (err.response.status == 403 || err.response.status == 401) {
+          if (err.response.status === 403 || err.response.status === 401) {
             console.log('You are prohibited to invite users into the group');
             setAuthError('You are prohibited to invite users into the group');
           }
@@ -85,10 +85,10 @@ export function Invitation() {
         }
       })
       .catch(err => {
-        if (err.response.status == 404) {
+        if (err.response.status === 404) {
           console.log('Unable to find user ' + formData.email);
           setError('Unable to find user ' + formData.email);
-        } else if (err.response.status == 403) {
+        } else if (err.response.status === 403) {
           console.log(
             'User ' + formData.email + ' is already a member of this group',
           );

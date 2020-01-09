@@ -1,20 +1,18 @@
 //External import
 import React, { useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
 import { Button, ErrorBox } from '../atoms';
 import { useAuth } from '../../utils/useAuth';
-import { useApi } from '../../utils/useApi';
 import M from 'materialize-css';
 import classNames from 'classnames';
 
 export function AcceptInvitationModal({ group, refetchGroup }) {
-  const { user, token } = useAuth();
+  const { token } = useAuth();
 
   // Component State
   //----------------------------------------------------------------------------
-  const [errors, setError] = useState({ backend: '' });
+  const [errors] = useState({ backend: '' });
 
   // Component Control
   //----------------------------------------------------------------------------

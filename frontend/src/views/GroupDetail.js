@@ -3,7 +3,7 @@ import { withRouter, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { PomodoroGroup } from '../components/organisms';
 import { useAuth } from '../utils/useAuth';
-import { Preloader, ErrorBox, Button, Link } from '../components/atoms';
+import { Preloader, ErrorBox } from '../components/atoms';
 import { usePromise } from '../utils/usePromise';
 
 export function GroupDetailBase(props) {
@@ -44,7 +44,7 @@ export function GroupDetailBase(props) {
       console.log('CleanUp: GroupDetail');
       clearInterval(subscriptionToGroup);
     };
-  }, [location.pathname]);
+  }, [location.pathname, dispatchGroupLoading, user]);
 
   useEffect(() => {}, []);
 
@@ -57,7 +57,7 @@ export function GroupDetailBase(props) {
           console.log('Group', res.data.group);
         })
         .catch(err => {
-          if (err.response.status == 403 || err.response.status == 401) {
+          if (err.response.status === 403 || err.response.status === 401) {
             console.log('You are prohibited to view the group');
             setError('You are prohibited to view the group');
           }

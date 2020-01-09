@@ -27,12 +27,10 @@ export function SignUp(props) {
 
   const validate = event => {
     let validErrors = errors;
-    let valid = true;
     const { name, value } = event.target;
     switch (name) {
       case 'email':
         validErrors.email = '';
-        valid = false;
         break;
       case 'password':
         validErrors.password =
@@ -40,13 +38,11 @@ export function SignUp(props) {
           (formData.password2 && value !== formData.password2
             ? 'The passwords do not match.'
             : '');
-        valid = false;
         break;
       case 'password2':
         validErrors.password2 =
           value !== formData.password ? 'The passwords do not match.' : '';
         break;
-        valid = false;
       default:
         break;
     }
@@ -95,12 +91,6 @@ export function SignUp(props) {
           console.log('Error Statement');
           if (err.response.data) {
             setError({ ...errors, backend: err.response.data.errors });
-            console.log(err.response.data.errors);
-            if (err.response.data.errors) {
-              err.response.data.errors.map(error => {
-                console.log(error);
-              });
-            }
           }
         });
     }

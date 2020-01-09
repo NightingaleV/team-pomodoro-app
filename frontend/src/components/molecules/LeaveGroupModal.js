@@ -1,9 +1,9 @@
 //External import
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
-import { Button, ErrorBox } from '../atoms';
+import { Button } from '../atoms';
 import { useAuth } from '../../utils/useAuth';
 import M from 'materialize-css';
 import classNames from 'classnames';
@@ -14,7 +14,6 @@ export function LeaveGroupModal({ group }) {
 
   // Component State
   //----------------------------------------------------------------------------
-  const [errors, setError] = useState({ backend: '' });
 
   // Component Control
   //----------------------------------------------------------------------------
@@ -61,12 +60,6 @@ export function LeaveGroupModal({ group }) {
         <div className="modal-content">
           <h4>Leaving {group.name}</h4>
           <p>Do you really want to leave this group?</p>
-          <>
-            {errors.backend &&
-              errors.backend.map(error => {
-                return <ErrorBox key={error.msg} errorMsg={error.msg} />;
-              })}
-          </>
           <div>
             <Button
               icon={'undo'}

@@ -1,6 +1,5 @@
 import React, {
   createContext,
-  useCallback,
   useContext,
   useMemo,
   useState,
@@ -63,7 +62,7 @@ export function TimerProvider({ children }) {
 // Initiate Timer Context
 const TimerContext = createContext(createContextValue({ timer: {} }));
 function createContextValue(timerContextData) {
-  const { timer, setTimerState, timerReference } = timerContextData;
+  const { timer } = timerContextData;
   return {
     timer,
     timerAction: TimerReducer(timerContextData),

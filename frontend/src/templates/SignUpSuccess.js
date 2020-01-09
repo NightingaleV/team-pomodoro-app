@@ -1,10 +1,8 @@
 // External imports
 import React, { Fragment } from 'react';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 // Internal imports
 import { Link } from '../components/atoms';
-import { TopNavigation, PomodoroTimer } from '../components/organisms';
-import { TopNavigationBase } from '../components/organisms/TopNavigation';
 
 function SignUpSuccessBase(props) {
   return (

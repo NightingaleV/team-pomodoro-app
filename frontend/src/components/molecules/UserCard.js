@@ -1,16 +1,13 @@
 //External imports
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import M from 'materialize-css';
 //Internal imports
-import { useAuth } from '../../utils/useAuth';
 import { Button } from '../atoms/Button';
 import { updateProgressBar } from '../../utils/pomodoroUtils';
 import profileImage from '../../assets/images/profile-pic-placeholder.png';
 
 export function UserCard(props) {
-  const { user } = useAuth();
-
   const statusObject = {
     offline: { label: 'OFFLINE', color: 'grey' },
     idle: { label: 'IDLE', color: 'brown lighten-2' },
@@ -30,7 +27,6 @@ export function UserCard(props) {
   const { member } = props;
   let timerIsRunning,
     timerType,
-    timerName,
     timerRemTime,
     timerUpdated,
     timeDifference,
@@ -39,7 +35,6 @@ export function UserCard(props) {
   if (member.timerID) {
     timerIsRunning = member.timerID.isRunning;
     timerType = member.timerID.settings.type;
-    timerName = member.timerID.settings.name;
     timerRemTime = member.timerID.remTime;
     timerTotTime = member.timerID.settings.totTime;
     timerUpdated = new Date(member.timerID.updatedAt);
@@ -82,23 +77,10 @@ export function UserCard(props) {
     }
   }, [props.group]);
 
-  const [memberIsUser, setMemberIsUser] = useState(false);
-  useEffect(() => {
-    if (user) {
-      if (user._id == member._id) {
-        setMemberIsUser(true);
-      }
-    }
-  }, [user]);
-
   return (
     <div className="card hoverable">
       <div className="card-image waves-effect waves-block waves-light">
-        <img
-          className="activator"
-          src={member.avatar || profileImage}
-          alt="Profile Picture"
-        />
+        <img className="activator" src={member.avatar || profileImage} />
       </div>
       <div className="divider"></div>
       <div className="card-content">

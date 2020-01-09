@@ -1,6 +1,5 @@
 // External imports
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
 import { TextInput, Button, ErrorBox, SuccessBox } from '../components/atoms';

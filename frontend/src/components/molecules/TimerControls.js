@@ -3,12 +3,10 @@ import React, { useEffect } from 'react';
 import M from 'materialize-css';
 // Internal imports
 import { Button } from '../atoms';
-import { useAuth } from '../../utils/useAuth';
 import { useTimer } from '../providers/TimerProvider';
 
 export function DropdownTimerMenu(props) {
   const { timerAction } = useTimer();
-  const { user } = useAuth();
   function initDropdownMenu() {
     const dropdownMenuElement = document.querySelectorAll('.dropdown-trigger');
     const options = { constrainWidth: false };
@@ -33,18 +31,18 @@ export function DropdownTimerMenu(props) {
         style={{ minWidth: '165px' }}
       >
         <li>
-          <a onClick={timerAction.setWork}>
+          <a href={null} onClick={timerAction.setWork}>
             <i className="material-icons">business_center</i>
             Work
           </a>
         </li>
         <li>
-          <a onClick={timerAction.setShortBreak}>
+          <a href={null} onClick={timerAction.setShortBreak}>
             <i className="material-icons">free_breakfast</i>Take a break
           </a>
         </li>
         <li>
-          <a onClick={timerAction.setLongBreak}>
+          <a href={null} onClick={timerAction.setLongBreak}>
             <i className="material-icons">weekend</i>Take a long break
           </a>
         </li>

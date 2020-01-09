@@ -54,13 +54,13 @@ export function PomodoroGroupBase(props) {
         mainInputElem.focus();
       },
     };
-    var elem = M.Modal.init(addMemberModalElement, options);
+    M.Modal.init(addMemberModalElement, options);
   }
 
   function initLeaveGroupModal() {
     const addMemberModalElement = document.querySelector('.leave-group-modal');
     const options = {};
-    var elem = M.Modal.init(addMemberModalElement, options);
+    M.Modal.init(addMemberModalElement, options);
   }
 
   function initRemoveMemberModal() {
@@ -68,7 +68,7 @@ export function PomodoroGroupBase(props) {
       '.remove-member-modal',
     );
     const options = {};
-    var elem = M.Modal.init(removeMemberModalElement, options);
+    M.Modal.init(removeMemberModalElement, options);
   }
 
   function initAcceptInvitationModal() {
@@ -76,7 +76,7 @@ export function PomodoroGroupBase(props) {
       '.accept-invitation-modal',
     );
     const options = {};
-    var elem = M.Modal.init(acceptInvitationModalElement, options);
+    M.Modal.init(acceptInvitationModalElement, options);
   }
 
   useEffect(() => {
