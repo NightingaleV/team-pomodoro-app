@@ -1,5 +1,5 @@
 // External imports
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState, useRef } from 'react';
 import { withRouter, Redirect, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import classNames from 'classnames';
@@ -12,7 +12,7 @@ import { convertMinToSec } from '../utils/pomodoroUtils';
 import { Preloader, ErrorBox, Button, Link } from '../components/atoms';
 import { usePromise } from '../utils/usePromise';
 
-export function PublicPageBase(props){
+export function PublicPageBase(props) {
   const { user, token } = useAuth();
 
   const helpTimer = {
@@ -25,10 +25,15 @@ export function PublicPageBase(props){
     isMounted: true,
   };
 
-  const [publicUser, setPublicUser] = useState({ email: '', name: '', avatar: '', timerID: helpTimer });
+  const [publicUser, setPublicUser] = useState({
+    email: '',
+    name: '',
+    avatar: '',
+    timerID: helpTimer,
+  });
 
   const [error, setError] = useState('');
-  let location = useLocation();  
+  let location = useLocation();
 
   const [userLoadingState, dispatchUserLoading] = usePromise({
     isLoading: false,
@@ -55,9 +60,9 @@ export function PublicPageBase(props){
     dispatchUserLoading(fetchUserByUrlId);
     let subscriptionToUser = null;
     // if (user) {
-      subscriptionToUser = setInterval(() => {
-        fetchUserByUrlId();
-      }, 5000);
+    subscriptionToUser = setInterval(() => {
+      fetchUserByUrlId();
+    }, 5000);
     // }
 
     return () => {
@@ -80,27 +85,50 @@ export function PublicPageBase(props){
           console.error(err);
         });
     } catch {}
-  }  
+  }
+
+  const [copySuccess, setCopySuccess] = useState('');
+  const textAreaRef = useRef(null);
+
+  function copyToClipboard(e) {
+    textAreaRef.current.select();
+    document.execCommand('copy');
+    // This is just personal preference.
+    // I prefer to not show the the whole text area selected.
+    e.target.focus();
+    setCopySuccess('Copied!');
+  }
 
   return (
     <>
       <div className="group">
-      <Preloader isLoading={userLoadingState.isLoading}>
-        <div className="row group-title-wrapper">
-          <div className="group-title-bar">
-            <div className="">              
-                    {/* <h3 className="group-title">{publicUser.email}</h3> */}                    
-                    {/* <p>{window.location.href}</p> */}
-                    <span>Public page link: </span>
-                    <a href={window.location.href}>{window.location.href}</a>
+        <Preloader isLoading={userLoadingState.isLoading}>
+          <div className="row group-title-wrapper">
+            <div className="group-title-bar card-panel">
+              <h3>Public Page</h3>
+              <div className="copy-container">
+                <div class="file-field input-field clipboard">
+                  <button
+                    class="btn waves-effect waves-light amber"
+                    onClick={copyToClipboard}
+                  >
+                    <span>Copy</span>
+                  </button>
+                  <div className="copy-alert">{copySuccess}</div>
+                  <div class="file-path-wrapper">
+                    <textarea class="materialize-textarea" ref={textAreaRef}>
+                      {window.location.href}
+                    </textarea>
+                  </div>
+                </div>
               </div>
             </div>
-        </div>
-        <div className="row members">         
+          </div>
+          <div className="row members">
             <div className="member col">
-                <UserCard member={publicUser} />
+              <UserCard member={publicUser} />
             </div>
-        </div>        
+          </div>
         </Preloader>
       </div>
     </>
