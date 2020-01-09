@@ -4,6 +4,8 @@ import gravatar from 'gravatar';
 
 //Internal imports
 import { User } from '../models/User';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 // LOGIC
 //------------------------------------------------------------------------------
@@ -44,6 +46,54 @@ export async function createUser(req, res) {
         }
       },
     );
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send('Server Error, Try it later');
+  }
+  console.log(req.body);
+}
+
+export async function signInUser(req, res) {
+  // Return validation
+  const errors = validationResult(req);
+  process.stdout.write(errors);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { email, password } = req.body;
+  try {
+    let user = await User.findOne({ email });
+    // User with that email not found
+    if (!user) {
+      return res.status(400).json({
+        errors: [
+          {
+            msg: 'Meh, we were unable to find you using these credentials.',
+          },
+        ],
+      });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({
+        errors: [
+          {
+            msg: 'Meh, we were unable to find you using these credentials.',
+          },
+        ],
+      });
+    }
+
+    const token = jwt.sign(
+      { user: { id: user.id } },
+      process.env.JWTPrivateKey,
+    );
+    return res.status(200).json({
+      token,
+      user,
+    });
   } catch (err) {
     console.log(err);
     return res.status(500).send('Server Error, Try it later');
@@ -152,7 +202,7 @@ export async function selectUserWithGroups(req, res) {
 // VALIDATION
 //------------------------------------------------------------------------------
 // User Form validation
-export function validateUser() {
+export function validateRegistration() {
   // Internal imports
   return [
     check('email', 'Email is invalid')
@@ -178,4 +228,11 @@ export function isUserAlreadyRegistered(value, { req }) {
       resolve(true);
     });
   });
+}
+export function validateLogin() {
+  // Internal imports
+  return [
+    check('email', 'Email is invalid').isEmail(),
+    check('password', 'Please enter a password').exists(),
+  ];
 }

@@ -5,16 +5,6 @@ import { Timer } from '../models/Timer';
 
 // LOGIC
 //------------------------------------------------------------------------------
-export async function selectTimer(req, res) {
-  try {
-    const userID = req.query.userID;
-    const allTimers = await Timer.find().where({ userID: userID });
-    await res.json({ allTimers: allTimers });
-  } catch (err) {
-    return res.status(500).send('Server Error');
-  }
-}
-
 export async function selectLastTimer(req, res) {
   try {
     const userID = req.user.id;
