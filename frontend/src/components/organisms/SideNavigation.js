@@ -9,8 +9,6 @@ import axios from 'axios';
 import timerIcon from '../../assets/icon/timer_white_192x192.png';
 import { Link, NavLink } from '../atoms/Link';
 import { useAuth } from '../../utils/useAuth';
-import { GroupDetail } from '../../views/GroupDetail';
-import { async } from 'rxjs/internal/scheduler/async';
 import { useApi } from '../../utils/useApi';
 
 export function GroupList(props) {
