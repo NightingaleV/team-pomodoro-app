@@ -10,10 +10,8 @@ import {
   UserSettings,
   RegistrationComplete,
   GroupDetail,
-  CreateGroupModal,
   Invitation,
 } from './views';
-import { ProtectedRoute } from './components/ProtectedRoutes';
 
 export function Routes() {
   return (

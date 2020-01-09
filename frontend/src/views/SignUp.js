@@ -1,18 +1,13 @@
 // External imports
-import React, { Fragment, useState } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
-import classNames from 'classnames';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
-import { TopNavigation } from '../components/organisms';
 import { TextInput, Button, ErrorBox } from '../components/atoms';
 import { SignUpSuccess } from '../templates';
-import { useAuth } from '../utils/useAuth';
-import { useApi } from '../utils/useApi';
 
 export function SignUp(props) {
   const history = useHistory();
-  const api = useApi();
 
   //Form Fields
   const [formData, setFormData] = useState({
@@ -56,7 +51,6 @@ export function SignUp(props) {
         break;
     }
     setError(validErrors);
-    // console.log(validErrors);
   };
   //On changing text inside inputs
   const onChange = e => {
@@ -169,7 +163,6 @@ export function SignUp(props) {
   );
 }
 export function RegistrationComplete() {
-  const { user } = useAuth();
   return (
     <>
       <SignUpSuccess />

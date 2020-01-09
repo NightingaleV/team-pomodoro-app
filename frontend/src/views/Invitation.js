@@ -1,18 +1,13 @@
 //External imports
-import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
 import { TextInput, Button, ErrorBox } from '../components/atoms';
-import { SignUpSuccess } from '../templates';
 import { useAuth } from '../utils/useAuth';
-import { useApi } from '../utils/useApi';
-import { async } from 'rxjs/internal/scheduler/async';
 
 export function Invitation() {
-  const api = useApi();
-  const history = useHistory();
-  const { user, token } = useAuth();
+  const { token } = useAuth();
   let location = useLocation();
   const [message, setMessage] = useState('');
   const [group, setGroup] = useState({ name: '', userIDs: [] });

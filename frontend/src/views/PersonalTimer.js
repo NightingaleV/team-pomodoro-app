@@ -1,11 +1,7 @@
 // External imports
-import React, { Fragment } from 'react';
+import React from 'react';
 // Internal imports
-import {
-  TopNavigation,
-  PomodoroTimer,
-  PomodoroCycle,
-} from '../components/organisms';
+import { PomodoroTimer } from '../components/organisms';
 
 export function PersonalTimer({ children }) {
   return (

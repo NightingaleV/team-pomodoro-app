@@ -1,19 +1,13 @@
 // External imports
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import classNames from 'classnames';
 import axios from 'axios';
 // Internal imports
-import { TopNavigation } from '../components/organisms';
 import { TextInput, Button, ErrorBox, SuccessBox } from '../components/atoms';
-import { SignUpSuccess } from '../templates';
 import { useAuth } from '../utils/useAuth';
-import { useApi } from '../utils/useApi';
-import { useTimer } from '../components/providers/TimerProvider';
 
 export function UserSettings(props) {
-  const history = useHistory();
-  const { user, token, signin } = useAuth();
+  const { token, signin } = useAuth();
 
   //Form Fields
   const [formData, setFormData] = useState({
