@@ -1,12 +1,15 @@
 .singup-container {
   margin: auto;
   min-height: auto;
+  margin-top: 30px;
   margin-bottom: 50px;
+  max-width: 350px;
 }
 
 .singup-form {
-  width: 300px;
+  max-width: 300px;
   margin: auto;
+  margin-bottom: 25px;
 }
 
 .singup-container .card .card-content {

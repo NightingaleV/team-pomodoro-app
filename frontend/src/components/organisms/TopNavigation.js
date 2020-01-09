@@ -55,7 +55,7 @@ export function TopNavigationBase(props) {
       {user ? (
         <>
           <li>
-            <NavLink to="/settings" className={'truncate'}>
+            <NavLink to="/settings" className={('truncate', 'sidenav-close')}>
               <i className="material-icons left">account_circle</i>{' '}
               {user && user.username}
             </NavLink>
@@ -206,7 +206,7 @@ export function TopNavigationBase(props) {
                       src={user.avatar}
                       alt=""
                       className="circle responsive-img"
-                      width="50"
+                      width="40"
                     />
                     {user && user.username}
                   </NavLink>

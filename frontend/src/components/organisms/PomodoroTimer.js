@@ -195,18 +195,20 @@ export function PomodoroTimerBase(props) {
   // useEffect(() => {}, [timerState]);
 
   const PersonalTimerHtml = (
-    <div style={{ textAlign: 'center' }}>
-      <div className="circle-container">
-        <StepProgressBar
-          typeOfTimer={timer.settings.type}
-          indexInCycle={timer.indexInCycle}
-        />
-        <ProgressRing />
-        <div className="circle-countdown" style={{ fontSize: '65px' }}>
-          <span>{formatTime(timer.remTime)}</span>
-        </div>
-        <div className="circle-controls flexbox">
-          <TimerControls />
+    <div className="pomodoro-container">
+      <div className="card-panel">
+        <div className="circle-container">
+          <StepProgressBar
+            typeOfTimer={timer.settings.type}
+            indexInCycle={timer.indexInCycle}
+          />
+          <ProgressRing />
+          <div className="circle-countdown" style={{ fontSize: '65px' }}>
+            <span>{formatTime(timer.remTime)}</span>
+          </div>
+          <div className="circle-controls flexbox">
+            <TimerControls />
+          </div>
         </div>
       </div>
     </div>
