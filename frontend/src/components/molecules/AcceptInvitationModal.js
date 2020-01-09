@@ -7,9 +7,10 @@ import { Button, ErrorBox } from '../atoms';
 import { useAuth } from '../../utils/useAuth';
 import { useApi } from '../../utils/useApi';
 import M from 'materialize-css';
+import classNames from 'classnames';
 
 export function AcceptInvitationModal({ group, refetchGroup }) {
-  const { token } = useAuth();
+  const { user, token } = useAuth();
 
   // Component State
   //----------------------------------------------------------------------------
@@ -97,6 +98,41 @@ export function AcceptInvitationModal({ group, refetchGroup }) {
           </div>
         </div>
       </div>
+    </>
+  );
+}
+
+export function AcceptInvitationModalTrigger(props) {
+  const { user } = useAuth();
+  return (
+    <>
+      {user && (
+        <>
+          <Button
+            icon={'check'}
+            iconPosition={'left'}
+            href={'#acceptInvitationModal'}
+            className={classNames(
+              'hide-on-med-and-down',
+              'modal-trigger',
+              'group-action-button',
+            )}
+          >
+            <span className="btn-title">Accept invitation</span>
+          </Button>
+          <Button
+            icon={'person_add'}
+            shape={'circular'}
+            iconPosition={'left'}
+            href={'#acceptInvitationModal'}
+            className={classNames(
+              'hide-on-large-only',
+              'modal-trigger',
+              'group-action-button',
+            )}
+          />
+        </>
+      )}
     </>
   );
 }

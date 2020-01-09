@@ -1,10 +1,7 @@
 // External imports
-import React, { Fragment, useEffect, useState } from 'react';
-import { withRouter, Redirect } from 'react-router-dom';
-import axios from 'axios';
-import classNames from 'classnames';
+import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 // Internal imports
-import { Button } from '../atoms/Button';
 import { UserCard } from '../molecules/UserCard';
 import { useAuth } from '../../utils/useAuth';
 import {
@@ -12,12 +9,15 @@ import {
   LeaveGroupModal,
   RemoveUserModal,
   AcceptInvitationModal,
+  AcceptInvitationModalTrigger,
 } from '../molecules';
 import M from 'materialize-css';
+import { LeaveGroupModalTrigger } from '../molecules/LeaveGroupModal';
+import { AddMemberModalTrigger } from '../molecules/InviteUserModal';
 
 export function PomodoroGroupBase(props) {
   const { group } = props;
-  const { user, token } = useAuth();
+  const { user } = useAuth();
 
   // Is Signed User Admin?
   //----------------------------------------------------------------------------
@@ -40,112 +40,6 @@ export function PomodoroGroupBase(props) {
       }
     }
   }, [group]);
-
-  // Modal Buttons
-  //----------------------------------------------------------------------------
-  let addMemberModalTrigger = '';
-  if (currentUserIsAdmin) {
-    addMemberModalTrigger = (
-      <>
-        {user && (
-          <>
-            <Button
-              icon={'person_add'}
-              iconPosition={'left'}
-              href={'#addMemberModal'}
-              className={classNames(
-                'hide-on-med-and-down',
-                'modal-trigger',
-                'group-action-button',
-              )}
-            >
-              <span className="btn-title">Invite</span>
-            </Button>
-            <Button
-              icon={'person_add'}
-              shape={'circular'}
-              iconPosition={'left'}
-              href={'#addMemberModal'}
-              className={classNames(
-                'hide-on-large-only',
-                'modal-trigger',
-                'group-action-button',
-              )}
-            />
-          </>
-        )}
-      </>
-    );
-  }
-
-  const leaveGroupModalTrigger = (
-    <>
-      {user && (
-        <>
-          <Button
-            icon={'directions_run'}
-            color={'red lighten-1'}
-            iconPosition={'left'}
-            href={'#leaveGroupModal'}
-            className={classNames(
-              'hide-on-med-and-down',
-              'modal-trigger',
-              'group-action-button',
-            )}
-          >
-            <span className="btn-title">Leave</span>
-          </Button>
-          <Button
-            icon={'directions_run'}
-            color={'red lighten-1'}
-            shape={'circular'}
-            iconPosition={'right'}
-            href={'#leaveGroupModal'}
-            className={classNames(
-              'hide-on-large-only',
-              'modal-trigger',
-              'group-action-button',
-            )}
-          />
-        </>
-      )}
-    </>
-  );
-
-  let acceptInvitationModalTrigger = '';
-  if (currentUserIsGuest) {
-    acceptInvitationModalTrigger = (
-      <>
-        {user && (
-          <>
-            <Button
-              icon={'check'}
-              iconPosition={'left'}
-              href={'#acceptInvitationModal'}
-              className={classNames(
-                'hide-on-med-and-down',
-                'modal-trigger',
-                'group-action-button',
-              )}
-            >
-              <span className="btn-title">Accept invitation</span>
-            </Button>
-            <Button
-              icon={'person_add'}
-              shape={'circular'}
-              iconPosition={'left'}
-              href={'#acceptInvitationModal'}
-              className={classNames(
-                'hide-on-large-only',
-                'modal-trigger',
-                'group-action-button',
-              )}
-            />
-          </>
-        )}
-      </>
-    );
-  }
 
   // Modals Control
   //----------------------------------------------------------------------------
@@ -206,9 +100,9 @@ export function PomodoroGroupBase(props) {
             <h3 className="group-title truncate">{group.name}</h3>
 
             <div className="">
-              {addMemberModalTrigger}
-              {leaveGroupModalTrigger}
-              {acceptInvitationModalTrigger}
+              {currentUserIsAdmin && <AddMemberModalTrigger />}
+              <LeaveGroupModalTrigger />
+              {currentUserIsGuest && <AcceptInvitationModalTrigger />}
             </div>
           </div>
         </div>

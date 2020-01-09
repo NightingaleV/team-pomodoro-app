@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Button, ErrorBox } from '../atoms';
 import { useAuth } from '../../utils/useAuth';
 import M from 'materialize-css';
+import classNames from 'classnames';
 
 export function LeaveGroupModal({ group }) {
   const history = useHistory();
@@ -90,6 +91,43 @@ export function LeaveGroupModal({ group }) {
           </div>
         </div>
       </div>
+    </>
+  );
+}
+
+export function LeaveGroupModalTrigger(props) {
+  const { user } = useAuth();
+  return (
+    <>
+      {user && (
+        <>
+          <Button
+            icon={'directions_run'}
+            color={'red lighten-1'}
+            iconPosition={'left'}
+            href={'#leaveGroupModal'}
+            className={classNames(
+              'hide-on-med-and-down',
+              'modal-trigger',
+              'group-action-button',
+            )}
+          >
+            <span className="btn-title">Leave</span>
+          </Button>
+          <Button
+            icon={'directions_run'}
+            color={'red lighten-1'}
+            shape={'circular'}
+            iconPosition={'right'}
+            href={'#leaveGroupModal'}
+            className={classNames(
+              'hide-on-large-only',
+              'modal-trigger',
+              'group-action-button',
+            )}
+          />
+        </>
+      )}
     </>
   );
 }

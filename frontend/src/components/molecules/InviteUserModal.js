@@ -4,10 +4,9 @@ import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
 import { TextInput, Button, ErrorBox } from '../atoms';
-import { SignUpSuccess } from '../../templates';
 import { useAuth } from '../../utils/useAuth';
-import { useApi } from '../../utils/useApi';
 import M from 'materialize-css';
+import classNames from 'classnames';
 
 export function InviteUserModal(props) {
   const history = useHistory();
@@ -106,6 +105,41 @@ export function InviteUserModal(props) {
           </div>
         </div>
       </div>
+    </>
+  );
+}
+
+export function AddMemberModalTrigger(props) {
+  const { user } = useAuth();
+  return (
+    <>
+      {user && (
+        <>
+          <Button
+            icon={'person_add'}
+            iconPosition={'left'}
+            href={'#addMemberModal'}
+            className={classNames(
+              'hide-on-med-and-down',
+              'modal-trigger',
+              'group-action-button',
+            )}
+          >
+            <span className="btn-title">Invite</span>
+          </Button>
+          <Button
+            icon={'person_add'}
+            shape={'circular'}
+            iconPosition={'left'}
+            href={'#addMemberModal'}
+            className={classNames(
+              'hide-on-large-only',
+              'modal-trigger',
+              'group-action-button',
+            )}
+          />
+        </>
+      )}
     </>
   );
 }
