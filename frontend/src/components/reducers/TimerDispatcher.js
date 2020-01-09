@@ -1,12 +1,7 @@
 //----------------------------------------------------------------------------
 // Timer State Control functions
 //----------------------------------------------------------------------------
-import dotenv from 'dotenv';
 import axios from 'axios';
-const { parsed, error } = dotenv.config({
-  path: '../config/dev.env',
-  debug: false,
-});
 
 let axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_GLOBAL_URL || 'http://localhost:3000/',

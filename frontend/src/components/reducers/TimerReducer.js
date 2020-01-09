@@ -1,7 +1,6 @@
 import { convertMinToSec } from '../../utils/pomodoroUtils';
 import { TimerDispatcher } from './TimerDispatcher';
 import { updateProgressBar } from '../../utils/pomodoroUtils';
-import axios from 'axios';
 import notificationSound from '../../assets/sounds/bubble_pop2.mp3';
 
 const POMODORO_SETTINGS = {
