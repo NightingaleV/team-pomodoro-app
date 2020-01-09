@@ -1,8 +1,7 @@
 //External imports
-import mongoose from 'mongoose';
+
 //Internal imports
 import { Timer } from '../models/Timer';
-import { User } from '../models/User';
 
 // LOGIC
 //------------------------------------------------------------------------------
@@ -54,15 +53,6 @@ export async function createTimer(req, res) {
         if (err) {
           throw err;
         }
-      },
-    );
-
-    const user = User.findOneAndUpdate(
-      { _id: userID },
-      { timerID: timer._id },
-      { new: true },
-      (err, result) => {
-        // Rest of the action goes here
       },
     );
   } catch (err) {

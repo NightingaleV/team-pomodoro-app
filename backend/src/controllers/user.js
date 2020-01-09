@@ -4,8 +4,6 @@ import gravatar from 'gravatar';
 
 //Internal imports
 import { User } from '../models/User';
-import { async } from '../../../frontend/node_modules/rxjs/internal/scheduler/async';
-import jwt from 'jsonwebtoken';
 
 // LOGIC
 //------------------------------------------------------------------------------
