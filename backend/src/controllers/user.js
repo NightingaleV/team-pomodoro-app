@@ -5,6 +5,7 @@ import gravatar from 'gravatar';
 //Internal imports
 import { User } from '../models/User';
 import { async } from '../../../frontend/node_modules/rxjs/internal/scheduler/async';
+import jwt from 'jsonwebtoken';
 
 // LOGIC
 //------------------------------------------------------------------------------
@@ -28,6 +29,7 @@ export async function createUser(req, res) {
     user = new User({
       name,
       email,
+      username: email,
       avatar,
       password,
     });
@@ -49,6 +51,32 @@ export async function createUser(req, res) {
     return res.status(500).send('Server Error, Try it later');
   }
   console.log(req.body);
+}
+
+export async function changeSettings(req, res) {
+  try {
+    console.log(req.user);
+    const { username } = req.body;
+    let user = await User.findOne({ username: username });
+
+    if (user && user._id != req.user._id) {
+      return res.status(200).json({
+        error: 'There is already a person with that name.',
+      });
+    } else {
+      user = await User.findOneAndUpdate(
+        { _id: req.user.id },
+        { username: username },
+        { new: true },
+      ).select('-password');
+      await res.status(200).json({
+        user,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send('Server Error, Try it later');
+  }
 }
 
 export async function selectUserByName(req, res) {

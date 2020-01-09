@@ -56,7 +56,6 @@ export function UserCard(props) {
   }
 
   let status = '';
-
   if (timerIsRunning && timerType === 1) status = 'pomodoro';
   if (timerIsRunning && timerType === 2) status = 'sBreak';
   if (timerIsRunning && timerType === 3) status = 'lBreak';
@@ -70,6 +69,17 @@ export function UserCard(props) {
       ? ''.concat(updateProgressBar(timerRemTime, timerTotTime), '%')
       : '100%',
   };
+
+  // Email Tooltip
+  function initEmailTooltip() {
+    const userNameElement = document.querySelectorAll('.user-name');
+    const options = { position: 'top' };
+    M.Tooltip.init(userNameElement, options);
+  }
+
+  useEffect(() => {
+    initEmailTooltip();
+  }, []);
 
   const [memberIsGuest, setMemberIsGuest] = useState(true);
   useEffect(() => {
@@ -108,18 +118,15 @@ export function UserCard(props) {
       <div className="divider"></div>
       <div className="card-content">
         <div className="card-title activator grey-text text-darken-4">
-          {/* <p className="user-name truncate">{member.email}</p> */}
-          {/* { !userIsPublic ?  */}
-          {(!props.currentUserIsGuest && !memberIsGuest && !userIsPublic) ?           
-          <NavLink to={'/public/' + member._id}>
-            <p className="user-name truncate">{member.email}</p>
-          </NavLink> : <p className="user-name truncate">{member.email}</p>}
+          <p className="user-name truncate" data-tooltip={member.email}>
+            {member.username}
+          </p>
           <span className="more-icon">
             <i className="material-icons right">more_vert</i>
           </span>
         </div>
         {/* {!props.currentUserIsGuest && !memberIsGuest && ( */}
-          {((!props.currentUserIsGuest && !memberIsGuest) || userIsPublic) && (
+        {((!props.currentUserIsGuest && !memberIsGuest) || userIsPublic) && (
           <div className="member-info center-align">
             <div className="progress">
               <div

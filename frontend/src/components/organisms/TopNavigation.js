@@ -25,10 +25,16 @@ export function TopNavigationBase(props) {
     const options = { edge: 'right' };
     M.Sidenav.init(sideNavElement, options);
   }
+  function initEmailTooltip() {
+    const accountNameElement = document.querySelectorAll('.account-name');
+    const options = { position: 'top' };
+    M.Tooltip.init(accountNameElement, options);
+  }
 
   useEffect(() => {
     //initialize hamburger menu
     initBurgerMenu();
+    initEmailTooltip();
     timerAction.initTimer();
   }, []);
 
@@ -48,16 +54,16 @@ export function TopNavigationBase(props) {
       </li>
       {user ? (
         <>
-        <li>
-          <NavLink to={'/public/' + user._id}>
-            <p className="user-name truncate">Public page</p>
-          </NavLink>
-        </li>
           <li>
-            <a className="truncate">
+            <NavLink to={'/public/' + user._id}>
+              <p className="user-name truncate">Public page</p>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/settings" className={('truncate', 'sidenav-close')}>
               <i className="material-icons left">account_circle</i>{' '}
-              {user && user.email}
-            </a>
+              {user && user.username}
+            </NavLink>
           </li>
           <li>
             <a
@@ -201,16 +207,20 @@ export function TopNavigationBase(props) {
                   </NavLink>
                 </li>
                 <li className={'valign-wrapper'}>
-                  <a className="white-text btn-flat account-name">
+                  <NavLink
+                    to="/settings"
+                    className={'white-text btn-flat account-name'}
+                    data-position="bottom"
+                    data-tooltip={user.email}
+                  >
                     <img
                       src={user.avatar}
                       alt=""
                       className="circle responsive-img"
-                      width="50"
+                      width="40"
                     />
-                    {/*<i className="material-icons left">account_circle</i>{' '}*/}
-                    {user && user.email}
-                  </a>
+                    {user && user.username}
+                  </NavLink>
                 </li>
                 <li>
                   <a

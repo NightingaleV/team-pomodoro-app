@@ -21,12 +21,12 @@ nav .nav-wrapper .btn i.material-icons {
 .account-name {
   height: 100%;
   display: flex;
-  min-height: 65px;
+  min-height: 64px;
   justify-content: center;
   align-items: center;
   margin: 0 0 !important;
   padding: 0 15px;
-  img{
+  img {
     margin-right: 10px;
   }
 }
@@ -47,7 +47,6 @@ nav .nav-wrapper .btn i.material-icons {
 
 .timer-panel .timer-countdown {
   font-size: 19px;
-
   border-radius: 5px;
   padding: 5px 10px;
   min-width: 55px;
@@ -103,6 +102,12 @@ nav .nav-wrapper .btn-small i.material-icons {
 @media only screen and (min-device-width: 300px) and (max-device-width: 600px) {
   .mini-controls .timer-panel {
     margin-top: 0px;
+  }
+  .mini-controls {
+    margin-left: 10px;
+  }
+  .timer-panel .timer-countdown {
+    margin-right: 0px;
   }
 }
 @media only screen and (min-width: 995px) {

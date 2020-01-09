@@ -85,7 +85,7 @@ export function SignIn(props) {
 
   return (
     <>
-      <div className="login-container">
+      <div className="login-container card-panel white">
         <h3>Log in</h3>
         <div className="login-form">
           <form id={'authentication-form'} onSubmit={onSubmit}>

@@ -4,7 +4,10 @@
 @import '~materialize-css/sass/materialize';
 
 .group-title-wrapper {
-  margin: 0px 20px 0 20px;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 25px;
+  max-width: 600px;
   .group-title-bar {
     display: flex;
     align-items: center;
@@ -13,7 +16,7 @@
     flex-flow: wrap;
     align-content: center;
     .group-title {
-      margin: 1.168rem 0 1.168rem 0;
+      margin: 8px 8px;
       font-size: 2.25rem;
       @include for-size(sm) {
         font-size: 1.7rem;
@@ -25,8 +28,16 @@
   }
 }
 
+.group .card-panel {
+  padding: 5px;
+}
+
 .group-container {
   margin-top: 10px;
+}
+
+.card-content .member-info {
+  margin-top: 8px;
 }
 
 .members {
@@ -54,7 +65,7 @@
 }
 
 .card .card-content {
-  height: 110px;
+  max-height: 110px;
   padding: 20px;
 }
 
@@ -76,6 +87,10 @@
 .card-content .notification {
   right: 24px;
   bottom: 91px;
+}
+
+.card .card-content .card-title {
+  margin-bottom: 0px;
 }
 
 .progress {
