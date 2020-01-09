@@ -46,15 +46,12 @@ export function Invitation() {
       await axios
         .get('/api/group/' + getGroupIdentifier(), requestConfig)
         .then(res => {
-          console.log('Fetched Group Data: ', res.data.group);
           setGroup(res.data.group);
         })
         .catch(err => {
           if (err.response.status === 403 || err.response.status === 401) {
-            console.log('You are prohibited to invite users into the group');
             setAuthError('You are prohibited to invite users into the group');
           }
-          console.error(err);
         });
     } catch {}
   }
@@ -73,8 +70,6 @@ export function Invitation() {
     await axios
       .post('/api/group/addMember', body, config)
       .then(res => {
-        console.log('Valid statement');
-        console.log(res.data.group);
         if (res.data.group) {
           setMessage(
             'User ' +
@@ -86,12 +81,8 @@ export function Invitation() {
       })
       .catch(err => {
         if (err.response.status === 404) {
-          console.log('Unable to find user ' + formData.email);
           setError('Unable to find user ' + formData.email);
         } else if (err.response.status === 403) {
-          console.log(
-            'User ' + formData.email + ' is already a member of this group',
-          );
           setError(
             'User ' + formData.email + ' is already a member of this group',
           );

@@ -41,7 +41,6 @@ export function GroupDetailBase(props) {
     }
 
     return () => {
-      console.log('CleanUp: GroupDetail');
       clearInterval(subscriptionToGroup);
     };
   }, [location.pathname, dispatchGroupLoading, user]);
@@ -54,14 +53,11 @@ export function GroupDetailBase(props) {
         .get('/api/group/' + getGroupIdentifier(), requestConfig)
         .then(res => {
           setGroup(res.data.group);
-          console.log('Group', res.data.group);
         })
         .catch(err => {
           if (err.response.status === 403 || err.response.status === 401) {
-            console.log('You are prohibited to view the group');
             setError('You are prohibited to view the group');
           }
-          console.error(err);
         });
     } catch {}
   }

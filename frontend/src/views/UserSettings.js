@@ -41,24 +41,17 @@ export function UserSettings(props) {
         },
         timeout: 5000,
       };
-      console.log(token);
       await axios
         .post('api/user/settings', body, config)
         .then(res => {
           if (!res.data.error) {
             const { user } = res.data;
-            console.log(user);
             // history.replace('/');
             signin({ token, user });
             setSuccess(true);
           } else setError({ backend: { msg: res.data.error } });
         })
-        .catch(err => {
-          console.log('Error Statement');
-          console.log(err);
-
-          //If TimeOut
-        });
+        .catch(err => {});
     }
   };
 

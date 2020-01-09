@@ -53,7 +53,6 @@ export async function selectUserGroups(req, res) {
     });
     await res.json(group);
   } catch (err) {
-    console.log(err);
     return res.status(505).send('Server Error');
   }
 }
@@ -92,11 +91,8 @@ export async function createGroup(req, res) {
       },
     );
   } catch (err) {
-    console.log(err);
     return res.status(500).send('Server Error, Try it later');
   }
-
-  console.log(req.body);
 }
 
 export async function addMember(req, res) {
@@ -143,7 +139,6 @@ export async function addMember(req, res) {
         .json({ errors: [{ msg: 'No user was found using this email' }] });
     }
   } catch (err) {
-    console.log(err);
     res.status(500).json({ errors: [{ msg: 'Server Error, Try it later' }] });
   }
 }
@@ -163,7 +158,6 @@ export async function leaveGroup(req, res) {
       await res.status(200).json({ status: 'success' });
     }
   } catch (err) {
-    console.log(err);
     res.status(500).json({ errors: [{ msg: 'Server Error, Try it later' }] });
   }
 }
@@ -205,7 +199,6 @@ export async function removeMember(req, res) {
       });
     }
   } catch (err) {
-    console.log(err);
     res.status(500).json({ errors: [{ msg: 'Server Error, Try it later' }] });
   }
 }
@@ -220,7 +213,6 @@ export async function acceptInvitation(req, res) {
       await res.status(200).json(group);
     }
   } catch (err) {
-    console.log(err);
     res.status(500).json({ errors: [{ msg: 'Server Error, Try it later' }] });
   }
 }

@@ -32,7 +32,6 @@ export function MobileMenuSidebarBase(props) {
                 signout();
                 props.history.push('/');
                 e.preventDefault();
-                console.log('click');
               }}
             >
               <i className={classNames('material-icons left')}>exit_to_app</i>

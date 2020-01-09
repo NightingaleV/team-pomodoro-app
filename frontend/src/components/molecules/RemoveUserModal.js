@@ -46,13 +46,7 @@ export function RemoveUserModal({ group, member, refetchGroup }) {
         refetchGroup();
         closeModal();
       })
-      .catch(err => {
-        console.log('Error Statement');
-        if (err.response.data) {
-          console.log('Error Statement');
-          console.log(err);
-        }
-      });
+      .catch(err => {});
   };
 
   // Modal Content

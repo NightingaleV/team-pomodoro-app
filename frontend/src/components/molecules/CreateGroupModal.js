@@ -50,8 +50,6 @@ export function CreateGroupModal() {
     await axios
       .post('/api/group/new', body, config)
       .then(res => {
-        console.log('Valid Statement');
-        console.log(res.data.group);
         if (res.data.group) {
           history.push({
             pathname: '/group/' + res.data.group._id,
@@ -60,10 +58,8 @@ export function CreateGroupModal() {
         }
       })
       .catch(err => {
-        console.log('Error Statement');
         if (err.response.data) {
           setError({ ...errors, backend: err.response.data.errors });
-          console.log(err.response.data.errors);
         }
       });
   };

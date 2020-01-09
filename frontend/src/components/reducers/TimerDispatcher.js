@@ -20,9 +20,7 @@ export function TimerDispatcher(token) {
     if (token) {
       const timerDataRes = await axiosInstance
         .get('/api/timer', requestConfig)
-        .catch(err => {
-          console.log(err);
-        });
+        .catch(err => {});
       if (timerDataRes) {
         return timerDataRes.data;
       } else {
@@ -67,9 +65,7 @@ export function TimerDispatcher(token) {
         const body = JSON.stringify(timerToUpdate);
         await axiosInstance
           .post('api/timer/update', body, requestConfig)
-          .then(res => {
-            console.log('From DB', res.data);
-          });
+          .then(res => {});
       }
     }
   }

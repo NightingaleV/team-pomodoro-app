@@ -59,10 +59,7 @@ export function SignUp(props) {
     e.preventDefault();
 
     if (errors.email || errors.password || errors.password2) {
-      console.log('Not Valid');
-      console.log(errors);
     } else {
-      console.log('Valid');
       const newUser = {
         name: formData.name,
         email: formData.email,
@@ -78,8 +75,6 @@ export function SignUp(props) {
       await axios
         .post('api/user/register', body, config)
         .then(res => {
-          console.log('Valid Statement');
-          console.log(res.data.user);
           if (res.data.user) {
             history.push({
               pathname: '/register/success',
@@ -88,7 +83,6 @@ export function SignUp(props) {
           }
         })
         .catch(err => {
-          console.log('Error Statement');
           if (err.response.data) {
             setError({ ...errors, backend: err.response.data.errors });
           }

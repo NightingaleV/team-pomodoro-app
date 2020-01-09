@@ -57,7 +57,6 @@ export function TimerReducer(timerContextData) {
     if (token) {
       const timerDataPromise = fetchTimerData();
       await timerDataPromise.then(timerData => {
-        console.log(timerData);
         if (timerData) {
           const { remTime, isRunning, settings, _id, indexInCycle } = timerData;
           setTimerState(prevState => {
@@ -81,7 +80,6 @@ export function TimerReducer(timerContextData) {
           newTimerData.then(timerData => {
             // Set the new timer
             setWork();
-            console.log(timerData);
             // Set the timer ID
             if (timerData) {
               setTimerState(prevState => {

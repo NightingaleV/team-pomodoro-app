@@ -41,7 +41,6 @@ export function InviteUserModal(props) {
       email: formData.email,
       groupID: formData.groupID,
     };
-    console.log(formDataRequest);
 
     const config = {
       headers: {
@@ -54,9 +53,7 @@ export function InviteUserModal(props) {
     await axios
       .post('/api/group/addmember', body, config)
       .then(res => {
-        console.log('Valid Statement');
         closeModalAfterSubmit();
-        console.log(res.data);
         //Show a new user in group
         props.refetchGroup();
         history.push({
@@ -64,10 +61,8 @@ export function InviteUserModal(props) {
         });
       })
       .catch(err => {
-        console.log('Error Statement');
         if (err.response.data) {
           setError({ ...errors, backend: err.response.data.errors });
-          console.log(err.response.data.errors);
         }
       });
   };

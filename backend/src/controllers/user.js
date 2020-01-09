@@ -47,10 +47,8 @@ export async function createUser(req, res) {
       },
     );
   } catch (err) {
-    console.log(err);
     return res.status(500).send('Server Error, Try it later');
   }
-  console.log(req.body);
 }
 
 export async function signInUser(req, res) {
@@ -95,15 +93,12 @@ export async function signInUser(req, res) {
       user,
     });
   } catch (err) {
-    console.log(err);
     return res.status(500).send('Server Error, Try it later');
   }
-  console.log(req.body);
 }
 
 export async function changeSettings(req, res) {
   try {
-    console.log(req.user);
     const { username } = req.body;
     let user = await User.findOne({ username: username });
 
@@ -122,7 +117,6 @@ export async function changeSettings(req, res) {
       });
     }
   } catch (err) {
-    console.log(err);
     return res.status(500).send('Server Error, Try it later');
   }
 }
@@ -138,7 +132,6 @@ export async function selectUserByName(req, res) {
       return res.status(403).send('No user was found using this email');
     }
   } catch (err) {
-    console.log(err);
     return res.status(500).send('Server Error, Try it later');
   }
 }
@@ -149,7 +142,6 @@ export async function addTimer(req, res) {
     await User.updateOne({ email: email }, { $push: { timerIDs: timerID } });
     await res.json({ msg: 'Timer added to the user' });
   } catch (err) {
-    console.log(err);
     return res.status(500).send('Server Error, Try it later');
   }
 }
@@ -160,7 +152,6 @@ export async function addGroup(req, res) {
     await User.updateOne({ email: email }, { $push: { groupIDs: groupID } });
     await res.json({ msg: 'Group added to the users groups' });
   } catch (err) {
-    console.log(err);
     return res.status(500).send('Server Error, Try it later');
   }
 }

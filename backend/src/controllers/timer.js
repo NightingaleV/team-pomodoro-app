@@ -13,7 +13,6 @@ export async function selectLastTimer(req, res) {
     });
     await res.json(lastActiveTimer);
   } catch (err) {
-    console.log(err);
     return res.status(500).send('Server Error');
   }
 }
@@ -46,11 +45,8 @@ export async function createTimer(req, res) {
       },
     );
   } catch (err) {
-    console.log(err);
     return res.status(500).send('Server Error, Try it later');
   }
-
-  console.log(req.body);
 }
 
 export async function updateTimer(req, res) {
@@ -69,7 +65,6 @@ export async function updateTimer(req, res) {
     });
     await res.json({ timer });
   } catch (err) {
-    console.log(err);
     return res.status(500).send('Server Error, Try it later');
   }
 }

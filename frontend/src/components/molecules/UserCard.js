@@ -80,7 +80,11 @@ export function UserCard(props) {
   return (
     <div className="card hoverable">
       <div className="card-image waves-effect waves-block waves-light">
-        <img className="activator" src={member.avatar || profileImage} />
+        <img
+          className="activator"
+          src={member.avatar || profileImage}
+          alt={member.username}
+        />
       </div>
       <div className="divider"></div>
       <div className="card-content">

@@ -43,16 +43,11 @@ export function AcceptInvitationModal({ group, refetchGroup }) {
     await axios
       .post('/api/group/acceptInvitation', body, config)
       .then(res => {
-        console.log('Valid Statement');
-        console.log(res.data);
         //Show a new user in group
         refetchGroup();
         closeModal();
       })
-      .catch(err => {
-        console.log('Error Statement');
-        console.log(err);
-      });
+      .catch(err => {});
   };
 
   // Modal Content
