@@ -1,5 +1,5 @@
 # Env Files
-*.env
+# *.env
 # DS_Store Files
 *.DS_Store
 
