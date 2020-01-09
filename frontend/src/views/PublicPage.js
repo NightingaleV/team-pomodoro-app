@@ -116,7 +116,10 @@ export function PublicPageBase(props) {
                   </button>
                   <div className="copy-alert">{copySuccess}</div>
                   <div class="file-path-wrapper">
-                    <textarea class="materialize-textarea" ref={textAreaRef}>
+                    <textarea
+                      class="materialize-textarea truncate"
+                      ref={textAreaRef}
+                    >
                       {window.location.href}
                     </textarea>
                   </div>
