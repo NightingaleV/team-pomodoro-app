@@ -146,6 +146,14 @@ export function TimerReducer(timerContextData) {
     });
   }
 
+  function setTimerID(newId) {
+    setTimerState(prevState => {
+      return {
+        ...prevState,
+        timerID: newId,
+      };
+    });
+  }
   function setTimerSettingsState(newSettings) {
     setTimerState(prevState => {
       const newState = {
@@ -233,6 +241,7 @@ export function TimerReducer(timerContextData) {
     setWork,
     setShortBreak,
     setLongBreak,
+    setTimerID,
   };
 }
 

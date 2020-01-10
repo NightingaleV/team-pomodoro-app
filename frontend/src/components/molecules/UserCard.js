@@ -66,7 +66,9 @@ export function UserCard(props) {
   let styles;
   styles = {
     width: timerType
-      ? ''.concat(updateProgressBar(timerRemTime, timerTotTime), '%')
+      ? !timerIsRunning
+        ? '100%'
+        : ''.concat(updateProgressBar(timerRemTime, timerTotTime), '%')
       : '100%',
   };
 

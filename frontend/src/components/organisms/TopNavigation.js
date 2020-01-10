@@ -43,6 +43,8 @@ export function TopNavigationBase(props) {
     if (!token) {
       timerAction.setWork();
     }
+    if (token) {
+    }
   }, [token]);
 
   const mobileLeftSidebar = (
@@ -68,6 +70,7 @@ export function TopNavigationBase(props) {
                 signout();
                 props.history.push('/');
                 e.preventDefault();
+                timerAction.setTimerID('');
                 console.log('click');
               }}
             >
@@ -219,6 +222,7 @@ export function TopNavigationBase(props) {
                       e.preventDefault();
                       // Turn off timer before logout
                       timerAction.pauseTimer();
+                      timerAction.setTimerID('');
                       signout();
                       props.history.push('/');
                     }}
