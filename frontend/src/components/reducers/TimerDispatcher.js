@@ -24,7 +24,6 @@ export function TimerDispatcher(token) {
       if (timerDataRes) {
         return timerDataRes.data;
       } else {
-        // sendNewTimerData(timerState);
         return null;
       }
     }
