@@ -54,32 +54,42 @@ export function UserAnalytics(props) {
   ];
   return (
     <>
-      <div className="container statistics-container">
-        <h3>Analytics</h3>
-        <div className="statistics-content">
-          <table className="highlight">
-            <thead>
-              <tr>
-                <th>Day</th>
-                <th>Name of the Day</th>
-                <th>Pomodoro Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              {analytics.map((day, index) => {
-                const date = new Date(
-                  ''.concat(day._id.day, '/', day._id.month, '/', day._id.year),
-                );
-                return (
-                  <tr>
-                    <td>{date.toLocaleDateString()}</td>
-                    <td>{dayNames[date.getDay()]}</td>
-                    <td>{formatTimeToStringText(day.total)}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+      <div className="container statistics-container ">
+        <div className="card-panel">
+          <h3>Analytics</h3>
+          <div className="statistics-content">
+            <table className="highlight">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Week</th>
+                  <th>Name of the Day</th>
+                  <th>Pomodoro Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {analytics.map((day, index) => {
+                  const date = new Date(
+                    ''.concat(
+                      day._id.day,
+                      '/',
+                      day._id.month,
+                      '/',
+                      day._id.year,
+                    ),
+                  );
+                  return (
+                    <tr>
+                      <td>{date.toLocaleDateString()}</td>
+                      <td>{day._id.week}</td>
+                      <td>{dayNames[date.getDay()]}</td>
+                      <td>{formatTimeToStringText(day.total)}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </>

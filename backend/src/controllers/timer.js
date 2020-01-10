@@ -144,6 +144,7 @@ export async function getTimerLog(req, res) {
           _id: {
             day: { $dayOfYear: '$createdAt' },
             month: { $month: '$createdAt' },
+            week: { $week: '$createdAt' },
             year: { $year: '$createdAt' },
           },
           total: { $sum: '$length' },
