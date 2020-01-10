@@ -201,11 +201,10 @@ export function PomodoroGroupBase(props) {
   return (
     <>
       <div className="group">
-        <div className="row group-title-wrapper">
+        <div className="row group-title-wrapper card-panel">
           <div className="group-title-bar">
-            <div className="">
-              <h3 className="group-title">{group.name}</h3>
-            </div>
+            <h3 className="group-title truncate">{group.name}</h3>
+
             <div className="">
               {addMemberModalTrigger}
               {leaveGroupModalTrigger}

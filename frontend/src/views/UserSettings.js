@@ -71,8 +71,8 @@ export function UserSettings(props) {
 
   return (
     <>
-      <div className="container center-align">
-        <h3>Change Settings</h3>
+      <div className="login-container center-align card-panel">
+        <h3>Profile Settings</h3>
         <div className="login-form">
           <>{success && <SuccessBox msg="You setting has been changed" />}</>
           <form id={'settings-form'} onSubmit={onSubmit}>

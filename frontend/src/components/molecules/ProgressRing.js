@@ -34,7 +34,7 @@ export function ProgressRing(props) {
   if (typeOfTimer === 3) color = '#5c6bc0';
 
   return (
-    <Fragment>
+    <>
       <svg height={RADIUS * 2} width={RADIUS * 2}>
         <circle
           stroke="#E8E8E8"
@@ -56,6 +56,6 @@ export function ProgressRing(props) {
           cy={RADIUS}
         ></circle>
       </svg>
-    </Fragment>
+    </>
   );
 }
