@@ -1,18 +1,13 @@
 // External imports
-import React, { Fragment, useState } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
-import classNames from 'classnames';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
-import { TopNavigation } from '../components/organisms';
 import { TextInput, Button, ErrorBox } from '../components/atoms';
 import { SignUpSuccess } from '../templates';
-import { useAuth } from '../utils/useAuth';
-import { useApi } from '../utils/useApi';
 
 export function SignUp(props) {
   const history = useHistory();
-  const api = useApi();
 
   //Form Fields
   const [formData, setFormData] = useState({
@@ -32,12 +27,10 @@ export function SignUp(props) {
 
   const validate = event => {
     let validErrors = errors;
-    let valid = true;
     const { name, value } = event.target;
     switch (name) {
       case 'email':
         validErrors.email = '';
-        valid = false;
         break;
       case 'password':
         validErrors.password =
@@ -45,18 +38,15 @@ export function SignUp(props) {
           (formData.password2 && value !== formData.password2
             ? 'The passwords do not match.'
             : '');
-        valid = false;
         break;
       case 'password2':
         validErrors.password2 =
           value !== formData.password ? 'The passwords do not match.' : '';
         break;
-        valid = false;
       default:
         break;
     }
     setError(validErrors);
-    // console.log(validErrors);
   };
   //On changing text inside inputs
   const onChange = e => {
@@ -69,10 +59,7 @@ export function SignUp(props) {
     e.preventDefault();
 
     if (errors.email || errors.password || errors.password2) {
-      console.log('Not Valid');
-      console.log(errors);
     } else {
-      console.log('Valid');
       const newUser = {
         name: formData.name,
         email: formData.email,
@@ -88,8 +75,6 @@ export function SignUp(props) {
       await axios
         .post('api/user/register', body, config)
         .then(res => {
-          console.log('Valid Statement');
-          console.log(res.data.user);
           if (res.data.user) {
             history.push({
               pathname: '/register/success',
@@ -98,15 +83,8 @@ export function SignUp(props) {
           }
         })
         .catch(err => {
-          console.log('Error Statement');
           if (err.response.data) {
             setError({ ...errors, backend: err.response.data.errors });
-            console.log(err.response.data.errors);
-            if (err.response.data.errors) {
-              err.response.data.errors.map(error => {
-                console.log(error);
-              });
-            }
           }
         });
     }
@@ -114,7 +92,7 @@ export function SignUp(props) {
 
   return (
     <>
-      <div className={'singup-container'}>
+      <div className="singup-container card-panel">
         <h3>Sign up</h3>
         <div className={'singup-form'}>
           <form id={'registration-form'} onSubmit={onSubmit}>
@@ -169,7 +147,6 @@ export function SignUp(props) {
   );
 }
 export function RegistrationComplete() {
-  const { user } = useAuth();
   return (
     <>
       <SignUpSuccess />

@@ -1,18 +1,15 @@
 //External import
-import React, { Fragment, useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
 import { TextInput, Button, ErrorBox } from '../atoms';
-import { SignUpSuccess } from '../../templates';
 import { useAuth } from '../../utils/useAuth';
-import { useApi } from '../../utils/useApi';
 import M from 'materialize-css';
 
 export function CreateGroupModal() {
   const history = useHistory();
-  const api = useApi();
-  const { user, token } = useAuth();
+  const { token } = useAuth();
 
   // Component State
   //----------------------------------------------------------------------------
@@ -53,8 +50,6 @@ export function CreateGroupModal() {
     await axios
       .post('/api/group/new', body, config)
       .then(res => {
-        console.log('Valid Statement');
-        console.log(res.data.group);
         if (res.data.group) {
           history.push({
             pathname: '/group/' + res.data.group._id,
@@ -63,10 +58,8 @@ export function CreateGroupModal() {
         }
       })
       .catch(err => {
-        console.log('Error Statement');
         if (err.response.data) {
           setError({ ...errors, backend: err.response.data.errors });
-          console.log(err.response.data.errors);
         }
       });
   };

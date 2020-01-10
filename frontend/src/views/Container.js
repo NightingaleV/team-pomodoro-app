@@ -1,5 +1,5 @@
 // External imports
-import React, { Fragment } from 'react';
+import React from 'react';
 // Internal imports
 import {
   TopNavigation,
@@ -11,7 +11,7 @@ import { useAuth } from '../utils/useAuth';
 import { FloatingButton } from '../components/atoms';
 
 export function Container(props) {
-  const { user, token } = useAuth();
+  const { user } = useAuth();
   const layoutWhenLogedIn = (
     <>
       <header className={'header'}>

@@ -3,16 +3,14 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 // Internal imports
 import {
-  LandingPage,
   PersonalTimer,
   SignIn,
   SignUp,
+  UserSettings,
   RegistrationComplete,
   GroupDetail,
-  CreateGroupModal,
   Invitation,
 } from './views';
-import { ProtectedRoute } from './components/ProtectedRoutes';
 
 export function Routes() {
   return (
@@ -20,11 +18,7 @@ export function Routes() {
       <Route exact path="/" render={() => <Redirect to="/timer" />} />
       <Route exact path="/timer" component={PersonalTimer} />
       <Route path="/login" component={SignIn} />
-      {/*<ProtectedRoute*/}
-      {/*  exact*/}
-      {/*  path="/protected"*/}
-      {/*  component={RegistrationComplete}*/}
-      {/*/>*/}
+      <Route exact path="/settings" component={UserSettings} />
       <Route exact path="/register" component={SignUp} />
       <Route exact path="/register/success" component={RegistrationComplete} />
       <Route path="/group/invitation" component={Invitation} />

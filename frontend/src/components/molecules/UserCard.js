@@ -1,34 +1,32 @@
-import React, { Fragment, useState, useEffect } from 'react';
+//External imports
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
-import { RemoveUserModal } from './RemoveUserModal';
-import axios from 'axios';
-import { useAuth } from '../../utils/useAuth';
-import { useLocation } from 'react-router-dom';
 import M from 'materialize-css';
+//Internal imports
 import { Button } from '../atoms/Button';
 import { updateProgressBar } from '../../utils/pomodoroUtils';
-
 import profileImage from '../../assets/images/profile-pic-placeholder.png';
-import timerIcon from '../../assets/icon/timer_white_192x192.png';
 
 export function UserCard(props) {
-  const { user, token } = useAuth();
-  const [group, setGroup] = useState({ name: '', userIDs: [] });
-  const [error, setError] = useState('');
-  let location = useLocation();
-  const [modalId, setModalId] = useState('');
-
   const statusObject = {
     offline: { label: 'OFFLINE', color: 'grey' },
     idle: { label: 'IDLE', color: 'brown lighten-2' },
-    pomodoro: { label: 'POMODORO', color: 'amber' },
-    sBreak: { label: 'SHORT BREAK', color: 'green' },
-    lBreak: { label: 'LONG BREAK', color: 'indigo' },
+    pomodoro: {
+      label: 'POMODORO',
+      color: 'amber stripes animated reverse slower',
+    },
+    sBreak: {
+      label: 'SHORT BREAK',
+      color: 'green stripes animated reverse slower',
+    },
+    lBreak: {
+      label: 'LONG BREAK',
+      color: 'indigo stripes animated reverse slower',
+    },
   };
   const { member } = props;
   let timerIsRunning,
     timerType,
-    timerName,
     timerRemTime,
     timerUpdated,
     timeDifference,
@@ -37,7 +35,6 @@ export function UserCard(props) {
   if (member.timerID) {
     timerIsRunning = member.timerID.isRunning;
     timerType = member.timerID.settings.type;
-    timerName = member.timerID.settings.name;
     timerRemTime = member.timerID.remTime;
     timerTotTime = member.timerID.settings.totTime;
     timerUpdated = new Date(member.timerID.updatedAt);
@@ -46,7 +43,6 @@ export function UserCard(props) {
   }
 
   let status = '';
-
   if (timerIsRunning && timerType === 1) status = 'pomodoro';
   if (timerIsRunning && timerType === 2) status = 'sBreak';
   if (timerIsRunning && timerType === 3) status = 'lBreak';
@@ -61,6 +57,17 @@ export function UserCard(props) {
       : '100%',
   };
 
+  // Email Tooltip
+  function initEmailTooltip() {
+    const userNameElement = document.querySelectorAll('.user-name');
+    const options = { position: 'top' };
+    M.Tooltip.init(userNameElement, options);
+  }
+
+  useEffect(() => {
+    initEmailTooltip();
+  }, []);
+
   const [memberIsGuest, setMemberIsGuest] = useState(true);
   useEffect(() => {
     if (props.group) {
@@ -70,83 +77,31 @@ export function UserCard(props) {
     }
   }, [props.group]);
 
-  const [memberIsUser, setMemberIsUser] = useState(false);
-  useEffect(() => {
-    if (user) {
-      if (user._id == member._id) {
-        setMemberIsUser(true);
-        // console.log('memberIsUser:' + memberIsUser);
-      }
-    }
-  }, [user]);
-
-  // useEffect(() => {
-  //   fetchGroupByUrlId();
-  // }, []);
-
-  // function getGroupIdentifier(props) {
-  //   const url = location.pathname;
-  //   const urlList = url.split('/');
-  //   const groupID = urlList[urlList.length - 1];
-  //   return groupID;
-  // }
-
-  // const requestConfig = {
-  //   headers: {
-  //     'x-auth-token': token,
-  //     'Content-Type': 'application/json',
-  //   },
-  // };
-
-  // async function fetchGroupByUrlId() {
-  //   try {
-  //     await axios
-  //       .get('/api/group/' + getGroupIdentifier(), requestConfig)
-  //       .then(res => {
-  //         // console.log('Fetched Group Data: ', res.data.group);
-  //         setGroup(res.data.group);
-  //       })
-  //       .catch(err => {
-  //         if (err.response.status == 403 || err.response.status == 401) {
-  //           console.log('You are prohibited to view the group');
-  //           setError('You are prohibited to view the group');
-  //         }
-  //         console.error(err);
-  //       });
-  //   } catch {}
-  // }
-
-  // const onClick = async e => {
-  //   // console.log('Member: ' + member.email);
-  //   // fetchGroupByUrlId();
-  //   console.log(member);
-  // };
-
   return (
     <div className="card hoverable">
       <div className="card-image waves-effect waves-block waves-light">
-        <img className="activator" src={profileImage} alt="Profile Picture" />
+        <img
+          className="activator"
+          src={member.avatar || profileImage}
+          alt={member.username}
+        />
       </div>
       <div className="divider"></div>
       <div className="card-content">
-        {/* <a className="btn-floating small halfway-fab waves-effect waves-light grey lighten-1 notification">
-          <i className="material-icons">notifications_none</i>
-        </a> */}
         <div className="card-title activator grey-text text-darken-4">
-          <p className="user-name truncate">{member.email}</p>
+          <p className="user-name truncate" data-tooltip={member.email}>
+            {member.username}
+          </p>
           <span className="more-icon">
             <i className="material-icons right">more_vert</i>
           </span>
         </div>
-        {/* Here hide if guest? */}
-        {/* {!props.currentUserIsGuest || (props.currentUserIsGuest && memberIsUser) || memberIsGuest && ( */}
-        {/* {(!props.currentUserIsGuest && !memberIsGuest) || (memberIsGuest && memberIsUser) && ( */}
         {!props.currentUserIsGuest && !memberIsGuest && (
           <div className="member-info center-align">
             <div className="progress">
               <div
                 className={classNames(
-                  'progress-bar',
+                  'progress-bar progress-bar',
                   statusObject[status].color,
                 )}
                 style={styles}

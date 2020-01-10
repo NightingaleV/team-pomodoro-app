@@ -1,12 +1,10 @@
 //----------------------------------------------------------------------------
 // Timer State Control functions
 //----------------------------------------------------------------------------
-
 import axios from 'axios';
+
 let axiosInstance = axios.create({
-  baseURL:
-    process.env.REACT_APP_GLOBAL_URL ||
-    'http://frontend.team02.vse.handson.pro/',
+  baseURL: process.env.REACT_APP_GLOBAL_URL || 'http://localhost:3000/',
 });
 
 export function TimerDispatcher(token) {
@@ -22,9 +20,7 @@ export function TimerDispatcher(token) {
     if (token) {
       const timerDataRes = await axiosInstance
         .get('/api/timer', requestConfig)
-        .catch(err => {
-          console.log(err);
-        });
+        .catch(err => {});
       if (timerDataRes) {
         return timerDataRes.data;
       } else {
@@ -69,9 +65,7 @@ export function TimerDispatcher(token) {
         const body = JSON.stringify(timerToUpdate);
         await axiosInstance
           .post('api/timer/update', body, requestConfig)
-          .then(res => {
-            console.log('From DB', res.data);
-          });
+          .then(res => {});
       }
     }
   }

@@ -17,7 +17,7 @@
   - NoSQL Database
 - [Postman](https://www.getpostman.com/)
   - API Development
-  - Tool for creating requests
+  - Tool for API Development
 
 ## Setup Environment
 
@@ -41,25 +41,20 @@ cd frontend
 yarn install
 ```
 
-### Secrets
-
-- Create your env file, Inside **root folder run**
-  - `echo PORT=5000 > config/dev.env`
-  - Will contain the db credentials etc
-
 ### Environment Controls
 
-Inside root folder
+**Inside root folder**
 
-- `npm run prettier`
+- `yarn prettier`
   - Reformat code inside the repository
   - **Make sure to run before you commit or use plugin inside you IDE**
-- `npm run backend`
+- `yarn app`
+  - Runs both simultaneously - **Recommended**
+- `yarn backend`
   - Runs Express.js server
-- `npm run frontend`
+- `yarn frontend`
   - Runs React app
-- `npm run app`
-  - Runs both simultaneously - Recommended
+
 
 ## GIT Flow
 

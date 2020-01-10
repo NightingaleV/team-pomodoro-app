@@ -1,7 +1,6 @@
 import { convertMinToSec } from '../../utils/pomodoroUtils';
 import { TimerDispatcher } from './TimerDispatcher';
 import { updateProgressBar } from '../../utils/pomodoroUtils';
-import axios from 'axios';
 import notificationSound from '../../assets/sounds/bubble_pop2.mp3';
 
 const POMODORO_SETTINGS = {
@@ -58,7 +57,6 @@ export function TimerReducer(timerContextData) {
     if (token) {
       const timerDataPromise = fetchTimerData();
       await timerDataPromise.then(timerData => {
-        console.log(timerData);
         if (timerData) {
           const { remTime, isRunning, settings, _id, indexInCycle } = timerData;
           setTimerState(prevState => {
@@ -82,7 +80,6 @@ export function TimerReducer(timerContextData) {
           newTimerData.then(timerData => {
             // Set the new timer
             setWork();
-            console.log(timerData);
             // Set the timer ID
             if (timerData) {
               setTimerState(prevState => {
@@ -116,7 +113,7 @@ export function TimerReducer(timerContextData) {
       if (prevState.remTime - 1 <= 0) {
         const audio = new Audio(notificationSound);
         //run every 5 minutes
-        if ((prevState.remTime - 1) % convertMinToSec(5) == 0) {
+        if ((prevState.remTime - 1) % convertMinToSec(5) === 0) {
           audio.play();
         }
       }
@@ -239,15 +236,12 @@ export function TimerReducer(timerContextData) {
 function pickTimerSettings(timer, typeId = 0, reinitiate = false) {
   if (typeId) {
     switch (typeId) {
-      case 1:
-        return POMODORO_SETTINGS.pomodoro;
-        break;
       case 2:
         return POMODORO_SETTINGS.shortBreak;
-        break;
       case 3:
         return POMODORO_SETTINGS.longBreak;
-        break;
+      default:
+        return POMODORO_SETTINGS.pomodoro;
     }
   } else {
     // Short Break

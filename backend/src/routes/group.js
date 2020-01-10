@@ -2,7 +2,6 @@
 import express from 'express';
 
 //Internal imports
-import { groups } from '../models/GroupMocks';
 import {
   selectGroupById,
   createGroup,
@@ -29,18 +28,18 @@ router.get('/all', selectAllGroups);
 // @access  Private
 router.get('/mine', auth, selectUserGroups);
 
-// @route   GET api/group/new
+// @route   POST api/group/new
 // @desc    create new pomodoro group
 // @access  Private
 router.post('/new', auth, validateNewGroup(), createGroup);
 
-// @route   GET api/group/leave
+// @route   POST api/group/leave
 // @desc    leave pomodoro group
 // @access  Private
 router.post('/leave', auth, leaveGroup);
 
-// @route   GET api/group/remove
-// @desc    remove member  from pomodoro group
+// @route   POST api/group/remove
+// @desc    remove member from pomodoro group
 // @access  Private
 router.post('/remove', auth, removeMember);
 
@@ -49,26 +48,13 @@ router.post('/remove', auth, removeMember);
 // @access  Private
 router.post('/acceptInvitation', auth, acceptInvitation);
 
-// @route   GET api/group/addMember
+// @route   POST api/group/addMember
 // @desc    add member to pomodoro group
 // @access  Private
 router.post('/addmember', auth, validateNewMember(), addMember);
 
-// @route   GET api/group/detail
-// @desc    Detail of pomodoro group
-// @access  Private
-router.get('/detail', async (req, res) => {
-  const groupName = req.query.groupName;
-
-  const filterGroup = groups.filter(item => item.name === groupName);
-
-  if (filterGroup[0]) {
-    res.json({ filterGroup });
-  }
-});
-
-// @route   GET api/group/
-// @desc    get pomodoro group by name
+// @route   GET api/groupId/
+// @desc    get pomodoro group by its ID
 // @access  Private
 router.get('/:groupId', auth, selectGroupById);
 

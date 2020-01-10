@@ -1,11 +1,11 @@
 // External imports
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
 // Internal imports
 import { formatTime } from '../../utils/pomodoroUtils';
 import { useTimer } from '../providers/TimerProvider';
 
 export function DynamicTitle(props) {
-  const { timer, timerAction } = useTimer();
+  const { timer } = useTimer();
   useEffect(() => {
     const currentTimer = timer.settings.name;
     const docTitle = currentTimer.concat(

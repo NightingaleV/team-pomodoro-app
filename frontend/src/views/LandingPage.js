@@ -1,23 +1,14 @@
 // External imports
-import React, { useEffect, useState } from 'react';
-import classNames from 'classnames';
+import React, { useEffect } from 'react';
 import M from 'materialize-css';
 // Internal imports
 
-import { usePromise } from '../utils/usePromise';
-import { useApi } from '../utils/useApi';
-import { TopNavigation } from '../components/organisms';
-
 export function LandingPage() {
-  const api = useApi();
-  let [message, setMessage] = useState(null);
   useEffect(() => {
     //initialize parallax
     let options = {};
     let parallax_elements = document.querySelectorAll('.parallax');
     M.Parallax.init(parallax_elements, options);
-    //Or use auto init instead
-    //M.AutoInit();
   }, []);
 
   return (
@@ -56,13 +47,4 @@ export function LandingPage() {
       </article>
     </div>
   );
-
-  // EXAMPLE of UsePromise hooku
-  // const [landingState, dispatchLanding] = usePromise({ isLoading: true });
-  // useEffect(() => {
-  //   dispatchLanding(() => api.get('data').then(({ data }) => data)
-  //   )
-  // }, []);
-
-  // console.log('landingState', landingState)
 }
