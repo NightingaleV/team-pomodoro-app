@@ -36,3 +36,16 @@ export function updateProgressBar(remTime, totTime) {
   let newProgressValue = Math.round((remTime / totTime) * 10000) / 100;
   return newProgressValue;
 }
+
+export function formatTimeToStringText(sec) {
+  const sec_num = parseInt(sec, 10); // don't forget the second param
+  let hours = Math.floor(sec_num / 3600);
+  let minutes = Math.floor((sec_num - hours * 3600) / 60);
+
+  let hoursString = '';
+  if (hours > 0) {
+    hoursString = ''.concat(hours, ' hours');
+  }
+  const minutesString = ''.concat(minutes, ' minutes');
+  return hoursString + ' ' + minutesString;
+}

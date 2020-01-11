@@ -12,6 +12,7 @@ import {
   GroupDetail,
   CreateGroupModal,
   Invitation,
+  UserAnalytics,
 } from './views';
 import { ProtectedRoute } from './components/ProtectedRoutes';
 
@@ -20,6 +21,7 @@ export function Routes() {
     <Switch>
       <Route exact path="/" render={() => <Redirect to="/timer" />} />
       <Route exact path="/timer" component={PersonalTimer} />
+      <Route exact path="/analytics" component={UserAnalytics} />
       <Route path="/login" component={SignIn} />
       <Route exact path="/settings" component={UserSettings} />
       <Route exact path="/register" component={SignUp} />

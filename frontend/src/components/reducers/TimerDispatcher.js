@@ -78,5 +78,27 @@ export function TimerDispatcher(token) {
       }
     }
   }
-  return { fetchTimerData, sendNewTimerData, updateTimerData };
+
+  async function saveTimerLog(state) {
+    if (token) {
+      const timerLength = Math.abs(state.remTime - state.settings.totTime);
+      const timerLogItem = {
+        type: state.settings.type,
+        length: timerLength,
+        indexInCycle: state.indexInCycle,
+      };
+      const body = JSON.stringify(timerLogItem);
+
+      const newTimerLogSaved = await axiosInstance.post(
+        '/api/timer/saveLog',
+        body,
+        requestConfig,
+      );
+      if (newTimerLogSaved) {
+        console.log(newTimerLogSaved);
+      }
+    }
+  }
+
+  return { fetchTimerData, sendNewTimerData, updateTimerData, saveTimerLog };
 }

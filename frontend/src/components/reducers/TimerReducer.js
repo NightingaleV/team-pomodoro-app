@@ -51,9 +51,12 @@ export function TimerReducer(timerContextData) {
   //----------------------------------------------------------------------------
   // Timer Api Control
   //----------------------------------------------------------------------------
-  const { fetchTimerData, sendNewTimerData, updateTimerData } = TimerDispatcher(
-    token,
-  );
+  const {
+    fetchTimerData,
+    sendNewTimerData,
+    updateTimerData,
+    saveTimerLog,
+  } = TimerDispatcher(token);
   async function initTimer() {
     if (token) {
       const timerDataPromise = fetchTimerData();
@@ -221,6 +224,7 @@ export function TimerReducer(timerContextData) {
 
   function nextTimer() {
     pauseTimer();
+    saveTimerLog(timer);
     initNextTimer();
   }
 
