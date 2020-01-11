@@ -12,15 +12,18 @@ import { async } from '../../../frontend/node_modules/rxjs/internal/scheduler/as
 export async function selectGroupById(req, res) {
   try {
     const userID = req.user.id;
-    const groupID = req.params.groupId;
+    const groupID = req.params.groupId;    
 
-    const group = await Group.findOne({ _id: groupID }).populate({
-      path: 'userIDs',
-      populate: {
-        path: 'timerID',
-        model: 'Timer',
-      },
-    });
+    // const group = await Group.findOne({ _id: groupID }).populate({
+    //   path: 'userIDs',
+    //   populate: {
+    //     path: 'timerID',
+    //     model: 'Timer',
+    //   },
+    // });
+    // const group = await Group.findOne({ _id: groupID });
+    var group = await Group.findOne({ _id: groupID });
+
     let isMember = false;
     // await res.json({groups: groups});
     group.userIDs.map(member => {
@@ -29,7 +32,46 @@ export async function selectGroupById(req, res) {
       }
     });
     if (isMember) {
-      await res.json({ group: group });
+      const userIsGuest = group.guestIDs.includes(userID);
+
+      if(userIsGuest){         
+        group = await Group.findOne({ _id: groupID }).populate({
+          path: 'userIDs',
+          select: 'email username',
+        });    
+        
+        await res.json({ group: group });        
+      }
+      else{
+        group = await Group.findOne({ _id: groupID }).populate({
+          path: 'userIDs',
+          select: '-password',
+          populate: {
+            path: 'timerID',
+            model: 'Timer',
+          },
+        });
+
+        // group = await Group.findOne({ _id: groupID }).populate({
+        //   path: 'userIDs',
+        //   match: { userIDs: { $nin: guestIDs } },
+        //   populate: {
+        //     path: 'timerID',
+        //     model: 'Timer',
+        //   },
+        // });
+
+        // group = await Group.findOne({ _id: groupID }).populate({
+        //   path: 'userIDs',
+        //   select: {'_id': guestIDs },
+        //   populate: {
+        //     path: 'timerID',
+        //     model: 'Timer',
+        //   },
+        // });
+
+        await res.json({ group: group });
+      }
     } else {
       return res.status(403).send('You have no permission to see the group.');
     }
@@ -111,7 +153,8 @@ export async function addMember(req, res) {
 
     const { groupID, email } = req.body;
     const adminID = req.user.id;
-    const newMember = await User.findOne({ email: email }).select('-password');
+    // const newMember = await User.findOne({ email: email }).select('-password');
+    const newMember = await User.findOne({ email: email }).select('-password -timerID');    
 
     if (newMember) {
       let group = await Group.findOne({ _id: groupID });
