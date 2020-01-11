@@ -56,7 +56,7 @@ export function UserAnalytics(props) {
     <>
       <div className="container statistics-container ">
         <div className="card-panel">
-          <h3>Analytics</h3>
+          <h3>Current stats</h3>
           <div className="statistics-content">
             <table className="highlight">
               <thead>
