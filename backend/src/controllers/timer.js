@@ -139,6 +139,7 @@ export async function getTimerLog(req, res) {
     // const aggregatedResult = await TimerLog.distinct('type');
     const aggregatedResult = await TimerLog.aggregate([
       { $match: { userID: new mongoose.Types.ObjectId(userID) } },
+
       {
         $group: {
           _id: {
@@ -150,7 +151,9 @@ export async function getTimerLog(req, res) {
           total: { $sum: '$length' },
         },
       },
-    ]);
+      { $sort: { '_id.day': -1, '_id.month': -1, '_id.year': -1 } },
+    ]).sort('-day');
+    console.log(aggregatedResult);
     await res.json(aggregatedResult);
   } catch (err) {
     console.log(err);
