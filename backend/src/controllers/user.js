@@ -99,14 +99,14 @@ export async function selectUserById(req, res) {
   try {
     const userID = req.params.id;
     // const user = await User.findOne({ _id: userID});
-    const user = await User.findOne({ _id: userID}).populate({
+    const user = await User.findOne({ _id: userID }).populate({
       path: 'timerID',
       model: 'Timer',
-    });  
+    });
 
-    if(user){
+    if (user) {
       await res.json({ user: user });
-    }    
+    }
   } catch (err) {
     return res.status(500).send('Server Error');
   }
