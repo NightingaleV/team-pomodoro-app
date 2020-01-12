@@ -12,7 +12,7 @@ import { async } from '../../../frontend/node_modules/rxjs/internal/scheduler/as
 export async function selectGroupById(req, res) {
   try {
     const userID = req.user.id;
-    const groupID = req.params.groupId;    
+    const groupID = req.params.groupId;
 
     // const group = await Group.findOne({ _id: groupID }).populate({
     //   path: 'userIDs',
@@ -34,15 +34,14 @@ export async function selectGroupById(req, res) {
     if (isMember) {
       const userIsGuest = group.guestIDs.includes(userID);
 
-      if(userIsGuest){         
+      if (userIsGuest) {
         group = await Group.findOne({ _id: groupID }).populate({
           path: 'userIDs',
           select: 'email username',
-        });    
-        
-        await res.json({ group: group });        
-      }
-      else{
+        });
+
+        await res.json({ group: group });
+      } else {
         group = await Group.findOne({ _id: groupID }).populate({
           path: 'userIDs',
           select: '-password',
@@ -154,7 +153,9 @@ export async function addMember(req, res) {
     const { groupID, email } = req.body;
     const adminID = req.user.id;
     // const newMember = await User.findOne({ email: email }).select('-password');
-    const newMember = await User.findOne({ email: email }).select('-password -timerID');    
+    const newMember = await User.findOne({ email: email }).select(
+      '-password -timerID',
+    );
 
     if (newMember) {
       let group = await Group.findOne({ _id: groupID });
