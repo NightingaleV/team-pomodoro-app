@@ -83,7 +83,7 @@ export function TimerReducer(timerContextData) {
           const newTimerData = sendNewTimerData(timer);
           newTimerData.then(timerData => {
             // Set the new timer
-            // setWork();
+            setWork();
             // Set the timer ID
             setTimerState(prevState => {
               return {
