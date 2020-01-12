@@ -123,7 +123,10 @@ export function SideNavigationBase(props) {
         </li>
       )}
       <li className="group-name">
-        <NavLink to="/analytics" className={classNames('waves-effect')}>
+        <NavLink
+          to="/analytics"
+          className={classNames('waves-effect sidenav-close')}
+        >
           <i className="material-icons">insert_chart</i> <span>Analytics</span>
         </NavLink>
       </li>
