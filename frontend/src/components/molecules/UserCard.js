@@ -2,12 +2,15 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import M from 'materialize-css';
+import { useAuth } from '../../utils/useAuth';
 //Internal imports
 import { Button } from '../atoms/Button';
 import { updateProgressBar } from '../../utils/pomodoroUtils';
+
 import profileImage from '../../assets/images/profile-pic-placeholder.png';
 
 export function UserCard(props) {
+  const { user, token } = useAuth();
   const statusObject = {
     offline: { label: 'OFFLINE', color: 'grey' },
     idle: { label: 'IDLE', color: 'brown lighten-2' },
@@ -53,7 +56,9 @@ export function UserCard(props) {
   let styles;
   styles = {
     width: timerType
-      ? ''.concat(updateProgressBar(timerRemTime, timerTotTime), '%')
+      ? !timerIsRunning
+        ? '100%'
+        : ''.concat(updateProgressBar(timerRemTime, timerTotTime), '%')
       : '100%',
   };
 
@@ -77,6 +82,22 @@ export function UserCard(props) {
     }
   }, [props.group]);
 
+  const [memberIsUser, setMemberIsUser] = useState(false);
+  useEffect(() => {
+    if (user) {
+      if (user._id == member._id) {
+        setMemberIsUser(true);
+      }
+    }
+  }, [user]);
+
+  const [userIsPublic, setuserIsPublic] = useState(false);
+  useEffect(() => {
+    if (!props.group) {
+      setuserIsPublic(true);
+    }
+  }, []);
+
   return (
     <div className="card hoverable">
       <div className="card-image waves-effect waves-block waves-light">
@@ -96,7 +117,7 @@ export function UserCard(props) {
             <i className="material-icons right">more_vert</i>
           </span>
         </div>
-        {!props.currentUserIsGuest && !memberIsGuest && (
+        {((!props.currentUserIsGuest && !memberIsGuest) || userIsPublic) && (
           <div className="member-info center-align">
             <div className="progress">
               <div

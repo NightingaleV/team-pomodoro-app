@@ -1,7 +1,9 @@
 //External imports
-
+import mongoose from 'mongoose';
 //Internal imports
 import { Timer } from '../models/Timer';
+import { User } from '../models/User';
+import { TimerLog } from '../models/TimerLog';
 
 // LOGIC
 //------------------------------------------------------------------------------
@@ -66,6 +68,70 @@ export async function updateTimer(req, res) {
     await res.json({ timer });
   } catch (err) {
     return res.status(500).send('Server Error, Try it later');
+  }
+}
+
+export async function saveTimerLog(req, res) {
+  // Data from request
+
+  try {
+    const { type, length, indexInCycle } = req.body;
+    const userID = req.user.id;
+    let timerLog;
+
+    timerLog = new TimerLog({
+      type,
+      length,
+      indexInCycle,
+      userID,
+    });
+
+    //save timer to database
+    timerLog.save().then(
+      timerLog => {
+        res.json({
+          timerLog,
+        });
+      },
+      err => {
+        if (err) {
+          throw err;
+        }
+      },
+    );
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send('Server Error, Try it later');
+  }
+
+  console.log(req.body);
+}
+
+export async function getTimerLog(req, res) {
+  // Data from request
+  try {
+    const userID = req.user.id;
+    const aggregatedResult = await TimerLog.aggregate([
+      { $match: { userID: new mongoose.Types.ObjectId(userID) } },
+
+      {
+        $group: {
+          _id: {
+            day: { $dayOfYear: '$createdAt' },
+            month: { $month: '$createdAt' },
+            week: { $week: '$createdAt' },
+            year: { $year: '$createdAt' },
+          },
+          total: { $sum: '$length' },
+        },
+      },
+      { $sort: { '_id.day': -1, '_id.month': -1, '_id.year': -1 } },
+    ]).sort('-day');
+    console.log(aggregatedResult);
+    await res.json(aggregatedResult);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send('Server Error');
   }
 }
 

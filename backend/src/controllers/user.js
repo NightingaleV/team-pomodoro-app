@@ -1,7 +1,6 @@
 //External imports
 import { check, validationResult } from 'express-validator';
 import gravatar from 'gravatar';
-
 //Internal imports
 import { User } from '../models/User';
 import bcrypt from 'bcryptjs';
@@ -133,6 +132,23 @@ export async function selectUserByName(req, res) {
     }
   } catch (err) {
     return res.status(500).send('Server Error, Try it later');
+  }
+}
+
+export async function selectUserById(req, res) {
+  try {
+    const userID = req.params.id;
+    // const user = await User.findOne({ _id: userID});
+    const user = await User.findOne({ _id: userID }).populate({
+      path: 'timerID',
+      model: 'Timer',
+    });
+
+    if (user) {
+      await res.json({ user: user });
+    }
+  } catch (err) {
+    return res.status(500).send('Server Error');
   }
 }
 

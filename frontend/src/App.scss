@@ -23,7 +23,9 @@ $secondary-color: color('blue', 'accent-1') !default;
 @import './components/molecules/StepProgressBar';
 @import './views/SignIn';
 @import './views/SignUp';
+@import './views/UserAnalytics';
 @import './components/atoms/Preloader';
+@import './views/PublicPage';
 
 @import '~progress-tracker/src/styles/progress-tracker.scss';
 //@import 'node_modules/progress-tracker/src/styles/progress-tracker.scss';
@@ -55,6 +57,10 @@ $secondary-color: color('blue', 'accent-1') !default;
 
 .App-link {
   color: #09d3ac;
+}
+
+h3 {
+  margin: 0rem 0 1.1rem 0;
 }
 
 .flexbox {

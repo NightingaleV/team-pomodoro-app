@@ -50,9 +50,12 @@ export function TimerReducer(timerContextData) {
   //----------------------------------------------------------------------------
   // Timer Api Control
   //----------------------------------------------------------------------------
-  const { fetchTimerData, sendNewTimerData, updateTimerData } = TimerDispatcher(
-    token,
-  );
+  const {
+    fetchTimerData,
+    sendNewTimerData,
+    updateTimerData,
+    saveTimerLog,
+  } = TimerDispatcher(token);
   async function initTimer() {
     if (token) {
       const timerDataPromise = fetchTimerData();
@@ -143,6 +146,14 @@ export function TimerReducer(timerContextData) {
     });
   }
 
+  function setTimerID(newId) {
+    setTimerState(prevState => {
+      return {
+        ...prevState,
+        timerID: newId,
+      };
+    });
+  }
   function setTimerSettingsState(newSettings) {
     setTimerState(prevState => {
       const newState = {
@@ -210,6 +221,7 @@ export function TimerReducer(timerContextData) {
 
   function nextTimer() {
     pauseTimer();
+    saveTimerLog(timer);
     initNextTimer();
   }
 
@@ -230,6 +242,7 @@ export function TimerReducer(timerContextData) {
     setWork,
     setShortBreak,
     setLongBreak,
+    setTimerID,
   };
 }
 

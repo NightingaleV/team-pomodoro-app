@@ -15,6 +15,7 @@ import {
   addGroup,
   selectUserWithGroups,
   selectUserByName,
+  selectUserById,
   changeSettings,
   signInUser,
   validateLogin,
@@ -34,6 +35,11 @@ router.post('/register', validateRegistration(), createUser);
 // @desc     Authenticate user & get token
 // @access   Public
 router.post('/login', validateLogin(), signInUser);
+
+// @route   GET api/user/get
+// @desc    Get user by ID
+// @access  Private
+router.get('/get/:id', selectUserById);
 
 // @route   GET api/user/invite
 // @desc    Get user to invite into a group

@@ -117,6 +117,13 @@ export function TopNavigationBase(props) {
         {user ? (
           <>
             <li className={'valign-wrapper'}>
+              <NavLink to={'/public/' + user._id}>
+                <i className="material-icons left">share</i>
+                {/* <p className="user-name truncate">Public page</p> */}
+                Share
+              </NavLink>
+            </li>
+            <li className={'valign-wrapper'}>
               <NavLink
                 to="/settings"
                 className={'white-text btn-flat account-name'}
@@ -140,6 +147,7 @@ export function TopNavigationBase(props) {
                   e.preventDefault();
                   // Turn off timer before logout
                   timerAction.pauseTimer();
+                  timerAction.setTimerID('');
                   signout();
                   props.history.push('/');
                 }}

@@ -5,9 +5,11 @@ import classNames from 'classnames';
 // Internal imports
 import { NavLink } from '../atoms/Link';
 import { useAuth } from '../../utils/useAuth';
+import { useTimer } from '../providers/TimerProvider';
 
 export function MobileMenuSidebarBase(props) {
   const { user, signout } = useAuth();
+  const { timer, timerAction } = useTimer();
 
   return (
     <ul className="sidenav mobile-top-menu" id={'mobile-top-menu'}>
@@ -32,6 +34,12 @@ export function MobileMenuSidebarBase(props) {
                 signout();
                 props.history.push('/');
                 e.preventDefault();
+                e.preventDefault();
+                // Turn off timer before logout
+                timerAction.pauseTimer();
+                timerAction.setTimerID('');
+                signout();
+                props.history.push('/');
               }}
             >
               <i className={classNames('material-icons left')}>exit_to_app</i>
