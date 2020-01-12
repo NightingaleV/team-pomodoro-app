@@ -103,7 +103,7 @@ export function PublicPageBase(props) {
     <>
       <div className="group">
         <Preloader isLoading={userLoadingState.isLoading}>
-          <div className="row group-title-wrapper">
+          <div className="group-title-wrapper">
             <div className="group-title-bar card-panel">
               <h3>Public Page</h3>
               <div className="copy-container">
