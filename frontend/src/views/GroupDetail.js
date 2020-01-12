@@ -1,13 +1,10 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { withRouter, Redirect, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { withRouter, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { PomodoroGroup } from '../components/organisms';
 import { useAuth } from '../utils/useAuth';
-import M from 'materialize-css';
-import { Preloader, ErrorBox, Button, Link } from '../components/atoms';
+import { Preloader, ErrorBox } from '../components/atoms';
 import { usePromise } from '../utils/usePromise';
-import { async } from 'rxjs/internal/scheduler/async';
-import classNames from 'classnames';
 
 export function GroupDetailBase(props) {
   const { user, token } = useAuth();
@@ -44,10 +41,9 @@ export function GroupDetailBase(props) {
     }
 
     return () => {
-      console.log('CleanUp: GroupDetail');
       clearInterval(subscriptionToGroup);
     };
-  }, [location.pathname]);
+  }, [location.pathname, dispatchGroupLoading, user]);
 
   useEffect(() => {}, []);
 
@@ -56,16 +52,12 @@ export function GroupDetailBase(props) {
       await axios
         .get('/api/group/' + getGroupIdentifier(), requestConfig)
         .then(res => {
-          // console.log('Fetched Group Data: ', res.data.group);
           setGroup(res.data.group);
-          console.log('Group', res.data.group);
         })
         .catch(err => {
-          if (err.response.status == 403 || err.response.status == 401) {
-            console.log('You are prohibited to view the group');
+          if (err.response.status === 403 || err.response.status === 401) {
             setError('You are prohibited to view the group');
           }
-          console.error(err);
         });
     } catch {}
   }

@@ -1,14 +1,10 @@
 import React, {
   createContext,
-  useCallback,
   useContext,
   useMemo,
   useState,
-  useReducer,
   useRef,
-  useEffect,
 } from 'react';
-import axios from 'axios';
 import { convertMinToSec } from '../../utils/pomodoroUtils';
 import { useAuth } from '../../utils/useAuth';
 import { TimerReducer } from '../reducers';
@@ -24,7 +20,7 @@ const initialTimerState = {
 };
 
 export function TimerProvider({ children }) {
-  const { user, token } = useAuth();
+  const { token } = useAuth();
 
   //----------------------------------------------------------------------------
   // Component State
@@ -66,7 +62,7 @@ export function TimerProvider({ children }) {
 // Initiate Timer Context
 const TimerContext = createContext(createContextValue({ timer: {} }));
 function createContextValue(timerContextData) {
-  const { timer, setTimerState, timerReference } = timerContextData;
+  const { timer } = timerContextData;
   return {
     timer,
     timerAction: TimerReducer(timerContextData),

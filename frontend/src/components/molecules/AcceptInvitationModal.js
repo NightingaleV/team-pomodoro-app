@@ -1,24 +1,18 @@
 //External import
-import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
 import axios from 'axios';
 // Internal imports
-import { TextInput, Button, ErrorBox } from '../atoms';
-import { SignUpSuccess } from '../../templates';
+import { Button, ErrorBox } from '../atoms';
 import { useAuth } from '../../utils/useAuth';
-import { useApi } from '../../utils/useApi';
 import M from 'materialize-css';
+import classNames from 'classnames';
 
-// export function AcceptInvitationModal({ group, refetchGroup }) {
 export function AcceptInvitationModal({ group, refetchGroup }) {
-  const history = useHistory();
-  let location = useLocation();
-  const api = useApi();
-  const { user, token } = useAuth();
+  const { token } = useAuth();
 
   // Component State
   //----------------------------------------------------------------------------
-  const [errors, setError] = useState({ backend: '' });
+  const [errors] = useState({ backend: '' });
 
   // Component Control
   //----------------------------------------------------------------------------
@@ -49,17 +43,11 @@ export function AcceptInvitationModal({ group, refetchGroup }) {
     await axios
       .post('/api/group/acceptInvitation', body, config)
       .then(res => {
-        // history.push('/group/' + props.group._id);
-        console.log('Valid Statement');
-        console.log(res.data);
         //Show a new user in group
         refetchGroup();
         closeModal();
       })
-      .catch(err => {
-        console.log('Error Statement');
-        console.log(err);
-      });
+      .catch(err => {});
   };
 
   // Modal Content
@@ -91,7 +79,6 @@ export function AcceptInvitationModal({ group, refetchGroup }) {
               Cancel
             </Button>
             <Button
-              //   icon={'directions_run'}
               icon={'check'}
               iconPosition={'left'}
               color={'red lighten-1'}
@@ -104,6 +91,41 @@ export function AcceptInvitationModal({ group, refetchGroup }) {
           </div>
         </div>
       </div>
+    </>
+  );
+}
+
+export function AcceptInvitationModalTrigger(props) {
+  const { user } = useAuth();
+  return (
+    <>
+      {user && (
+        <>
+          <Button
+            icon={'check'}
+            iconPosition={'left'}
+            href={'#acceptInvitationModal'}
+            className={classNames(
+              'hide-on-med-and-down',
+              'modal-trigger',
+              'group-action-button',
+            )}
+          >
+            <span className="btn-title">Accept invitation</span>
+          </Button>
+          <Button
+            icon={'person_add'}
+            shape={'circular'}
+            iconPosition={'left'}
+            href={'#acceptInvitationModal'}
+            className={classNames(
+              'hide-on-large-only',
+              'modal-trigger',
+              'group-action-button',
+            )}
+          />
+        </>
+      )}
     </>
   );
 }

@@ -3,19 +3,16 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 // Internal imports
 import {
-  LandingPage,
   PersonalTimer,
   SignIn,
   SignUp,
   UserSettings,
   RegistrationComplete,
   GroupDetail,
-  CreateGroupModal,
   Invitation,
   PublicPage,
   UserAnalytics,
 } from './views';
-import { ProtectedRoute } from './components/ProtectedRoutes';
 
 export function Routes() {
   return (

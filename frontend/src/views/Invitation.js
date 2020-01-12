@@ -1,18 +1,13 @@
 //External imports
-import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
 import { TextInput, Button, ErrorBox } from '../components/atoms';
-import { SignUpSuccess } from '../templates';
 import { useAuth } from '../utils/useAuth';
-import { useApi } from '../utils/useApi';
-import { async } from 'rxjs/internal/scheduler/async';
 
 export function Invitation() {
-  const api = useApi();
-  const history = useHistory();
-  const { user, token } = useAuth();
+  const { token } = useAuth();
   let location = useLocation();
   const [message, setMessage] = useState('');
   const [group, setGroup] = useState({ name: '', userIDs: [] });
@@ -51,15 +46,12 @@ export function Invitation() {
       await axios
         .get('/api/group/' + getGroupIdentifier(), requestConfig)
         .then(res => {
-          console.log('Fetched Group Data: ', res.data.group);
           setGroup(res.data.group);
         })
         .catch(err => {
-          if (err.response.status == 403 || err.response.status == 401) {
-            console.log('You are prohibited to invite users into the group');
+          if (err.response.status === 403 || err.response.status === 401) {
             setAuthError('You are prohibited to invite users into the group');
           }
-          console.error(err);
         });
     } catch {}
   }
@@ -78,8 +70,6 @@ export function Invitation() {
     await axios
       .post('/api/group/addMember', body, config)
       .then(res => {
-        console.log('Valid statement');
-        console.log(res.data.group);
         if (res.data.group) {
           setMessage(
             'User ' +
@@ -90,13 +80,9 @@ export function Invitation() {
         }
       })
       .catch(err => {
-        if (err.response.status == 404) {
-          console.log('Unable to find user ' + formData.email);
+        if (err.response.status === 404) {
           setError('Unable to find user ' + formData.email);
-        } else if (err.response.status == 403) {
-          console.log(
-            'User ' + formData.email + ' is already a member of this group',
-          );
+        } else if (err.response.status === 403) {
           setError(
             'User ' + formData.email + ' is already a member of this group',
           );

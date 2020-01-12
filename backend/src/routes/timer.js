@@ -3,7 +3,6 @@ import express from 'express';
 
 //Internal imports
 import {
-  selectTimer,
   createTimer,
   updateTimer,
   selectLastTimer,
@@ -35,7 +34,7 @@ router.post('/saveLog', auth, saveTimerLog);
 router.get('/analytics', auth, getTimerLog);
 
 // @route   POST api/timer/save
-// @desc    Save timer status
+// @desc    Update timer status
 // @access  Private
 router.post('/update', auth, updateTimer);
 

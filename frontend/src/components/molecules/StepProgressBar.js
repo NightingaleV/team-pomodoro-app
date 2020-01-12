@@ -4,7 +4,7 @@ import { ProgressBar, Step } from 'react-step-progress-bar';
 import classNames from 'classnames';
 
 export function StepProgressBar(props) {
-  const { typeOfTimer, indexInCycle } = props;
+  const { indexInCycle } = props;
   //----------------------------------------------------------------------------
   // Manipulate with width of bar
   //----------------------------------------------------------------------------
@@ -27,9 +27,6 @@ export function StepProgressBar(props) {
   //----------------------------------------------------------------------------
   // Timer Index
   //----------------------------------------------------------------------------
-  let timerIndex = 0;
-  if (indexInCycle % 8 === 0) timerIndex = 8; // this is last timer in pomodoro
-  if (indexInCycle % 7 === 0) timerIndex = 7; // this is 7. timer in cycle
   // Set classes for Coloring the rings
   const colorPomodoroClass = '';
   const colorSBreakClass = 'green lighten-1';

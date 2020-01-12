@@ -1,9 +1,6 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-// https://medium.com/@SilentHackz/simple-way-to-secure-react-apps-using-jwt-and-react-router-2b4a05d780a3
-// Todo update axiom request that token will be set from local storage with every request
-// TODO presunout
 export default function auth(req, res, next) {
   // Get token from header
   const token = req.headers['x-auth-token'] || req.cookies.token || '';
