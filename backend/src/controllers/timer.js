@@ -1,5 +1,5 @@
 //External imports
-
+import mongoose from 'mongoose';
 //Internal imports
 import { Timer } from '../models/Timer';
 import { User } from '../models/User';

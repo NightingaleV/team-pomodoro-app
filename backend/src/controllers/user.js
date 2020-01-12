@@ -1,7 +1,6 @@
 //External imports
 import { check, validationResult } from 'express-validator';
 import gravatar from 'gravatar';
-
 //Internal imports
 import { User } from '../models/User';
 import bcrypt from 'bcryptjs';
