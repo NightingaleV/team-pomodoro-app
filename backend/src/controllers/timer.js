@@ -13,6 +13,11 @@ export async function selectLastTimer(req, res) {
     const lastActiveTimer = await Timer.findOne({ userID: userID }).sort({
       updatedAt: -1,
     });
+    let user = await User.findOneAndUpdate(
+      { _id: req.user.id },
+      { timerID: new mongoose.Types.ObjectId(lastActiveTimer._id) },
+      { new: true },
+    );
     await res.json(lastActiveTimer);
   } catch (err) {
     return res.status(500).send('Server Error');
@@ -33,19 +38,17 @@ export async function createTimer(req, res) {
       indexInCycle,
     });
 
-    //save timer to database
-    timer.save().then(
-      timer => {
-        res.json({
-          timer,
-        });
-      },
-      err => {
-        if (err) {
-          throw err;
-        }
-      },
-    );
+    // save timer to database
+    let timerInstance = timer.save();
+    if (timer) {
+      let user = await User.findOneAndUpdate(
+        { _id: req.user.id },
+        { timerID: new mongoose.Types.ObjectId(timer._id) },
+        { new: true },
+      );
+      console.log(user);
+    }
+    res.json(timer);
   } catch (err) {
     return res.status(500).send('Server Error, Try it later');
   }

@@ -79,19 +79,18 @@ export function TimerReducer(timerContextData) {
         } else {
           // NO TIMER IN DB
           // Send the data
+          console.log('No timer IN DB');
           const newTimerData = sendNewTimerData(timer);
           newTimerData.then(timerData => {
             // Set the new timer
-            setWork();
+            // setWork();
             // Set the timer ID
-            if (timerData) {
-              setTimerState(prevState => {
-                return {
-                  ...prevState,
-                  timerID: timerData._id,
-                };
-              });
-            }
+            setTimerState(prevState => {
+              return {
+                ...prevState,
+                timerID: timerData._id,
+              };
+            });
           });
         }
       });
@@ -124,6 +123,7 @@ export function TimerReducer(timerContextData) {
       if (token) {
         updateTimerData(newState);
       }
+      console.log(newState);
       return newState;
     });
   }
