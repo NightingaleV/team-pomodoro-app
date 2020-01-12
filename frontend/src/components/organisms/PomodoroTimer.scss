@@ -1,63 +1,28 @@
-.pomodoro-container {
-  max-width: 400px;
-  margin-bottom: 20px;
+.timer-container.card-panel {
   margin: auto;
   margin-top: 30px;
+  margin-bottom: 30px;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.pomodoro-container .card-panel {
-  padding-bottom: 50px;
+.timer-container .timer-progress {
+  width: calc(100% - 60px);
 }
 
-.pomodoroCircle {
-  transition: stroke-dashoffset 0.35s;
-  transform: rotate(-90deg);
-  transform-origin: 50% 50%;
-}
-
-.circle-container {
-  position: relative;
-  width: auto;
-  height: 380px;
-  margin: 0 auto;
-  display: block;
-}
-.circle-base {
-  fill: none;
-  stroke: #b6b6b6;
-  stroke-width: 4px;
-}
-
-.circle-progress {
-  fill: none;
-  stroke: #2196f3;
-  stroke-width: 4px;
-  transition: stroke-dashoffset 0.7s;
-}
-
-.circle-pointer {
-  fill: #fff;
-  stroke: #2196f3;
-  stroke-width: 2px;
-}
-
-.circle-countdown {
-  position: absolute;
-  left: 66px;
-  top: 140px;
-}
-
-.circle-controls {
-  position: absolute;
+.timer-container .timer-circle svg {
   width: 100%;
-  left: 0px;
-  top: 330px;
+  height: auto;
 }
 
-.circle-controls button {
-  margin-right: 3px;
+.timer-container .timer-controls {
+  padding-bottom: 20px;
 }
 
-.progress-bullets {
-  padding-top: 30px;
+@media only screen and (max-width: 360px) {
+  .valign-wrapper.hide-on-large-only img {
+    display: none;
+  }
 }

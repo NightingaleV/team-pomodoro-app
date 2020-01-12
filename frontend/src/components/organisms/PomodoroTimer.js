@@ -11,20 +11,19 @@ export function PomodoroTimerBase(props) {
   const { timer } = useTimer();
 
   const PersonalTimerHtml = (
-    <div className="pomodoro-container">
-      <div className="card-panel">
-        <div className="circle-container">
+    <div className="container">
+      <div className="timer-container card-panel">
+        <div className="timer-progress">
           <StepProgressBar
             typeOfTimer={timer.settings.type}
             indexInCycle={timer.indexInCycle}
           />
+        </div>
+        <div className="timer-circle">
           <ProgressRing />
-          <div className="circle-countdown" style={{ fontSize: '65px' }}>
-            <span>{formatTime(timer.remTime)}</span>
-          </div>
-          <div className="circle-controls flexbox">
-            <TimerControls />
-          </div>
+        </div>
+        <div className="timer-controls">
+          <TimerControls />
         </div>
       </div>
     </div>
