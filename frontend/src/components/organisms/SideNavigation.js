@@ -102,7 +102,7 @@ export function SideNavigationBase(props) {
             alt="Team Pomodoro App"
             width="35"
           />
-          <Link to="/timer" className="logo-text white-text blue">
+          <Link to="/timer" className="logo-text white-text blue sidenav-close">
             Pomodoro
           </Link>
         </div>
