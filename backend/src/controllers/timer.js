@@ -7,25 +7,19 @@ import { TimerLog } from '../models/TimerLog';
 
 // LOGIC
 //------------------------------------------------------------------------------
-export async function selectTimer(req, res) {
-  try {
-    const userID = req.query.userID;
-    const allTimers = await Timer.find().where({ userID: userID });
-    await res.json({ allTimers: allTimers });
-  } catch (err) {
-    return res.status(500).send('Server Error');
-  }
-}
-
 export async function selectLastTimer(req, res) {
   try {
     const userID = req.user.id;
     const lastActiveTimer = await Timer.findOne({ userID: userID }).sort({
       updatedAt: -1,
     });
+    let user = await User.findOneAndUpdate(
+      { _id: req.user.id },
+      { timerID: new mongoose.Types.ObjectId(lastActiveTimer._id) },
+      { new: true },
+    );
     await res.json(lastActiveTimer);
   } catch (err) {
-    console.log(err);
     return res.status(500).send('Server Error');
   }
 }
@@ -44,34 +38,20 @@ export async function createTimer(req, res) {
       indexInCycle,
     });
 
-    //save timer to database
-    timer.save().then(
-      timer => {
-        res.json({
-          timer,
-        });
-      },
-      err => {
-        if (err) {
-          throw err;
-        }
-      },
-    );
-
-    const user = User.findOneAndUpdate(
-      { _id: userID },
-      { timerID: timer._id },
-      { new: true },
-      (err, result) => {
-        // Rest of the action goes here
-      },
-    );
+    // save timer to database
+    let timerInstance = timer.save();
+    if (timer) {
+      let user = await User.findOneAndUpdate(
+        { _id: req.user.id },
+        { timerID: new mongoose.Types.ObjectId(timer._id) },
+        { new: true },
+      );
+      console.log(user);
+    }
+    res.json(timer);
   } catch (err) {
-    console.log(err);
     return res.status(500).send('Server Error, Try it later');
   }
-
-  console.log(req.body);
 }
 
 export async function updateTimer(req, res) {
@@ -90,7 +70,6 @@ export async function updateTimer(req, res) {
     });
     await res.json({ timer });
   } catch (err) {
-    console.log(err);
     return res.status(500).send('Server Error, Try it later');
   }
 }
@@ -135,8 +114,6 @@ export async function getTimerLog(req, res) {
   // Data from request
   try {
     const userID = req.user.id;
-    // const getStats = await TimerLog.find({ userID: userID });
-    // const aggregatedResult = await TimerLog.distinct('type');
     const aggregatedResult = await TimerLog.aggregate([
       { $match: { userID: new mongoose.Types.ObjectId(userID) } },
 

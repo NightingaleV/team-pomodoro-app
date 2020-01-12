@@ -1,25 +1,13 @@
 // External imports
-import React, { Fragment, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import classNames from 'classnames';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 // Internal imports
-import { TopNavigation } from '../components/organisms';
-import { TextInput, Button, ErrorBox } from '../components/atoms';
-import { SignUpSuccess } from '../templates';
 import { useAuth } from '../utils/useAuth';
-import { useApi } from '../utils/useApi';
 import { formatTimeToStringText } from '../utils/pomodoroUtils';
-import { useTimer } from '../components/providers/TimerProvider';
-import { UserCard } from '../components/molecules';
 
 export function UserAnalytics(props) {
-  const history = useHistory();
-  const { timer, timerAction } = useTimer();
   const { token, user } = useAuth();
-  const api = useApi();
 
-  const registeredEmail = props.location.state && props.location.state.email;
   const [analytics, setAnalytics] = useState([]);
 
   const fetchAnalytics = async () => {

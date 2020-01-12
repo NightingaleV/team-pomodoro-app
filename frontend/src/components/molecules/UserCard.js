@@ -1,24 +1,16 @@
-import React, { Fragment, useState, useEffect } from 'react';
+//External imports
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
-import { RemoveUserModal } from './RemoveUserModal';
-import axios from 'axios';
-import { useAuth } from '../../utils/useAuth';
-import { useLocation } from 'react-router-dom';
 import M from 'materialize-css';
+import { useAuth } from '../../utils/useAuth';
+//Internal imports
 import { Button } from '../atoms/Button';
 import { updateProgressBar } from '../../utils/pomodoroUtils';
-import { Link, NavLink } from '../atoms/Link';
 
 import profileImage from '../../assets/images/profile-pic-placeholder.png';
-import timerIcon from '../../assets/icon/timer_white_192x192.png';
 
 export function UserCard(props) {
   const { user, token } = useAuth();
-  const [group, setGroup] = useState({ name: '', userIDs: [] });
-  const [error, setError] = useState('');
-  let location = useLocation();
-  const [modalId, setModalId] = useState('');
-
   const statusObject = {
     offline: { label: 'OFFLINE', color: 'grey' },
     idle: { label: 'IDLE', color: 'brown lighten-2' },
@@ -38,7 +30,6 @@ export function UserCard(props) {
   const { member } = props;
   let timerIsRunning,
     timerType,
-    timerName,
     timerRemTime,
     timerUpdated,
     timeDifference,
@@ -47,7 +38,6 @@ export function UserCard(props) {
   if (member.timerID) {
     timerIsRunning = member.timerID.isRunning;
     timerType = member.timerID.settings.type;
-    timerName = member.timerID.settings.name;
     timerRemTime = member.timerID.remTime;
     timerTotTime = member.timerID.settings.totTime;
     timerUpdated = new Date(member.timerID.updatedAt);
@@ -114,7 +104,7 @@ export function UserCard(props) {
         <img
           className="activator"
           src={member.avatar || profileImage}
-          alt="Profile Picture"
+          alt={member.username}
         />
       </div>
       <div className="divider"></div>
@@ -127,7 +117,6 @@ export function UserCard(props) {
             <i className="material-icons right">more_vert</i>
           </span>
         </div>
-        {/* {!props.currentUserIsGuest && !memberIsGuest && ( */}
         {((!props.currentUserIsGuest && !memberIsGuest) || userIsPublic) && (
           <div className="member-info center-align">
             <div className="progress">

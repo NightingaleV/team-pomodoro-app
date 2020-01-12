@@ -14,12 +14,7 @@ export function FloatingButtonBase(props) {
   }
 
   useEffect(() => {
-    //initialize hamburger menu
     initFloatingButton();
-    // const createGroupModalElement = document.querySelector('.fixed-action-btn');
-    // const elem = M.FloatingActionButton.getInstance(createGroupModalElement);
-    // elem.open();
-    // // timerAction.initTimer();
   }, []);
 
   const playControls = (

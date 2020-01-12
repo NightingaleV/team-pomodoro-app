@@ -1,19 +1,16 @@
 //External import
-import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
 import { TextInput, Button, ErrorBox } from '../atoms';
-import { SignUpSuccess } from '../../templates';
 import { useAuth } from '../../utils/useAuth';
-import { useApi } from '../../utils/useApi';
 import M from 'materialize-css';
+import classNames from 'classnames';
 
 export function InviteUserModal(props) {
   const history = useHistory();
-  let location = useLocation();
-  const api = useApi();
-  const { user, token } = useAuth();
+  const { token } = useAuth();
 
   // Component State
   //----------------------------------------------------------------------------
@@ -44,7 +41,6 @@ export function InviteUserModal(props) {
       email: formData.email,
       groupID: formData.groupID,
     };
-    console.log(formDataRequest);
 
     const config = {
       headers: {
@@ -57,9 +53,7 @@ export function InviteUserModal(props) {
     await axios
       .post('/api/group/addmember', body, config)
       .then(res => {
-        console.log('Valid Statement');
         closeModalAfterSubmit();
-        console.log(res.data);
         //Show a new user in group
         props.refetchGroup();
         history.push({
@@ -67,10 +61,8 @@ export function InviteUserModal(props) {
         });
       })
       .catch(err => {
-        console.log('Error Statement');
         if (err.response.data) {
           setError({ ...errors, backend: err.response.data.errors });
-          console.log(err.response.data.errors);
         }
       });
   };
@@ -108,6 +100,41 @@ export function InviteUserModal(props) {
           </div>
         </div>
       </div>
+    </>
+  );
+}
+
+export function AddMemberModalTrigger(props) {
+  const { user } = useAuth();
+  return (
+    <>
+      {user && (
+        <>
+          <Button
+            icon={'person_add'}
+            iconPosition={'left'}
+            href={'#addMemberModal'}
+            className={classNames(
+              'hide-on-med-and-down',
+              'modal-trigger',
+              'group-action-button',
+            )}
+          >
+            <span className="btn-title">Invite</span>
+          </Button>
+          <Button
+            icon={'person_add'}
+            shape={'circular'}
+            iconPosition={'left'}
+            href={'#addMemberModal'}
+            className={classNames(
+              'hide-on-large-only',
+              'modal-trigger',
+              'group-action-button',
+            )}
+          />
+        </>
+      )}
     </>
   );
 }

@@ -1,5 +1,5 @@
 // External imports
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import M from 'materialize-css';
@@ -9,9 +9,6 @@ import axios from 'axios';
 import timerIcon from '../../assets/icon/timer_white_192x192.png';
 import { Link, NavLink } from '../atoms/Link';
 import { useAuth } from '../../utils/useAuth';
-import { GroupDetail } from '../../views/GroupDetail';
-import { async } from 'rxjs/internal/scheduler/async';
-import { useApi } from '../../utils/useApi';
 
 export function GroupList(props) {
   const { groups } = props;
@@ -37,8 +34,6 @@ export function GroupList(props) {
 }
 
 export function SideNavigationBase(props) {
-  const api = useApi();
-  const auth = useAuth();
   const { user, token } = useAuth();
   const [userGroups, setUserGroups] = useState([{ name: '', userIDs: [] }]);
 
@@ -69,8 +64,8 @@ export function SideNavigationBase(props) {
   function initSidebarMenu() {
     const sideNavElement = document.querySelector('.main-menu');
     const options = {};
-    var elem = M.Sidenav.init(sideNavElement, options);
-    var instance = M.Sidenav.getInstance(sideNavElement);
+    M.Sidenav.init(sideNavElement, options);
+    const instance = M.Sidenav.getInstance(sideNavElement);
     // instance.open();
     console.log(instance.isOpen);
   }
@@ -88,7 +83,7 @@ export function SideNavigationBase(props) {
         mainInputElem.focus();
       },
     };
-    var elem = M.Modal.init(createGroupModalElement, options);
+    M.Modal.init(createGroupModalElement, options);
   }
 
   useEffect(() => {
@@ -136,7 +131,7 @@ export function SideNavigationBase(props) {
         <div className="divider"></div>
       </li>
       <li>
-        <a className="subheader">
+        <a href="" className="subheader">
           <i className="material-icons">group</i> My Groups
         </a>
       </li>

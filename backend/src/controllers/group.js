@@ -5,7 +5,6 @@ import { check, validationResult } from 'express-validator';
 import { Group } from '../models/Group';
 import { User } from '../models/User';
 import { Timer } from '../models/Timer';
-import { async } from '../../../frontend/node_modules/rxjs/internal/scheduler/async';
 
 // LOGIC
 //------------------------------------------------------------------------------
@@ -25,7 +24,6 @@ export async function selectGroupById(req, res) {
     var group = await Group.findOne({ _id: groupID });
 
     let isMember = false;
-    // await res.json({groups: groups});
     group.userIDs.map(member => {
       if (member._id == userID) {
         isMember = true;
@@ -96,7 +94,6 @@ export async function selectUserGroups(req, res) {
     });
     await res.json(group);
   } catch (err) {
-    console.log(err);
     return res.status(505).send('Server Error');
   }
 }
@@ -135,11 +132,8 @@ export async function createGroup(req, res) {
       },
     );
   } catch (err) {
-    console.log(err);
     return res.status(500).send('Server Error, Try it later');
   }
-
-  console.log(req.body);
 }
 
 export async function addMember(req, res) {
@@ -162,14 +156,11 @@ export async function addMember(req, res) {
 
       const memberIsNew = !group.userIDs.includes(newMember._id);
       const userIsAdminOfGroup = group.adminIDs.includes(adminID);
-      // console.log('memberIsNew: ', memberIsNew);
-      // console.log('userIsAdminOfGroup: ', userIsAdminOfGroup);
 
       if (userIsAdminOfGroup) {
         if (memberIsNew) {
           group = await Group.findOneAndUpdate(
             { _id: groupID },
-            // { $push: { userIDs: newMember._id } },
             { $push: { userIDs: newMember._id, guestIDs: newMember._id } },
           );
           await res.json({ group });
@@ -192,7 +183,6 @@ export async function addMember(req, res) {
         .json({ errors: [{ msg: 'No user was found using this email' }] });
     }
   } catch (err) {
-    console.log(err);
     res.status(500).json({ errors: [{ msg: 'Server Error, Try it later' }] });
   }
 }
@@ -205,7 +195,6 @@ export async function leaveGroup(req, res) {
     let group = await Group.findOneAndUpdate(
       { _id: groupID },
       {
-        // $pullAll: { userIDs: [member] },
         $pullAll: { userIDs: [member], adminIDs: [member], guestIDs: [member] },
       },
     );
@@ -213,7 +202,6 @@ export async function leaveGroup(req, res) {
       await res.status(200).json({ status: 'success' });
     }
   } catch (err) {
-    console.log(err);
     res.status(500).json({ errors: [{ msg: 'Server Error, Try it later' }] });
   }
 }
@@ -231,7 +219,6 @@ export async function removeMember(req, res) {
         group = await Group.findOneAndUpdate(
           { _id: groupID },
           {
-            // $pullAll: { userIDs: [memberID] },
             $pullAll: {
               userIDs: [memberID],
               adminIDs: [memberID],
@@ -256,7 +243,6 @@ export async function removeMember(req, res) {
       });
     }
   } catch (err) {
-    console.log(err);
     res.status(500).json({ errors: [{ msg: 'Server Error, Try it later' }] });
   }
 }
@@ -266,21 +252,35 @@ export async function acceptInvitation(req, res) {
     const { groupID } = req.body;
     const memberID = req.user.id;
 
-    let group = await Group.findOneAndUpdate(
-      { _id: groupID },
-      {
-        $pullAll: {
-          guestIDs: [memberID],
-        },
-      },
-    );
+    let group = await Group.findOne({ _id: groupID });
 
-    group = await Group.findOne({ _id: groupID });
-    if (group) {
-      await res.status(200).json(group);
+    const userIsGuest = group.guestIDs.includes(memberID);
+
+    if(userIsGuest){
+      group = await Group.findOneAndUpdate(
+        { _id: groupID },
+        {
+          $pullAll: {           
+            guestIDs: [memberID],
+          },
+        },
+      );
+
+      if (group) {
+        await res.status(200).json({ status: 'success' });
+      }
     }
+    else {
+      //member is not invited into the group
+      res.status(403).json({
+        errors: [{ msg: 'You are not invited into this group' }],
+      });
+    }        
+
+    // if (group) {
+    //   await res.status(200).json(group);
+    // }
   } catch (err) {
-    console.log(err);
     res.status(500).json({ errors: [{ msg: 'Server Error, Try it later' }] });
   }
 }

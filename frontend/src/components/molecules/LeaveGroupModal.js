@@ -1,23 +1,19 @@
 //External import
-import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 // Internal imports
-import { TextInput, Button, ErrorBox } from '../atoms';
-import { SignUpSuccess } from '../../templates';
+import { Button } from '../atoms';
 import { useAuth } from '../../utils/useAuth';
-import { useApi } from '../../utils/useApi';
 import M from 'materialize-css';
+import classNames from 'classnames';
 
 export function LeaveGroupModal({ group }) {
   const history = useHistory();
-  let location = useLocation();
-  const api = useApi();
-  const { user, token } = useAuth();
+  const { token } = useAuth();
 
   // Component State
   //----------------------------------------------------------------------------
-  const [errors, setError] = useState({ backend: '' });
 
   // Component Control
   //----------------------------------------------------------------------------
@@ -50,10 +46,6 @@ export function LeaveGroupModal({ group }) {
       .catch(err => {
         console.log('Error Statement');
         console.log(err);
-        // if (err.response.data) {
-        //   setError({ ...errors, backend: err.response.data.errors });
-        //   console.log(err.response.data.errors);
-        // }
       });
   };
 
@@ -68,12 +60,6 @@ export function LeaveGroupModal({ group }) {
         <div className="modal-content">
           <h4>Leaving {group.name}</h4>
           <p>Do you really want to leave this group?</p>
-          <>
-            {errors.backend &&
-              errors.backend.map(error => {
-                return <ErrorBox key={error.msg} errorMsg={error.msg} />;
-              })}
-          </>
           <div>
             <Button
               icon={'undo'}
@@ -98,6 +84,43 @@ export function LeaveGroupModal({ group }) {
           </div>
         </div>
       </div>
+    </>
+  );
+}
+
+export function LeaveGroupModalTrigger(props) {
+  const { user } = useAuth();
+  return (
+    <>
+      {user && (
+        <>
+          <Button
+            icon={'directions_run'}
+            color={'red lighten-1'}
+            iconPosition={'left'}
+            href={'#leaveGroupModal'}
+            className={classNames(
+              'hide-on-med-and-down',
+              'modal-trigger',
+              'group-action-button',
+            )}
+          >
+            <span className="btn-title">Leave</span>
+          </Button>
+          <Button
+            icon={'directions_run'}
+            color={'red lighten-1'}
+            shape={'circular'}
+            iconPosition={'right'}
+            href={'#leaveGroupModal'}
+            className={classNames(
+              'hide-on-large-only',
+              'modal-trigger',
+              'group-action-button',
+            )}
+          />
+        </>
+      )}
     </>
   );
 }

@@ -17,8 +17,7 @@ const AuthContext = createContext(
   createContextValue({
     token: initialState.token,
     user: initialState.user,
-    setState: () =>
-      console.error('You are using AuthContext without AuthProvider!'),
+    setState: () => {},
   }),
 );
 

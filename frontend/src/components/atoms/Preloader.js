@@ -1,12 +1,6 @@
 // External imports
-import React, { Fragment, useEffect, useState } from 'react';
-import { withRouter, Redirect } from 'react-router-dom';
-import axios from 'axios';
-import classNames from 'classnames';
+import React, { useEffect, useState } from 'react';
 // Internal imports
-import { Button } from '../atoms/Button';
-import { UserCard } from '../molecules/UserCard';
-import { useAuth } from '../../utils/useAuth';
 
 export function Preloader(props) {
   const { isLoading, children } = props;
