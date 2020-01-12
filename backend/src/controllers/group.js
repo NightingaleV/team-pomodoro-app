@@ -256,11 +256,11 @@ export async function acceptInvitation(req, res) {
 
     const userIsGuest = group.guestIDs.includes(memberID);
 
-    if(userIsGuest){
+    if (userIsGuest) {
       group = await Group.findOneAndUpdate(
         { _id: groupID },
         {
-          $pullAll: {           
+          $pullAll: {
             guestIDs: [memberID],
           },
         },
@@ -269,13 +269,12 @@ export async function acceptInvitation(req, res) {
       if (group) {
         await res.status(200).json({ status: 'success' });
       }
-    }
-    else {
+    } else {
       //member is not invited into the group
       res.status(403).json({
         errors: [{ msg: 'You are not invited into this group' }],
       });
-    }        
+    }
 
     // if (group) {
     //   await res.status(200).json(group);
