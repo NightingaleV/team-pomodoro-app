@@ -45,7 +45,7 @@ export function TimerDispatcher(token) {
         requestConfig,
       );
       if (newTimerCreated) {
-        return newTimerCreated.data.timer;
+        return newTimerCreated.data;
       }
     }
   }
