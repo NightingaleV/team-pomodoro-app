@@ -7,10 +7,10 @@ import { useLocation } from 'react-router-dom';
 import M from 'materialize-css';
 import { Button } from '../atoms/Button';
 import { updateProgressBar } from '../../utils/pomodoroUtils';
+import { Link, NavLink } from '../atoms/Link';
 
 import profileImage from '../../assets/images/profile-pic-placeholder.png';
 import timerIcon from '../../assets/icon/timer_white_192x192.png';
-import { NavLink } from '../atoms';
 
 export function UserCard(props) {
   const { user, token } = useAuth();
@@ -101,6 +101,13 @@ export function UserCard(props) {
     }
   }, [user]);
 
+  const [userIsPublic, setuserIsPublic] = useState(false);
+  useEffect(() => {
+    if (!props.group) {
+      setuserIsPublic(true);
+    }
+  }, []);
+
   return (
     <div className="card hoverable">
       <div className="card-image waves-effect waves-block waves-light">
@@ -120,7 +127,8 @@ export function UserCard(props) {
             <i className="material-icons right">more_vert</i>
           </span>
         </div>
-        {!props.currentUserIsGuest && !memberIsGuest && (
+        {/* {!props.currentUserIsGuest && !memberIsGuest && ( */}
+        {((!props.currentUserIsGuest && !memberIsGuest) || userIsPublic) && (
           <div className="member-info center-align">
             <div className="progress">
               <div

@@ -57,6 +57,13 @@ export function TopNavigationBase(props) {
       {user ? (
         <>
           <li>
+            <NavLink to={'/public/' + user._id}>
+              <p className="user-name truncate">
+                <i className="material-icons left">share</i>Share
+              </p>
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/settings" className={('truncate', 'sidenav-close')}>
               <i className="material-icons left">account_circle</i>{' '}
               {user && user.username}
@@ -198,6 +205,13 @@ export function TopNavigationBase(props) {
             </li>
             {user ? (
               <>
+                <li className={'valign-wrapper'}>
+                  <NavLink to={'/public/' + user._id}>
+                    <i className="material-icons left">share</i>
+                    {/* <p className="user-name truncate">Public page</p> */}
+                    Share
+                  </NavLink>
+                </li>
                 <li className={'valign-wrapper'}>
                   <NavLink
                     to="/settings"
