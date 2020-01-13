@@ -46,7 +46,6 @@ export async function createTimer(req, res) {
         { timerID: new mongoose.Types.ObjectId(timer._id) },
         { new: true },
       );
-      console.log(user);
     }
     res.json(timer);
   } catch (err) {
@@ -103,11 +102,8 @@ export async function saveTimerLog(req, res) {
       },
     );
   } catch (err) {
-    console.log(err);
     return res.status(500).send('Server Error, Try it later');
   }
-
-  console.log(req.body);
 }
 
 export async function getTimerLog(req, res) {
@@ -130,10 +126,8 @@ export async function getTimerLog(req, res) {
       },
       { $sort: { '_id.day': -1, '_id.month': -1, '_id.year': -1 } },
     ]).sort('-day');
-    console.log(aggregatedResult);
     await res.json(aggregatedResult);
   } catch (err) {
-    console.log(err);
     return res.status(500).send('Server Error');
   }
 }
