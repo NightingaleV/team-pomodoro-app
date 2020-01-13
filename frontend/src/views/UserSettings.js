@@ -60,7 +60,7 @@ export function UserSettings(props) {
       <div className="login-container center-align card-panel">
         <h3>Profile Settings</h3>
         <div className="login-form">
-          <>{success && <SuccessBox msg="You setting has been changed" />}</>
+          <>{success && <SuccessBox msg="Your setting has been changed" />}</>
           <form id={'settings-form'} onSubmit={onSubmit}>
             <TextInput
               id={'username'}

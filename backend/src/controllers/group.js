@@ -253,9 +253,32 @@ export async function acceptInvitation(req, res) {
     const memberID = req.user.id;
 
     let group = await Group.findOne({ _id: groupID });
-    if (group) {
-      await res.status(200).json(group);
+
+    const userIsGuest = group.guestIDs.includes(memberID);
+
+    if (userIsGuest) {
+      group = await Group.findOneAndUpdate(
+        { _id: groupID },
+        {
+          $pullAll: {
+            guestIDs: [memberID],
+          },
+        },
+      );
+
+      if (group) {
+        await res.status(200).json({ status: 'success' });
+      }
+    } else {
+      //member is not invited into the group
+      res.status(403).json({
+        errors: [{ msg: 'You are not invited into this group' }],
+      });
     }
+
+    // if (group) {
+    //   await res.status(200).json(group);
+    // }
   } catch (err) {
     res.status(500).json({ errors: [{ msg: 'Server Error, Try it later' }] });
   }

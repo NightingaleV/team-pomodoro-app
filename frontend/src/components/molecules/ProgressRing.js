@@ -2,6 +2,7 @@
 import React from 'react';
 // Internal imports
 import { useTimer } from '../providers/TimerProvider';
+import { formatTime } from '../../utils/pomodoroUtils';
 
 export function ProgressRing(props) {
   const { timer } = useTimer();
@@ -29,7 +30,12 @@ export function ProgressRing(props) {
 
   return (
     <>
-      <svg height={RADIUS * 2} width={RADIUS * 2}>
+      <svg
+        height={RADIUS * 2}
+        width={RADIUS * 2}
+        preserveAspectRatio="xMidYMid meet"
+        viewBox="0 0 300 300"
+      >
         <circle
           stroke="#E8E8E8"
           fill="transparent"
@@ -38,6 +44,15 @@ export function ProgressRing(props) {
           cx={RADIUS}
           cy={RADIUS}
         ></circle>
+        <text
+          x="50%"
+          y="50%"
+          dominant-baseline="middle"
+          text-anchor="middle"
+          font-size="65"
+        >
+          {formatTime(timer.remTime)}
+        </text>
         <circle
           stroke={color}
           fill="transparent"
