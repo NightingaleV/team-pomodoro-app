@@ -59,11 +59,11 @@ export function UserAnalytics(props) {
                 {analytics.map((day, index) => {
                   const date = new Date(
                     ''.concat(
-                      day._id.day,
-                      '/',
-                      day._id.month,
-                      '/',
                       day._id.year,
+                      '-',
+                      day._id.month,
+                      '-',
+                      day._id.day,
                     ),
                   );
                   return (
