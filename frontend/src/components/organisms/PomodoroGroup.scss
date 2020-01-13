@@ -20,6 +20,7 @@
     .group-title {
       margin: 8px 8px;
       font-size: 2.25rem;
+      line-height: inherit;
       @include for-size(sm) {
         font-size: 1.7rem;
       }
