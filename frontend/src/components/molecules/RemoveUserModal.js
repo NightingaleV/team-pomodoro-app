@@ -5,9 +5,11 @@ import axios from 'axios';
 import { Button } from '../atoms';
 import { useAuth } from '../../utils/useAuth';
 import M from 'materialize-css';
+import { useHistory } from 'react-router-dom';
 
 export function RemoveUserModal({ group, member, refetchGroup }) {
   const { token } = useAuth();
+  const history = useHistory();
 
   // Component State
   //----------------------------------------------------------------------------
@@ -45,6 +47,10 @@ export function RemoveUserModal({ group, member, refetchGroup }) {
       .then(res => {
         refetchGroup();
         closeModal();
+
+        history.push({
+          pathname: '/group/' + group._id,
+        });
       })
       .catch(err => {});
   };
