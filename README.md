@@ -1,5 +1,7 @@
 # Team Pomodori
 
+![Team Pomodori](docs/app-screenshot.png)
+
 - [Pomodoro App - Production](http://frontend.team02.vse.handson.pro/timer)
 
 ## Materials
