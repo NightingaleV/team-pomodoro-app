@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/jakubpivonka-vse/pomodori#readme",
   "dependencies": {
-    "node-sass": "^4.12.0"
+    "node-sass": "^7.0.0"
   },
   "devDependencies": {
     "concurrently": "^5.0.0",
